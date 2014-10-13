@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>The Scala.js Tutorial</title>
+</head>
+<body>
+
+<canvas id="canvas" width="500" height="500"></canvas>
+
+<!-- Include Scala.js compiled code -->
+<script type="text/javascript" src="./target/scala-2.11/web-fastopt.js"></script>
+<!-- Run tutorial.webapp.TutorialApp -->
+<script type="text/javascript">
+    var canvas = document.getElementById("canvas");
+    var siigna = new Siigna(canvas);
+    siigna.start();
+    siigna.drawLine(50, 50, 500, 50)
+</script>
+</body>
+</html>
