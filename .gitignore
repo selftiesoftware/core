@@ -7,6 +7,7 @@
 .idea*
 dist/*
 target/
+!target/*/web-fastopt.js
 lib_managed/
 src_managed/
 project/boot/
