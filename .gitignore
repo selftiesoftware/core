@@ -7,7 +7,7 @@
 .idea*
 dist/*
 target/
-!target/*/web-fastopt.js
+!target/scala-2.11/web-fastopt.js
 lib_managed/
 src_managed/
 project/boot/
