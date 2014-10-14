@@ -8,23 +8,16 @@ import scala.scalajs.js.annotation.JSExport
 @JSExport("Siigna")
 class Siigna(canvas : HTMLCanvasElement) {
 
+  val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
+
   @JSExport
-  def start(): Unit = {
-    val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
-    context.fillStyle = "green"
-    context.beginPath()
-    context.moveTo(0, 0)
-    context.lineTo(100, 100)
-    context.stroke()
+  def clear() : Unit = {
+    context.clearRect(0, 0, 10000, 10000);
   }
 
   @JSExport
-  def drawLine(x1 : Int, y1 : Int, x2 : Int, y2 : Int) : Unit = {
-    val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
-    context.beginPath()
-    context.moveTo(x1, y1)
-    context.lineTo(x2, y2)
-    context.stroke()
+  def parse(code : String) : Unit = {
+    Parser.parse(code, context)
   }
 
 
