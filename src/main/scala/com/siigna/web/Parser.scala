@@ -2,12 +2,14 @@ package com.siigna.web
 
 import com.siigna.web.Lexer.Token
 import org.scalajs.dom.CanvasRenderingContext2D
-import scala.util.matching.Regex
 
 trait Expr
 case class SeqExpr(expr : Expr*) extends Expr
-case class LineExpr(x1 : NumberExpr, y1 : NumberExpr, x2 : NumberExpr, y2 : NumberExpr) extends Expr
-case class NumberExpr(x : Double) extends Expr
+case class LineExpr(x1 : DoubleExpr, y1 : DoubleExpr, x2 : DoubleExpr, y2 : DoubleExpr) extends Expr
+
+trait ValExpr[A] extends Expr { val x : A }
+case class DoubleExpr(x : Double) extends ValExpr[Double]
+case class IntExpr(x : Int) extends ValExpr[Int]
 
 object Lexer {
 
@@ -41,35 +43,30 @@ object Lexer {
  */
 object Parser {
 
+  val exprAssignment = """(\p{L}+) ?= ?([0-9]+)""".r
   val exprNumber = """([0-9]+)""".r
 
   def parse(code : String, context : CanvasRenderingContext2D) : Unit = {
     val tokens = Lexer(code, "")
     val exprs  = parse(tokens)
     exprs match {
-      case Right(LineExpr(x1, y1, x2, y2)) => {
-        context.beginPath()
-        context.moveTo(x1.x, y1.x)
-        context.lineTo(x2.x, y2.x)
-        context.stroke()
-        context.closePath()
-      }
+      case Right(xs) => new Evaluator(context).evaluate(xs, _ => (), ys => println(ys))
       case rest => {
         println(rest)
       }
     }
   }
 
-  def parse(tokens : Seq[Token]) : Either[String, Expr] = {
+  def parse[A : Manifest](tokens : Seq[Token]) : Either[String, Seq[Expr]] = {
     tokens.head match {
       case "//" => parse(tokens.dropWhile(!_.equals("\n")))
-      case "line" =>
+      case "line" => {
         parseNumberExprs(tokens.tail, 4).right.map(nrs => {
-          LineExpr(nrs(0), nrs(1), nrs(2), nrs(3))
+          Seq(LineExpr(nrs(0), nrs(1), nrs(2), nrs(3)))
         })
+      }
 
-      case exprNumber(value) =>
-        Right(NumberExpr(value.toDouble))
+      case exprNumber(value) => Right(Seq(DoubleExpr(value.toDouble)))
 
       case "\n" | "" => parse(tokens.tail)
 
@@ -77,16 +74,32 @@ object Parser {
     }
   }
 
-  def parseNumberExprs(tokens : Seq[Token], number : Int) : Either[String, Seq[NumberExpr]] = {
+  def parseNumberExprs(tokens : Seq[Token], number : Int) : Either[String, Seq[DoubleExpr]] = {
     tokens.head match {
       case exprNumber(value) => {
         if (number > 1) {
-          parseNumberExprs(tokens.tail, number - 1).right.map(Seq(NumberExpr(value.toDouble)).++(_))
+          parseNumberExprs(tokens.tail, number - 1).right.map(Seq(DoubleExpr(value.toDouble)).++(_))
         } else {
-          Right(Seq(NumberExpr(value.toDouble)))
+          Right(Seq(DoubleExpr(value.toDouble)))
         }
       }
       case failure => Left(s"Expected number, got $failure")
+    }
+  }
+
+}
+
+class Evaluator(context : CanvasRenderingContext2D) {
+
+  def evaluate(expressions: Seq[Expr], success : Seq[Expr] => Unit, error : Seq[Expr] => Unit) : Unit = {
+    expressions.head match {
+      case LineExpr(x1, y1, x2, y2) => {
+        context.beginPath()
+        context.moveTo(x1.x, y1.x)
+        context.lineTo(x2.x, y2.x)
+        context.stroke()
+        context.closePath()
+      }
     }
   }
 
