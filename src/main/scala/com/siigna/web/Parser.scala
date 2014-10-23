@@ -46,17 +46,6 @@ object Parser {
   val exprAssignment = """(\p{L}+) ?= ?([0-9]+)""".r
   val exprNumber = """([0-9]+)""".r
 
-  def parse(code : String, context : CanvasRenderingContext2D) : Unit = {
-    val tokens = Lexer(code, "")
-    val exprs  = parse(tokens)
-    exprs match {
-      case Right(xs) => new Evaluator(context).evaluate(xs, _ => (), ys => println(ys))
-      case rest => {
-        println(rest)
-      }
-    }
-  }
-
   def parse[A : Manifest](tokens : Seq[Token]) : Either[String, Seq[Expr]] = {
     tokens.head match {
       case "//" => parse(tokens.dropWhile(!_.equals("\n")))

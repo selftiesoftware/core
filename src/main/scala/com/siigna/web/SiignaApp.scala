@@ -17,7 +17,15 @@ class Siigna(canvas : HTMLCanvasElement) {
 
   @JSExport
   def parse(code : String) : Unit = {
-    Parser.parse(code, context)
+    val tokens      = Lexer(code, "")
+    val expressions = Parser.parse(tokens)
+
+    expressions match {
+      case Right(xs) => new Evaluator(context).evaluate(xs, _ => (), ys => println(ys))
+      case rest => {
+        println(rest)
+      }
+    }
   }
 
 
