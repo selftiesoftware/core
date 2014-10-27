@@ -1,5 +1,6 @@
 package com.siigna.web
 
+import com.siigna.web.lexing.Lexer
 import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
 
 import scala.scalajs.js.JSApp
@@ -17,11 +18,19 @@ class Siigna(canvas : HTMLCanvasElement) {
 
   @JSExport
   def parse(code : String) : Unit = {
-    val tokens      = Lexer(code, "")
+    val stream = LiveStream(code)
+    val lexer = new Lexer()
+    lexer.lex(stream)
+    val tokens = lexer.output
     val expressions = Parser.parse(tokens)
 
     expressions match {
-      case Right(xs) => new Evaluator(context).evaluate(xs, _ => (), ys => println(ys))
+      case Right(xs) => {
+        val it = xs.iterator
+        while (it.hasNext) {
+          new Evaluator(context).evaluate(it.next(), Map(), (x : Any) => (), ys => println(ys))
+        }
+      }
       case rest => {
         println(rest)
       }

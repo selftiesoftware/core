@@ -1,78 +1,69 @@
 package com.siigna.web
 
-import com.siigna.web.Lexer.Token
+import com.siigna.web.lexing.Token
 import org.scalajs.dom.CanvasRenderingContext2D
 
 trait Expr
+case object UnitExpr extends Expr
+
 case class SeqExpr(expr : Expr*) extends Expr
-case class LineExpr(x1 : DoubleExpr, y1 : DoubleExpr, x2 : DoubleExpr, y2 : DoubleExpr) extends Expr
+case class LineExpr(e1 : Expr, e2 : Expr, e3 : Expr, e4 : Expr) extends Expr
 
-trait ValExpr[A] extends Expr { val x : A }
-case class DoubleExpr(x : Double) extends ValExpr[Double]
-case class IntExpr(x : Int) extends ValExpr[Int]
+trait ValExpr[A] extends Expr { val name : String; val value : A }
+case class DoubleExpr(name : String, value : Double) extends ValExpr[Double]
+case class IntExpr(name : String, value : Int) extends ValExpr[Int]
 
-object Lexer {
+case class RefExpr(name : String) extends Expr
 
-  type Token = String
 
-  def apply(input : String, acc : String) : Seq[Token] = {
-    if (!input.isEmpty) {
-      val c   = input.head
-      if (splitters.contains(c)) {
-        Seq(acc, c.toString) ++ apply(input.tail, "")
-      } else if (delimiters.contains(c)) {
-        Seq(acc) ++ apply(input.tail, "")
-      } else {
-        apply(input.tail, acc + c)
-      }
-    } else if (!acc.isEmpty) {
-      Seq(acc)
-    } else {
-      Seq()
-    }
-  }
-
-  val delimiters = Seq(' ', '(', ')', '{', '}')
-
-  val splitters = Seq('\n')
-
-}
 
 /**
  * Parses code into drawing commands
  */
 object Parser {
 
-  val exprAssignment = """(\p{L}+) ?= ?([0-9]+)""".r
+  val exprAssignment = """([\p{L}]+) ?= ?([0-9]+)""".r
   val exprNumber = """([0-9]+)""".r
+  val exprRHS = """([\p{L}+])""".r
 
-  def parse[A : Manifest](tokens : Seq[Token]) : Either[String, Seq[Expr]] = {
-    tokens.head match {
-      case "//" => parse(tokens.dropWhile(!_.equals("\n")))
-      case "line" => {
-        parseNumberExprs(tokens.tail, 4).right.map(nrs => {
-          Seq(LineExpr(nrs(0), nrs(1), nrs(2), nrs(3)))
-        })
-      }
+  def parse(tokens : LiveStream[Token]) : Either[String, Seq[Expr]] = {
 
-      case exprNumber(value) => Right(Seq(DoubleExpr(value.toDouble)))
-
-      case "\n" | "" => parse(tokens.tail)
-
-      case rest => Left(s"Unknown token '$rest'")
-    }
   }
 
-  def parseNumberExprs(tokens : Seq[Token], number : Int) : Either[String, Seq[DoubleExpr]] = {
-    tokens.head match {
-      case exprNumber(value) => {
-        if (number > 1) {
-          parseNumberExprs(tokens.tail, number - 1).right.map(Seq(DoubleExpr(value.toDouble)).++(_))
-        } else {
-          Right(Seq(DoubleExpr(value.toDouble)))
+  def parseRecursive[A : Manifest](tokens : Iterator[String]) : Either[String, Expr] = {
+    if (tokens.hasNext) {
+      tokens.next() match {
+        case "//" => {
+          while (tokens.next() != "\n") {}
+          parseRecursive(tokens)
         }
+        case "line" =>
+          val x1 = parseRecursive(tokens)
+          val y1 = parseRecursive(tokens)
+          val x2 = parseRecursive(tokens)
+          val y2 = parseRecursive(tokens)
+          (x1, y1, x2, y2) match {
+            case (Right(e1), Right(e2), Right(e3), Right(e4)) => Right(LineExpr(e1, e2, e3, e4))
+            case e => Left("Failed to parse a line, expected four coordinates but found " + e)
+          }
+
+        case "val" =>
+          val name = tokens.next
+          tokens.next() match {
+            case "=" => Right(IntExpr(name, tokens.next().toInt))
+            case err => Left(s"Missing assignment '=' in value definition, found $err")
+          }
+
+        case exprNumber(value) => Right(IntExpr("x", value.toInt))
+
+        case exprRHS(name) => Right(RefExpr(name))
+
+        case "\n" | "" => parseRecursive(tokens)
+
+        case rest => Left(s"Unknown token '$rest'")
       }
-      case failure => Left(s"Expected number, got $failure")
+    } else {
+      Right(UnitExpr)
     }
   }
 
@@ -80,15 +71,34 @@ object Parser {
 
 class Evaluator(context : CanvasRenderingContext2D) {
 
-  def evaluate(expressions: Seq[Expr], success : Seq[Expr] => Unit, error : Seq[Expr] => Unit) : Unit = {
-    expressions.head match {
-      case LineExpr(x1, y1, x2, y2) => {
-        context.beginPath()
-        context.moveTo(x1.x, y1.x)
-        context.lineTo(x2.x, y2.x)
-        context.stroke()
-        context.closePath()
+  def evaluate[T : Manifest](exp: Expr, env : Map[String, Any], success : T => Unit, error : String => Unit) : Unit = {
+    exp match {
+      case LineExpr(e1, e2, e3, e4) => {
+        evaluate[Int](e1, env, x1 => {
+          evaluate[Int](e2, env, y1 => {
+            evaluate[Int](e3, env, x2 => {
+              evaluate[Int](e4, env, y2 => {
+                context.beginPath()
+                context.moveTo(x1.toInt, y1.toInt)
+                context.lineTo(x2, y2)
+                context.stroke()
+                context.closePath()
+              }, error)
+            }, error)
+          }, error)
+        }, error)
       }
+      case IntExpr(name, value) if value.isInstanceOf[T] => {
+          success(value.asInstanceOf[T])
+      }
+      case IntExpr(name, value) => {
+        error("Expected type " + manifest[T].runtimeClass.getSimpleName + " found " + value)
+      }
+      case RefExpr(name) => env(name) match {
+        case x : T => success(x)
+        case x => error(s"Found $x expected " + manifest[T].runtimeClass.getSimpleName)
+      }
+      case UnitExpr =>
     }
   }
 
