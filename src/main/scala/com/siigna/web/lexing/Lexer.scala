@@ -1,7 +1,5 @@
 package com.siigna.web.lexing
 
-import com.siigna.web._
-
 /*
  SXLexer: A lexer for the programming language Scheme
 
@@ -11,7 +9,7 @@ import com.siigna.web._
  */
 class Lexer extends NonblockingLexer[Char, Token] {
 
-  import com.siigna.web.RegularLanguageImplicits._
+  import RegularLanguageImplicits._
 
   implicit def charsToString(l : List[Char]) : String = l.mkString
 

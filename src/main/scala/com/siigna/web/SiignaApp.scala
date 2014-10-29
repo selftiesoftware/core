@@ -1,6 +1,6 @@
 package com.siigna.web
 
-import com.siigna.web.lexing.Lexer
+import com.siigna.web.lexing.{LiveStream, Lexer}
 import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
 
 import scala.scalajs.js.JSApp

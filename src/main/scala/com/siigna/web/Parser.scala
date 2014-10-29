@@ -1,6 +1,6 @@
 package com.siigna.web
 
-import com.siigna.web.lexing.Token
+import com.siigna.web.lexing._
 import org.scalajs.dom.CanvasRenderingContext2D
 
 trait Expr
@@ -9,13 +9,13 @@ case object UnitExpr extends Expr
 case class SeqExpr(expr : Expr*) extends Expr
 case class LineExpr(e1 : Expr, e2 : Expr, e3 : Expr, e4 : Expr) extends Expr
 
+case class ConstantExpr[A](value : A) extends Expr
+
 trait ValExpr[A] extends Expr { val name : String; val value : A }
 case class DoubleExpr(name : String, value : Double) extends ValExpr[Double]
 case class IntExpr(name : String, value : Int) extends ValExpr[Int]
 
 case class RefExpr(name : String) extends Expr
-
-
 
 /**
  * Parses code into drawing commands
@@ -27,6 +27,10 @@ object Parser {
   val exprRHS = """([\p{L}+])""".r
 
   def parse(tokens : LiveStream[Token]) : Either[String, Seq[Expr]] = {
+    tokens match {
+      case SymbolToken("line") :~: IntToken(x1) :~: IntToken(y1) :~: IntToken(x2) :~: IntToken(y2) :~: tail => Right(Seq(LineExpr(ConstantExpr(x1), ConstantExpr(y1), ConstantExpr(x2), ConstantExpr(y2))))
+      case token => Left(s"Unsupported ${token.head.getClass.getSimpleName} $token")
+    }
 
   }
 
@@ -88,11 +92,8 @@ class Evaluator(context : CanvasRenderingContext2D) {
           }, error)
         }, error)
       }
-      case IntExpr(name, value) if value.isInstanceOf[T] => {
+      case ConstantExpr(value) if value.isInstanceOf[T] => {
           success(value.asInstanceOf[T])
-      }
-      case IntExpr(name, value) => {
-        error("Expected type " + manifest[T].runtimeClass.getSimpleName + " found " + value)
       }
       case RefExpr(name) => env(name) match {
         case x : T => success(x)

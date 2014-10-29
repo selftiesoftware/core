@@ -1,5 +1,4 @@
-package com.siigna.web
-
+package com.siigna.web.lexing
 
 /**
 Provides the input to a live stream.
