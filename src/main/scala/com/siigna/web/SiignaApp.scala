@@ -23,18 +23,14 @@ class Siigna(canvas : HTMLCanvasElement) {
     lexer.lex(stream)
     val tokens = lexer.output
     val expressions = Parser.parse(tokens)
+    val evaluator = new Evaluator(context)
+    println(expressions)
 
     expressions match {
-      case Right(xs) => {
-        val it = xs.iterator
-        while (it.hasNext) {
-          new Evaluator(context).evaluate(it.next(), Map(), (x : Any) => (), ys => println(ys))
-        }
-      }
-      case rest => {
-        println(rest)
-      }
+      case Right(x) => evaluator.evaluate(Iterator(x), Map(), (x : Any) => (), ys => println(ys))
+      case Left(ms) => println(ms)
     }
+
   }
 
 
