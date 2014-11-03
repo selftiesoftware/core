@@ -14,7 +14,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
   def eval(expr: Expr, env : Map[String, Any]) : Option[Any] = {
     expr match {
       case LineExpr(e1, e2, e3, e4) =>
-        eval(e1, env).map(x1 => {
+        eval(e1, env).foreach(x1 => {
           eval(e2, env).foreach(y1 => {
             eval(e3, env).foreach(x2 => {
               eval(e4, env).foreach(y2 => {
@@ -27,6 +27,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
             })
           })
         })
+        None
 
       case ConstantExpr(value) => Some(value)
 
@@ -35,11 +36,10 @@ class Evaluator(context: CanvasRenderingContext2D) {
       case RefExpr(name) => env.get(name)
 
       case seq : SeqExpr =>
-        seq.expr.foldLeft(Map[String, Any]())((map : Map[String, Any], ex : Expr) => {
-          println("Found: " + ex)
-          eval(ex, map) match {
-            case Some(newMap : Map[String, Any]) => newMap
-            case x => println("Expected map, got " + x) ; map
+        seq.expr.foldLeft(env)((map : Map[String, Any], ex : Expr) => {
+          ex match {
+            case v : ValExpr[_] => map + (v.name -> v.value)
+            case _ => eval(ex, map); map
           }
         })
         None

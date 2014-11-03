@@ -30,7 +30,7 @@ class Siigna(canvas : HTMLCanvasElement) {
     println(expressions)
 
     expressions match {
-      case Right(x) => println(evaluator.eval(x, Map()))
+      case Right(x) => evaluator.eval(x, Map())
       case Left(ms) => println(ms)
     }
 
