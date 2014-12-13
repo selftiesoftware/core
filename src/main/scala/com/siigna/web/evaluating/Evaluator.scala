@@ -3,52 +3,88 @@ package com.siigna.web.evaluating
 import com.siigna.web.parsing._
 import org.scalajs.dom.CanvasRenderingContext2D
 
-import scala.collection.mutable
-
 /**
  * An evaluator to evaluate a given list of [[Expr]] on the 
  * @param context  The graphical context to interact with.
  */
 class Evaluator(context: CanvasRenderingContext2D) {
 
-  def eval(expr: Expr, env : Map[String, Any]) : Option[Any] = {
+  type Env = Map[String, Any]
+
+  type Value = Either[String, (Env, Any)]
+
+  def eval(expr: Expr, env : Env) : Value = {
     expr match {
       case LineExpr(e1, e2, e3, e4) =>
-        eval(e1, env).foreach(x1 => {
-          eval(e2, env).foreach(y1 => {
-            eval(e3, env).foreach(x2 => {
-              eval(e4, env).foreach(y2 => {
-                context.beginPath()
-                context.moveTo(x1.toString.toInt, y1.toString.toInt)
-                context.lineTo(x2.toString.toInt, y2.toString.toInt)
-                context.stroke()
-                context.closePath()
-              })
-            })
-          })
-        })
-        None
+        val x1 = getValue[Int](e1, env).right.get
+        val y1 = getValue[Int](e2, env).right.get
+        val x2 = getValue[Int](e3, env).right.get
+        val y2 = getValue[Int](e4, env).right.get
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+        context.closePath()
+        Right(env -> Unit)
 
-      case ConstantExpr(value) => Some(value)
+      case ConstantExpr(value) => {
+        Right(env -> value)
+      }
 
-      case IntExpr(name, value) => Some(env.+(name -> value))
+      case CompExpr(e1, e2, op) =>
+        eval(e1, env).right.flatMap(v1 => eval(e2, v1._1).right.flatMap(v2 => {
+          val n1 = v1._2.asInstanceOf[Int]
+          val n2 = v2._2.asInstanceOf[Int]
+          op match {
+            case ">" => Right(env -> (n1 > n2))
+            case x => Left(s"Unknown comparison operator $x")
+          }
+        }))
 
-      case RefExpr(name) => env.get(name)
+      case OpExpr(e1, e2, op) => {
+        eval(e1, env).right.flatMap(v1 => eval(e2, v1._1).right.flatMap(v2 => {
+          val n1 = v1._2.asInstanceOf[Int]
+          val n2 = v2._2.asInstanceOf[Int]
+          op match {
+            case "-" => Right(env -> (n1 - n2))
+            case x => Left(s"Unknown comparison operator $x")
+          }
+        }))
+      }
+
+      case RefExpr(name) => {
+        env.get(name).fold[Value](Left("Failed to find variable of name " + name))(s => Right(env -> s))
+      }
 
       case seq : SeqExpr =>
-        seq.expr.foldLeft(env)((map : Map[String, Any], ex : Expr) => {
-          ex match {
-            case v : ValExpr[_] => map + (v.name -> v.value)
-            case _ => eval(ex, map); map
-          }
-        })
-        None
+        val m = seq.expr.foldLeft(env)((map : Map[String, Any], ex : Expr) => eval(ex, map).fold(s => map, x => x._1))
+        Right(env -> Unit)
 
-      case UnitExpr => None
+      case UnitExpr => Right(env -> Unit)
 
-      case x => Some("Unknown expression " + x)
+      case ValExpr(name, value) =>
+        eval(value, env).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
+
+      case WhileExpr(condition : Expr, body : Expr) =>
+        var loopEnv : Map[String, Any] = env
+        while (getValue[Boolean](condition, loopEnv).right.getOrElse(false)) {
+          loopEnv = eval(body, loopEnv).fold(s => env, x => {
+            println(x)
+            x._1
+          })
+        }
+        Right(loopEnv -> Unit)
+
+      case x => Left("Unknown expression " + x)
     }
 
+  }
+
+  def getValue[T : Manifest](expr : Expr, env : Env) : Either[String, T] = {
+    eval(expr, env) match {
+      case Right((_, t : T)) => Right(t)
+      case fail => Left(s"Failed to read value from $expr, failed with: $fail")
+    }
   }
 
 }

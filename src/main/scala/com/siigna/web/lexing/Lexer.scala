@@ -24,6 +24,7 @@ class Lexer extends NonblockingLexer[Char, Token] {
   protected val MAIN       = State()
   private val MULTICOMMENT = State(0)
   private val STRING       = State[List[Char]](List())
+  private val BLOCK        = State[List[Token]](List())
 
   // Rules:
 
@@ -63,8 +64,7 @@ class Lexer extends NonblockingLexer[Char, Token] {
   // #! ... !# comments
   MULTICOMMENT ("/*")    = { (n : Int, chars : List[Char]) => MULTICOMMENT(n+1) }
   MULTICOMMENT (AnyChar)   { }
-  MULTICOMMENT ("*/")    = { case (1,chars) => MAIN
-  case (n : Int, chars) => MULTICOMMENT(n - 1) }
+  MULTICOMMENT ("*/")    = { case (1,chars) => MAIN case (n : Int, chars) => MULTICOMMENT(n - 1) }
 
 }
 

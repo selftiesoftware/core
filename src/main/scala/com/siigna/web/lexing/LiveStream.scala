@@ -200,4 +200,7 @@ object :~: {
     else
       return Some(stream.head,stream.tail)
   }
+
+  def unapplySeq[A](stream : LiveStream[A]) : Option[LiveStream[A]] = Some(stream)
+
 }

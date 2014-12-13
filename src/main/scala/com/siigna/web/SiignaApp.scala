@@ -2,7 +2,7 @@ package com.siigna.web
 
 import com.siigna.web.evaluating.Evaluator
 import com.siigna.web.lexing.{LiveStream, Lexer}
-import com.siigna.web.parsing.Parser
+import com.siigna.web.parsing.{UnitExpr, Parser}
 import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
 
 import scala.scalajs.js.JSApp
@@ -12,6 +12,7 @@ import scala.scalajs.js.annotation.JSExport
 class Siigna(canvas : HTMLCanvasElement) {
 
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
+  val evaluator = new Evaluator(context)
 
   @JSExport
   def clear() : Unit = {
@@ -23,16 +24,14 @@ class Siigna(canvas : HTMLCanvasElement) {
     val stream = LiveStream(code)
     val lexer = new Lexer()
     lexer.lex(stream)
+
     val tokens = lexer.output
     println(tokens)
-    val expressions = Parser.parse(tokens)
-    val evaluator = new Evaluator(context)
+
+    var expressions = Parser.parse(tokens)
     println(expressions)
 
-    expressions match {
-      case Right(x) => evaluator.eval(x, Map())
-      case Left(ms) => println(ms)
-    }
+    evaluator.eval(expressions, Map())
 
   }
 
