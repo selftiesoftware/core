@@ -57,8 +57,16 @@ class Evaluator(context: CanvasRenderingContext2D) {
       }
 
       case seq : SeqExpr =>
-        val m = seq.expr.foldLeft(env)((map : Map[String, Any], ex : Expr) => eval(ex, map).fold(s => map, x => x._1))
-        Right(env -> Unit)
+        var lastResult : Any = Unit
+        val m = seq.expr.foldLeft(env)((map : Map[String, Any], ex : Expr) => {
+          val res = eval(ex, map)
+          if (res.isRight) {
+            lastResult = res.right.get._2
+          }
+          res.fold(s => map, x => x._1)
+        })
+        // Todo: Smart to return the entire env from the block? Consider intersections
+        Right(m -> lastResult)
 
       case UnitExpr => Right(env -> Unit)
 
@@ -67,9 +75,11 @@ class Evaluator(context: CanvasRenderingContext2D) {
 
       case WhileExpr(condition : Expr, body : Expr) =>
         var loopEnv : Map[String, Any] = env
-        while (getValue[Boolean](condition, loopEnv).right.getOrElse(false)) {
-          loopEnv = eval(body, loopEnv).fold(s => env, x => {
-            println(x)
+        def getCondition = eval(condition, loopEnv).fold(_ => false, v => {
+          v._2.asInstanceOf[Boolean]
+        })
+        while (getCondition) {
+          loopEnv = eval(body, loopEnv).fold(s => loopEnv, x => {
             x._1
           })
         }

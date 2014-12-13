@@ -43,7 +43,7 @@ object Parser {
 
       // Assignment
       case SymbolToken(name) :~: SymbolToken("=") :~: tail =>
-        parse(tail, (e, stream) => success(ValExpr(name, e), tail), failure)
+        parse(tail, (e, stream) => success(ValExpr(name, e), stream), failure)
 
       // Comparison
       case SymbolToken(e1) :~: SymbolToken(">") :~: tail =>

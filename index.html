@@ -23,10 +23,10 @@
  * For example a line from (0, 0) to (100, 100)
  */
 i = 10
-/* while (i > 0) { */
-    line 0 0 10 i
-/*    i = i - 1
-} */
+while (i > 0) {
+    line 0 i 100 i
+    i = i - 1
+}
 </textarea>
 <button id="parse">Run</button>
 <button id="clear">Clear</button>
