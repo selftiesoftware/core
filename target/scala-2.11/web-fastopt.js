@@ -2494,6 +2494,7 @@ ScalaJS.d.F1 = new ScalaJS.ClassTypeData({
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_Siigna = (function() {
   ScalaJS.c.O.call(this);
+  this.debug$1 = null;
   this.context$1 = null;
   this.evaluator$1 = null
 });
@@ -2504,16 +2505,23 @@ ScalaJS.h.Lcom_siigna_web_Siigna = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_Siigna.prototype = ScalaJS.c.Lcom_siigna_web_Siigna.prototype;
+ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displaySuccess__V = (function() {
+  this.debug$1["innerHTML"] = ""
+});
+ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLCanvasElement = (function(canvas, debug) {
+  this.debug$1 = debug;
+  this.context$1 = canvas["getContext"]("2d");
+  this.evaluator$1 = new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator().init___Lorg_scalajs_dom_CanvasRenderingContext2D(this.context$1);
+  return this
+});
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$parse__T__O = (function(code) {
   return (this.parse__T__V(code), (void 0))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$clear__O = (function() {
   return (this.clear__V(), (void 0))
 });
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement = (function(canvas) {
-  this.context$1 = canvas["getContext"]("2d");
-  this.evaluator$1 = new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator().init___Lorg_scalajs_dom_CanvasRenderingContext2D(this.context$1);
-  return this
+ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displayError__T__V = (function(error) {
+  this.debug$1["innerHTML"] = error
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.clear__V = (function() {
   this.context$1["clearRect"](0.0, 0.0, 10000.0, 10000.0)
@@ -2523,15 +2531,12 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.parse__T__V = (function(code) {
   var lexer = new ScalaJS.c.Lcom_siigna_web_lexing_Lexer().init___();
   lexer.lex__Lcom_siigna_web_lexing_LiveStream__V(stream);
   var tokens = lexer.$$undoutput$1;
-  var x = ("Tokens: " + tokens);
-  var this$2 = ScalaJS.m.s_Console();
-  this$2.out__Ljava_io_PrintStream().println__O__V(x);
-  ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__s_util_Either(tokens).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(error$2) {
-    var error = ScalaJS.as.T(error$2);
-    var x$1 = ("Failure during parsing: " + error);
-    var this$4 = ScalaJS.m.s_Console();
-    this$4.out__Ljava_io_PrintStream().println__O__V(x$1)
-  })), new ScalaJS.c.Lcom_siigna_web_Siigna$$anonfun$parse$2().init___Lcom_siigna_web_Siigna(this))
+  ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__s_util_Either(tokens).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
+    return (function(error$2) {
+      var error = ScalaJS.as.T(error$2);
+      arg$outer.displayError__T__V(("Failure during parsing: " + error))
+    })
+  })(this)), new ScalaJS.c.Lcom_siigna_web_Siigna$$anonfun$parse$2().init___Lcom_siigna_web_Siigna(this))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype["clear"] = (function() {
   return this.$$js$exported$meth$clear__O()
@@ -2560,10 +2565,11 @@ ScalaJS.d.Lcom_siigna_web_Siigna = new ScalaJS.ClassTypeData({
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$classData = ScalaJS.d.Lcom_siigna_web_Siigna;
 /** @constructor */
-ScalaJS.e["Siigna"] = (function(arg$1) {
+ScalaJS.e["Siigna"] = (function(arg$1, arg$2) {
   ScalaJS.c.Lcom_siigna_web_Siigna.call(this);
   arg$1 = arg$1;
-  this.init___Lorg_scalajs_dom_HTMLCanvasElement(arg$1)
+  arg$2 = arg$2;
+  this.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLCanvasElement(arg$1, arg$2)
 });
 ScalaJS.e["Siigna"].prototype = ScalaJS.c.Lcom_siigna_web_Siigna.prototype;
 /** @constructor */
@@ -13147,16 +13153,16 @@ ScalaJS.h.Lcom_siigna_web_Siigna$$anonfun$parse$2 = (function() {
 ScalaJS.h.Lcom_siigna_web_Siigna$$anonfun$parse$2.prototype = ScalaJS.c.Lcom_siigna_web_Siigna$$anonfun$parse$2.prototype;
 ScalaJS.c.Lcom_siigna_web_Siigna$$anonfun$parse$2.prototype.apply__O__O = (function(v1) {
   var exprs = ScalaJS.as.Lcom_siigna_web_parsing_Expr(v1);
-  this.$$outer$2.evaluator$1.eval__Lcom_siigna_web_parsing_Expr__sci_Map__s_util_Either(exprs, ScalaJS.as.sci_Map(ScalaJS.m.s_Predef().Map$2.apply__sc_Seq__sc_GenMap(ScalaJS.m.sci_Nil()))).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(error$2) {
-    var error = ScalaJS.as.T(error$2);
-    var x = ("Failure during evaluation: " + error);
-    var this$2 = ScalaJS.m.s_Console();
-    this$2.out__Ljava_io_PrintStream().println__O__V(x)
-  })), new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$1$2) {
-    ScalaJS.as.T2(x$1$2);
-    var this$4 = ScalaJS.m.s_Console();
-    this$4.out__Ljava_io_PrintStream().println__O__V("Success")
-  })))
+  this.$$outer$2.evaluator$1.eval__Lcom_siigna_web_parsing_Expr__sci_Map__s_util_Either(exprs, ScalaJS.as.sci_Map(ScalaJS.m.s_Predef().Map$2.apply__sc_Seq__sc_GenMap(ScalaJS.m.sci_Nil()))).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
+    return (function(error$2) {
+      var error = ScalaJS.as.T(error$2);
+      arg$outer.$$outer$2.displayError__T__V(("Failure during evaluation: " + error))
+    })
+  })(this)), new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer$1) {
+    return (function(x$1$2) {
+      return (ScalaJS.as.T2(x$1$2), arg$outer$1.$$outer$2.displaySuccess__V(), (void 0))
+    })
+  })(this)))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna$$anonfun$parse$2.prototype.init___Lcom_siigna_web_Siigna = (function($$outer) {
   if (($$outer === null)) {

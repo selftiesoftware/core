@@ -1,44 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>The Scala.js Tutorial</title>
+    <meta charset="utf-8">
+    <title>Gnaw</title>
+    <meta name="description" content="Language for CAD">
+    <meta name="author" content="Selftie Software">
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+
+    <link rel="icon" type="image/png" href="images/favicon.png" />
 </head>
 <body>
 
 <style>
-    .column {
-        display: inline;
-        height: 300px;
-        margin: 0;
-        width: 400px;
+    #canvas {
+        border: 1px solid #777;
     }
     #input {
-        border: 2px solid #888;
+        font-family: monospace;
         padding: 10px 7px;
     }
+    #parse, #clear {
+        height: 3em;
+    }
 </style>
-<textarea id="input" class="column">
+
+<div class="container" id="container">
+
+    <div class="row">
+        <h2>Simple programmatic design</h2>
+    </div>
+
+    <div class="row">
+        <div class="one-half column">
+<textarea id="input" class="twelve columns">
 /* Write your input here
  * For example a line from (0, 0) to (100, 100)
  */
-i = 10
+i = 100
 while (i > 0) {
-    line 0 i 100 i * i
+    line 0 0 1000 i * 10
     i = i - 1
-}
-</textarea>
-<button id="parse">Run</button>
-<button id="clear">Clear</button>
-<canvas class="column" id="canvas" height="300" width="400"></canvas>
+}</textarea>
+            <div class="row">
+                <button id="parse" class="six columns">Run</button>
+                <button id="clear" class="one-half column">Clear</button>
+            </div>
+            <div id="debug"></div>
+        </div>
+
+        <div class="one-half column">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+</div>
 
 <!-- Include Scala.js compiled code -->
 <script type="text/javascript" src="./target/scala-2.11/web-fastopt.js"></script>
 <!-- Run tutorial.webapp.TutorialApp -->
 <script type="text/javascript">
     var canvas = document.getElementById("canvas");
+    var container = document.getElementById("container");
+    var debug  = document.getElementById("debug");
     var input  = document.getElementById("input");
-    var siigna = new Siigna(canvas);
+
+    input.style.height = window.innerHeight * 0.6 + "px";
+    canvas.width = container.offsetWidth / 2 - 20;
+    canvas.height = window.innerHeight * 0.7;
+
+    var siigna = new Siigna(canvas, debug);
     document.getElementById("parse").onclick = function (e) {
         siigna.parse(input.value);
     }

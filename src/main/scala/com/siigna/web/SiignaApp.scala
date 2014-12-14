@@ -9,14 +9,14 @@ import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.JSExport
 
 @JSExport("Siigna")
-class Siigna(canvas : HTMLCanvasElement) {
+class Siigna(canvas : HTMLCanvasElement, debug : HTMLCanvasElement) {
 
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
   val evaluator = new Evaluator(context)
 
   @JSExport
   def clear() : Unit = {
-    context.clearRect(0, 0, 10000, 10000);
+    context.clearRect(0, 0, 10000, 10000)
   }
 
   @JSExport
@@ -26,12 +26,19 @@ class Siigna(canvas : HTMLCanvasElement) {
     lexer.lex(stream)
 
     val tokens = lexer.output
-    println("Tokens: " + tokens)
 
-    Parser.parse(tokens).fold(error => println("Failure during parsing: " + error), exprs =>
-      evaluator.eval(exprs, Map()).fold(error => println("Failure during evaluation: " + error), _ => println("Success"))
+    Parser.parse(tokens).fold(error => displayError("Failure during parsing: " + error), exprs =>
+      evaluator.eval(exprs, Map()).fold(error => displayError("Failure during evaluation: " + error), _ => displaySuccess())
     )
 
+  }
+
+  def displayError(error : String): Unit = {
+    debug.innerHTML = error
+  }
+
+  def displaySuccess(): Unit = {
+    debug.innerHTML = "";
   }
 
 
