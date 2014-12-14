@@ -1,6 +1,5 @@
 package com.siigna.web.parsing
 
-import collection.mutable
 import com.siigna.web.lexing._
 
 /**
@@ -8,22 +7,20 @@ import com.siigna.web.lexing._
  */
 object Parser {
 
-  val exprAssignment = """([\p{L}]+) ?= ?([0-9]+)""".r
-  val exprNumber = """([0-9]+)""".r
-  val exprRHS = """([\p{L}+])""".r
+  type Value = Either[String, Expr]
 
-  def parse(tokens : LiveStream[Token]) : Expr = {
+  def parse(tokens : LiveStream[Token]) : Value = {
     var exprs : Seq[Expr] = Seq()
-    val failure : String => Expr = err => {println(err); UnitExpr}
-    def success : (Expr, LiveStream[Token]) => Expr = (e, s) => {
-        exprs = exprs :+ e
-        parse(s, success, failure)
-      }
+    val failure : String => Value = err => Left(err)
+    def success : (Expr, LiveStream[Token]) => Value = (e, s) => {
+      parse(s, success, failure)
+      exprs = exprs.+:(e)
+      Right(SeqExpr(exprs))
+    }
     parse(tokens, success, failure)
-    SeqExpr(exprs)
   }
 
-  def parse(tokens: LiveStream[Token], success: (Expr, LiveStream[Token]) => Expr, failure: String => Expr): Expr = {
+  def parse(tokens: LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
     tokens match {
 
       case SymbolToken("line") :~: tail =>
@@ -62,30 +59,35 @@ object Parser {
       case PunctToken("{") :~: tail => parseUntil(tokens, PunctToken("}"), success, failure)
       case PunctToken("(") :~: tail => parseUntil(tokens, PunctToken(")"), success, failure)
 
-      case LiveNil() :~: tail => UnitExpr
-      case LiveNil() => UnitExpr
+      case LiveNil() :~: tail => Right(UnitExpr)
+      case LiveNil() => Right(UnitExpr)
 
       case xs => failure(s"Unrecognised token pattern $xs")
     }
   }
 
-  def parseUntil(tokens: LiveStream[Token], token : Token, success: (Expr, LiveStream[Token]) => Expr, failure: String => Expr): Expr = {
+  def parseUntil(tokens: LiveStream[Token], token : Token, success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
     tokens match {
-      case newToken :~: tail => {
+      case newToken :~: tail =>
         var seqExpr : SeqExpr = SeqExpr(Seq())
         var rhsTail = tail
         var i = 10
         while (i > 0 && rhsTail.head.compare(token) != 0) {
-          val res = parse(rhsTail, (e, s) => {rhsTail = s; e}, failure)
-          seqExpr = SeqExpr(seqExpr.expr :+ res)
+          val res = parse(rhsTail, (e, s) => {
+            rhsTail = s
+            Right(e)
+          }, failure)
           i = i - 1
+          res.fold(msg => failure(msg), x => {
+            seqExpr = SeqExpr(seqExpr.expr :+ x)
+          })
         }
         if (seqExpr.expr.isEmpty) {
           failure(s"Failed to parse block until $token: $tokens")
         } else {
           success(seqExpr, rhsTail.tail)
         }
-      }
+
       case xs => failure(s"Expected token $token, found ${xs.head}")
     }
   }

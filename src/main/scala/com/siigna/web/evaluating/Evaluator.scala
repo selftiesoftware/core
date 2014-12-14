@@ -27,12 +27,10 @@ class Evaluator(context: CanvasRenderingContext2D) {
         context.closePath()
         Right(env -> Unit)
 
-      case ConstantExpr(value) => {
-        Right(env -> value)
-      }
+      case ConstantExpr(value) => Right(env -> value)
 
       case CompExpr(e1, e2, op) =>
-        eval(e1, env).right.flatMap(v1 => eval(e2, v1._1).right.flatMap(v2 => {
+        eval(e1, env).fold(e => Left(e), v1 => eval(e2, v1._1).fold(e => Left(e), v2 => {
           val n1 = v1._2.asInstanceOf[Int]
           val n2 = v2._2.asInstanceOf[Int]
           op match {
@@ -41,7 +39,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
           }
         }))
 
-      case OpExpr(e1, e2, op) => {
+      case OpExpr(e1, e2, op) =>
         eval(e1, env).right.flatMap(v1 => eval(e2, v1._1).right.flatMap(v2 => {
           val n1 = v1._2.asInstanceOf[Int]
           val n2 = v2._2.asInstanceOf[Int]
@@ -51,23 +49,21 @@ class Evaluator(context: CanvasRenderingContext2D) {
             case x => Left(s"Unknown arithmetic operator $x")
           }
         }))
-      }
 
-      case RefExpr(name) => {
-        env.get(name).fold[Value](Left("Failed to find variable of name " + name))(s => Right(env -> s))
-      }
+      case RefExpr(name) =>
+        env.get(name).fold[Value](Left(s"Failed to find variable '$name'. Please check if it has been declared."))(s => Right(env -> s))
 
       case seq : SeqExpr =>
-        var lastResult : Any = Unit
-        val m = seq.expr.foldLeft(env)((map : Map[String, Any], ex : Expr) => {
-          val res = eval(ex, map)
-          if (res.isRight) {
-            lastResult = res.right.get._2
-          }
-          res.fold(s => map, x => x._1)
-        })
-        // Todo: Smart to return the entire env from the block? Consider intersections
-        Right(m -> lastResult)
+        def foldRecursive(it : Iterator[Expr], foldEnv : Env) : Value = {
+          eval(it.next(), foldEnv).fold(error => Left(error), t => {
+            if (it.hasNext) {
+              foldRecursive(it, t._1)
+            } else {
+              Right(t._1 -> t._2)
+            }
+          })
+        }
+        foldRecursive(seq.expr.iterator, env)
 
       case UnitExpr => Right(env -> Unit)
 
@@ -75,16 +71,20 @@ class Evaluator(context: CanvasRenderingContext2D) {
         eval(value, env).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
 
       case WhileExpr(condition : Expr, body : Expr) =>
+        /* Note to self: Too much recursion error when looping recursively */
         var loopEnv : Map[String, Any] = env
-        def getCondition = eval(condition, loopEnv).fold(_ => false, v => {
+        var lastResult : Any = Unit
+        var lastError : Option[String] = None
+        def getCondition = eval(condition, loopEnv).fold(error => {lastError = Some(error); false}, v => {
           v._2.asInstanceOf[Boolean]
         })
-        while (getCondition) {
-          loopEnv = eval(body, loopEnv).fold(s => loopEnv, x => {
-            x._1
+        while (lastError.isEmpty && getCondition) {
+          eval(body, loopEnv).fold(s => {lastError = Some(s); s}, x => {
+            lastResult = x._2
+            loopEnv = x._1
           })
         }
-        Right(loopEnv -> Unit)
+        lastError.map(Left(_)).getOrElse(Right(loopEnv -> lastResult))
 
       case x => Left("Unknown expression " + x)
     }

@@ -26,12 +26,11 @@ class Siigna(canvas : HTMLCanvasElement) {
     lexer.lex(stream)
 
     val tokens = lexer.output
-    println(tokens)
+    println("Tokens: " + tokens)
 
-    var expressions = Parser.parse(tokens)
-    println(expressions)
-
-    evaluator.eval(expressions, Map())
+    Parser.parse(tokens).fold(error => println("Failure during parsing: " + error), exprs =>
+      evaluator.eval(exprs, Map()).fold(error => println("Failure during evaluation: " + error), _ => println("Success"))
+    )
 
   }
 

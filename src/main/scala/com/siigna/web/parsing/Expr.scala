@@ -7,12 +7,14 @@ trait Expr
 
 case object UnitExpr extends Expr
 
+case class CompExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
+case class OpExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
+
 case class WhileExpr(condition : Expr, body : Expr) extends Expr
 
 case class SeqExpr(expr: Seq[Expr]) extends Expr
 case class LineExpr(e1: Expr, e2: Expr, e3: Expr, e4: Expr) extends Expr
+
 case class ConstantExpr[A](value: A) extends Expr
 case class RefExpr(name: String) extends Expr
 case class ValExpr(name: String, value: Expr) extends Expr
-case class CompExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
-case class OpExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
