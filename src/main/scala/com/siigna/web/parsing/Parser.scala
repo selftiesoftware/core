@@ -52,6 +52,8 @@ object Parser {
       // Operation
       case SymbolToken(e1) :~: SymbolToken("-") :~: tail =>
         parse(tail, (e2, stream) => success(OpExpr(RefExpr(e1), e2, "-"), stream), failure)
+      case SymbolToken(e1) :~: SymbolToken("*") :~: tail =>
+        parse(tail, (e2, stream) => success(OpExpr(RefExpr(e1), e2, "*"), stream), failure)
 
       case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
 
