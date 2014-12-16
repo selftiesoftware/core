@@ -56,13 +56,12 @@ class Evaluator(context: CanvasRenderingContext2D) {
 
       case RangeExpr(name, from, to) =>
         val fromOption = env.get(name).map {
-          case i: Int => Right(i)
+          case i: Int => Right(i + 1)
           case x => Left(s"Cannot parse $x to int")
         }.getOrElse(getValue[Int](from, env))
         val toOption = getValue[Int](to, env)
         fromOption.right.flatMap(fromValue => toOption.right.flatMap(toValue => {
-          val newValue = fromValue + 1
-          Right((env + (name -> newValue)) -> (newValue <= toValue))
+          Right((env + (name -> fromValue)) -> (fromValue < toValue))
         }))
 
       case RefExpr(name) =>
