@@ -16,16 +16,20 @@ class Evaluator(context: CanvasRenderingContext2D) {
   def eval(expr: Expr, env : Env) : Value = {
     expr match {
       case LineExpr(e1, e2, e3, e4) =>
-        val x1 = getValue[Int](e1, env).right.get
-        val y1 = getValue[Int](e2, env).right.get
-        val x2 = getValue[Int](e3, env).right.get
-        val y2 = getValue[Int](e4, env).right.get
-        context.beginPath()
-        context.moveTo(x1, y1)
-        context.lineTo(x2, y2)
-        context.stroke()
-        context.closePath()
-        Right(env -> Unit)
+        getValue[Int](e1, env).right.flatMap(x1 =>
+          getValue[Int](e2, env).right.flatMap(y1 =>
+            getValue[Int](e3, env).right.flatMap(x2 =>
+              getValue[Int](e4, env).right.flatMap(y2 => {
+                context.beginPath()
+                context.moveTo(x1, y1)
+                context.lineTo(x2, y2)
+                context.stroke()
+                context.closePath()
+                Right(env -> Unit)
+              })
+            )
+          )
+        )
 
       case ConstantExpr(value) => Right(env -> value)
 
@@ -50,6 +54,17 @@ class Evaluator(context: CanvasRenderingContext2D) {
           }
         }))
 
+      case RangeExpr(name, from, to) =>
+        val fromOption = env.get(name).map {
+          case i: Int => Right(i)
+          case x => Left(s"Cannot parse $x to int")
+        }.getOrElse(getValue[Int](from, env))
+        val toOption = getValue[Int](to, env)
+        fromOption.right.flatMap(fromValue => toOption.right.flatMap(toValue => {
+          val newValue = fromValue + 1
+          Right((env + (name -> newValue)) -> (newValue <= toValue))
+        }))
+
       case RefExpr(name) =>
         env.get(name).fold[Value](Left(s"Failed to find variable '$name'. Please check if it has been declared."))(s => Right(env -> s))
 
@@ -70,12 +85,13 @@ class Evaluator(context: CanvasRenderingContext2D) {
       case ValExpr(name, value) =>
         eval(value, env).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
 
-      case WhileExpr(condition : Expr, body : Expr) =>
+      case LoopExpr(condition : Expr, body : Expr) =>
         /* Note to self: Too much recursion error when looping recursively */
         var loopEnv : Map[String, Any] = env
         var lastResult : Any = Unit
         var lastError : Option[String] = None
         def getCondition = eval(condition, loopEnv).fold(error => {lastError = Some(error); false}, v => {
+          loopEnv = v._1
           v._2.asInstanceOf[Boolean]
         })
         while (lastError.isEmpty && getCondition) {

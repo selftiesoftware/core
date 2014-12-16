@@ -32,15 +32,29 @@ object Parser {
             failure),
         failure)
 
-
+      // Loops
       case SymbolToken("while") :~: tail =>
         parse(tail, (condition, blockTail) =>
-              parse(blockTail, (body, bodyTail) => success(WhileExpr(condition, body), bodyTail), failure),
+              parse(blockTail, (body, bodyTail) => success(LoopExpr(condition, body), bodyTail), failure),
+              failure)
+
+      case SymbolToken("for") :~: tail =>
+        parse(tail, (assignment, blockTail) =>
+              parse(blockTail, (body, bodyTail) => success(LoopExpr(assignment, body), bodyTail), failure),
               failure)
 
       // Assignment
       case SymbolToken(name) :~: SymbolToken("=") :~: tail =>
         parse(tail, (e, stream) => success(ValExpr(name, e), stream), failure)
+
+      case SymbolToken(name) :~: SymbolToken("<-") :~: tail =>
+        parse(tail, (from, stream) => {
+            if (stream.head == SymbolToken("to")) {
+              parse(stream.tail, (to, toTail) => success(RangeExpr(name, from, to), toTail), failure)
+            } else {
+              failure("Expected 'to', found " + stream.head)
+            }
+          }, failure)
 
       // Comparison
       case SymbolToken(e1) :~: SymbolToken(">") :~: tail =>
