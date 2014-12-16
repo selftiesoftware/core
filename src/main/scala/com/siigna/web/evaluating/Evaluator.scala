@@ -15,6 +15,20 @@ class Evaluator(context: CanvasRenderingContext2D) {
 
   def eval(expr: Expr, env : Env) : Value = {
     expr match {
+
+      case CircleExpr(centerX, centerY, radius) =>
+        getValue[Int](centerX, env).right.flatMap(x =>
+          getValue[Int](centerY, env).right.flatMap(y =>
+            getValue[Int](radius, env).right.flatMap(radiusValue => {
+              context.beginPath()
+              context.arc(x, y, radiusValue, 0, 2 * Math.PI, false)
+              context.lineWidth = 1
+              context.stroke()
+              Right(env -> Unit)
+            })
+          )
+        )
+
       case LineExpr(e1, e2, e3, e4) =>
         getValue[Int](e1, env).right.flatMap(x1 =>
           getValue[Int](e2, env).right.flatMap(y1 =>

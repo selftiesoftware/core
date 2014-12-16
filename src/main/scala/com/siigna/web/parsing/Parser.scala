@@ -23,6 +23,13 @@ object Parser {
   def parse(tokens: LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
     tokens match {
 
+      case SymbolToken("circle") :~: tail =>
+        parse(tail, (centerX, t1) =>
+          parse(t1, (centerY, t2) =>
+            parse(t2, (radius, t3) => success(CircleExpr(centerX, centerY, radius), t3), failure),
+          failure),
+        failure)
+
       case SymbolToken("line") :~: tail =>
         parse(tail, (x1, t1) =>
           parse(t1, (y1, t2) =>
