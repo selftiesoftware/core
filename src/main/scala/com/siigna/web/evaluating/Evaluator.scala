@@ -39,6 +39,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
           val n2 = v2._2.asInstanceOf[Int]
           op match {
             case ">" => Right(env -> (n1 > n2))
+            case "<" => Right(env -> (n1 < n2))
             case x => Left(s"Unknown comparison operator $x")
           }
         }))
