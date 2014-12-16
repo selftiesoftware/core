@@ -50,6 +50,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
           val n2 = v2._2.asInstanceOf[Int]
           op match {
             case "-" => Right(env -> (n1 - n2))
+            case "+" => Right(env -> (n1 + n2))
             case "*" => Right(env -> (n1 * n2))
             case x => Left(s"Unknown arithmetic operator $x")
           }
@@ -100,7 +101,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
             loopEnv = x._1
           })
         }
-        lastError.map(Left(_)).getOrElse(Right(loopEnv -> lastResult))
+        lastError.map(Left(_)).getOrElse(Right(loopEnv.filter(t => env.contains(t._1)) -> lastResult))
 
       case x => Left("Unknown expression " + x)
     }
