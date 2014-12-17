@@ -99,6 +99,7 @@ object LiveStream {
     source ++= it
     new LiveStream[C](source)
   }
+
 }
 
 
@@ -129,7 +130,7 @@ class LiveStream[A](val source : LiveStreamSource[A]) {
     case Some(a) => a
     case None => {
       if (this isPlugged)
-        throw new Exception("Can't pull a plugged head!")
+        throw new IllegalStateException("Can't pull a plugged head!")
 
       headCache = Some(source.next())
 

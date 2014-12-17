@@ -24,6 +24,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
               context.arc(x, y, radiusValue, 0, 2 * Math.PI, false)
               context.lineWidth = 1
               context.stroke()
+              context.closePath()
               Right(env -> Unit)
             })
           )

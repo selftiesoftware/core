@@ -15,7 +15,8 @@ class Siigna(canvas : HTMLCanvasElement, debug : HTMLCanvasElement) {
   val evaluator = new Evaluator(context)
 
   @JSExport
-  def clear() : Unit = {
+  def clear(): Unit = {
+    context.setTransform(1, 0, 0, 1, 0, 0)
     context.clearRect(0, 0, 10000, 10000)
   }
 
@@ -26,6 +27,8 @@ class Siigna(canvas : HTMLCanvasElement, debug : HTMLCanvasElement) {
     lexer.lex(stream)
 
     val tokens = lexer.output
+
+    context.setTransform(1, 0, 0, 1, canvas.width / 2, canvas.height / 2)
 
     Parser.parse(tokens).fold(error => displayError("Failure during parsing: " + error), exprs =>
       evaluator.eval(exprs, Map()).fold(error => displayError("Failure during evaluation: " + error), _ => displaySuccess())

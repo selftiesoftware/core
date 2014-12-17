@@ -12,12 +12,16 @@ object Parser {
   def parse(tokens : LiveStream[Token]) : Value = {
     var exprs : Seq[Expr] = Seq()
     val failure : String => Value = err => Left(err)
-    def success : (Expr, LiveStream[Token]) => Value = (e, s) => {
-      parse(s, success, failure)
-      exprs = exprs.+:(e)
-      Right(SeqExpr(exprs))
+    try {
+      def success : (Expr, LiveStream[Token]) => Value = (e, s) => {
+          parse(s, success, failure)
+        exprs = exprs.+:(e)
+        Right(SeqExpr(exprs))
+      }
+      parse(tokens, success, failure)
+    } catch {
+      case e : Exception => Left(e.getLocalizedMessage)
     }
-    parse(tokens, success, failure)
   }
 
   def parse(tokens: LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
@@ -50,7 +54,7 @@ object Parser {
               parse(blockTail, (body, bodyTail) => success(LoopExpr(assignment, body), bodyTail), failure),
               failure)
 
-      // Assignment
+      // Assignments
       case SymbolToken(name) :~: SymbolToken("=") :~: tail =>
         parse(tail, (e, stream) => success(ValExpr(name, e), stream), failure)
 
@@ -63,20 +67,22 @@ object Parser {
             }
           }, failure)
 
-      // Comparison
-      case SymbolToken(e1) :~: SymbolToken(">") :~: tail =>
-        parse(tail, (e2, stream) => success(CompExpr(RefExpr(e1), e2, ">"), stream), failure)
+      // Comparisons
+      case SymbolToken(start) :~: SymbolToken(">") :~: tail =>
+        parseTripleOp(start, tail, ">", (e1, e2, op, stream) => success(CompExpr(e1, e2, op), stream), failure)
 
-      case SymbolToken(e1) :~: SymbolToken("<") :~: tail =>
-        parse(tail, (e2, stream) => success(CompExpr(RefExpr(e1), e2, "<"), stream), failure)
+      case SymbolToken(start) :~: SymbolToken("<") :~: tail =>
+        parseTripleOp(start, tail, "<", (e1, e2, op, stream) => success(CompExpr(e1, e2, op), stream), failure)
 
-      // Operation
-      case SymbolToken(e1) :~: SymbolToken("+") :~: tail =>
-        parse(tail, (e2, stream) => success(OpExpr(RefExpr(e1), e2, "+"), stream), failure)
-      case SymbolToken(e1) :~: SymbolToken("-") :~: tail =>
-        parse(tail, (e2, stream) => success(OpExpr(RefExpr(e1), e2, "-"), stream), failure)
-      case SymbolToken(e1) :~: SymbolToken("*") :~: tail =>
-        parse(tail, (e2, stream) => success(OpExpr(RefExpr(e1), e2, "*"), stream), failure)
+      // Operations
+      case SymbolToken(start) :~: SymbolToken("+") :~: tail =>
+        parseTripleOp(start, tail, "+", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
+
+      case SymbolToken(start) :~: SymbolToken("-") :~: tail =>
+        parseTripleOp(start, tail, "-", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
+
+      case SymbolToken(start) :~: SymbolToken("*") :~: tail =>
+        parseTripleOp(start, tail, "*", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 
       case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
 
@@ -92,18 +98,22 @@ object Parser {
     }
   }
 
+  def parseTripleOp(startToken : String, tail : LiveStream[Token], comp : String, success : (Expr, Expr, String, LiveStream[Token]) => Value, failure: String => Value): Value = {
+    parse(LiveStream(Iterable(SymbolToken(startToken))), (ex1, _) =>
+      parse(tail, (ex2, s2) => success(ex1, ex2, comp, s2), failure),
+      failure)
+  }
+
   def parseUntil(tokens: LiveStream[Token], token : Token, success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
     tokens match {
       case newToken :~: tail =>
         var seqExpr : SeqExpr = SeqExpr(Seq())
         var rhsTail = tail
-        var i = 10
-        while (i > 0 && rhsTail.head.compare(token) != 0) {
+        while (rhsTail.head.compare(token) != 0) {
           val res = parse(rhsTail, (e, s) => {
             rhsTail = s
             Right(e)
           }, failure)
-          i = i - 1
           res.fold(msg => failure(msg), x => {
             seqExpr = SeqExpr(seqExpr.expr :+ x)
           })
