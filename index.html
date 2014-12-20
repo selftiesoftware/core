@@ -71,9 +71,9 @@ circle 100 100 20
     canvas.width = container.offsetWidth / 2 - 20;
     canvas.height = window.innerHeight * 0.7;
 
-    var siigna = new Siigna(canvas, debug);
+    var siigna = new Siigna(canvas, input, debug);
     document.getElementById("parse").onclick = function (e) {
-        siigna.parse(input.value);
+        siigna.eval(input.value);
     }
     document.getElementById("clear").onclick = function (e) {
         siigna.clear();

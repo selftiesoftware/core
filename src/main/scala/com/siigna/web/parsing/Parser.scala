@@ -68,22 +68,24 @@ object Parser {
           }, failure)
 
       // Comparisons
-      case SymbolToken(start) :~: SymbolToken(">") :~: tail =>
+      case (start : Token) :~: SymbolToken(">") :~: tail =>
         parseTripleOp(start, tail, ">", (e1, e2, op, stream) => success(CompExpr(e1, e2, op), stream), failure)
 
-      case SymbolToken(start) :~: SymbolToken("<") :~: tail =>
+      case (start : Token) :~: SymbolToken("<") :~: tail =>
         parseTripleOp(start, tail, "<", (e1, e2, op, stream) => success(CompExpr(e1, e2, op), stream), failure)
 
       // Operations
-      case SymbolToken(start) :~: SymbolToken("+") :~: tail =>
+      case (start : Token) :~: SymbolToken("+") :~: tail =>
         parseTripleOp(start, tail, "+", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 
-      case SymbolToken(start) :~: SymbolToken("-") :~: tail =>
+      case (start : Token) :~: SymbolToken("-") :~: tail =>
         parseTripleOp(start, tail, "-", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 
-      case SymbolToken(start) :~: SymbolToken("*") :~: tail =>
+      case (start : Token) :~: SymbolToken("*") :~: tail =>
         parseTripleOp(start, tail, "*", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 
+
+      // Misc
       case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
 
       case IntToken(value: Int) :~: tail => success(ConstantExpr(value), tail)
@@ -98,8 +100,8 @@ object Parser {
     }
   }
 
-  def parseTripleOp(startToken : String, tail : LiveStream[Token], comp : String, success : (Expr, Expr, String, LiveStream[Token]) => Value, failure: String => Value): Value = {
-    parse(LiveStream(Iterable(SymbolToken(startToken))), (ex1, _) =>
+  def parseTripleOp(startToken : Token, tail : LiveStream[Token], comp : String, success : (Expr, Expr, String, LiveStream[Token]) => Value, failure: String => Value): Value = {
+    parse(LiveStream(Iterable(startToken)), (ex1, _) =>
       parse(tail, (ex2, s2) => success(ex1, ex2, comp, s2), failure),
       failure)
   }
