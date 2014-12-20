@@ -7,6 +7,12 @@ import org.scalajs.dom._
 
 import scala.scalajs.js.annotation.JSExport
 
+/**
+ * The entry point for compiling and evaluating siigna code
+ * @param canvas The canvas on which to draw
+ * @param input The input field containing the textual code
+ * @param debug A debug field to be used for (error) messages
+ */
 @JSExport("Siigna")
 class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement) {
 
@@ -28,15 +34,14 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
 
   @JSExport
   def eval(code : String) : Unit = {
-    context.setTransform(1, 0, 0, 1, canvas.width / 2, canvas.height / 2)
-
     eval(parse(code))
   }
 
   def eval(ast : Either[String, Expr]): Unit = {
-    ast.fold(error => displayError("Failure during parsing: " + error), exprs =>
+    ast.fold(error => displayError("Failure during parsing: " + error), exprs => {
+      context.setTransform(1, 0, 0, 1, canvas.width / 2, canvas.height / 2)
       evaluator.eval(exprs, Map()).fold(error => displayError("Failure during evaluation: " + error), _ => displaySuccess())
-    )
+    })
   }
 
   def lex(text : String) : LiveStream[Token] = {
