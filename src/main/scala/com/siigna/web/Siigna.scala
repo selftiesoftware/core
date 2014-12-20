@@ -2,7 +2,7 @@ package com.siigna.web
 
 import com.siigna.web.evaluating.Evaluator
 import com.siigna.web.lexing.{Token, LiveStream, Lexer}
-import com.siigna.web.parsing.{Expr, Parser}
+import com.siigna.web.parsing.{UnitExpr, Expr, Parser}
 import org.scalajs.dom._
 
 import scala.scalajs.js.annotation.JSExport
@@ -18,12 +18,50 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
 
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
   val evaluator = new Evaluator(context)
+  var mousePosition = Vector2D(0, 0)
+  var pan = Vector2D(0, 0)
+  var mouseDown = false
+  var zoom : Double = 1
+  var lastAst : Expr = UnitExpr
+
+  val mouseExit = (e : MouseEvent) => {
+    mouseDown = false
+  }
 
   input.onkeyup = (e : Event) => {
     eval(parse(input.value).right.map(x => {
       clear()
       x
     }))
+  }
+
+  canvas.onmousedown = (e : MouseEvent) => {
+    mouseDown = true
+    mousePosition = Vector2D(e.clientX, e.clientY)
+  }
+
+  canvas.onmousemove = (e : MouseEvent) => {
+    if (mouseDown) {
+      val newPosition = Vector2D(e.clientX, e.clientY)
+      pan += newPosition - mousePosition
+      mousePosition = newPosition
+      clear()
+      eval(lastAst)
+    }
+  }
+
+  canvas.onmouseleave = mouseExit
+  canvas.onmouseup = mouseExit
+
+  canvas.onmousewheel = (e : MouseEvent) => {
+//    val zoomDelta = if (delta > 10) 10 else if (delta < -10) -10 else delta
+//    if (Siigna.navigation && (zoom < 50 || zoomDelta > 0)) {
+//      val zoomFactor = scala.math.pow(2, -zoomDelta * Siigna.double("zoomSpeed").getOrElse(0.5))
+//      if (zoom > 0.000001 || zoomDelta < 0) {
+//        zoom *= zoomFactor
+//      }
+//      pan = ((pan - point + center) * zoomFactor) + point - center
+//    }
   }
 
   @JSExport
@@ -38,10 +76,13 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   }
 
   def eval(ast : Either[String, Expr]): Unit = {
-    ast.fold(error => displayError("Failure during parsing: " + error), exprs => {
-      context.setTransform(1, 0, 0, 1, canvas.width / 2, canvas.height / 2)
-      evaluator.eval(exprs, Map()).fold(error => displayError("Failure during evaluation: " + error), _ => displaySuccess())
-    })
+    ast.fold(error => displayError("Failure during parsing: " + error), eval)
+  }
+
+  def eval(expr : Expr) : Unit = {
+    lastAst = expr
+    context.setTransform(1, 0, 0, 1, pan.x + (canvas.width / 2), pan.y + (canvas.height / 2))
+    evaluator.eval(expr, Map()).fold(error => displayError("Failure during evaluation: " + error), _ => displaySuccess())
   }
 
   def lex(text : String) : LiveStream[Token] = {

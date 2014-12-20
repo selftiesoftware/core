@@ -71,6 +71,7 @@ for (i <- -10 to 10) {
     canvas.height = window.innerHeight * 0.7;
 
     var siigna = new Siigna(canvas, input, debug);
+    siigna.eval(input.value);
     document.getElementById("parse").onclick = function (e) {
         siigna.eval(input.value);
     }

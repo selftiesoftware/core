@@ -84,7 +84,6 @@ object Parser {
       case (start : Token) :~: SymbolToken("*") :~: tail =>
         parseTripleOp(start, tail, "*", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 
-
       // Misc
       case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
 
