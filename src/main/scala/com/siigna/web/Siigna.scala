@@ -21,7 +21,6 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   var mousePosition = Vector2D(0, 0)
   var pan = Vector2D(0, 0)
   var mouseDown = false
-  var zoom : Double = 1
   var lastAst : Expr = UnitExpr
 
   val mouseExit = (e : MouseEvent) => {
@@ -52,17 +51,6 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
 
   canvas.onmouseleave = mouseExit
   canvas.onmouseup = mouseExit
-
-  canvas.onmousewheel = (e : MouseEvent) => {
-//    val zoomDelta = if (delta > 10) 10 else if (delta < -10) -10 else delta
-//    if (Siigna.navigation && (zoom < 50 || zoomDelta > 0)) {
-//      val zoomFactor = scala.math.pow(2, -zoomDelta * Siigna.double("zoomSpeed").getOrElse(0.5))
-//      if (zoom > 0.000001 || zoomDelta < 0) {
-//        zoom *= zoomFactor
-//      }
-//      pan = ((pan - point + center) * zoomFactor) + point - center
-//    }
-  }
 
   @JSExport
   def clear(): Unit = {

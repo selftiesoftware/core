@@ -2464,11 +2464,11 @@ ScalaJS.i.sjsr_RuntimeString$class__indexOf__sjsr_RuntimeString__I__I = (functio
 ScalaJS.i.sjsr_RuntimeString$class__substring__sjsr_RuntimeString__I__I__T = (function($$this, beginIndex, endIndex) {
   return ScalaJS.as.T($$this["substring"](beginIndex, endIndex))
 });
-ScalaJS.i.sjsr_RuntimeString$class__substring__sjsr_RuntimeString__I__T = (function($$this, beginIndex) {
-  return ScalaJS.as.T($$this["substring"](beginIndex))
-});
 ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I = (function($$this) {
   return (ScalaJS.uD($$this["length"]) | 0)
+});
+ScalaJS.i.sjsr_RuntimeString$class__substring__sjsr_RuntimeString__I__T = (function($$this, beginIndex) {
+  return ScalaJS.as.T($$this["substring"](beginIndex))
 });
 ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z = (function($$this) {
   return ((ScalaJS.uD($$this["length"]) | 0) === 0)
@@ -2502,7 +2502,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna = (function() {
   this.mousePosition$1 = null;
   this.pan$1 = null;
   this.mouseDown$1 = false;
-  this.zoom$1 = 0.0;
   this.lastAst$1 = null;
   this.mouseExit$1 = null
 });
@@ -2525,7 +2524,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasEle
   this.mousePosition$1 = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(0.0, 0.0);
   this.pan$1 = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(0.0, 0.0);
   this.mouseDown$1 = false;
-  this.zoom$1 = 1.0;
   this.lastAst$1 = ScalaJS.m.Lcom_siigna_web_parsing_UnitExpr();
   this.mouseExit$1 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
     return (function(e$2) {
@@ -2566,9 +2564,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasEle
       return f$2.apply__O__O(arg1$2)
     })
   })(this.mouseExit$1);
-  canvas["onmousewheel"] = (function(e$2$3) {
-    return (void 0)
-  });
   return this
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$eval__T__O = (function(code) {
@@ -2710,13 +2705,13 @@ ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.productElement__I__O = (function(x$
 ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.toString__T = (function() {
   return ScalaJS.m.sr_ScalaRunTime().$$undtoString__s_Product__T(this)
 });
-ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.$$plus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(other) {
-  return new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((this.x$1 + other.x$1), (this.y$1 + other.y$1))
-});
 ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.init___D__D = (function(x, y) {
   this.x$1 = x;
   this.y$1 = y;
   return this
+});
+ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.$$plus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(other) {
+  return new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((this.x$1 + other.x$1), (this.y$1 + other.y$1))
 });
 ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.hashCode__I = (function() {
   var acc = -889275714;
