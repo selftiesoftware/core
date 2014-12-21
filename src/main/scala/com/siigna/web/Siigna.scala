@@ -28,10 +28,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   }
 
   input.onkeyup = (e : Event) => {
-    eval(parse(input.value).right.map(x => {
-      clear()
-      x
-    }))
+    eval(input.value)
   }
 
   canvas.onmousedown = (e : MouseEvent) => {
@@ -69,6 +66,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
 
   def eval(expr : Expr) : Unit = {
     lastAst = expr
+    clear()
     context.setTransform(1, 0, 0, 1, pan.x + (canvas.width / 2), pan.y + (canvas.height / 2))
     evaluator.eval(expr, Map()).fold(error => displayError("Failure during evaluation: " + error), _ => displaySuccess())
   }

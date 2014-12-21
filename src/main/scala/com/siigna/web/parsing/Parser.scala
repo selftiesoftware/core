@@ -9,6 +9,8 @@ object Parser {
 
   type Value = Either[String, Expr]
 
+  var i = 0
+
   def parse(tokens : LiveStream[Token]) : Value = {
     var exprs : Seq[Expr] = Seq()
     val failure : String => Value = err => Left(err)
@@ -108,18 +110,25 @@ object Parser {
   def parseUntil(tokens: LiveStream[Token], token : Token, success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
     tokens match {
       case newToken :~: tail =>
+        var lastFailure : Option[String] = None
         var seqExpr : SeqExpr = SeqExpr(Seq())
         var rhsTail = tail
-        while (rhsTail.head.compare(token) != 0) {
+        while (lastFailure.isEmpty && rhsTail.head.compare(token) != 0) {
           val res = parse(rhsTail, (e, s) => {
             rhsTail = s
             Right(e)
-          }, failure)
-          res.fold(msg => failure(msg), x => {
+          }, string => {
+            lastFailure = Some(string)
+            Left(string)
+          })
+          res.right.map(x => {
             seqExpr = SeqExpr(seqExpr.expr :+ x)
           })
         }
-        if (seqExpr.expr.isEmpty) {
+
+        if (lastFailure.isDefined) {
+          failure(s"Failure while parsing block: ${lastFailure.get}")
+        } else if (seqExpr.expr.isEmpty) {
           failure(s"Failed to parse block until $token: $tokens")
         } else {
           success(seqExpr, rhsTail.tail)
