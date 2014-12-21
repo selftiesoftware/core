@@ -5559,8 +5559,7 @@ ScalaJS.d.Lcom_siigna_web_parsing_OpExpr = new ScalaJS.ClassTypeData({
 ScalaJS.c.Lcom_siigna_web_parsing_OpExpr.prototype.$classData = ScalaJS.d.Lcom_siigna_web_parsing_OpExpr;
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$ = (function() {
-  ScalaJS.c.O.call(this);
-  this.i$1 = 0
+  ScalaJS.c.O.call(this)
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype = new ScalaJS.h.O();
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.constructor = ScalaJS.c.Lcom_siigna_web_parsing_Parser$;

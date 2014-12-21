@@ -9,8 +9,6 @@ object Parser {
 
   type Value = Either[String, Expr]
 
-  var i = 0
-
   def parse(tokens : LiveStream[Token]) : Value = {
     var exprs : Seq[Expr] = Seq()
     val failure : String => Value = err => Left(err)
