@@ -2492,7 +2492,7 @@ ScalaJS.h.Lcom_siigna_web_Siigna = (function() {
 });
 ScalaJS.h.Lcom_siigna_web_Siigna.prototype = ScalaJS.c.Lcom_siigna_web_Siigna.prototype;
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$toggleRepl__O = (function() {
-  return (this.toggleRepl__V(), (void 0))
+  return this.toggleRepl__Z()
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displaySuccess__V = (function() {
   this.debug$1["innerHTML"] = ""
@@ -2575,6 +2575,10 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.zoom__D__Lorg_scalajs_dom_MouseEvent_
   this.context$1["translate"]((-mousePoint.x$1), (-mousePoint.y$1));
   this.eval__Lcom_siigna_web_parsing_Expr__V(this.lastAst$1)
 });
+ScalaJS.c.Lcom_siigna_web_Siigna.prototype.toggleRepl__Z = (function() {
+  this.activeRepl$1 = (!this.activeRepl$1);
+  return this.activeRepl$1
+});
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$zoom__D__Lorg_scalajs_dom_MouseEvent__O = (function(level, e) {
   return (this.zoom__D__Lorg_scalajs_dom_MouseEvent__V(level, e), (void 0))
 });
@@ -2583,9 +2587,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$clear__O = (functi
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.parse__T__s_util_Either = (function(code) {
   return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__s_util_Either(this.lex__T__Lcom_siigna_web_lexing_LiveStream(code))
-});
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype.toggleRepl__V = (function() {
-  this.activeRepl$1 = (!this.activeRepl$1)
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.eval__T__V = (function(code) {
   this.eval__s_util_Either__V(this.parse__T__s_util_Either(code))

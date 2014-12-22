@@ -110,8 +110,9 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   }
 
   @JSExport
-  def toggleRepl(): Unit = {
+  def toggleRepl(): Boolean = {
     activeRepl = !activeRepl
+    activeRepl
   }
 
 }

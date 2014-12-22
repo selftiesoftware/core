@@ -46,8 +46,7 @@ for (i <- -10 to 10) {
 }
 </textarea>
             <div class="row">
-                <button id="parse" class="six columns"><i class="fa fa-play fa-lg"></i> Run</button>
-                <button id="clear" class="six columns"><i class="fa fa-stop fa-lg"></i> Stop</button>
+                <button id="toggleRun" class="twelve columns"><i class="fa fa-stop fa-lg"></i> Stop</button>
             </div>
             <div id="debug"></div>
         </div>
@@ -56,6 +55,10 @@ for (i <- -10 to 10) {
             <canvas id="canvas"></canvas>
         </div>
     </div>
+
+    <footer class="row">
+        Copyright @ Selftiesoftware, licensed under
+    </footer>
 </div>
 
 <!-- Include Scala.js compiled code -->
@@ -66,6 +69,7 @@ for (i <- -10 to 10) {
     var container = document.getElementById("container");
     var debug  = document.getElementById("debug");
     var input  = document.getElementById("input");
+    var toggleRun = document.getElementById("toggleRun");
 
     input.style.height = window.innerHeight * 0.6 + "px";
     canvas.width = container.offsetWidth / 2 - 20;
@@ -74,9 +78,14 @@ for (i <- -10 to 10) {
     var siigna = new Siigna(canvas, input, debug);
 
     siigna.eval(input.value);
-    document.getElementById("parse").onclick = function (e) { siigna.eval(input.value); };
-    document.getElementById("clear").onclick = function (e) {
-        siigna.toggleRepl();
+    toggleRun.onclick = function (e) {
+        var b = siigna.toggleRepl();
+        if (b) {
+            toggleRun.innerHTML = "<i class='fa fa-stop fa-lg'></i> Stop";
+            siigna.eval(input.value);
+        } else {
+            toggleRun.innerHTML = "<i class='fa fa-play fa-lg'></i> Run";
+        }
     };
 
     function MouseWheelHandler(e) {
