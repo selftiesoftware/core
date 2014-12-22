@@ -85,8 +85,26 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   }
 
   def eval(expr : Expr) : Unit = {
+    val paperH = 210
+    val paperW = 297
     lastAst = expr
     clear()
+
+    //draw paper
+    def drawLine(x1 : Int , y1 : Int , x2 : Int , y2 : Int) = {
+      context.beginPath()
+      context.moveTo(x1, y1)
+      context.lineTo(x2, y2)
+      context.stroke()
+      context.closePath()
+    }
+    drawLine(-paperH/2,-paperW/2,paperH/2,-paperW/2)
+    drawLine(paperH/2,-paperW/2,paperH/2,paperW/2)
+    //bottom
+    drawLine(paperH/2,paperW/2,-paperH/2,paperW/2)
+    //left
+    drawLine(-paperH/2,paperW/2,-paperH/2,-paperW/2)
+
     evaluator.eval(expr, Map()).fold(error => displayError("Failure during evaluation: " + error), _ => displaySuccess())
   }
 
