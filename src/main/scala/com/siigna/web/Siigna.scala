@@ -19,16 +19,34 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
   val evaluator = new Evaluator(context)
   var mousePosition = Vector2D(0, 0)
-  var pan = Vector2D(0, 0)
   var mouseDown = false
   var lastAst : Expr = UnitExpr
+
+  var activeRepl = true
 
   val mouseExit = (e : MouseEvent) => {
     mouseDown = false
   }
 
+  context.translate(canvas.width / 2, canvas.height / 2)
+
+  def center = Vector2D((canvas.getBoundingClientRect().right + canvas.getBoundingClientRect().left) * 0.5,
+                        (canvas.getBoundingClientRect().bottom + canvas.getBoundingClientRect().top) * 0.5)
+
+  @JSExport
+  def zoom(level : Double, e : MouseEvent) = {
+    val delta = 1 + (level * 0.05)
+    val mousePoint = Vector2D(e.clientX - center.x, e.clientY - center.y)
+    context.translate(mousePoint.x, mousePoint.y)
+    context.scale(delta, delta)
+    context.translate(-mousePoint.x, -mousePoint.y)
+    eval(lastAst)
+  }
+
   input.onkeyup = (e : Event) => {
-    eval(input.value)
+    if (activeRepl) {
+      eval(input.value)
+    }
   }
 
   canvas.onmousedown = (e : MouseEvent) => {
@@ -39,7 +57,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   canvas.onmousemove = (e : MouseEvent) => {
     if (mouseDown) {
       val newPosition = Vector2D(e.clientX, e.clientY)
-      pan += newPosition - mousePosition
+      context.translate((newPosition - mousePosition).x, (newPosition - mousePosition).y)
       mousePosition = newPosition
       clear()
       eval(lastAst)
@@ -51,8 +69,10 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
 
   @JSExport
   def clear(): Unit = {
+    context.save()
     context.setTransform(1, 0, 0, 1, 0, 0)
-    context.clearRect(0, 0, 10000, 10000)
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    context.restore()
   }
 
   @JSExport
@@ -67,7 +87,6 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   def eval(expr : Expr) : Unit = {
     lastAst = expr
     clear()
-    context.setTransform(1, 0, 0, 1, pan.x + (canvas.width / 2), pan.y + (canvas.height / 2))
     evaluator.eval(expr, Map()).fold(error => displayError("Failure during evaluation: " + error), _ => displaySuccess())
   }
 
@@ -90,5 +109,9 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
     debug.innerHTML = ""
   }
 
+  @JSExport
+  def toggleRepl(): Unit = {
+    activeRepl = !activeRepl
+  }
 
 }

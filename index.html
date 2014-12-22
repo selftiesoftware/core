@@ -6,7 +6,8 @@
     <meta name="description" content="Language for CAD">
     <meta name="author" content="Selftie Software">
 
-    <!-- <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'> -->
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
@@ -45,8 +46,8 @@ for (i <- -10 to 10) {
 }
 </textarea>
             <div class="row">
-                <button id="parse" class="six columns">Run</button>
-                <button id="clear" class="one-half column">Clear</button>
+                <button id="parse" class="six columns"><i class="fa fa-play fa-lg"></i> Run</button>
+                <button id="clear" class="six columns"><i class="fa fa-stop fa-lg"></i> Stop</button>
             </div>
             <div id="debug"></div>
         </div>
@@ -55,6 +56,7 @@ for (i <- -10 to 10) {
             <canvas id="canvas"></canvas>
         </div>
     </div>
+
 </div>
 
 <!-- Include Scala.js compiled code -->
@@ -71,20 +73,24 @@ for (i <- -10 to 10) {
     canvas.height = window.innerHeight * 0.7;
 
     var siigna = new Siigna(canvas, input, debug);
+
     siigna.eval(input.value);
-    document.getElementById("parse").onclick = function (e) {
-        siigna.eval(input.value);
-    }
+    document.getElementById("parse").onclick = function (e) { siigna.eval(input.value); };
     document.getElementById("clear").onclick = function (e) {
-        siigna.clear();
-    }
+        siigna.toggleRepl();
+    };
 
     function MouseWheelHandler(e) {
 
         // cross-browser wheel delta
         var e = window.event || e; // old IE support
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        //siigna.zoom(delta, e.clientX, e.clientY);
+        siigna.zoom(delta, e);
+
+        // Stop the scroll from happening
+        if (e.preventDefault)
+            e.preventDefault();
+        return false;
     }
 
     if (canvas.addEventListener) {
