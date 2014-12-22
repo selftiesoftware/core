@@ -19,6 +19,7 @@ class Lexer extends NonblockingLexer[Char, Token] {
   private val int = ("-"?) ~ ('0' thru '9').+
   private val ws = oneOf(" \r\t\n").+ // whitespace
   private val com = "\\\\" ~ ((!oneOf("\r\n"))*) // single-line comment
+  private val hashComment = "#" ~ ((!oneOf("\r\n"))*) // hashtag comments
 
   // States:
   protected val MAIN       = State()
@@ -33,6 +34,8 @@ class Lexer extends NonblockingLexer[Char, Token] {
   MAIN switchesOn "\"" to { STRING(List()) }
 
   // Regular tokens
+  MAIN (com)   { }
+  MAIN (hashComment)   { }
   MAIN (",@")  { emit(PunctToken(",@")) }
   MAIN (",")   { emit(PunctToken(",")) }
   MAIN ("`")   { emit(PunctToken("`")) }
@@ -45,11 +48,8 @@ class Lexer extends NonblockingLexer[Char, Token] {
   MAIN ("{")   { emit(PunctToken("{")) }
   MAIN ("}")   { emit(PunctToken("}")) }
   MAIN (".")   { emit(PunctToken(".")) }
-  MAIN ("#t")  { emit(BooleanToken(b = true)) }
-  MAIN ("#f")  { emit(BooleanToken(b = false)) }
   MAIN (END)   { terminate() }
   MAIN (ws)    { }
-  MAIN (com)   { }
   MAIN (ch)    over { chars => emit(CharToken(chars(2))) }
   MAIN (int)   over { chars => emit(IntToken(Integer.parseInt(chars))) }
   MAIN (id)    over { chars => emit(SymbolToken(chars)) }
