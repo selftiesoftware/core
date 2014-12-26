@@ -63,6 +63,8 @@ for (i <- -12 to 10) {
         </div>
     </div>
 
+    <button id="toPdf">Print to Pdf</button>
+
     <footer class="row">
         Copyright (c) Selftie Software, licensed under the open-source license <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a>.
     </footer>
@@ -70,6 +72,8 @@ for (i <- -12 to 10) {
 
 <!-- Include Scala.js compiled code -->
 <script type="text/javascript" src="./target/scala-2.11/web-fastopt.js"></script>
+<script type="text/javascript" src="js/jspdf.min.js"></script>
+
 <!-- Run tutorial.webapp.TutorialApp -->
 <script type="text/javascript">
     var canvas = document.getElementById("canvas");
@@ -77,23 +81,11 @@ for (i <- -12 to 10) {
     var debug  = document.getElementById("debug");
     var input  = document.getElementById("input");
     var toggleRun = document.getElementById("toggleRun");
+    var toPdf = document.getElementById("toPdf");
 
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
     canvas.width = container.offsetWidth / 2 - 20;
     canvas.height = window.innerHeight * 0.7;
-
-    var siigna = new Siigna(canvas, input, debug);
-
-    siigna.eval(input.value);
-    toggleRun.onclick = function (e) {
-        var b = siigna.toggleRepl();
-        if (b) {
-            toggleRun.innerHTML = "<i class='fa fa-stop fa-lg'></i> Stop";
-            siigna.eval(input.value);
-        } else {
-            toggleRun.innerHTML = "<i class='fa fa-play fa-lg'></i> Run";
-        }
-    };
 
     function MouseWheelHandler(e) {
 
@@ -114,6 +106,25 @@ for (i <- -12 to 10) {
         // Firefox
         canvas.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
     }
+
+    window.onload = function (e) {
+        var siigna = new Siigna(canvas, input, debug);
+
+        siigna.eval(input.value);
+        toggleRun.onclick = function (e) {
+            var b = siigna.toggleRepl();
+            if (b) {
+                toggleRun.innerHTML = "<i class='fa fa-stop fa-lg'></i> Stop";
+                siigna.eval(input.value);
+            } else {
+                toggleRun.innerHTML = "<i class='fa fa-play fa-lg'></i> Run";
+            }
+        };
+
+        //var doc = new jsPDF();
+        //siigna.printPdf(doc);
+        //doc.save("Test.siigna.pdf");
+    };
 </script>
 </body>
 </html>

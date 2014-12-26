@@ -1,45 +1,40 @@
 package com.siigna.web.evaluating
 
+import com.siigna.web.Printer
 import com.siigna.web.parsing._
-import org.scalajs.dom.CanvasRenderingContext2D
 
 /**
- * An evaluator to evaluate a given list of [[Expr]] on the 
- * @param context  The graphical context to interact with.
+ * An evaluator to evaluate a given list of [[Expr]] on the
  */
-class Evaluator(context: CanvasRenderingContext2D) {
+object Evaluator {
 
   type Env = Map[String, Any]
 
   type Value = Either[String, (Env, Any)]
 
-  def eval(expr: Expr, env : Env) : Value = {
+  def eval(expr: Expr, env : Env, printer : Printer) : Value = {
     expr match {
 
       case CircleExpr(centerX, centerY, radius) =>
-        getValue[Int](centerX, env).right.flatMap(x =>
-          getValue[Int](centerY, env).right.flatMap(y =>
-            getValue[Int](radius, env).right.flatMap(radiusValue => {
-              context.beginPath()
-              context.arc(x, y, radiusValue, 0, 2 * Math.PI, false)
-              context.lineWidth = 1
-              context.stroke()
-              context.closePath()
+        getValue[Int](centerX, env, printer).right.flatMap(x =>
+          getValue[Int](centerY, env, printer).right.flatMap(y =>
+            getValue[Int](radius, env, printer).right.flatMap(radiusValue => {
+//              context.beginPath()
+//              context.arc(x, y, radiusValue, 0, 2 * Math.PI, false)
+//              context.lineWidth = 1
+//              context.stroke()
+//              context.closePath()
               Right(env -> Unit)
             })
           )
         )
 
       case LineExpr(e1, e2, e3, e4) =>
-        getValue[Int](e1, env).right.flatMap(x1 =>
-          getValue[Int](e2, env).right.flatMap(y1 =>
-            getValue[Int](e3, env).right.flatMap(x2 =>
-              getValue[Int](e4, env).right.flatMap(y2 => {
-                context.beginPath()
-                context.moveTo(x1, y1)
-                context.lineTo(x2, y2)
-                context.stroke()
-                context.closePath()
+        getValue[Int](e1, env, printer).right.flatMap(x1 =>
+          getValue[Int](e2, env, printer).right.flatMap(y1 =>
+            getValue[Int](e3, env, printer).right.flatMap(x2 =>
+              getValue[Int](e4, env, printer).right.flatMap(y2 => {
+                printer.line(x1, y1, x2, y2)
                 Right(env -> Unit)
               })
             )
@@ -49,7 +44,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
       case ConstantExpr(value) => Right(env -> value)
 
       case CompExpr(e1, e2, op) =>
-        eval(e1, env).fold(e => Left(e), v1 => eval(e2, v1._1).fold(e => Left(e), v2 => {
+        eval(e1, env, printer).fold(e => Left(e), v1 => eval(e2, v1._1, printer).fold(e => Left(e), v2 => {
           val n1 = v1._2.asInstanceOf[Int]
           val n2 = v2._2.asInstanceOf[Int]
           op match {
@@ -60,7 +55,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
         }))
 
       case OpExpr(e1, e2, op) =>
-        eval(e1, env).right.flatMap(v1 => eval(e2, v1._1).right.flatMap(v2 => {
+        eval(e1, env, printer).right.flatMap(v1 => eval(e2, v1._1, printer).right.flatMap(v2 => {
           val n1 = v1._2.asInstanceOf[Int]
           val n2 = v2._2.asInstanceOf[Int]
           op match {
@@ -75,8 +70,8 @@ class Evaluator(context: CanvasRenderingContext2D) {
         val fromOption = env.get(name).map {
           case i: Int => Right(i + 1)
           case x => Left(s"Cannot parse $x to int")
-        }.getOrElse(getValue[Int](from, env))
-        val toOption = getValue[Int](to, env)
+        }.getOrElse(getValue[Int](from, env, printer))
+        val toOption = getValue[Int](to, env, printer)
         fromOption.right.flatMap(fromValue => toOption.right.flatMap(toValue => {
           Right((env + (name -> fromValue)) -> (fromValue < toValue))
         }))
@@ -86,7 +81,7 @@ class Evaluator(context: CanvasRenderingContext2D) {
 
       case seq : SeqExpr =>
         def foldRecursive(it : Iterator[Expr], foldEnv : Env) : Value = {
-          eval(it.next(), foldEnv).fold(error => Left(error), t => {
+          eval(it.next(), foldEnv, printer).fold(error => Left(error), t => {
             if (it.hasNext) {
               foldRecursive(it, t._1)
             } else {
@@ -99,32 +94,32 @@ class Evaluator(context: CanvasRenderingContext2D) {
       case UnitExpr => Right(env -> Unit)
 
       case ValExpr(name, value) =>
-        eval(value, env).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
+        eval(value, env, printer).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
 
       case LoopExpr(condition : Expr, body : Expr) =>
         /* Note to self: Too much recursion error when looping recursively */
         var loopEnv : Map[String, Any] = env
         var lastResult : Any = Unit
         var lastError : Option[String] = None
-        def getCondition = eval(condition, loopEnv).fold(error => {lastError = Some(error); false}, v => {
+        def getCondition = eval(condition, loopEnv, printer).fold(error => {lastError = Some(error); false}, v => {
           loopEnv = v._1
           v._2.asInstanceOf[Boolean]
         })
         while (lastError.isEmpty && getCondition) {
-          eval(body, loopEnv).fold(s => {lastError = Some(s); s}, x => {
+          eval(body, loopEnv, printer).fold(s => {lastError = Some(s); s}, x => {
             lastResult = x._2
             loopEnv = x._1
           })
         }
         lastError.map(Left(_)).getOrElse(Right(loopEnv.filter(t => env.contains(t._1)) -> lastResult))
 
-      case x => Left("Unknown expression " + x)
+      case x => Left(s"Unknown expression $x")
     }
 
   }
 
-  def getValue[T : Manifest](expr : Expr, env : Env) : Either[String, T] = {
-    eval(expr, env) match {
+  def getValue[T : Manifest](expr : Expr, env : Env, printer : Printer) : Either[String, T] = {
+    eval(expr, env, printer) match {
       case Right((_, t : T)) => Right(t)
       case fail => Left(s"Failed to read value from $expr, failed with: $fail")
     }

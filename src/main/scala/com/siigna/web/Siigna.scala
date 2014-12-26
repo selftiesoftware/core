@@ -5,6 +5,7 @@ import com.siigna.web.lexing.{Token, LiveStream, Lexer}
 import com.siigna.web.parsing.{UnitExpr, Expr, Parser}
 import org.scalajs.dom._
 
+import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
 
 /**
@@ -17,7 +18,8 @@ import scala.scalajs.js.annotation.JSExport
 class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement) {
 
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
-  val evaluator = new Evaluator(context)
+  val canvasPrinter = new CanvasPrinter
+  canvasPrinter.context = context
   var mousePosition = Vector2D(0, 0)
   var mouseDown = false
   var lastAst : Expr = UnitExpr
@@ -40,7 +42,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
     context.translate(mousePoint.x, mousePoint.y)
     context.scale(delta, delta)
     context.translate(-mousePoint.x, -mousePoint.y)
-    eval(lastAst)
+    eval(lastAst, canvasPrinter)
   }
 
   input.onkeyup = (e : Event) => {
@@ -60,7 +62,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
       context.translate((newPosition - mousePosition).x, (newPosition - mousePosition).y)
       mousePosition = newPosition
       clear()
-      eval(lastAst)
+      eval(lastAst, canvasPrinter)
     }
   }
 
@@ -78,14 +80,14 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
 
   @JSExport
   def eval(code : String) : Unit = {
-    eval(parse(code))
+    eval(parse(code), canvasPrinter)
   }
 
-  def eval(ast : Either[String, Expr]): Unit = {
-    ast.fold(error => displayError("Failure during parsing: " + error), eval)
+  def eval(ast : Either[String, Expr], printer : Printer): Unit = {
+    ast.fold(error => displayError(s"Failure during parsing: $error"), success => eval(success, printer))
   }
 
-  def eval(expr : Expr) : Unit = {
+  def eval(expr : Expr, printer : Printer) : Unit = {
     val paperH = 210
     val paperW = 297
     lastAst = expr
@@ -111,7 +113,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
     //left
     drawLine(-paperH/2,paperW/2,-paperH/2,-paperW/2)
 
-    evaluator.eval(expr, Map()).fold(error => displayError("Failure during evaluation: " + error), _ => displaySuccess())
+    Evaluator.eval(expr, Map(), printer).fold(error => displayError(s"Failure during evaluation: $error"), _ => displaySuccess())
   }
 
   def lex(text : String) : LiveStream[Token] = {
@@ -132,6 +134,13 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   def displaySuccess(): Unit = {
     debug.innerHTML = ""
   }
+
+//  trait PdfPrinter extends js.Object with Printer
+//
+//  @JSExport
+//  def printPdf(document : PdfPrinter) : Unit = {
+//    Evaluator.eval(lastAst, Map(), document)
+//  }
 
   @JSExport
   def toggleRepl(): Boolean = {
