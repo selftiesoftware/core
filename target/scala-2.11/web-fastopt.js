@@ -2597,6 +2597,9 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displayError__T__V = (function(error)
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.eval__Lcom_siigna_web_parsing_Expr__V = (function(expr) {
   this.lastAst$1 = expr;
   this.clear__V();
+  this.context$1["fillStyle"] = "White";
+  this.context$1["fillRect"](-105, -148, 210, 297);
+  this.context$1["restore"]();
   this.drawLine$1__p1__I__I__I__I__V(-105, -148, 105, -148);
   this.drawLine$1__p1__I__I__I__I__V(105, -148, 105, 148);
   this.drawLine$1__p1__I__I__I__I__V(105, 148, -105, 148);
@@ -2615,7 +2618,8 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.eval__Lcom_siigna_web_parsing_Expr__V
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.clear__V = (function() {
   this.context$1["save"]();
   this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
-  this.context$1["clearRect"](0.0, 0.0, ScalaJS.uI(this.canvas$1["width"]), ScalaJS.uI(this.canvas$1["height"]));
+  this.context$1["fillStyle"] = "AliceBlue";
+  this.context$1["fillRect"](0.0, 0.0, ScalaJS.uI(this.canvas$1["width"]), ScalaJS.uI(this.canvas$1["height"]));
   this.context$1["restore"]()
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.drawLine$1__p1__I__I__I__I__V = (function(x1, y1, x2, y2) {
@@ -6404,13 +6408,13 @@ ScalaJS.c.T2.prototype.equals__O__Z = (function(x$1) {
     return false
   }
 });
-ScalaJS.c.T2.prototype.productElement__I__O = (function(n) {
-  return ScalaJS.i.s_Product2$class__productElement__s_Product2__I__O(this, n)
-});
 ScalaJS.c.T2.prototype.init___O__O = (function(_1, _2) {
   this.$$und1$f = _1;
   this.$$und2$f = _2;
   return this
+});
+ScalaJS.c.T2.prototype.productElement__I__O = (function(n) {
+  return ScalaJS.i.s_Product2$class__productElement__s_Product2__I__O(this, n)
 });
 ScalaJS.c.T2.prototype.toString__T = (function() {
   return (((("(" + this.$$und1$f) + ",") + this.$$und2$f) + ")")

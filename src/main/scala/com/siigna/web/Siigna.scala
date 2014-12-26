@@ -71,7 +71,8 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   def clear(): Unit = {
     context.save()
     context.setTransform(1, 0, 0, 1, 0, 0)
-    context.clearRect(0, 0, canvas.width, canvas.height)
+    context.fillStyle = "AliceBlue"
+    context.fillRect(0, 0, canvas.width, canvas.height)
     context.restore()
   }
 
@@ -90,7 +91,12 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
     lastAst = expr
     clear()
 
-    //draw paper
+    //paper color
+    context.fillStyle = "White"
+    context.fillRect(-paperH/2,-paperW/2,paperH, paperW)
+    context.restore()
+
+    //draw paper outline
     def drawLine(x1 : Int , y1 : Int , x2 : Int , y2 : Int) = {
       context.beginPath()
       context.moveTo(x1, y1)
