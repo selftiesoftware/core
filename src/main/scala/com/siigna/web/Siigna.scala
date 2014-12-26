@@ -135,12 +135,12 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
     debug.innerHTML = ""
   }
 
-//  trait PdfPrinter extends js.Object with Printer
-//
-//  @JSExport
-//  def printPdf(document : PdfPrinter) : Unit = {
-//    Evaluator.eval(lastAst, Map(), document)
-//  }
+  @JSExport
+  def printPdf(name : String) : Unit = {
+    val printer = new PdfPrinter()
+    Evaluator.eval(lastAst, Map(), printer)
+    printer.save(name)
+  }
 
   @JSExport
   def toggleRepl(): Boolean = {
