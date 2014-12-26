@@ -2530,7 +2530,9 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.init___ = (function() {
   return this
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
-  this.document$1["line"](x1, y1, x2, y2)
+  var v1 = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x1, y1);
+  var v2 = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x2, y2);
+  this.document$1["line"](v1.x$1, v1.y$1, v2.x$1, v2.y$1)
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.save__T__V = (function(name) {
   this.document$1["save"](name)
