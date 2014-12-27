@@ -41,10 +41,21 @@
             </div>
         <div class="five columns">
 <textarea id="input" class="twelve columns">
-/* a script testing paper location on the screen */
+/* welcome to Siigna. Quick help:
+NAVIGATION: pan and zoom with the mouse center wheel
+DRAWING: Currently lines and circles are supported
+COMMENTING: anything within dash and * is ignored.
+COMPILATION: real-time unless 'stop' is pressed
+PRINTING: PDF (A4) currently scale 1:1 is supported
 
-for i <- -14 to 15 {
-    line -100 i * 10 100 i * 10
+The sample script below shows how a for-loop is used:
+
+*/
+
+for i <- -4 to 4 {
+    for j <- -5 to 8 {
+        line -90 j * 18 90 i * 27
+    }
 }
 
 
