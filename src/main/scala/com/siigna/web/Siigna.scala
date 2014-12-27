@@ -73,6 +73,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   def clear(): Unit = {
     context.save()
     context.setTransform(1, 0, 0, 1, 0, 0)
+    //TODO: checkered background
     context.fillStyle = "AliceBlue"
     context.fillRect(0, 0, canvas.width, canvas.height)
     context.restore()
