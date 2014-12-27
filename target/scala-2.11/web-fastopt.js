@@ -2496,12 +2496,14 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init__V = (function() {
   this.context$1["translate"](((ScalaJS.uI(this.canvas$1["width"]) / 2) | 0), ((ScalaJS.uI(this.canvas$1["height"]) / 2) | 0))
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.drawPaper__V = (function() {
+  var pH = ScalaJS.imul(this.paperH$1, 2);
+  var pW = ScalaJS.imul(this.paperW$1, 2);
   this.context$1["fillStyle"] = "White";
-  this.context$1["fillRect"]((((-this.paperH$1) / 2) | 0), (((-this.paperW$1) / 2) | 0), this.paperH$1, this.paperW$1);
-  this.line__D__D__D__D__V((((-this.paperH$1) / 2) | 0), (((-this.paperW$1) / 2) | 0), ((this.paperH$1 / 2) | 0), (((-this.paperW$1) / 2) | 0));
-  this.line__D__D__D__D__V(((this.paperH$1 / 2) | 0), (((-this.paperW$1) / 2) | 0), ((this.paperH$1 / 2) | 0), ((this.paperW$1 / 2) | 0));
-  this.line__D__D__D__D__V(((this.paperH$1 / 2) | 0), ((this.paperW$1 / 2) | 0), (((-this.paperH$1) / 2) | 0), ((this.paperW$1 / 2) | 0));
-  this.line__D__D__D__D__V((((-this.paperH$1) / 2) | 0), ((this.paperW$1 / 2) | 0), (((-this.paperH$1) / 2) | 0), (((-this.paperW$1) / 2) | 0))
+  this.context$1["fillRect"]((((-pH) / 2) | 0), (((-pW) / 2) | 0), pH, pW);
+  this.line__D__D__D__D__V((((-pH) / 2) | 0), (((-pW) / 2) | 0), ((pH / 2) | 0), (((-pW) / 2) | 0));
+  this.line__D__D__D__D__V(((pH / 2) | 0), (((-pW) / 2) | 0), ((pH / 2) | 0), ((pW / 2) | 0));
+  this.line__D__D__D__D__V(((pH / 2) | 0), ((pW / 2) | 0), (((-pH) / 2) | 0), ((pW / 2) | 0));
+  this.line__D__D__D__D__V((((-pH) / 2) | 0), ((pW / 2) | 0), (((-pH) / 2) | 0), (((-pW) / 2) | 0))
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement = (function(canvas) {
   this.canvas$1 = canvas;
@@ -2525,7 +2527,7 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.center__Lcom_siigna_web_Vector2D 
   return new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["right"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"])) * 0.5), ((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["bottom"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"])) * 0.5))
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.zoom__D__D__D__V = (function(level, pointX, pointY) {
-  var delta = (1 + (level * 0.05));
+  var delta = (1 + (level * 0.15));
   var mousePoint = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((pointX - this.center__Lcom_siigna_web_Vector2D().x$1), (pointY - this.center__Lcom_siigna_web_Vector2D().y$1));
   this.context$1["translate"](mousePoint.x$1, mousePoint.y$1);
   this.context$1["scale"](delta, delta);
@@ -2576,7 +2578,8 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.save__T__V = (function(name) {
   this.document$1["save"](name)
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(v) {
-  return v.$$plus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(105.0, 147.0))
+  var vec = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((v.x$1 / 2), (v.y$1 / 2));
+  return vec.$$plus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(105.0, 147.0))
 });
 ScalaJS.is.Lcom_siigna_web_PdfPrinter = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_PdfPrinter)))

@@ -1,7 +1,6 @@
 package com.siigna.web
 
 import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
-
 import scala.scalajs.js
 
 /**
@@ -30,18 +29,25 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.translate(canvas.width / 2, canvas.height / 2)
   }
 
+  //TODO: allow setting a fixed paper scale in the script: eg. by typing "paperScale = 2
+  def calcPaperScale = 2
+
   def drawPaper() : Unit = {
+    //TODO: re-scale paper to match current print-scale (depending on the bounding box of the artwork present)
+
+    val pH = paperH * calcPaperScale
+    val pW = paperW * calcPaperScale
     //paper color
     context.fillStyle = "White"
-    context.fillRect(-paperH/2,-paperW/2,paperH, paperW)
+    context.fillRect(-pH/2 ,-pW/2,pH, pW)
 
     //draw paper outline
-    line(-paperH/2,-paperW/2,paperH/2,-paperW/2)
-    line(paperH/2,-paperW/2,paperH/2,paperW/2)
+    line(-pH/2,-pW/2,pH/2,-pW/2)
+    line(pH/2,-pW/2,pH/2,pW/2)
     //bottom
-    line(paperH/2,paperW/2,-paperH/2,paperW/2)
+    line(pH/2,pW/2,-pH/2,pW/2)
     //left
-    line(-paperH/2,paperW/2,-paperH/2,-paperW/2)
+    line(-pH/2,pW/2,-pH/2,-pW/2)
   }
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
@@ -57,7 +63,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
   }
 
   def zoom(level : Double, pointX : Double, pointY : Double) : Unit = {
-    val delta = 1 + (level * 0.05)
+    val delta = 1 + (level * 0.15)
     val mousePoint = Vector2D(pointX - center.x, pointY - center.y)
     context.translate(mousePoint.x, mousePoint.y)
     context.scale(delta, delta)
