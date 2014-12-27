@@ -6,8 +6,8 @@
     <meta name="description" content="Language for CAD">
     <meta name="author" content="Selftie Software">
 
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>-->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
@@ -67,8 +67,6 @@ for (i <- -12 to 10) {
         </div>
     </div>
 
-
-
     <footer class="row">
         Copyright (c) Selftie Software, licensed under the open-source license <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a>.
     </footer>
@@ -86,6 +84,7 @@ for (i <- -12 to 10) {
     var input  = document.getElementById("input");
     var toggleRun = document.getElementById("toggleRun");
     var toPdf = document.getElementById("toPdf");
+    var siigna = new Siigna(canvas, input, debug);
 
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
     canvas.width = container.offsetWidth / 2 - 20;
@@ -112,7 +111,6 @@ for (i <- -12 to 10) {
     }
 
     window.onload = function (e) {
-        var siigna = new Siigna(canvas, input, debug);
 
         siigna.eval(input.value);
         toggleRun.onclick = function (e) {
@@ -125,9 +123,10 @@ for (i <- -12 to 10) {
             }
         };
 
-        //var doc = new jsPDF();
-        //siigna.printPdf(doc);
-        //doc.save("Test.siigna.pdf");
+        toPdf.onclick = function (e) {
+
+            siigna.printPdf("Test.siigna.pdf");
+        }
     };
 </script>
 </body>
