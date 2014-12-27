@@ -2471,48 +2471,86 @@ ScalaJS.d.F1 = new ScalaJS.ClassTypeData({
   O: 1
 });
 /** @constructor */
-ScalaJS.c.Lcom_siigna_web_CanvasPrinter = (function() {
+ScalaJS.c.Lcom_siigna_web_CanvasView = (function() {
   ScalaJS.c.O.call(this);
-  this.context$1 = null
+  this.canvas$1 = null;
+  this.context$1 = null;
+  this.paperH$1 = 0;
+  this.paperW$1 = 0
 });
-ScalaJS.c.Lcom_siigna_web_CanvasPrinter.prototype = new ScalaJS.h.O();
-ScalaJS.c.Lcom_siigna_web_CanvasPrinter.prototype.constructor = ScalaJS.c.Lcom_siigna_web_CanvasPrinter;
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype = new ScalaJS.h.O();
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.constructor = ScalaJS.c.Lcom_siigna_web_CanvasView;
 /** @constructor */
-ScalaJS.h.Lcom_siigna_web_CanvasPrinter = (function() {
+ScalaJS.h.Lcom_siigna_web_CanvasView = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_siigna_web_CanvasPrinter.prototype = ScalaJS.c.Lcom_siigna_web_CanvasPrinter.prototype;
-ScalaJS.c.Lcom_siigna_web_CanvasPrinter.prototype.init___ = (function() {
-  this.context$1 = null;
-  return this
-});
-ScalaJS.c.Lcom_siigna_web_CanvasPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
+ScalaJS.h.Lcom_siigna_web_CanvasView.prototype = ScalaJS.c.Lcom_siigna_web_CanvasView.prototype;
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
   this.context$1["beginPath"]();
   this.context$1["moveTo"](x1, y1);
   this.context$1["lineTo"](x2, y2);
   this.context$1["stroke"]();
   this.context$1["closePath"]()
 });
-ScalaJS.is.Lcom_siigna_web_CanvasPrinter = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_CanvasPrinter)))
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init__V = (function() {
+  this.context$1["translate"](((ScalaJS.uI(this.canvas$1["width"]) / 2) | 0), ((ScalaJS.uI(this.canvas$1["height"]) / 2) | 0))
 });
-ScalaJS.as.Lcom_siigna_web_CanvasPrinter = (function(obj) {
-  return ((ScalaJS.is.Lcom_siigna_web_CanvasPrinter(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.siigna.web.CanvasPrinter"))
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.drawPaper__V = (function() {
+  this.context$1["fillStyle"] = "White";
+  this.context$1["fillRect"]((((-this.paperH$1) / 2) | 0), (((-this.paperW$1) / 2) | 0), this.paperH$1, this.paperW$1);
+  this.line__D__D__D__D__V((((-this.paperH$1) / 2) | 0), (((-this.paperW$1) / 2) | 0), ((this.paperH$1 / 2) | 0), (((-this.paperW$1) / 2) | 0));
+  this.line__D__D__D__D__V(((this.paperH$1 / 2) | 0), (((-this.paperW$1) / 2) | 0), ((this.paperH$1 / 2) | 0), ((this.paperW$1 / 2) | 0));
+  this.line__D__D__D__D__V(((this.paperH$1 / 2) | 0), ((this.paperW$1 / 2) | 0), (((-this.paperH$1) / 2) | 0), ((this.paperW$1 / 2) | 0));
+  this.line__D__D__D__D__V((((-this.paperH$1) / 2) | 0), ((this.paperW$1 / 2) | 0), (((-this.paperH$1) / 2) | 0), (((-this.paperW$1) / 2) | 0))
 });
-ScalaJS.isArrayOf.Lcom_siigna_web_CanvasPrinter = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_siigna_web_CanvasPrinter)))
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement = (function(canvas) {
+  this.canvas$1 = canvas;
+  this.context$1 = canvas["getContext"]("2d");
+  this.paperH$1 = 210;
+  this.paperW$1 = 297;
+  return this
 });
-ScalaJS.asArrayOf.Lcom_siigna_web_CanvasPrinter = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_siigna_web_CanvasPrinter(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.siigna.web.CanvasPrinter;", depth))
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.translate__D__D__V = (function(x, y) {
+  this.context$1["translate"](x, y)
 });
-ScalaJS.d.Lcom_siigna_web_CanvasPrinter = new ScalaJS.ClassTypeData({
-  Lcom_siigna_web_CanvasPrinter: 0
-}, false, "com.siigna.web.CanvasPrinter", ScalaJS.d.O, {
-  Lcom_siigna_web_CanvasPrinter: 1,
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.clear__V = (function() {
+  this.context$1["save"]();
+  this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+  this.context$1["fillStyle"] = "AliceBlue";
+  this.context$1["fillRect"](0.0, 0.0, ScalaJS.uI(this.canvas$1["width"]), ScalaJS.uI(this.canvas$1["height"]));
+  this.context$1["restore"]();
+  this.drawPaper__V()
+});
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.center__Lcom_siigna_web_Vector2D = (function() {
+  return new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["right"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"])) * 0.5), ((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["bottom"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"])) * 0.5))
+});
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.zoom__D__D__D__V = (function(level, pointX, pointY) {
+  var delta = (1 + (level * 0.05));
+  var mousePoint = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((pointX - this.center__Lcom_siigna_web_Vector2D().x$1), (pointY - this.center__Lcom_siigna_web_Vector2D().y$1));
+  this.context$1["translate"](mousePoint.x$1, mousePoint.y$1);
+  this.context$1["scale"](delta, delta);
+  this.context$1["translate"]((-mousePoint.x$1), (-mousePoint.y$1))
+});
+ScalaJS.is.Lcom_siigna_web_CanvasView = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_CanvasView)))
+});
+ScalaJS.as.Lcom_siigna_web_CanvasView = (function(obj) {
+  return ((ScalaJS.is.Lcom_siigna_web_CanvasView(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.siigna.web.CanvasView"))
+});
+ScalaJS.isArrayOf.Lcom_siigna_web_CanvasView = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_siigna_web_CanvasView)))
+});
+ScalaJS.asArrayOf.Lcom_siigna_web_CanvasView = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_siigna_web_CanvasView(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.siigna.web.CanvasView;", depth))
+});
+ScalaJS.d.Lcom_siigna_web_CanvasView = new ScalaJS.ClassTypeData({
+  Lcom_siigna_web_CanvasView: 0
+}, false, "com.siigna.web.CanvasView", ScalaJS.d.O, {
+  Lcom_siigna_web_CanvasView: 1,
   Lcom_siigna_web_Printer: 1,
   O: 1
 });
-ScalaJS.c.Lcom_siigna_web_CanvasPrinter.prototype.$classData = ScalaJS.d.Lcom_siigna_web_CanvasPrinter;
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.$classData = ScalaJS.d.Lcom_siigna_web_CanvasView;
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_PdfPrinter = (function() {
   ScalaJS.c.O.call(this);
@@ -2563,11 +2601,9 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.$classData = ScalaJS.d.Lcom_siign
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_Siigna = (function() {
   ScalaJS.c.O.call(this);
-  this.canvas$1 = null;
   this.com$siigna$web$Siigna$$input$f = null;
   this.debug$1 = null;
-  this.context$1 = null;
-  this.canvasPrinter$1 = null;
+  this.view$1 = null;
   this.mousePosition$1 = null;
   this.mouseDown$1 = false;
   this.lastAst$1 = null;
@@ -2588,12 +2624,9 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displaySuccess__V = (function() {
   this.debug$1["innerHTML"] = ""
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLTextAreaElement__Lorg_scalajs_dom_HTMLDivElement = (function(canvas, input, debug) {
-  this.canvas$1 = canvas;
   this.com$siigna$web$Siigna$$input$f = input;
   this.debug$1 = debug;
-  this.context$1 = canvas["getContext"]("2d");
-  this.canvasPrinter$1 = new ScalaJS.c.Lcom_siigna_web_CanvasPrinter().init___();
-  this.canvasPrinter$1.context$1 = this.context$1;
+  this.view$1 = new ScalaJS.c.Lcom_siigna_web_CanvasView().init___Lorg_scalajs_dom_HTMLCanvasElement(canvas);
   this.mousePosition$1 = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(0.0, 0.0);
   this.mouseDown$1 = false;
   this.lastAst$1 = ScalaJS.m.Lcom_siigna_web_parsing_UnitExpr();
@@ -2603,7 +2636,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasEle
       arg$outer.mouseDown$1 = false
     })
   })(this));
-  this.context$1["translate"](((ScalaJS.uI(canvas["width"]) / 2) | 0), ((ScalaJS.uI(canvas["height"]) / 2) | 0));
   input["onkeyup"] = (function(arg$outer$1) {
     return (function(e$2$1) {
       if (arg$outer$1.activeRepl$1) {
@@ -2623,10 +2655,9 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasEle
       var e$4 = e$2$3;
       if (arg$outer$3.mouseDown$1) {
         var newPosition = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(ScalaJS.uI(e$4["clientX"]), ScalaJS.uI(e$4["clientY"]));
-        arg$outer$3.context$1["translate"](newPosition.$$minus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newPosition.$$minus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(arg$outer$3.mousePosition$1).y$1);
+        arg$outer$3.view$1.translate__D__D__V(newPosition.$$minus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newPosition.$$minus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(arg$outer$3.mousePosition$1).y$1);
         arg$outer$3.mousePosition$1 = newPosition;
-        arg$outer$3.clear__V();
-        arg$outer$3.eval__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_Printer__V(arg$outer$3.lastAst$1, arg$outer$3.canvasPrinter$1)
+        arg$outer$3.eval__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_Printer__V(arg$outer$3.lastAst$1, arg$outer$3.view$1)
       }
     })
   })(this);
@@ -2647,14 +2678,7 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$eval__T__O = (func
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.eval__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_Printer__V = (function(expr, printer) {
   this.lastAst$1 = expr;
-  this.clear__V();
-  this.context$1["fillStyle"] = "White";
-  this.context$1["fillRect"](-105, -148, 210, 297);
-  this.context$1["restore"]();
-  this.drawLine$1__p1__I__I__I__I__V(-105, -148, 105, -148);
-  this.drawLine$1__p1__I__I__I__I__V(105, -148, 105, 148);
-  this.drawLine$1__p1__I__I__I__I__V(105, 148, -105, 148);
-  this.drawLine$1__p1__I__I__I__I__V(-105, 148, -105, -148);
+  this.view$1.clear__V();
   ScalaJS.m.Lcom_siigna_web_evaluating_Evaluator().eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(expr, ScalaJS.as.sci_Map(ScalaJS.m.s_Predef().Map$2.apply__sc_Seq__sc_GenMap(ScalaJS.m.sci_Nil())), printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
     return (function(error$2) {
       var error = ScalaJS.as.T(error$2);
@@ -2667,12 +2691,11 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.eval__Lcom_siigna_web_parsing_Expr__L
   })(this)))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.zoom__D__Lorg_scalajs_dom_MouseEvent__V = (function(level, e) {
-  var delta = (1 + (level * 0.15));
-  var mousePoint = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((ScalaJS.uI(e["clientX"]) - this.center__Lcom_siigna_web_Vector2D().x$1), (ScalaJS.uI(e["clientY"]) - this.center__Lcom_siigna_web_Vector2D().y$1));
-  this.context$1["translate"](mousePoint.x$1, mousePoint.y$1);
-  this.context$1["scale"](delta, delta);
-  this.context$1["translate"]((-mousePoint.x$1), (-mousePoint.y$1));
-  this.eval__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_Printer__V(this.lastAst$1, this.canvasPrinter$1)
+  this.view$1.zoom__D__D__D__V(level, ScalaJS.uI(e["clientX"]), ScalaJS.uI(e["clientY"]));
+  this.eval__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_Printer__V(this.lastAst$1, this.view$1)
+});
+ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$init__O = (function() {
+  return (this.view$1.init__V(), (void 0))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.toggleRepl__Z = (function() {
   this.activeRepl$1 = (!this.activeRepl$1);
@@ -2680,9 +2703,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.toggleRepl__Z = (function() {
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$zoom__D__Lorg_scalajs_dom_MouseEvent__O = (function(level, e) {
   return (this.zoom__D__Lorg_scalajs_dom_MouseEvent__V(level, e), (void 0))
-});
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$clear__O = (function() {
-  return (this.clear__V(), (void 0))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$printPdf__T__O = (function(name) {
   return (this.printPdf__T__V(name), (void 0))
@@ -2696,27 +2716,10 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.printPdf__T__V = (function(name) {
   printer.save__T__V(name)
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.eval__T__V = (function(code) {
-  this.eval__s_util_Either__Lcom_siigna_web_Printer__V(this.parse__T__s_util_Either(code), this.canvasPrinter$1)
+  this.eval__s_util_Either__Lcom_siigna_web_Printer__V(this.parse__T__s_util_Either(code), this.view$1)
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displayError__T__V = (function(error) {
   this.debug$1["innerHTML"] = error
-});
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype.clear__V = (function() {
-  this.context$1["save"]();
-  this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
-  this.context$1["fillStyle"] = "AliceBlue";
-  this.context$1["fillRect"](0.0, 0.0, ScalaJS.uI(this.canvas$1["width"]), ScalaJS.uI(this.canvas$1["height"]));
-  this.context$1["restore"]()
-});
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype.drawLine$1__p1__I__I__I__I__V = (function(x1, y1, x2, y2) {
-  this.context$1["beginPath"]();
-  this.context$1["moveTo"](x1, y1);
-  this.context$1["lineTo"](x2, y2);
-  this.context$1["stroke"]();
-  this.context$1["closePath"]()
-});
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype.center__Lcom_siigna_web_Vector2D = (function() {
-  return new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["right"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"])) * 0.5), ((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["bottom"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"])) * 0.5))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.lex__T__Lcom_siigna_web_lexing_LiveStream = (function(text) {
   var stream = ScalaJS.m.Lcom_siigna_web_lexing_LiveStream().apply__T__Lcom_siigna_web_lexing_LiveStream(text);
@@ -2746,8 +2749,8 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype["zoom"] = (function(arg$1, arg$2) {
   arg$2 = arg$2;
   return this.$$js$exported$meth$zoom__D__Lorg_scalajs_dom_MouseEvent__O(arg$1, arg$2)
 });
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype["clear"] = (function() {
-  return this.$$js$exported$meth$clear__O()
+ScalaJS.c.Lcom_siigna_web_Siigna.prototype["init"] = (function() {
+  return this.$$js$exported$meth$init__O()
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype["eval"] = (function(arg$1) {
   arg$1 = ScalaJS.as.T(arg$1);
