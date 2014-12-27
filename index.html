@@ -84,6 +84,7 @@ for (i <- -12 to 10) {
     var input  = document.getElementById("input");
     var toggleRun = document.getElementById("toggleRun");
     var toPdf = document.getElementById("toPdf");
+    var siigna = new Siigna(canvas, input, debug);
 
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
     canvas.width = container.offsetWidth / 2 - 20;
@@ -110,7 +111,6 @@ for (i <- -12 to 10) {
     }
 
     window.onload = function (e) {
-        var siigna = new Siigna(canvas, input, debug);
 
         siigna.eval(input.value);
         toggleRun.onclick = function (e) {
