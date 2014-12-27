@@ -2530,12 +2530,15 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.init___ = (function() {
   return this
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
-  var v1 = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x1, y1);
-  var v2 = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x2, y2);
+  var v1 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x1, y1));
+  var v2 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x2, y2));
   this.document$1["line"](v1.x$1, v1.y$1, v2.x$1, v2.y$1)
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.save__T__V = (function(name) {
   this.document$1["save"](name)
+});
+ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(v) {
+  return v.$$plus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(105.0, 147.0))
 });
 ScalaJS.is.Lcom_siigna_web_PdfPrinter = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_PdfPrinter)))
@@ -2664,7 +2667,7 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.eval__Lcom_siigna_web_parsing_Expr__L
   })(this)))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.zoom__D__Lorg_scalajs_dom_MouseEvent__V = (function(level, e) {
-  var delta = (1 + (level * 0.05));
+  var delta = (1 + (level * 0.15));
   var mousePoint = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((ScalaJS.uI(e["clientX"]) - this.center__Lcom_siigna_web_Vector2D().x$1), (ScalaJS.uI(e["clientY"]) - this.center__Lcom_siigna_web_Vector2D().y$1));
   this.context$1["translate"](mousePoint.x$1, mousePoint.y$1);
   this.context$1["scale"](delta, delta);
@@ -2836,6 +2839,9 @@ ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.productElement__I__O = (function(x$
 });
 ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.toString__T = (function() {
   return ScalaJS.m.sr_ScalaRunTime().$$undtoString__s_Product__T(this)
+});
+ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.$$plus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(other) {
+  return new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((this.x$1 + other.x$1), (this.y$1 + other.y$1))
 });
 ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.init___D__D = (function(x, y) {
   this.x$1 = x;

@@ -17,7 +17,7 @@ class PdfPrinter extends Printer {
 
   private def transform(v : Vector2D): Vector2D = {
     // Todo: Transform by moving (0, 0) to center of paper
-    v
+    v + Vector2D(105,147)
   }
 
   def save(name : String): Unit = {

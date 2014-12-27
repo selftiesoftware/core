@@ -35,9 +35,11 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   def center = Vector2D((canvas.getBoundingClientRect().right + canvas.getBoundingClientRect().left) * 0.5,
                         (canvas.getBoundingClientRect().bottom + canvas.getBoundingClientRect().top) * 0.5)
 
+
+
   @JSExport
   def zoom(level : Double, e : MouseEvent) = {
-    val delta = 1 + (level * 0.05)
+    val delta = 1 + (level * 0.15)
     val mousePoint = Vector2D(e.clientX - center.x, e.clientY - center.y)
     context.translate(mousePoint.x, mousePoint.y)
     context.scale(delta, delta)
