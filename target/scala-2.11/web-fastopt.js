@@ -2485,15 +2485,15 @@ ScalaJS.h.Lcom_siigna_web_CanvasView = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_CanvasView.prototype = ScalaJS.c.Lcom_siigna_web_CanvasView.prototype;
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init__V = (function() {
+  this.context$1["translate"](((ScalaJS.uI(this.canvas$1["width"]) / 2) | 0), ((ScalaJS.uI(this.canvas$1["height"]) / 2) | 0))
+});
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
   this.context$1["beginPath"]();
   this.context$1["moveTo"](x1, y1);
   this.context$1["lineTo"](x2, y2);
   this.context$1["stroke"]();
   this.context$1["closePath"]()
-});
-ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init__V = (function() {
-  this.context$1["translate"](((ScalaJS.uI(this.canvas$1["width"]) / 2) | 0), ((ScalaJS.uI(this.canvas$1["height"]) / 2) | 0))
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.drawPaper__V = (function() {
   var pH = ScalaJS.imul(this.paperH$1, 2);
