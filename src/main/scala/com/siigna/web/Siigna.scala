@@ -4,8 +4,11 @@ import com.siigna.web.evaluating.Evaluator
 import com.siigna.web.lexing.{Token, LiveStream, Lexer}
 import com.siigna.web.parsing.{UnitExpr, Expr, Parser}
 import org.scalajs.dom._
+import org.scalajs.dom.extensions.Ajax
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 
 import scala.scalajs.js
+import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExport
 
 /**
@@ -60,6 +63,8 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   @JSExport
   def init() : Unit = {
     view.init()
+    val f = Ajax.get("http://localhost:8080/get/readme.md")
+    f.foreach(println)
   }
 
   @JSExport
