@@ -2519,8 +2519,8 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init__V = (function() {
   this.context$1["translate"](((ScalaJS.uI(this.canvas$1["width"]) / 2) | 0), ((ScalaJS.uI(this.canvas$1["height"]) / 2) | 0))
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.drawPaper__V = (function() {
-  var pH = ScalaJS.imul(this.paperH$1, 2);
-  var pW = ScalaJS.imul(this.paperW$1, 2);
+  var pH = this.paperH$1;
+  var pW = this.paperW$1;
   this.context$1["fillStyle"] = "White";
   this.context$1["fillRect"]((((-pH) / 2) | 0), (((-pW) / 2) | 0), pH, pW);
   this.line__D__D__D__D__V((((-pH) / 2) | 0), (((-pW) / 2) | 0), ((pH / 2) | 0), (((-pW) / 2) | 0));
@@ -2881,13 +2881,13 @@ ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.productElement__I__O = (function(x$
 ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.toString__T = (function() {
   return ScalaJS.m.sr_ScalaRunTime().$$undtoString__s_Product__T(this)
 });
+ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.$$plus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(other) {
+  return new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((this.x$1 + other.x$1), (this.y$1 + other.y$1))
+});
 ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.init___D__D = (function(x, y) {
   this.x$1 = x;
   this.y$1 = y;
   return this
-});
-ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.$$plus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(other) {
-  return new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D((this.x$1 + other.x$1), (this.y$1 + other.y$1))
 });
 ScalaJS.c.Lcom_siigna_web_Vector2D.prototype.hashCode__I = (function() {
   var acc = -889275714;

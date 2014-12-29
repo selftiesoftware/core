@@ -30,7 +30,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
   }
 
   //TODO: allow setting a fixed paper scale in the script: eg. by typing "paperScale = 2
-  def calcPaperScale = 2
+  def calcPaperScale = 1
 
   def drawPaper() : Unit = {
     //TODO: re-scale paper to match current print-scale (depending on the bounding box of the artwork present)
