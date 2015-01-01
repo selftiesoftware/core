@@ -9,15 +9,20 @@ class PdfPrinter extends Printer {
 
   val document = js.Dynamic.global.jsPDF()
 
+  def circle(x : Double, y : Double, r : Double) : Unit = {
+    val v = transform(Vector2D(x, y))
+    document.circle(v.x,v.y,r)
+  }
+
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : Unit = {
     val v1 = transform(Vector2D(x1, y1))
     val v2 = transform(Vector2D(x2, y2))
     document.line(v1.x, v1.y, v2.x, v2.y)
   }
 
-  def circle(x : Double, y : Double, r : Double) : Unit = {
+  def text(x : Double, y : Double, h : Double) : Unit = {
     val v = transform(Vector2D(x, y))
-    document.circle(v.x,v.y,r)
+    document.text(v.x,v.y,h)
   }
 
   private def transform(v : Vector2D): Vector2D = {
