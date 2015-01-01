@@ -73,7 +73,7 @@ object Evaluator {
       case ImportExpr(name) =>
         var result : Value = Left(s"Failed to fetch script $name")
         // This will be a blocking call because we use the runNow context
-        val f = Ajax.get("http://localhost:20004/get/" + name.name).onComplete {
+        val f = Ajax.get("http://siigna.com:20004/get/" + name.name).onComplete {
           case Success(c) => Parser.parse(Lexer.lex(c.responseText)) match {
             case Right(expr) => result = eval(expr, env, printer)
             case Left(error) => result = Left(s"Script $name failed to compile with error: $error")
