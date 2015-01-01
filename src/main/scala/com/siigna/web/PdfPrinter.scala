@@ -16,12 +16,12 @@ class PdfPrinter extends Printer {
   }
 
   private def transform(v : Vector2D): Vector2D = {
+    //TODO: use a calculated paper scale...
+    val paperScale = 1
     //scale the artwork based on the current paper scale
-    val vec =  Vector2D(v.x / 2,v.y / 2)
+    val vec =  Vector2D(v.x / paperScale,v.y / paperScale)
     //Transform by moving (0, 0) to center of paper
     vec + Vector2D(105,147)
-
-
 
   }
 
