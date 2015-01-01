@@ -46,8 +46,8 @@
 
 #variables to customize the minute paper
 scale = 500000
-speedMin = 40
-speedMax = 80
+speedMin = 100
+speedMax = 160
 yStart = -110 # y-coord of the first speed line
 
 dist = speedMax - speedMin
@@ -93,6 +93,11 @@ line -80 yStart 80 yStart #last speed line
 text -90 130 5 speedMax #last speed text
 text -89 -130 6 1 #show the minute paper scale
 text -80 -130 6 scale #show the minute paper scale
+
+#5cm: use to x-check the size of the printed minute paper with a ruler
+line 95 60 95 70
+line 95 80 95 90
+line 95 100 95 110
 </textarea>
             <div class="row">
                 <button id="toggleRun" class="twelve columns" title="Enable/disable automatic evaluation of the code">
