@@ -9,7 +9,6 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
-import scala.scalajs.js.annotation.JSExport
 
 /**
  * The entry point for compiling and evaluating siigna code
@@ -63,8 +62,6 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   @JSExport
   def init() : Unit = {
     view.init()
-    val f = Ajax.get("http://localhost:8080/get/readme.md")
-    f.foreach(println)
   }
 
   @JSExport
@@ -82,15 +79,8 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
     Evaluator.eval(expr, Map(), printer).fold(error => displayError(s"Failure during evaluation: $error"), _ => displaySuccess())
   }
 
-  def lex(text : String) : LiveStream[Token] = {
-    val stream = LiveStream(text)
-    val lexer = new Lexer()
-    lexer.lex(stream)
-    lexer.output
-  }
-
   def parse(code : String): Either[String, Expr] = {
-    Parser.parse(lex(code))
+    Parser.parse(Lexer.lex(code))
   }
 
   def displayError(error : String): Unit = {
