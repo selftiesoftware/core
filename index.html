@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Siigna - Online parametric design</title>
+    <title>Internet Of Digital Design</title>
     <meta name="description" content="Language for CAD">
     <meta name="author" content="Selftie Software">
 
@@ -32,7 +32,7 @@
 <div class="container" id="container">
 
     <div class="row">
-        <h2>online parametric design</h2>
+        <h2>Internet of Digital Design</h2>
     </div>
 
     <div class="row">
@@ -41,7 +41,8 @@
             </div>
         <div class="five columns">
 <textarea id="input" class="twelve columns">
-/* welcome to Siigna. Quick help:
+/* this is a WIP of a mock-up of our concept for what we call the "Internet of Digital Design" (IDD) .
+    Please read through this quick intro:
 NAVIGATION: pan and zoom with the mouse center wheel
 DRAWING: Currently lines and circles are supported
 COMMENTING: anything within dash and * is ignored.
@@ -108,7 +109,7 @@ for i <- -4 to 4 {
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
         siigna.zoom(delta, e);
 
-        // Stop the scroll from happening
+        // Stop scroll from happening
         if (e.preventDefault)
             e.preventDefault();
         return false;
@@ -135,7 +136,7 @@ for i <- -4 to 4 {
         };
 
         toPdf.onclick = function (e) {
-            siigna.printPdf("Test.siigna.pdf");
+            siigna.printPdf("IOD_2d_print.pdf");
         }
     };
 </script>

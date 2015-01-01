@@ -62,6 +62,7 @@ object Evaluator {
             case "-" => Right(env -> (n1 - n2))
             case "+" => Right(env -> (n1 + n2))
             case "*" => Right(env -> (n1 * n2))
+            case "/" => Right(env -> (n1 / n2))
             case x => Left(s"Unknown arithmetic operator $x")
           }
         }))

@@ -10,6 +10,7 @@ import scala.scalajs.js
 class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
+  //todo: allow setting paper size as a variable in the script
   val paperH = 210
   val paperW = 297
 
@@ -29,10 +30,25 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.translate(canvas.width / 2, canvas.height / 2)
   }
 
+  //TODO: dynamically change calcPaperScale if artwork is larger than A4 in 1:1
   //TODO: allow setting a fixed paper scale in the script: eg. by typing "paperScale = 2
-  def calcPaperScale = 1
+  var calcPaperScale = {
+    //canvas.width is not the right value- it is not based on the artwork's bounding box (which is dynamic)..how to get that?
+    var w = canvas.width
+    var h = canvas.height
+
+    var scale = {
+      if (w < h) {
+        h/297
+      } else {
+        w/297
+      }
+    }
+    scale
+  }
 
   def drawPaper() : Unit = {
+
     //TODO: re-scale paper to match current print-scale (depending on the bounding box of the artwork present)
 
     val pH = paperH * calcPaperScale
@@ -63,7 +79,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
   }
 
   def zoom(level : Double, pointX : Double, pointY : Double) : Unit = {
-    val delta = 1 + (level * 0.15)
+    val delta = 1 + (level * 0.05)
     val mousePoint = Vector2D(pointX - center.x, pointY - center.y)
     context.translate(mousePoint.x, mousePoint.y)
     context.scale(delta, delta)
