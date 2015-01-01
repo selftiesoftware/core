@@ -27,6 +27,10 @@ object Parser {
   def parse(tokens: LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
     tokens match {
 
+      // Import
+      case SymbolToken("import") :~: SymbolToken(library) :~: tail =>
+        success(ImportExpr(RefExpr(library)), tail)
+
       case SymbolToken("circle") :~: tail =>
         parse(tail, (centerX, t1) =>
           parse(t1, (centerY, t2) =>

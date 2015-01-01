@@ -1,7 +1,11 @@
 package com.siigna.web.evaluating
 
 import com.siigna.web.Printer
+import com.siigna.web.lexing.Lexer
 import com.siigna.web.parsing._
+import org.scalajs.dom.extensions.Ajax
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
+import scala.util.Success
 
 /**
  * An evaluator to evaluate a given list of [[Expr]] on the
@@ -65,6 +69,18 @@ object Evaluator {
             case x => Left(s"Unknown arithmetic operator $x")
           }
         }))
+
+      case ImportExpr(name) =>
+        var result : Value = Left(s"Failed to fetch script $name")
+        // This will be a blocking call because we use the runNow context
+        val f = Ajax.get("http://localhost:20004/get/" + name.name).onComplete {
+          case Success(c) => Parser.parse(Lexer.lex(c.responseText)) match {
+            case Right(expr) => result = eval(expr, env, printer)
+            case Left(error) => result = Left(s"Script $name failed to compile with error: $error")
+          }
+          case fail => result = Left(s"Failed to import $name: $fail")
+        }
+        result
 
       case RangeExpr(name, from, to) =>
         val fromOption = env.get(name).map {
