@@ -35,10 +35,10 @@ object Evaluator {
         )
 
       case LineExpr(e1, e2, e3, e4) =>
-        getValue[Int](e1, env, printer).right.flatMap(x1 =>
-          getValue[Int](e2, env, printer).right.flatMap(y1 =>
-            getValue[Int](e3, env, printer).right.flatMap(x2 =>
-              getValue[Int](e4, env, printer).right.flatMap(y2 => {
+        getValue[Double](e1, env, printer).right.flatMap(x1 =>
+          getValue[Double](e2, env, printer).right.flatMap(y1 =>
+            getValue[Double](e3, env, printer).right.flatMap(x2 =>
+              getValue[Double](e4, env, printer).right.flatMap(y2 => {
                 printer.line(x1, y1, x2, y2)
                 Right(env -> Unit)
               })

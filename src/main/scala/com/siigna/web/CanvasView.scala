@@ -85,15 +85,13 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   override def text(x: Double, y: Double, h: Double, t: Double): Unit = {
     val myFont = h.toString() + "px Georgia bold italic"
-
-      context.font = myFont
-      context.fillStyle = "black"
-      //context.font(1)
-      //context.textAlign("left")
-      //context.textBaseline("bottom")
-      context.fillText(t.toString(), x, y)
+    context.font = myFont
+    context.fillStyle = "black"
+    //context.font(1)
+    //context.textAlign("left")
+    //context.textBaseline("bottom")
+    context.fillText(t.toString(), x, y)
   }
-
 
   def translate(x : Double, y : Double) : Unit = {
     context.translate(x, y)

@@ -41,26 +41,58 @@
             </div>
         <div class="five columns">
 <textarea id="input" class="twelve columns">
-/* this is a WIP of a mock-up of our concept for what we call the "Internet of Digital Design" (IDD) .
-    Please read through this quick intro:
-NAVIGATION: pan and zoom with the mouse center wheel
-DRAWING: Currently lines and circles are supported
-COMMENTING: anything within dash and * is ignored.
-COMPILATION: real-time unless 'stop' is pressed
-PRINTING: PDF (A4) currently scale 1:1 is supported
-SAVING TO PNG: Right click and choose "save image as"
+#SCRIPT-EXAMPLE:
+#minute paper: used by pilots - one minute between each line
 
-The sample script below shows how a for-loop is used:
+#variables to customize the minute paper
+scale = 500000
+speedMin = 40
+speedMax = 80
+yStart = -110 # y-coord of the first speed line
 
-*/
+dist = speedMax - speedMin
+distance = 250 / dist
 
-for i <- -4 to 4 {
-    for j <- -5 to 8 {
-        line -90 j * 18 90 i * 27
-    }
+for i <- speedMin to speedMax {
+  y1 = yStart
+  y2 = yStart + distance
+
+  speed1 = i * 1852
+  speed1div = speed1
+  speed1min = speed1div / 6
+  speed1mm = speed1min * 100
+
+  plusOne = i + 1
+  speed2 = plusOne * 1852
+  speed2div = speed2
+  speed2min = speed2div / 6
+  speed2mm = speed2min * 100
+
+  # scale down to the paper scale
+  scaleDiv = scale / 10
+  s1 = speed1mm / scaleDiv
+  s2 = speed2mm / scaleDiv
+
+  #minute lines
+  min = -720 / s1
+  max = 800 / s1
+  for j <- min to max {
+    spacing1 = j * s1
+    spacing2 = j * s2
+    line spacing1 / 10 y1 spacing2 / 10 y2
+  }
+
+  line -80 y1 80 y1 #speed lines
+
+  text -90 y1 5 i #show knots
+
+  yStart = yStart + distance
 }
 
-
+line -80 yStart 80 yStart #last speed line
+text -90 130 5 speedMax #last speed text
+text -89 -130 6 1 #show the minute paper scale
+text -80 -130 6 scale #show the minute paper scale
 </textarea>
             <div class="row">
                 <button id="toggleRun" class="twelve columns" title="Enable/disable automatic evaluation of the code">

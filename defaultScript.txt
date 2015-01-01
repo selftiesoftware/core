@@ -1,0 +1,24 @@
+/* this is a WIP of a mock-up of our concept for what we call the "Internet of Digital Design" (IDD) .
+    Please read through this quick intro:
+NAVIGATION: pan and zoom with the mouse center wheel
+DRAWING: Currently lines, text, and circles are supported
+COMMENTING: anything within dash and * is ignored.
+COMPILATION: real-time unless 'stop' is pressed
+PRINTING: PDF (A4) currently scale 1:1 is supported
+SAVING TO PNG: Right click and choose "save image as..."
+*/
+
+#draw a line from (-80,80) to (80,80):
+line -80 80 80 80
+
+#draw a text with the text height 8, reading "10" (currently text can be only numbers, not characters:
+text 0 -82 8 10
+
+The sample script below shows how a for-loop is used:
+
+
+for i <- -2 to 3 {
+    for j <- -2 to 8 {
+        line -90 j * 18 90 i * 27
+    }
+}
