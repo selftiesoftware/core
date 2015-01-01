@@ -2,6 +2,7 @@ package com.siigna.web
 
 import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
 import scala.scalajs.js
+import scala.scalajs.js.Math
 
 /**
  * A view that renders to a HTML5 canvas
@@ -70,6 +71,14 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.beginPath()
     context.moveTo(x1, y1)
     context.lineTo(x2, y2)
+    context.stroke()
+    context.closePath()
+  }
+
+  override def circle(x: Double, y: Double, r: Double): Unit = {
+    context.beginPath()
+    context.arc(x, y, r, 0, 2 * Math.PI, false)
+    context.lineWidth = 1
     context.stroke()
     context.closePath()
   }

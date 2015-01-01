@@ -2509,6 +2509,9 @@ ScalaJS.h.Lcom_siigna_web_CanvasView = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_CanvasView.prototype = ScalaJS.c.Lcom_siigna_web_CanvasView.prototype;
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init__V = (function() {
+  this.context$1["translate"](((ScalaJS.uI(this.canvas$1["width"]) / 2) | 0), ((ScalaJS.uI(this.canvas$1["height"]) / 2) | 0))
+});
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
   this.context$1["beginPath"]();
   this.context$1["moveTo"](x1, y1);
@@ -2516,8 +2519,12 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.line__D__D__D__D__V = (function(x
   this.context$1["stroke"]();
   this.context$1["closePath"]()
 });
-ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init__V = (function() {
-  this.context$1["translate"](((ScalaJS.uI(this.canvas$1["width"]) / 2) | 0), ((ScalaJS.uI(this.canvas$1["height"]) / 2) | 0))
+ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.circle__D__D__D__V = (function(x, y, r) {
+  this.context$1["beginPath"]();
+  this.context$1["arc"](x, y, r, 0.0, (2 * ScalaJS.uD(ScalaJS.g["Math"]["PI"])), false);
+  this.context$1["lineWidth"] = 1.0;
+  this.context$1["stroke"]();
+  this.context$1["closePath"]()
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.drawPaper__V = (function() {
   var pH = ScalaJS.imul(this.paperH$1, this.calcPaperScale$1);
@@ -2601,6 +2608,10 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x
   var v1 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x1, y1));
   var v2 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x2, y2));
   this.document$1["line"](v1.x$1, v1.y$1, v2.x$1, v2.y$1)
+});
+ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
+  var v = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y));
+  this.document$1["circle"](v.x$1, v.y$1, r)
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.save__T__V = (function(name) {
   this.document$1["save"](name)
@@ -14243,9 +14254,9 @@ ScalaJS.h.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1 = (function() {
 });
 ScalaJS.h.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1.prototype = ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1.prototype;
 ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1.prototype.apply__O__O = (function(v1) {
-  ScalaJS.uI(v1);
+  var x = ScalaJS.uI(v1);
   var this$1 = ScalaJS.m.Lcom_siigna_web_evaluating_Evaluator().getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(this.centerY$1$2, this.env$1$f, this.printer$1$f, ScalaJS.m.s_reflect_ManifestFactory().Int$1);
-  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1().init___Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1(this))
+  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1().init___Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1__I(this, x))
 });
 ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1.prototype.init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr = (function(env$1, printer$1, centerY$1, radius$1) {
   this.env$1$f = env$1;
@@ -14280,7 +14291,8 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1.prototype.$classD
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
-  this.$$outer$2 = null
+  this.$$outer$2 = null;
+  this.x$3$f = 0
 });
 ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1.prototype = new ScalaJS.h.sr_AbstractFunction1();
 ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1.prototype.constructor = ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1;
@@ -14290,25 +14302,27 @@ ScalaJS.h.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1 
 });
 ScalaJS.h.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1.prototype = ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1.prototype;
 ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1.prototype.apply__O__O = (function(v1) {
-  ScalaJS.uI(v1);
+  var y = ScalaJS.uI(v1);
   var this$1 = ScalaJS.m.Lcom_siigna_web_evaluating_Evaluator().getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(this.$$outer$2.radius$1$f, this.$$outer$2.env$1$f, this.$$outer$2.printer$1$f, ScalaJS.m.s_reflect_ManifestFactory().Int$1);
-  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
+  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, y$1) {
     return (function(radiusValue$2) {
-      ScalaJS.uI(radiusValue$2);
+      var radiusValue = ScalaJS.uI(radiusValue$2);
+      arg$outer.$$outer$2.printer$1$f.circle__D__D__D__V(arg$outer.x$3$f, y$1, radiusValue);
       ScalaJS.m.s_package().Right$1;
       var $$this = arg$outer.$$outer$2.env$1$f;
-      var y$1 = ScalaJS.m.s_Unit();
-      var b = new ScalaJS.c.T2().init___O__O($$this, y$1);
+      var y$2 = ScalaJS.m.s_Unit();
+      var b = new ScalaJS.c.T2().init___O__O($$this, y$2);
       return new ScalaJS.c.s_util_Right().init___O(b)
     })
-  })(this)))
+  })(this, y)))
 });
-ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1.prototype.init___Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1 = (function($$outer) {
+ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1.prototype.init___Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1__I = (function($$outer, x$3) {
   if (($$outer === null)) {
     throw ScalaJS.unwrapJavaScriptException(null)
   } else {
     this.$$outer$2 = $$outer
   };
+  this.x$3$f = x$3;
   return this
 });
 ScalaJS.is.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1 = (function(obj) {

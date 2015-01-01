@@ -24,6 +24,7 @@ object Evaluator {
 //              context.lineWidth = 1
 //              context.stroke()
 //              context.closePath()
+                printer.circle(x,y,radiusValue)
               Right(env -> Unit)
             })
           )

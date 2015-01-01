@@ -15,6 +15,11 @@ class PdfPrinter extends Printer {
     document.line(v1.x, v1.y, v2.x, v2.y)
   }
 
+  def circle(x : Double, y : Double, r : Double) : Unit = {
+    val v = transform(Vector2D(x, y))
+    document.circle(v.x,v.y,r)
+  }
+
   private def transform(v : Vector2D): Vector2D = {
     //TODO: use a calculated paper scale...
     val paperScale = 1
