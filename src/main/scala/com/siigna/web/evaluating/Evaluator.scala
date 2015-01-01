@@ -46,13 +46,15 @@ object Evaluator {
           )
         )
 
-      case TextExpr(centerX, centerY, height) =>
+      case TextExpr(centerX, centerY, height, text) =>
         getValue[Int](centerX, env, printer).right.flatMap(x =>
           getValue[Int](centerY, env, printer).right.flatMap(y =>
-            getValue[Int](height, env, printer).right.flatMap(heightValue => {
-              printer.text(x,y,heightValue)
-              Right(env -> Unit)
-            })
+            getValue[Int](height, env, printer).right.flatMap(heightValue =>
+              getValue[Int](text, env, printer).right.flatMap(textValue => {
+                printer.text(x,y,heightValue,textValue)
+                Right(env -> Unit)
+              })
+            )
           )
         )
 

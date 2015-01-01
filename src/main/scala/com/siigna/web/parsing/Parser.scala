@@ -51,7 +51,9 @@ object Parser {
       case SymbolToken("text") :~: tail =>
         parse(tail, (centerX, t1) =>
           parse(t1, (centerY, t2) =>
-            parse(t2, (height, t3) => success(TextExpr(centerX, centerY, height), t3), failure),
+            parse(t2, (height, t3) =>
+              parse(t3, (text, t4) => success(TextExpr(centerX, centerY, height, text), t4), failure),
+              failure),
             failure),
           failure)
 
