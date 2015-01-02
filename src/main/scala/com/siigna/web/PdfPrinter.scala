@@ -22,7 +22,7 @@ class PdfPrinter extends Printer {
 
   def text(x : Double, y : Double, h : Double, t : Double) : Unit = {
     val v = transform(Vector2D(x, y))
-    document.setFontSize(h)
+    document.setFontSize(h * 2)
     document.text(v.x,v.y,t.toString())
   }
 

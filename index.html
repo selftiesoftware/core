@@ -49,6 +49,7 @@ scale = 500000
 speedMin = 100
 speedMax = 160
 yStart = -110 # y-coord of the first speed line
+textSize = 4
 
 dist = speedMax - speedMin
 distance = 250 / dist
@@ -84,13 +85,13 @@ for i <- speedMin to speedMax {
 
   line -80 y1 80 y1 #speed lines
 
-  text -90 y1 5 i #show knots
+  text -90 y1 textSize i #show knots
 
   yStart = yStart + distance
 }
 
 line -80 yStart 80 yStart #last speed line
-text -90 130 5 speedMax #last speed text
+text -90 130 textSize speedMax #last speed text
 text -89 -130 6 1 #show the minute paper scale
 text -80 -130 6 scale #show the minute paper scale
 
@@ -98,6 +99,7 @@ text -80 -130 6 scale #show the minute paper scale
 line 90 60 90 70
 line 90 80 90 90
 line 90 100 90 110
+
 </textarea>
             <div class="row">
                 <button id="toggleRun" class="twelve columns" title="Enable/disable automatic evaluation of the code">
