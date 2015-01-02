@@ -32,7 +32,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
   }
 
   //TODO: dynamically change calcPaperScale if artwork is larger than A4 in 1:1
-  //TODO: allow setting a fixed paper scale in the script: eg. by typing "paperScale = 2
+  //TODO: allow setting a fixed paper scale in the script: eg. by setting a variable "paperScale = 2
   var calcPaperScale = {
     //canvas.width is not the right value- it is not based on the artwork's bounding box (which is dynamic)..how to get that?
     var w = canvas.width
@@ -72,19 +72,21 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.moveTo(x1, y1)
     context.lineTo(x2, y2)
     context.stroke()
+    context.lineWidth = 0.2
     context.closePath()
   }
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
     context.beginPath()
     context.arc(x, y, r, 0, 2 * Math.PI, false)
-    context.lineWidth = 1
+    context.lineWidth = 0.2
     context.stroke()
     context.closePath()
   }
 
   override def text(x: Double, y: Double, h: Double, t: Double): Unit = {
-    val myFont = h.toString() + "px Georgia bold italic"
+    val correctedH = h / 1.5
+    val myFont = correctedH.toString() + "px Arial"
     context.font = myFont
     context.fillStyle = "black"
     //context.font(1)
@@ -98,7 +100,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
   }
 
   def zoom(level : Double, pointX : Double, pointY : Double) : Unit = {
-    val delta = 1 + (level * 0.05)
+    val delta = 1 + (level * 0.15)
     val mousePoint = Vector2D(pointX - center.x, pointY - center.y)
     context.translate(mousePoint.x, mousePoint.y)
     context.scale(delta, delta)

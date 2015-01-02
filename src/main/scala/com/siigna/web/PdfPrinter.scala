@@ -17,6 +17,7 @@ class PdfPrinter extends Printer {
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : Unit = {
     val v1 = transform(Vector2D(x1, y1))
     val v2 = transform(Vector2D(x2, y2))
+    document.setLineWidth(0.02)
     document.line(v1.x, v1.y, v2.x, v2.y)
   }
 
