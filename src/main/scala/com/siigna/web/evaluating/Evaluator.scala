@@ -23,12 +23,7 @@ object Evaluator {
         getValue[Int](centerX, env, printer).right.flatMap(x =>
           getValue[Int](centerY, env, printer).right.flatMap(y =>
             getValue[Int](radius, env, printer).right.flatMap(radiusValue => {
-//              context.beginPath()
-//              context.arc(x, y, radiusValue, 0, 2 * Math.PI, false)
-//              context.lineWidth = 1
-//              context.stroke()
-//              context.closePath()
-                printer.circle(x,y,radiusValue)
+              printer.circle(x,y,radiusValue)
               Right(env -> Unit)
             })
           )
@@ -59,6 +54,8 @@ object Evaluator {
         )
 
       case ConstantExpr(value) => Right(env -> value)
+
+      case MessageExpr(value) => Right(env -> value)
 
       case CompExpr(e1, e2, op) =>
         eval(e1, env, printer).fold(e => Left(e), v1 => eval(e2, v1._1, printer).fold(e => Left(e), v2 => {
