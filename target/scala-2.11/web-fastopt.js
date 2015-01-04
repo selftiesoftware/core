@@ -2877,9 +2877,8 @@ ScalaJS.h.Lcom_siigna_web_Siigna = (function() {
 ScalaJS.h.Lcom_siigna_web_Siigna.prototype = ScalaJS.c.Lcom_siigna_web_Siigna.prototype;
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init__V = (function() {
   this.view$1.init__V();
-  this.com$siigna$web$Siigna$$input$f["value"] = this.drawing$1.content$1;
-  ScalaJS.m.Lcom_siigna_web_Drawing().setHashListener__F1__V(new ScalaJS.c.Lcom_siigna_web_Siigna$$anonfun$init$1().init___Lcom_siigna_web_Siigna(this));
-  this.run__V()
+  this.loadDrawing__Lcom_siigna_web_Drawing__V(this.drawing$1);
+  ScalaJS.m.Lcom_siigna_web_Drawing().setHashListener__F1__V(new ScalaJS.c.Lcom_siigna_web_Siigna$$anonfun$init$1().init___Lcom_siigna_web_Siigna(this))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displaySuccess__V = (function() {
   this.debug$1["innerHTML"] = ""
@@ -2965,6 +2964,7 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$zoom__D__Lorg_scal
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.loadDrawing__Lcom_siigna_web_Drawing__V = (function(drawing) {
   this.drawing$1 = drawing;
   this.com$siigna$web$Siigna$$input$f["value"] = drawing.content$1;
+  ScalaJS.g["window"]["location"]["hash"] = drawing.name$1;
   this.run__V()
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$printPdf__T__O = (function(name) {

@@ -63,18 +63,18 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   @JSExport
   def init() : Unit = {
     view.init()
-    input.value = drawing.content
+    loadDrawing(drawing)
     Drawing.setHashListener(hash => {
       Drawing.get(hash).fold(displayError, drawing => {
         loadDrawing(drawing)
       })
     })
-    run()
   }
 
   def loadDrawing(drawing : Drawing) : Unit = {
     this.drawing = drawing
     input.value = drawing.content
+    window.location.hash = drawing.name
     run()
   }
 
