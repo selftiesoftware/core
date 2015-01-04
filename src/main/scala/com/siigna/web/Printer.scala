@@ -20,7 +20,7 @@ trait Printer {
    * @param h Height
    * @param t Text
    */
-  def text(x : Double, y : Double, h : Double, t : String)
+  def text(x : Double, y : Double, h : Double, t : Any)
 
   /**
    * Draws a line

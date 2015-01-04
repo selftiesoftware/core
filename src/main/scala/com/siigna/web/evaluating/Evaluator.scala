@@ -48,7 +48,7 @@ object Evaluator {
         getValue[Int](centerX, env, printer).right.flatMap(x =>
           getValue[Int](centerY, env, printer).right.flatMap(y =>
             getValue[Int](height, env, printer).right.flatMap(heightValue =>
-              getValue[String](text, env, printer).right.flatMap(textValue => {
+              getValue[Any](text, env, printer).right.flatMap(textValue => {
                 printer.text(x,y,heightValue,textValue)
                 Right(env -> Unit)
               })
