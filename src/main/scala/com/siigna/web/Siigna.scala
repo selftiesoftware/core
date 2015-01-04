@@ -21,6 +21,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
 
   val view = new CanvasView(canvas)
 
+  var drawing : Drawing = Drawing()
   var mousePosition = Vector2D(0, 0)
   var mouseDown = false
   var lastAst : Expr = UnitExpr
@@ -37,9 +38,9 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   }
 
   input.onkeyup = (e : Event) => {
-    if (lastValue != input.value) {
-      lastValue = input.value
-      run(lastValue)
+    if (drawing.content != input.value) {
+      drawing = drawing.copy(content = input.value)
+      run()
     }
   }
 
@@ -63,12 +64,13 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   @JSExport
   def init() : Unit = {
     view.init()
-    run(input.value)
+    input.value = drawing.content
+    run()
   }
 
   @JSExport
-  def run(code : String) : Unit = {
-    Parser.parse(Lexer.lex(code))
+  def run() : Unit = {
+    Parser.parse(Lexer.lex(drawing.content))
           .fold(left => displayError("Error while reading code " + left),
             right => eval(right))
   }

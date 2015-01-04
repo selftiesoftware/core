@@ -52,7 +52,6 @@ object Parser {
           parse(t1, (centerY, t2) =>
             parse(t2, (height, t3) =>
               parse(t3, (text, t4) => {
-                println(text)
                 success(TextExpr(centerX, centerY, height, text), t4)}, failure),
               failure),
             failure),
