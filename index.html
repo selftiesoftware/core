@@ -33,15 +33,21 @@
 
     <div class="row">
         <h2>Internet of Digital Design</h2>
-    <p>read our <a href= "https://github.com/siigna/web/blob/master/IOD_manifest.pdf?raw=true">vision for the internet of digital design</a>
-     &nbsp follow us on <a href= "https://twitter.com/siigna_com">twitter</a>
-     &nbsp visit github to see the <a href= "https://github.com/siigna/">source code</a></p>
-
-    </p>
+    </div>
+    <div class="row">
+        <a class="button five columns" href="https://github.com/siigna/web/blob/master/IOD_manifest.pdf?raw=true">
+            <i class="fa fa-lg fa-chevron-circle-right"></i> About <i>'The internet of digital design'</i>
+        </a>
+        <a class="button three columns" href="https://twitter.com/siigna_com">
+            <i class="fa fa-lg fa-twitter"></i> Follow on twitter
+        </a>
+        <a class="button four columns" href= "https://github.com/siigna/">
+            <i class="fa fa-lg fa-github"></i> See the source code
+        </a>
     </div>
 
     <div class="row">
-        <div class="two columns">
+        <div class="one columns">
             <br/>
             <!-- git based script- and drawings library goes here...
 
@@ -114,8 +120,11 @@ line 90 100 90 110
 
 </textarea>
             <div class="row">
-                <button id="toggleRun" class="twelve columns" title="Enable/disable automatic evaluation of the code">
-                    <i class="fa fa-stop fa-lg"></i> Stop
+                <button id="Save" class="six columns" title="Store online">
+                    <i class="fa fa-save fa-lg"></i> Save online
+                </button>
+                <button id="toPdf" class="six columns">
+                    <i class="fa fa-file-pdf-o fa-lg"></i> Print to PDF
                 </button>
             </div>
             <div id="debug"></div>
@@ -123,10 +132,6 @@ line 90 100 90 110
 
         <div class="five columns">
             <canvas id="canvas"></canvas>
-            <div align="right">
-                <button id="toPdf"><i class="fa fa-file-pdf-o fa-lg"></i> Print to PDF</button>
-            </div>
-
         </div>
     </div>
 
@@ -175,16 +180,6 @@ line 90 100 90 110
 
     window.onload = function (e) {
         siigna.init();
-        siigna.eval(input.value);
-        toggleRun.onclick = function (e) {
-            var b = siigna.toggleRepl();
-            if (b) {
-                toggleRun.innerHTML = "<i class='fa fa-stop fa-lg'></i> Stop";
-                siigna.eval(input.value);
-            } else {
-                toggleRun.innerHTML = "<i class='fa fa-play fa-lg'></i> Run";
-            }
-        };
 
         toPdf.onclick = function (e) {
             siigna.printPdf("IOD_2d_print.pdf");

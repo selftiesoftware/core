@@ -24,7 +24,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   var mousePosition = Vector2D(0, 0)
   var mouseDown = false
   var lastAst : Expr = UnitExpr
-  var activeRepl = true
+  var lastValue : String = ""
 
   val mouseExit = (e : MouseEvent) => {
     mouseDown = false
@@ -33,12 +33,13 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   @JSExport
   def zoom(level : Double, e : MouseEvent) = {
     view.zoom(level, e.clientX, e.clientY)
-    eval(lastAst, view)
+    eval(lastAst)
   }
 
   input.onkeyup = (e : Event) => {
-    if (activeRepl) {
-      eval(input.value)
+    if (lastValue != input.value) {
+      lastValue = input.value
+      run(lastValue)
     }
   }
 
@@ -52,7 +53,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
       val newPosition = Vector2D(e.clientX, e.clientY)
       view.translate((newPosition - mousePosition).x, (newPosition - mousePosition).y)
       mousePosition = newPosition
-      eval(lastAst, view)
+      eval(lastAst)
     }
   }
 
@@ -62,25 +63,20 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   @JSExport
   def init() : Unit = {
     view.init()
+    run(input.value)
   }
 
   @JSExport
-  def eval(code : String) : Unit = {
-    eval(parse(code), view)
+  def run(code : String) : Unit = {
+    Parser.parse(Lexer.lex(code))
+      .fold(left => displayError("Error while reading code " + left),
+            right => eval(right))
   }
 
-  def eval(ast : Either[String, Expr], printer : Printer): Unit = {
-    ast.fold(error => displayError(s"Failure during parsing: $error"), success => eval(success, printer))
-  }
-
-  def eval(expr : Expr, printer : Printer) : Unit = {
+  def eval(expr : Expr) : Unit = {
     lastAst = expr
     view.clear()
-    Evaluator.eval(expr, Map(), printer).fold(error => displayError(s"Failure during evaluation: $error"), _ => displaySuccess())
-  }
-
-  def parse(code : String): Either[String, Expr] = {
-    Parser.parse(Lexer.lex(code))
+    Evaluator.eval(expr, Map(), view).fold(error => displayError(s"Failure during evaluation: $error"), _ => displaySuccess())
   }
 
   def displayError(error : String): Unit = {
@@ -96,12 +92,6 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
     val printer = new PdfPrinter()
     Evaluator.eval(lastAst, Map(), printer)
     printer.save(name)
-  }
-
-  @JSExport
-  def toggleRepl(): Boolean = {
-    activeRepl = !activeRepl
-    activeRepl
   }
 
 }

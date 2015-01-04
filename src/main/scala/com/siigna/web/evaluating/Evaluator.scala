@@ -8,7 +8,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 import scala.util.Success
 
 /**
- * An evaluator to evaluate a given list of [[Expr]] on the
+ * An evaluator to evaluate a list of [[Expr]]
  */
 object Evaluator {
 
