@@ -65,6 +65,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   @JSExport
   def init() : Unit = {
     view.init()
+    run(input.value)
   }
 
   @JSExport
