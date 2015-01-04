@@ -80,8 +80,9 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
 
   @JSExport
   def run() : Unit = {
-    Parser.parse(Lexer.lex(drawing.content))
-          .fold(left => displayError("Error while reading code " + left),
+    val ast = Parser.parse(Lexer.lex(drawing.content))
+      println(ast)
+          ast.fold(left => displayError("Error while reading code " + left),
             right => eval(right))
   }
 

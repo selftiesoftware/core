@@ -16,7 +16,8 @@ class Lexer extends NonblockingLexer[Char, Token] {
   // Abbreviations:
   private val ch = "#\\" ~ AnyChar
   private val id = (('A' thru 'Z') || ('a' thru 'z') || ('0' thru '9') || oneOf("-+/*_?%$#&^=!@<>:")).+
-  private val int = ("-"?) ~ ('0' thru '9').+
+  private val int    = ("-"?) ~ ('0' thru '9').+
+  private val double = ("-"?) ~ ('0' thru '9').+ ~ '.' ~ ('0' thru '9').+
   private val ws = oneOf(" \r\t\n").+ // whitespace
   private val com = "\\\\" ~ ((!oneOf("\r\n"))*) // single-line comment
   private val hashComment = "#" ~ ((!oneOf("\r\n"))*) // hashtag comments
@@ -52,6 +53,7 @@ class Lexer extends NonblockingLexer[Char, Token] {
   MAIN (ws)    { }
   MAIN (ch)    over { chars => emit(CharToken(chars(2))) }
   MAIN (int)   over { chars => emit(IntToken(Integer.parseInt(chars))) }
+  MAIN (double) over { chars => emit(DoubleToken(java.lang.Double.parseDouble(chars)))}
   MAIN (id)    over { chars => emit(SymbolToken(chars)) }
 
   // Strings
