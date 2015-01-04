@@ -31,11 +31,6 @@ object Parser {
       case SymbolToken("import") :~: SymbolToken(library) :~: tail =>
         success(ImportExpr(RefExpr(library)), tail)
 
-      //TODO: for parsing messages into text objects - not implemented.. now to get this into a TextExpr??
-      case SymbolToken("'") :~: tail =>
-        parse(tail, (message, t1) => success(MessageExpr(message), t1), failure)
-
-
       case SymbolToken("circle") :~: tail =>
         parse(tail, (centerX, t1) =>
           parse(t1, (centerY, t2) =>

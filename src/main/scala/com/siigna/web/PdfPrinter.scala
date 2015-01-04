@@ -21,11 +21,12 @@ class PdfPrinter extends Printer {
     document.line(v1.x, v1.y, v2.x, v2.y)
   }
 
-  def text(x : Double, y : Double, h : Double, t : Double) : Unit = {
+  def text(x : Double, y : Double, h : Double, t : String) : Unit = {
     val v = transform(Vector2D(x, y))
     //document.font("Arial")
     document.setFontSize(h * 2)
-    document.text(v.x,v.y,t.toString())
+    document(t)
+    //document.text(v.x,v.y,t.toString())
   }
 
   private def transform(v : Vector2D): Vector2D = {
