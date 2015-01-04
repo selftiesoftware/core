@@ -2656,7 +2656,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna = (function() {
   this.mouseDown$1 = false;
   this.lastAst$1 = null;
   this.lastValue$1 = null;
-  this.activeRepl$1 = false;
   this.mouseExit$1 = null
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype = new ScalaJS.h.O();
@@ -2666,8 +2665,9 @@ ScalaJS.h.Lcom_siigna_web_Siigna = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_Siigna.prototype = ScalaJS.c.Lcom_siigna_web_Siigna.prototype;
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$toggleRepl__O = (function() {
-  return this.toggleRepl__Z()
+ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init__V = (function() {
+  this.view$1.init__V();
+  this.run__T__V(ScalaJS.as.T(this.com$siigna$web$Siigna$$input$f["value"]))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displaySuccess__V = (function() {
   this.debug$1["innerHTML"] = ""
@@ -2680,7 +2680,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasEle
   this.mouseDown$1 = false;
   this.lastAst$1 = ScalaJS.m.Lcom_siigna_web_parsing_UnitExpr();
   this.lastValue$1 = "";
-  this.activeRepl$1 = true;
   this.mouseExit$1 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
     return (function(e$2) {
       arg$outer.mouseDown$1 = false
@@ -2688,11 +2687,9 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasEle
   })(this));
   input["onkeyup"] = (function(arg$outer$1) {
     return (function(e$2$1) {
-      if (arg$outer$1.activeRepl$1) {
-        if ((!ScalaJS.anyRefEqEq(arg$outer$1.lastValue$1, ScalaJS.as.T(arg$outer$1.com$siigna$web$Siigna$$input$f["value"])))) {
-          arg$outer$1.lastValue$1 = ScalaJS.as.T(arg$outer$1.com$siigna$web$Siigna$$input$f["value"]);
-          arg$outer$1.run__T__V(arg$outer$1.lastValue$1)
-        }
+      if ((!ScalaJS.anyRefEqEq(arg$outer$1.lastValue$1, ScalaJS.as.T(arg$outer$1.com$siigna$web$Siigna$$input$f["value"])))) {
+        arg$outer$1.lastValue$1 = ScalaJS.as.T(arg$outer$1.com$siigna$web$Siigna$$input$f["value"]);
+        arg$outer$1.run__T__V(arg$outer$1.lastValue$1)
       }
     })
   })(this);
@@ -2731,11 +2728,7 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.zoom__D__Lorg_scalajs_dom_MouseEvent_
   this.eval__Lcom_siigna_web_parsing_Expr__V(this.lastAst$1)
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$init__O = (function() {
-  return (this.view$1.init__V(), (void 0))
-});
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype.toggleRepl__Z = (function() {
-  this.activeRepl$1 = (!this.activeRepl$1);
-  return this.activeRepl$1
+  return (this.init__V(), (void 0))
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$zoom__D__Lorg_scalajs_dom_MouseEvent__O = (function(level, e) {
   return (this.zoom__D__Lorg_scalajs_dom_MouseEvent__V(level, e), (void 0))
@@ -2802,9 +2795,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype["run"] = (function(arg$1) {
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype["printPdf"] = (function(arg$1) {
   arg$1 = ScalaJS.as.T(arg$1);
   return this.$$js$exported$meth$printPdf__T__O(arg$1)
-});
-ScalaJS.c.Lcom_siigna_web_Siigna.prototype["toggleRepl"] = (function() {
-  return this.$$js$exported$meth$toggleRepl__O()
 });
 ScalaJS.is.Lcom_siigna_web_Siigna = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_Siigna)))

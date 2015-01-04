@@ -37,11 +37,9 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   }
 
   input.onkeyup = (e : Event) => {
-    if (activeRepl) {
-      if (lastValue != input.value) {
-        lastValue = input.value
-        run(lastValue)
-      }
+    if (lastValue != input.value) {
+      lastValue = input.value
+      run(lastValue)
     }
   }
 
