@@ -3197,8 +3197,8 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.getValue__Lcom_siigna_
   var a = new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Failed to read value from ", ", failed with: ", ""]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [expr, x1])));
   return new ScalaJS.c.s_util_Left().init___O(a)
 });
-ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.getCondition$1__p1__Lcom_siigna_web_Printer__sr_ObjectRef__sr_ObjectRef__Lcom_siigna_web_parsing_Expr__Z = (function(printer$1, loopEnv$1, lastError$1, x16$1) {
-  return ScalaJS.uZ(this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(x16$1, ScalaJS.as.sci_Map(loopEnv$1.elem$1), printer$1).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(lastError$1$1) {
+ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.getCondition$1__p1__Lcom_siigna_web_Printer__sr_ObjectRef__sr_ObjectRef__Lcom_siigna_web_parsing_Expr__Z = (function(printer$1, loopEnv$1, lastError$1, x15$1) {
+  return ScalaJS.uZ(this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(x15$1, ScalaJS.as.sci_Map(loopEnv$1.elem$1), printer$1).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(lastError$1$1) {
     return (function(error$2) {
       var error = ScalaJS.as.T(error$2);
       lastError$1$1.elem$1 = new ScalaJS.c.s_Some().init___O(error);
@@ -3248,18 +3248,11 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.eval__Lcom_siigna_web_
       var b = new ScalaJS.c.T2().init___O__O(env, value);
       return new ScalaJS.c.s_util_Right().init___O(b)
     };
-    if (ScalaJS.is.Lcom_siigna_web_parsing_MessageExpr(x1)) {
-      var x6 = ScalaJS.as.Lcom_siigna_web_parsing_MessageExpr(x1);
-      var value$2 = x6.e1__Lcom_siigna_web_parsing_Expr();
-      ScalaJS.m.s_package().Right$1;
-      var b$1 = new ScalaJS.c.T2().init___O__O(env, value$2);
-      return new ScalaJS.c.s_util_Right().init___O(b$1)
-    };
     if (ScalaJS.is.Lcom_siigna_web_parsing_CompExpr(x1)) {
-      var x7 = ScalaJS.as.Lcom_siigna_web_parsing_CompExpr(x1);
-      var e1$2 = x7.e1$1;
-      var e2$2 = x7.e2$1;
-      var op = x7.op$1;
+      var x6 = ScalaJS.as.Lcom_siigna_web_parsing_CompExpr(x1);
+      var e1$2 = x6.e1$1;
+      var e2$2 = x6.e2$1;
+      var op = x6.op$1;
       return ScalaJS.as.s_util_Either(this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(e1$2, env, printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(e$2) {
         var e = ScalaJS.as.T(e$2);
         ScalaJS.m.s_package().Left$1;
@@ -3267,16 +3260,16 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.eval__Lcom_siigna_web_
       })), new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$5().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__T(env, printer, e2$2, op)))
     };
     if (ScalaJS.is.Lcom_siigna_web_parsing_OpExpr(x1)) {
-      var x8 = ScalaJS.as.Lcom_siigna_web_parsing_OpExpr(x1);
-      var e1$3 = x8.e1$1;
-      var e2$3 = x8.e2$1;
-      var op$2 = x8.op$1;
-      var this$11 = this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(e1$3, env, printer);
-      return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$11).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$6().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__T(env, printer, e2$3, op$2))
+      var x7 = ScalaJS.as.Lcom_siigna_web_parsing_OpExpr(x1);
+      var e1$3 = x7.e1$1;
+      var e2$3 = x7.e2$1;
+      var op$2 = x7.op$1;
+      var this$8 = this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(e1$3, env, printer);
+      return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$8).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$6().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__T(env, printer, e2$3, op$2))
     };
     if (ScalaJS.is.Lcom_siigna_web_parsing_ImportExpr(x1)) {
-      var x9 = ScalaJS.as.Lcom_siigna_web_parsing_ImportExpr(x1);
-      var name = x9.name$1;
+      var x8 = ScalaJS.as.Lcom_siigna_web_parsing_ImportExpr(x1);
+      var name = x8.name$1;
       var xhr = new ScalaJS.g["XMLHttpRequest"]();
       xhr["open"]("GET", ("http://siigna.com:20004/get/" + name.name$1), false);
       xhr["send"]();
@@ -3297,41 +3290,46 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.eval__Lcom_siigna_web_
       }
     };
     if (ScalaJS.is.Lcom_siigna_web_parsing_RangeExpr(x1)) {
-      var x10 = ScalaJS.as.Lcom_siigna_web_parsing_RangeExpr(x1);
-      var name$2 = x10.name$1;
-      var from = x10.from$1;
-      var to = x10.to$1;
-      var this$13 = env.get__O__s_Option(name$2);
-      if (this$13.isEmpty__Z()) {
-        var this$16 = ScalaJS.m.s_None()
+      var x9 = ScalaJS.as.Lcom_siigna_web_parsing_RangeExpr(x1);
+      var name$2 = x9.name$1;
+      var from = x9.from$1;
+      var to = x9.to$1;
+      var this$10 = env.get__O__s_Option(name$2);
+      if (this$10.isEmpty__Z()) {
+        var this$14 = ScalaJS.m.s_None()
       } else {
-        var x0$1$2 = this$13.get__O();
+        var x0$1$2 = this$10.get__O();
         if (ScalaJS.isInt(x0$1$2)) {
           var x2$1 = ScalaJS.uI(x0$1$2);
           ScalaJS.m.s_package().Right$1;
-          var b$2 = ((x2$1 + 1) | 0);
+          var b$1 = (x2$1 + 1.0);
+          var jsx$1 = new ScalaJS.c.s_util_Right().init___O(b$1)
+        } else if ((typeof(x0$1$2) === "number")) {
+          var x3$1 = ScalaJS.uD(x0$1$2);
+          ScalaJS.m.s_package().Right$1;
+          var b$2 = (x3$1 + 1);
           var jsx$1 = new ScalaJS.c.s_util_Right().init___O(b$2)
         } else {
           ScalaJS.m.s_package().Left$1;
           var a$1 = new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Cannot parse ", " to int"]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [x0$1$2])));
           var jsx$1 = new ScalaJS.c.s_util_Left().init___O(a$1)
         };
-        var this$16 = new ScalaJS.c.s_Some().init___O(jsx$1)
+        var this$14 = new ScalaJS.c.s_Some().init___O(jsx$1)
       };
-      var fromOption = ScalaJS.as.s_util_Either((this$16.isEmpty__Z() ? ScalaJS.m.Lcom_siigna_web_evaluating_Evaluator().getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(from, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Int$1) : this$16.get__O()));
-      var toOption = this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(to, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Int$1);
+      var fromOption = ScalaJS.as.s_util_Either((this$14.isEmpty__Z() ? ScalaJS.m.Lcom_siigna_web_evaluating_Evaluator().getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(from, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Double$1) : this$14.get__O()));
+      var toOption = this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(to, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Double$1);
       return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(fromOption).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$7().init___sci_Map__T__s_util_Either(env, name$2, toOption))
     };
     if (ScalaJS.is.Lcom_siigna_web_parsing_RefExpr(x1)) {
-      var x11 = ScalaJS.as.Lcom_siigna_web_parsing_RefExpr(x1);
-      var name$3 = x11.name$1;
-      var this$17 = env.get__O__s_Option(name$3);
-      if (this$17.isEmpty__Z()) {
+      var x10 = ScalaJS.as.Lcom_siigna_web_parsing_RefExpr(x1);
+      var name$3 = x10.name$1;
+      var this$15 = env.get__O__s_Option(name$3);
+      if (this$15.isEmpty__Z()) {
         ScalaJS.m.s_package().Left$1;
         var a$2 = new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Failed to find variable '", "'. Please check if it has been declared."]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [name$3])));
         var jsx$2 = new ScalaJS.c.s_util_Left().init___O(a$2)
       } else {
-        var s$2 = this$17.get__O();
+        var s$2 = this$15.get__O();
         ScalaJS.m.s_package().Right$1;
         var b$3 = new ScalaJS.c.T2().init___O__O(env, s$2);
         var jsx$2 = new ScalaJS.c.s_util_Right().init___O(b$3)
@@ -3339,8 +3337,8 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.eval__Lcom_siigna_web_
       return ScalaJS.as.s_util_Either(jsx$2)
     };
     if (ScalaJS.is.Lcom_siigna_web_parsing_SeqExpr(x1)) {
-      var x14 = ScalaJS.as.Lcom_siigna_web_parsing_SeqExpr(x1);
-      return this.com$siigna$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__Lcom_siigna_web_Printer__s_util_Either(x14.expr$1.iterator__sc_Iterator(), env, printer)
+      var x13 = ScalaJS.as.Lcom_siigna_web_parsing_SeqExpr(x1);
+      return this.com$siigna$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__Lcom_siigna_web_Printer__s_util_Either(x13.expr$1.iterator__sc_Iterator(), env, printer)
     };
     if (ScalaJS.anyRefEqEq(ScalaJS.m.Lcom_siigna_web_parsing_UnitExpr(), x1)) {
       ScalaJS.m.s_package().Right$1;
@@ -3349,10 +3347,10 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.eval__Lcom_siigna_web_
       return new ScalaJS.c.s_util_Right().init___O(b$4)
     };
     if (ScalaJS.is.Lcom_siigna_web_parsing_ValExpr(x1)) {
-      var x12 = ScalaJS.as.Lcom_siigna_web_parsing_ValExpr(x1);
-      var name$4 = x12.name$1;
-      var value$3 = x12.value$1;
-      return ScalaJS.as.s_util_Either(this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(value$3, env, printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$1$2) {
+      var x11 = ScalaJS.as.Lcom_siigna_web_parsing_ValExpr(x1);
+      var name$4 = x11.name$1;
+      var value$2 = x11.value$1;
+      return ScalaJS.as.s_util_Either(this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(value$2, env, printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$1$2) {
         var x$1 = ScalaJS.as.T(x$1$2);
         ScalaJS.m.s_package().Left$1;
         return new ScalaJS.c.s_util_Left().init___O(x$1)
@@ -3369,9 +3367,9 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.eval__Lcom_siigna_web_
       })(env, name$4))))
     };
     if (ScalaJS.is.Lcom_siigna_web_parsing_LoopExpr(x1)) {
-      var x13 = ScalaJS.as.Lcom_siigna_web_parsing_LoopExpr(x1);
-      var condition = x13.condition$1;
-      var body = x13.body$1;
+      var x12 = ScalaJS.as.Lcom_siigna_web_parsing_LoopExpr(x1);
+      var condition = x12.condition$1;
+      var body = x12.body$1;
       if ((condition !== null)) {
         if ((body !== null)) {
           var loopEnv = new ScalaJS.c.sr_ObjectRef().init___O(env);
@@ -3394,31 +3392,31 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.eval__Lcom_siigna_web_
               })
             })(loopEnv, lastResult)))
           };
-          var this$34 = ScalaJS.as.s_Option(lastError.elem$1);
-          if (this$34.isEmpty__Z()) {
-            var this$36 = ScalaJS.m.s_None()
+          var this$32 = ScalaJS.as.s_Option(lastError.elem$1);
+          if (this$32.isEmpty__Z()) {
+            var this$34 = ScalaJS.m.s_None()
           } else {
-            var x$2$2 = this$34.get__O();
+            var x$2$2 = this$32.get__O();
             var x$2$1 = ScalaJS.as.T(x$2$2);
             ScalaJS.m.s_package().Left$1;
-            var this$36 = new ScalaJS.c.s_Some().init___O(new ScalaJS.c.s_util_Left().init___O(x$2$1))
+            var this$34 = new ScalaJS.c.s_Some().init___O(new ScalaJS.c.s_util_Left().init___O(x$2$1))
           };
           var default$2 = new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$15().init___sci_Map__sr_ObjectRef__sr_ObjectRef(env, loopEnv, lastResult);
-          if (this$36.isEmpty__Z()) {
+          if (this$34.isEmpty__Z()) {
             ScalaJS.m.s_package().Right$1;
             var $$this$1 = ScalaJS.as.sci_Map(default$2.loopEnv$1$2.elem$1).filter__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
               return (function(t$2) {
                 var t = ScalaJS.as.T2(t$2);
-                var this$37 = arg$outer.env$1$f;
+                var this$35 = arg$outer.env$1$f;
                 var key = t.$$und1$f;
-                return ScalaJS.i.sc_MapLike$class__contains__sc_MapLike__O__Z(this$37, key)
+                return ScalaJS.i.sc_MapLike$class__contains__sc_MapLike__O__Z(this$35, key)
               })
             })(default$2)));
             var y$3 = default$2.lastResult$1$2.elem$1;
             var b$6 = new ScalaJS.c.T2().init___O__O($$this$1, y$3);
             var jsx$3 = new ScalaJS.c.s_util_Right().init___O(b$6)
           } else {
-            var jsx$3 = this$36.get__O()
+            var jsx$3 = this$34.get__O()
           };
           return ScalaJS.as.s_util_Either(jsx$3)
         }
@@ -6026,29 +6024,6 @@ ScalaJS.d.Lcom_siigna_web_parsing_LoopExpr = new ScalaJS.ClassTypeData({
   O: 1
 });
 ScalaJS.c.Lcom_siigna_web_parsing_LoopExpr.prototype.$classData = ScalaJS.d.Lcom_siigna_web_parsing_LoopExpr;
-ScalaJS.is.Lcom_siigna_web_parsing_MessageExpr = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_MessageExpr)))
-});
-ScalaJS.as.Lcom_siigna_web_parsing_MessageExpr = (function(obj) {
-  return ((ScalaJS.is.Lcom_siigna_web_parsing_MessageExpr(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.siigna.web.parsing.MessageExpr"))
-});
-ScalaJS.isArrayOf.Lcom_siigna_web_parsing_MessageExpr = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_siigna_web_parsing_MessageExpr)))
-});
-ScalaJS.asArrayOf.Lcom_siigna_web_parsing_MessageExpr = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_siigna_web_parsing_MessageExpr(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.siigna.web.parsing.MessageExpr;", depth))
-});
-ScalaJS.d.Lcom_siigna_web_parsing_MessageExpr = new ScalaJS.ClassTypeData({
-  Lcom_siigna_web_parsing_MessageExpr: 0
-}, false, "com.siigna.web.parsing.MessageExpr", ScalaJS.d.O, {
-  Lcom_siigna_web_parsing_MessageExpr: 1,
-  s_Serializable: 1,
-  Ljava_io_Serializable: 1,
-  s_Product: 1,
-  s_Equals: 1,
-  Lcom_siigna_web_parsing_Expr: 1,
-  O: 1
-});
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_parsing_OpExpr = (function() {
   ScalaJS.c.O.call(this);
@@ -6271,11 +6246,11 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parse__Lcom_siigna_web_lexin
             var x36 = ScalaJS.as.Lcom_siigna_web_lexing_SymbolToken(p35);
             var p37 = x36.s$1;
             if (ScalaJS.anyRefEqEq("=", p37)) {
-              var temp$success$6 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(success$2, name$1) {
+              var temp$success$6 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1, name$1) {
                 return (function(e$2, stream$2) {
                   var e = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e$2);
                   var stream = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(stream$2);
-                  return ScalaJS.as.s_util_Either(success$2.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_ValExpr().init___T__Lcom_siigna_web_parsing_Expr(name$1, e), stream))
+                  return ScalaJS.as.s_util_Either(success$1.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_ValExpr().init___T__Lcom_siigna_web_parsing_Expr(name$1, e), stream))
                 })
               })(success, name));
               tokens = tail$7;
@@ -6323,13 +6298,13 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parse__Lcom_siigna_web_lexin
             var x50 = ScalaJS.as.Lcom_siigna_web_lexing_SymbolToken(p49);
             var p51 = x50.s$1;
             if (ScalaJS.anyRefEqEq(">", p51)) {
-              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start, tail$9, ">", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$2$1) {
+              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start, tail$9, ">", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$1) {
                 return (function(e1$2, e2$2, op$2, stream$2$1) {
                   var e1 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e1$2);
                   var e2 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e2$2);
                   var op = ScalaJS.as.T(op$2);
                   var stream$1 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(stream$2$1);
-                  return ScalaJS.as.s_util_Either(success$2$1.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_CompExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1, e2, op), stream$1))
+                  return ScalaJS.as.s_util_Either(success$1$1.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_CompExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1, e2, op), stream$1))
                 })
               })(success)), failure)
             }
@@ -6350,13 +6325,13 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parse__Lcom_siigna_web_lexin
             var x56 = ScalaJS.as.Lcom_siigna_web_lexing_SymbolToken(p55);
             var p57 = x56.s$1;
             if (ScalaJS.anyRefEqEq("<", p57)) {
-              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$2, tail$10, "<", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$2$2) {
+              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$2, tail$10, "<", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$2) {
                 return (function(e1$2$1, e2$2$1, op$2$1, stream$2$2) {
                   var e1$1 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e1$2$1);
                   var e2$1 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e2$2$1);
                   var op$1 = ScalaJS.as.T(op$2$1);
                   var stream$3 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(stream$2$2);
-                  return ScalaJS.as.s_util_Either(success$2$2.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_CompExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$1, e2$1, op$1), stream$3))
+                  return ScalaJS.as.s_util_Either(success$1$2.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_CompExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$1, e2$1, op$1), stream$3))
                 })
               })(success)), failure)
             }
@@ -6377,13 +6352,13 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parse__Lcom_siigna_web_lexin
             var x62 = ScalaJS.as.Lcom_siigna_web_lexing_SymbolToken(p61);
             var p63 = x62.s$1;
             if (ScalaJS.anyRefEqEq("+", p63)) {
-              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$3, tail$11, "+", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$2$3) {
+              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$3, tail$11, "+", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$3) {
                 return (function(e1$2$2, e2$2$2, op$2$2, stream$2$3) {
                   var e1$3 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e1$2$2);
                   var e2$3 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e2$2$2);
                   var op$3 = ScalaJS.as.T(op$2$2);
                   var stream$4 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(stream$2$3);
-                  return ScalaJS.as.s_util_Either(success$2$3.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_OpExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$3, e2$3, op$3), stream$4))
+                  return ScalaJS.as.s_util_Either(success$1$3.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_OpExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$3, e2$3, op$3), stream$4))
                 })
               })(success)), failure)
             }
@@ -6404,13 +6379,13 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parse__Lcom_siigna_web_lexin
             var x68 = ScalaJS.as.Lcom_siigna_web_lexing_SymbolToken(p67);
             var p69 = x68.s$1;
             if (ScalaJS.anyRefEqEq("-", p69)) {
-              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$4, tail$12, "-", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$2$4) {
+              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$4, tail$12, "-", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$4) {
                 return (function(e1$2$3, e2$2$3, op$2$3, stream$2$4) {
                   var e1$4 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e1$2$3);
                   var e2$4 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e2$2$3);
                   var op$4 = ScalaJS.as.T(op$2$3);
                   var stream$5 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(stream$2$4);
-                  return ScalaJS.as.s_util_Either(success$2$4.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_OpExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$4, e2$4, op$4), stream$5))
+                  return ScalaJS.as.s_util_Either(success$1$4.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_OpExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$4, e2$4, op$4), stream$5))
                 })
               })(success)), failure)
             }
@@ -6431,13 +6406,13 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parse__Lcom_siigna_web_lexin
             var x74 = ScalaJS.as.Lcom_siigna_web_lexing_SymbolToken(p73);
             var p75 = x74.s$1;
             if (ScalaJS.anyRefEqEq("*", p75)) {
-              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$5, tail$13, "*", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$2$5) {
+              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$5, tail$13, "*", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$5) {
                 return (function(e1$2$4, e2$2$4, op$2$4, stream$2$5) {
                   var e1$5 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e1$2$4);
                   var e2$5 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e2$2$4);
                   var op$5 = ScalaJS.as.T(op$2$4);
                   var stream$6 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(stream$2$5);
-                  return ScalaJS.as.s_util_Either(success$2$5.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_OpExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$5, e2$5, op$5), stream$6))
+                  return ScalaJS.as.s_util_Either(success$1$5.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_OpExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$5, e2$5, op$5), stream$6))
                 })
               })(success)), failure)
             }
@@ -6458,13 +6433,13 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parse__Lcom_siigna_web_lexin
             var x80 = ScalaJS.as.Lcom_siigna_web_lexing_SymbolToken(p79);
             var p81 = x80.s$1;
             if (ScalaJS.anyRefEqEq("/", p81)) {
-              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$6, tail$14, "/", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$2$6) {
+              return this.parseTripleOp__Lcom_siigna_web_lexing_Token__Lcom_siigna_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$6, tail$14, "/", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$6) {
                 return (function(e1$2$5, e2$2$5, op$2$5, stream$2$6) {
                   var e1$6 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e1$2$5);
                   var e2$6 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e2$2$5);
                   var op$6 = ScalaJS.as.T(op$2$5);
                   var stream$7 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(stream$2$6);
-                  return ScalaJS.as.s_util_Either(success$2$6.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_OpExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$6, e2$6, op$6), stream$7))
+                  return ScalaJS.as.s_util_Either(success$1$6.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_OpExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__T(e1$6, e2$6, op$6), stream$7))
                 })
               })(success)), failure)
             }
@@ -6623,12 +6598,12 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parseUntil__Lcom_siigna_web_
   };
   return ScalaJS.as.s_util_Either(failure.apply__O__O(new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Expected token ", ", found ", ""]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [token, tokens.head__O()])))))
 });
-ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.com$siigna$web$parsing$Parser$$success$1__sr_ObjectRef__F1__F2 = (function(exprs$1, failure$1) {
-  return new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(exprs$1$1, failure$1$1) {
+ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.com$siigna$web$parsing$Parser$$success$2__sr_ObjectRef__F1__F2 = (function(exprs$1, failure$2) {
+  return new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(exprs$1$1, failure$2$1) {
     return (function(e$2, s$2) {
       var e = ScalaJS.as.Lcom_siigna_web_parsing_Expr(e$2);
       var s = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(s$2);
-      ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(s, ScalaJS.m.Lcom_siigna_web_parsing_Parser().com$siigna$web$parsing$Parser$$success$1__sr_ObjectRef__F1__F2(exprs$1$1, failure$1$1), failure$1$1);
+      ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(s, ScalaJS.m.Lcom_siigna_web_parsing_Parser().com$siigna$web$parsing$Parser$$success$2__sr_ObjectRef__F1__F2(exprs$1$1, failure$2$1), failure$2$1);
       var jsx$1 = exprs$1$1.elem$1;
       var this$1 = ScalaJS.m.sc_Seq();
       exprs$1$1.elem$1 = ScalaJS.as.sc_Seq(ScalaJS.as.sc_Seq(jsx$1).$$plus$colon__O__scg_CanBuildFrom__O(e, this$1.ReusableCBFInstance$2));
@@ -6636,7 +6611,7 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.com$siigna$web$parsing$Parse
       var b = new ScalaJS.c.Lcom_siigna_web_parsing_SeqExpr().init___sc_Seq(ScalaJS.as.sc_Seq(exprs$1$1.elem$1));
       return new ScalaJS.c.s_util_Right().init___O(b)
     })
-  })(exprs$1, failure$1))
+  })(exprs$1, failure$2))
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parse__Lcom_siigna_web_lexing_LiveStream__s_util_Either = (function(tokens) {
   var elem = ScalaJS.as.sc_Seq(ScalaJS.m.sc_Seq().apply__sc_Seq__sc_GenTraversable(ScalaJS.m.sci_Nil()));
@@ -6647,7 +6622,7 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$.prototype.parse__Lcom_siigna_web_lexin
     return new ScalaJS.c.s_util_Left().init___O(err)
   }));
   try {
-    return this.parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(tokens, this.com$siigna$web$parsing$Parser$$success$1__sr_ObjectRef__F1__F2(exprs, failure), failure)
+    return this.parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(tokens, this.com$siigna$web$parsing$Parser$$success$2__sr_ObjectRef__F1__F2(exprs, failure), failure)
   } catch (ex) {
     ex = ScalaJS.wrapJavaScriptException(ex);
     if (ScalaJS.is.jl_Exception(ex)) {
@@ -15188,8 +15163,8 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$5.prototype.apply__
   })), new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, v1$1$1) {
     return (function(v2$2) {
       var v2 = ScalaJS.as.T2(v2$2);
-      var n1 = ScalaJS.uI(v1$1$1.$$und2$f);
-      var n2 = ScalaJS.uI(v2.$$und2$f);
+      var n1 = ScalaJS.uD(v1$1$1.$$und2$f);
+      var n2 = ScalaJS.uD(v2.$$und2$f);
       var x1 = arg$outer.op$1$f;
       if (ScalaJS.anyRefEqEq(">", x1)) {
         ScalaJS.m.s_package().Right$1;
@@ -15262,31 +15237,31 @@ ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$6.prototype.apply__
   return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, v1$2) {
     return (function(v2$2) {
       var v2 = ScalaJS.as.T2(v2$2);
-      var n1 = ScalaJS.uI(v1$2.$$und2$f);
-      var n2 = ScalaJS.uI(v2.$$und2$f);
+      var n1 = ScalaJS.uD(v1$2.$$und2$f);
+      var n2 = ScalaJS.uD(v2.$$und2$f);
       var x1 = arg$outer.op$2$f;
       if (ScalaJS.anyRefEqEq("-", x1)) {
         ScalaJS.m.s_package().Right$1;
         var $$this = arg$outer.env$1$f;
-        var y = ((n1 - n2) | 0);
+        var y = (n1 - n2);
         var b = new ScalaJS.c.T2().init___O__O($$this, y);
         return new ScalaJS.c.s_util_Right().init___O(b)
       } else if (ScalaJS.anyRefEqEq("+", x1)) {
         ScalaJS.m.s_package().Right$1;
         var $$this$1 = arg$outer.env$1$f;
-        var y$1 = ((n1 + n2) | 0);
+        var y$1 = (n1 + n2);
         var b$1 = new ScalaJS.c.T2().init___O__O($$this$1, y$1);
         return new ScalaJS.c.s_util_Right().init___O(b$1)
       } else if (ScalaJS.anyRefEqEq("*", x1)) {
         ScalaJS.m.s_package().Right$1;
         var $$this$2 = arg$outer.env$1$f;
-        var y$2 = ScalaJS.imul(n1, n2);
+        var y$2 = (n1 * n2);
         var b$2 = new ScalaJS.c.T2().init___O__O($$this$2, y$2);
         return new ScalaJS.c.s_util_Right().init___O(b$2)
       } else if (ScalaJS.anyRefEqEq("/", x1)) {
         ScalaJS.m.s_package().Right$1;
         var $$this$3 = arg$outer.env$1$f;
-        var y$3 = ((n1 / n2) | 0);
+        var y$3 = (n1 / n2);
         var b$3 = new ScalaJS.c.T2().init___O__O($$this$3, y$3);
         return new ScalaJS.c.s_util_Right().init___O(b$3)
       } else {
@@ -15342,11 +15317,11 @@ ScalaJS.h.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$7 = (function() {
 });
 ScalaJS.h.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$7.prototype = ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$7.prototype;
 ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$7.prototype.apply__O__O = (function(v1) {
-  var fromValue = ScalaJS.uI(v1);
+  var fromValue = ScalaJS.uD(v1);
   var this$1 = this.toOption$1$2;
   return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, fromValue$1) {
     return (function(toValue$2) {
-      var toValue = ScalaJS.uI(toValue$2);
+      var toValue = ScalaJS.uD(toValue$2);
       ScalaJS.m.s_package().Right$1;
       var $$this = arg$outer.name$1$f;
       var $$this$1 = arg$outer.env$1$f.$$plus__T2__sci_Map(new ScalaJS.c.T2().init___O__O($$this, fromValue$1));
@@ -16675,8 +16650,8 @@ ScalaJS.c.Lcom_siigna_web_lexing_Union.prototype.$classData = ScalaJS.d.Lcom_sii
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
-  this.success$2$f = null;
-  this.failure$2$f = null
+  this.success$1$f = null;
+  this.failure$1$f = null
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1.prototype = new ScalaJS.h.sr_AbstractFunction2();
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1.prototype.constructor = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1;
@@ -16685,15 +16660,15 @@ ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1 = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1.prototype = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1.prototype;
-ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1.prototype.init___F2__F1 = (function(success$2, failure$2) {
-  this.success$2$f = success$2;
-  this.failure$2$f = failure$2;
+ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1.prototype.init___F2__F1 = (function(success$1, failure$1) {
+  this.success$1$f = success$1;
+  this.failure$1$f = failure$1;
   return this
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1.prototype.apply__O__O__O = (function(v1, v2) {
   var centerX = ScalaJS.as.Lcom_siigna_web_parsing_Expr(v1);
   var t1 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(v2);
-  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t1, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1$$anonfun$apply$1().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$1__Lcom_siigna_web_parsing_Expr(this, centerX), this.failure$2$f)
+  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t1, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1$$anonfun$apply$1().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$1__Lcom_siigna_web_parsing_Expr(this, centerX), this.failure$1$f)
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1)))
@@ -16747,9 +16722,9 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1$$anonfun$apply$1.proto
     return (function(radius$2, t3$2) {
       var radius = ScalaJS.as.Lcom_siigna_web_parsing_Expr(radius$2);
       var t3 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(t3$2);
-      return ScalaJS.as.s_util_Either(arg$outer.$$outer$2.success$2$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_CircleExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(arg$outer.centerX$1$f, centerY$1, radius), t3))
+      return ScalaJS.as.s_util_Either(arg$outer.$$outer$2.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_CircleExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(arg$outer.centerX$1$f, centerY$1, radius), t3))
     })
-  })(this, centerY)), this.$$outer$2.failure$2$f)
+  })(this, centerY)), this.$$outer$2.failure$1$f)
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1$$anonfun$apply$1 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1$$anonfun$apply$1)))
@@ -16777,8 +16752,8 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$1$$anonfun$apply$1.proto
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
-  this.success$2$f = null;
-  this.failure$2$f = null
+  this.success$1$f = null;
+  this.failure$1$f = null
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2.prototype = new ScalaJS.h.sr_AbstractFunction2();
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2.prototype.constructor = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2;
@@ -16787,15 +16762,15 @@ ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2 = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2.prototype = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2.prototype;
-ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2.prototype.init___F2__F1 = (function(success$2, failure$2) {
-  this.success$2$f = success$2;
-  this.failure$2$f = failure$2;
+ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2.prototype.init___F2__F1 = (function(success$1, failure$1) {
+  this.success$1$f = success$1;
+  this.failure$1$f = failure$1;
   return this
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2.prototype.apply__O__O__O = (function(v1, v2) {
   var x1 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(v1);
   var t1 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(v2);
-  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t1, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$2__Lcom_siigna_web_parsing_Expr(this, x1), this.failure$2$f)
+  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t1, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$2__Lcom_siigna_web_parsing_Expr(this, x1), this.failure$1$f)
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2)))
@@ -16845,7 +16820,7 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3.proto
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3.prototype.apply__O__O__O = (function(v1, v2) {
   var y1 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(v1);
   var t2 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(v2);
-  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t2, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3$$anonfun$apply$4().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3__Lcom_siigna_web_parsing_Expr(this, y1), this.$$outer$2.failure$2$f)
+  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t2, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3$$anonfun$apply$4().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3__Lcom_siigna_web_parsing_Expr(this, y1), this.$$outer$2.failure$1$f)
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3)))
@@ -16899,9 +16874,9 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3$$anon
     return (function(y2$2, t4$2) {
       var y2 = ScalaJS.as.Lcom_siigna_web_parsing_Expr(y2$2);
       var t4 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(t4$2);
-      return ScalaJS.as.s_util_Either(arg$outer.$$outer$2.$$outer$2.success$2$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_LineExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(arg$outer.$$outer$2.x1$1$f, arg$outer.y1$1$f, x2$1, y2), t4))
+      return ScalaJS.as.s_util_Either(arg$outer.$$outer$2.$$outer$2.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_LineExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(arg$outer.$$outer$2.x1$1$f, arg$outer.y1$1$f, x2$1, y2), t4))
     })
-  })(this, x2)), this.$$outer$2.$$outer$2.failure$2$f)
+  })(this, x2)), this.$$outer$2.$$outer$2.failure$1$f)
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3$$anonfun$apply$4 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3$$anonfun$apply$4)))
@@ -16929,8 +16904,8 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$2$$anonfun$apply$3$$anon
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
-  this.success$2$f = null;
-  this.failure$2$f = null
+  this.success$1$f = null;
+  this.failure$1$f = null
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3.prototype = new ScalaJS.h.sr_AbstractFunction2();
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3.prototype.constructor = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3;
@@ -16939,15 +16914,15 @@ ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3 = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3.prototype = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3.prototype;
-ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3.prototype.init___F2__F1 = (function(success$2, failure$2) {
-  this.success$2$f = success$2;
-  this.failure$2$f = failure$2;
+ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3.prototype.init___F2__F1 = (function(success$1, failure$1) {
+  this.success$1$f = success$1;
+  this.failure$1$f = failure$1;
   return this
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3.prototype.apply__O__O__O = (function(v1, v2) {
   var centerX = ScalaJS.as.Lcom_siigna_web_parsing_Expr(v1);
   var t1 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(v2);
-  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t1, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$3__Lcom_siigna_web_parsing_Expr(this, centerX), this.failure$2$f)
+  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t1, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$3__Lcom_siigna_web_parsing_Expr(this, centerX), this.failure$1$f)
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3)))
@@ -16988,7 +16963,7 @@ ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6.proto
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6.prototype.apply__O__O__O = (function(v1, v2) {
   var centerY = ScalaJS.as.Lcom_siigna_web_parsing_Expr(v1);
   var t2 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(v2);
-  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t2, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6$$anonfun$apply$7().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6__Lcom_siigna_web_parsing_Expr(this, centerY), this.$$outer$2.failure$2$f)
+  return ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__F2__F1__s_util_Either(t2, new ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6$$anonfun$apply$7().init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6__Lcom_siigna_web_parsing_Expr(this, centerY), this.$$outer$2.failure$1$f)
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6.prototype.init___Lcom_siigna_web_parsing_Parser$$anonfun$parse$3__Lcom_siigna_web_parsing_Expr = (function($$outer, centerX$2) {
   if (($$outer === null)) {
@@ -17051,9 +17026,9 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6$$anon
     return (function(text$2, t4$2) {
       var text = ScalaJS.as.Lcom_siigna_web_parsing_Expr(text$2);
       var t4 = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(t4$2);
-      return ScalaJS.as.s_util_Either(arg$outer.$$outer$2.$$outer$2.success$2$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_TextExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(arg$outer.$$outer$2.centerX$2$f, arg$outer.centerY$2$f, height$1, text), t4))
+      return ScalaJS.as.s_util_Either(arg$outer.$$outer$2.$$outer$2.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_TextExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(arg$outer.$$outer$2.centerX$2$f, arg$outer.centerY$2$f, height$1, text), t4))
     })
-  })(this, height)), this.$$outer$2.$$outer$2.failure$2$f)
+  })(this, height)), this.$$outer$2.$$outer$2.failure$1$f)
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6$$anonfun$apply$7 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6$$anonfun$apply$7)))
@@ -17081,8 +17056,8 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$3$$anonfun$apply$6$$anon
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
-  this.success$2$f = null;
-  this.failure$2$2 = null
+  this.success$1$f = null;
+  this.failure$1$2 = null
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4.prototype = new ScalaJS.h.sr_AbstractFunction2();
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4.prototype.constructor = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4;
@@ -17091,9 +17066,9 @@ ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4 = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4.prototype = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4.prototype;
-ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4.prototype.init___F2__F1 = (function(success$2, failure$2) {
-  this.success$2$f = success$2;
-  this.failure$2$2 = failure$2;
+ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4.prototype.init___F2__F1 = (function(success$1, failure$1) {
+  this.success$1$f = success$1;
+  this.failure$1$2 = failure$1;
   return this
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4.prototype.apply__O__O__O = (function(v1, v2) {
@@ -17103,9 +17078,9 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4.prototype.apply__O__O_
     return (function(body$2, bodyTail$2) {
       var body = ScalaJS.as.Lcom_siigna_web_parsing_Expr(body$2);
       var bodyTail = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(bodyTail$2);
-      return ScalaJS.as.s_util_Either(arg$outer.success$2$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_LoopExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(condition$1, body), bodyTail))
+      return ScalaJS.as.s_util_Either(arg$outer.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_LoopExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(condition$1, body), bodyTail))
     })
-  })(this, condition)), this.failure$2$2)
+  })(this, condition)), this.failure$1$2)
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4)))
@@ -17133,8 +17108,8 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$4.prototype.$classData =
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
-  this.success$2$f = null;
-  this.failure$2$2 = null
+  this.success$1$f = null;
+  this.failure$1$2 = null
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5.prototype = new ScalaJS.h.sr_AbstractFunction2();
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5.prototype.constructor = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5;
@@ -17143,9 +17118,9 @@ ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5 = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5.prototype = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5.prototype;
-ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5.prototype.init___F2__F1 = (function(success$2, failure$2) {
-  this.success$2$f = success$2;
-  this.failure$2$2 = failure$2;
+ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5.prototype.init___F2__F1 = (function(success$1, failure$1) {
+  this.success$1$f = success$1;
+  this.failure$1$2 = failure$1;
   return this
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5.prototype.apply__O__O__O = (function(v1, v2) {
@@ -17155,9 +17130,9 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5.prototype.apply__O__O_
     return (function(body$2, bodyTail$2) {
       var body = ScalaJS.as.Lcom_siigna_web_parsing_Expr(body$2);
       var bodyTail = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(bodyTail$2);
-      return ScalaJS.as.s_util_Either(arg$outer.success$2$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_LoopExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(assignment$1, body), bodyTail))
+      return ScalaJS.as.s_util_Either(arg$outer.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_LoopExpr().init___Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(assignment$1, body), bodyTail))
     })
-  })(this, assignment)), this.failure$2$2)
+  })(this, assignment)), this.failure$1$2)
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5)))
@@ -17185,8 +17160,8 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$5.prototype.$classData =
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
-  this.success$2$f = null;
-  this.failure$2$2 = null;
+  this.success$1$f = null;
+  this.failure$1$2 = null;
   this.name$2$f = null
 });
 ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7.prototype = new ScalaJS.h.sr_AbstractFunction2();
@@ -17196,9 +17171,9 @@ ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7 = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7.prototype = ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7.prototype;
-ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7.prototype.init___F2__F1__T = (function(success$2, failure$2, name$2) {
-  this.success$2$f = success$2;
-  this.failure$2$2 = failure$2;
+ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7.prototype.init___F2__F1__T = (function(success$1, failure$1, name$2) {
+  this.success$1$f = success$1;
+  this.failure$1$2 = failure$1;
   this.name$2$f = name$2;
   return this
 });
@@ -17209,9 +17184,9 @@ ScalaJS.c.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7.prototype.apply__O__O_
     return (function(to$2, toTail$2) {
       var to = ScalaJS.as.Lcom_siigna_web_parsing_Expr(to$2);
       var toTail = ScalaJS.as.Lcom_siigna_web_lexing_LiveStream(toTail$2);
-      return ScalaJS.as.s_util_Either(arg$outer.success$2$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_RangeExpr().init___T__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(arg$outer.name$2$f, from$1, to), toTail))
+      return ScalaJS.as.s_util_Either(arg$outer.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_siigna_web_parsing_RangeExpr().init___T__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(arg$outer.name$2$f, from$1, to), toTail))
     })
-  })(this, from)), this.failure$2$2) : ScalaJS.as.s_util_Either(this.failure$2$2.apply__O__O(("Expected 'to', found " + stream.head__O()))))
+  })(this, from)), this.failure$1$2) : ScalaJS.as.s_util_Either(this.failure$1$2.apply__O__O(("Expected 'to', found " + stream.head__O()))))
 });
 ScalaJS.is.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_parsing_Parser$$anonfun$parse$7)))
