@@ -2716,7 +2716,6 @@ ScalaJS.c.Lcom_siigna_web_Drawing.prototype.$classData = ScalaJS.d.Lcom_siigna_w
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_Drawing$ = (function() {
   ScalaJS.c.O.call(this);
-  this.com$siigna$web$Drawing$$defaultScript$1 = null;
   this.com$siigna$web$Drawing$$listener$1 = null
 });
 ScalaJS.c.Lcom_siigna_web_Drawing$.prototype = new ScalaJS.h.O();
@@ -2728,7 +2727,6 @@ ScalaJS.h.Lcom_siigna_web_Drawing$ = (function() {
 ScalaJS.h.Lcom_siigna_web_Drawing$.prototype = ScalaJS.c.Lcom_siigna_web_Drawing$.prototype;
 ScalaJS.c.Lcom_siigna_web_Drawing$.prototype.init___ = (function() {
   ScalaJS.n.Lcom_siigna_web_Drawing = this;
-  this.com$siigna$web$Drawing$$defaultScript$1 = "#SCRIPT-EXAMPLE:\n#minute paper: used by pilots - one minute between each line\n\n#variables to customize the minute paper\n\nscale = 500000 #chart scale\nspeedMin = 100\nspeedMax = 160\nyStart = -110 # y-coord of the first speed line\ntextSize = 4\n\n\n#SCRIPT STARTS HERE\n\ndist = speedMax - speedMin\ndistance = 250 / dist\n\nfor i <- speedMin to speedMax {\n  y1 = yStart\n  y2 = yStart + distance\n\n  speed1 = i * 1852\n  speed1div = speed1\n  speed1min = speed1div / 6\n  speed1mm = speed1min * 100\n\n  plusOne = i + 1\n  speed2 = plusOne * 1852\n  speed2div = speed2\n  speed2min = speed2div / 6\n  speed2mm = speed2min * 100\n\n  # scale down to the paper scale\n  scaleDiv = scale / 10\n  s1 = speed1mm / scaleDiv\n  s2 = speed2mm / scaleDiv\n\n  #minute lines\n  min = -720 / s1\n  max = 800 / s1\n  for j <- min to max {\n    spacing1 = j * s1\n    spacing2 = j * s2\n    line spacing1 / 10 y1 spacing2 / 10 y2\n  }\n\n  line -80 y1 80 y1 #speed lines\n\n  text -90 y1 textSize i #show knots\n\n  yStart = yStart + distance\n}\n\nline -80 yStart 80 yStart #last speed line\ntext -90 130 textSize speedMax #last speed text\ntext -89 -130 9 \"MINUTE PAPER FOR PILOTS       MAP SCALE 1:\" #show the minute paper scale\ntext 50 -130 9 scale #show the minute paper scale\n\n#5cm: use to x-check the size of the printed minute paper with a ruler\nline 90 60 90 70\nline 90 80 90 90\nline 90 100 90 110\nline 86 110 90 110\nline 86 60 90 60\ntext 82 57 5 \"5 cm\"\ntext 81 116 5 \"print\"\ntext 81 120 5 \"scale \"\ntext 81 124 5 \"check\"\n";
   this.com$siigna$web$Drawing$$listener$1 = new ScalaJS.c.sjsr_AnonFunction0().init___sjs_js_Function0((function() {
     return (void 0)
   }));
@@ -2764,16 +2762,12 @@ ScalaJS.c.Lcom_siigna_web_Drawing$.prototype.get__T__s_util_Either = (function(n
 });
 ScalaJS.c.Lcom_siigna_web_Drawing$.prototype.apply__Lcom_siigna_web_Drawing = (function() {
   var hash = ScalaJS.i.sjsr_RuntimeString$class__replace__sjsr_RuntimeString__jl_CharSequence__jl_CharSequence__T(ScalaJS.as.T(ScalaJS.g["window"]["location"]["hash"]), "#", "");
-  if (ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z(hash)) {
-    return new ScalaJS.c.Lcom_siigna_web_Drawing().init___T__T(ScalaJS.i.sjsr_RuntimeString$class__substring__sjsr_RuntimeString__I__T(ScalaJS.objectToString(ScalaJS.uD(ScalaJS.g["Math"]["random"]())), 7), this.com$siigna$web$Drawing$$defaultScript$1)
-  } else {
-    var jsx$1 = ScalaJS.m.s_util_Either$MergeableEither();
-    var this$1 = ScalaJS.m.Lcom_siigna_web_Drawing().get__T__s_util_Either(hash);
-    var x = new ScalaJS.c.s_util_Either$LeftProjection().init___s_util_Either(this$1).map__F1__s_util_Either(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$1$2) {
-      return (ScalaJS.as.T(x$1$2), new ScalaJS.c.Lcom_siigna_web_Drawing().init___T__T(ScalaJS.objectToString(ScalaJS.objectHashCode(ScalaJS.m.Lcom_siigna_web_Drawing())), ScalaJS.m.Lcom_siigna_web_Drawing().com$siigna$web$Drawing$$defaultScript$1))
-    })));
-    return ScalaJS.as.Lcom_siigna_web_Drawing(jsx$1.merge$extension__s_util_Either__O(x))
-  }
+  var jsx$1 = ScalaJS.m.s_util_Either$MergeableEither();
+  var this$1 = (ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z(hash) ? ScalaJS.m.Lcom_siigna_web_Drawing().get__T__s_util_Either("default") : ScalaJS.m.Lcom_siigna_web_Drawing().get__T__s_util_Either(hash));
+  var x = new ScalaJS.c.s_util_Either$LeftProjection().init___s_util_Either(this$1).map__F1__s_util_Either(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$1$2) {
+    return (ScalaJS.as.T(x$1$2), new ScalaJS.c.Lcom_siigna_web_Drawing().init___T__T(ScalaJS.i.sjsr_RuntimeString$class__substring__sjsr_RuntimeString__I__T(ScalaJS.objectToString(ScalaJS.uD(ScalaJS.g["Math"]["random"]())), 7), "line 0 0 100 100"))
+  })));
+  return ScalaJS.as.Lcom_siigna_web_Drawing(jsx$1.merge$extension__s_util_Either__O(x))
 });
 ScalaJS.is.Lcom_siigna_web_Drawing$ = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_Drawing$)))
@@ -2946,10 +2940,7 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.init___Lorg_scalajs_dom_HTMLCanvasEle
   return this
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.run__V = (function() {
-  var ast = ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__s_util_Either(ScalaJS.m.Lcom_siigna_web_lexing_Lexer().lex__T__Lcom_siigna_web_lexing_LiveStream(this.drawing$1.content$1));
-  var this$2 = ScalaJS.m.s_Console();
-  this$2.out__Ljava_io_PrintStream().println__O__V(ast);
-  ast.fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
+  ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__s_util_Either(ScalaJS.m.Lcom_siigna_web_lexing_Lexer().lex__T__Lcom_siigna_web_lexing_LiveStream(this.drawing$1.content$1)).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
     return (function(left$2) {
       var left = ScalaJS.as.T(left$2);
       arg$outer.displayError__T__V(("Error while reading code " + left))
