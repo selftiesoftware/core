@@ -1,11 +1,10 @@
 package com.siigna.web
 
 import com.siigna.web.evaluating.Evaluator
-import com.siigna.web.lexing.{Token, LiveStream, Lexer}
+import com.siigna.web.lexing.{Lexer}
 import com.siigna.web.parsing.{UnitExpr, Expr, Parser}
+import org.scalajs.dom
 import org.scalajs.dom._
-import org.scalajs.dom.extensions.Ajax
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
@@ -65,14 +64,25 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   def init() : Unit = {
     view.init()
     input.value = drawing.content
-    window.location.hash = drawing.name
+    Drawing.setHashListener(hash => {
+      Drawing.get(hash).fold(displayError, drawing => {
+        loadDrawing(drawing)
+      })
+    })
+    run()
+  }
+
+  def loadDrawing(drawing : Drawing) : Unit = {
+    this.drawing = drawing
+    input.value = drawing.content
     run()
   }
 
   @JSExport
   def run() : Unit = {
-    Parser.parse(Lexer.lex(drawing.content))
-          .fold(left => displayError("Error while reading code " + left),
+    val ast = Parser.parse(Lexer.lex(drawing.content))
+      println(ast)
+          ast.fold(left => displayError("Error while reading code " + left),
             right => eval(right))
   }
 

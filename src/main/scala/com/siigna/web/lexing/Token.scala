@@ -145,3 +145,16 @@ case class CharToken(c : Char) extends Token {
   override lazy val hashCode = c.hashCode
   override lazy val toString = "'" + c + "'"
 }
+
+case class DoubleToken(d : Double) extends Token {
+  def isParsingMarker = false
+
+  protected def localCompare(that : Token) = that match {
+    case DoubleToken(thatD) => this.d compare thatD
+  }
+
+  val tag = "Double"
+
+  override lazy val hashCode = d.hashCode
+  override lazy val toString = d.toString
+}
