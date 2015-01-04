@@ -105,6 +105,7 @@ object Parser {
       // Misc
       case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
       case IntToken(value: Int) :~: tail => success(ConstantExpr(value), tail)
+      case DoubleToken(value : Double) :~: tail => success(ConstantExpr(value), tail)
       case StringToken(value : String) :~: tail => success(ConstantExpr(value), tail)
 
       case PunctToken("{") :~: tail => parseUntil(tokens, PunctToken("}"), success, failure)
