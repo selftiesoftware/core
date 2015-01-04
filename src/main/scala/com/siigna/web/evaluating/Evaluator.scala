@@ -45,9 +45,9 @@ object Evaluator {
         )
 
       case TextExpr(centerX, centerY, height, text) =>
-        getValue[Int](centerX, env, printer).right.flatMap(x =>
-          getValue[Int](centerY, env, printer).right.flatMap(y =>
-            getValue[Int](height, env, printer).right.flatMap(heightValue =>
+        getValue[Double](centerX, env, printer).right.flatMap(x =>
+          getValue[Double](centerY, env, printer).right.flatMap(y =>
+            getValue[Double](height, env, printer).right.flatMap(heightValue =>
               getValue[Any](text, env, printer).right.flatMap(textValue => {
                 printer.text(x,y,heightValue,textValue)
                 Right(env -> Unit)
@@ -58,12 +58,10 @@ object Evaluator {
 
       case ConstantExpr(value) => Right(env -> value)
 
-      case MessageExpr(value) => Right(env -> value)
-
       case CompExpr(e1, e2, op) =>
         eval(e1, env, printer).fold(e => Left(e), v1 => eval(e2, v1._1, printer).fold(e => Left(e), v2 => {
-          val n1 = v1._2.asInstanceOf[Int]
-          val n2 = v2._2.asInstanceOf[Int]
+          val n1 = v1._2.asInstanceOf[Double]
+          val n2 = v2._2.asInstanceOf[Double]
           op match {
             case ">" => Right(env -> (n1 > n2))
             case "<" => Right(env -> (n1 < n2))
@@ -73,8 +71,8 @@ object Evaluator {
 
       case OpExpr(e1, e2, op) =>
         eval(e1, env, printer).right.flatMap(v1 => eval(e2, v1._1, printer).right.flatMap(v2 => {
-          val n1 = v1._2.asInstanceOf[Int]
-          val n2 = v2._2.asInstanceOf[Int]
+          val n1 = v1._2.asInstanceOf[Double]
+          val n2 = v2._2.asInstanceOf[Double]
           op match {
             case "-" => Right(env -> (n1 - n2))
             case "+" => Right(env -> (n1 + n2))
@@ -94,11 +92,13 @@ object Evaluator {
         }
 
       case RangeExpr(name, from, to) =>
-        val fromOption = env.get(name).map {
-          case i: Int => Right(i + 1)
+        val fromOption : Either[String, Double] = env.get(name).map {
+          case i: Int => Right(i + 1d)
+          case i: Double => Right(i + 1)
           case x => Left(s"Cannot parse $x to int")
-        }.getOrElse(getValue[Int](from, env, printer))
-        val toOption = getValue[Int](to, env, printer)
+        }.getOrElse(getValue[Double](from, env, printer))
+
+        val toOption = getValue[Double](to, env, printer)
         fromOption.right.flatMap(fromValue => toOption.right.flatMap(toValue => {
           Right((env + (name -> fromValue)) -> (fromValue < toValue))
         }))
