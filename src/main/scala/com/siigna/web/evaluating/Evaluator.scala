@@ -88,8 +88,10 @@ object Evaluator {
         val xhr = new dom.XMLHttpRequest()
         xhr.open("GET", "http://siigna.com:20004/get/" + name.name, false) // Handle synchronously
         xhr.send()
-        println(xhr.responseText)
-        Left("No")
+        Parser.parse(Lexer.lex(xhr.responseText)) match {
+          case Right(e) => eval(e, env, printer)
+          case Left(error) => Left(s"Script $name failed to compile with error: $error")
+        }
 
       case RangeExpr(name, from, to) =>
         val fromOption = env.get(name).map {
