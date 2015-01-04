@@ -74,12 +74,9 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   }
 
   def eval(expr : Expr) : Unit = {
-    // Only eval if the expr is not the same
-    if (lastAst != expr) {
-      lastAst = expr
-      view.clear()
-      Evaluator.eval(expr, Map(), view).fold(error => displayError(s"Failure during evaluation: $error"), _ => displaySuccess())
-    }
+    lastAst = expr
+    view.clear()
+    Evaluator.eval(expr, Map(), view).fold(error => displayError(s"Failure during evaluation: $error"), _ => displaySuccess())
   }
 
   def displayError(error : String): Unit = {

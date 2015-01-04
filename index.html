@@ -180,15 +180,6 @@ line 90 100 90 110
 
     window.onload = function (e) {
         siigna.init();
-        toggleRun.onclick = function (e) {
-            var b = siigna.toggleRepl();
-            if (b) {
-                toggleRun.innerHTML = "<i class='fa fa-stop fa-lg'></i> Stop";
-                siigna.run(input.value);
-            } else {
-                toggleRun.innerHTML = "<i class='fa fa-play fa-lg'></i> Run";
-            }
-        };
 
         toPdf.onclick = function (e) {
             siigna.printPdf("IOD_2d_print.pdf");
