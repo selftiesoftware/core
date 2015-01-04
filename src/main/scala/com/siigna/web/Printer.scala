@@ -8,7 +8,7 @@ import scala.scalajs.js
 trait Printer {
 
   def circle(x : Double, y : Double, r : Double)
-  def text(x : Double, y : Double, h : Double, t : Double)
+  def text(x : Double, y : Double, h : Double, t : String)
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double)
 
 }

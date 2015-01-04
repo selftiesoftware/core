@@ -84,7 +84,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.closePath()
   }
 
-  override def text(x: Double, y: Double, h: Double, t: Double): Unit = {
+  override def text(x: Double, y: Double, h: Double, t: String): Unit = {
     val correctedH = h / 1.5
     val myFont = correctedH.toString() + "px Arial"
     context.font = myFont
