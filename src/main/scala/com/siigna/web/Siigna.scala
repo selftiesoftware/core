@@ -69,14 +69,19 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   @JSExport
   def run(code : String) : Unit = {
     Parser.parse(Lexer.lex(code))
-      .fold(left => displayError("Error while reading code " + left),
+          .fold(left => displayError("Error while reading code " + left),
             right => eval(right))
   }
 
   def eval(expr : Expr) : Unit = {
     lastAst = expr
     view.clear()
-    Evaluator.eval(expr, Map(), view).fold(error => displayError(s"Failure during evaluation: $error"), _ => displaySuccess())
+    Evaluator.eval(expr, Map(), view)
+      .fold(
+        error => displayError(s"Failure during evaluation: $error"),
+        success => {
+          displaySuccess()
+        })
   }
 
   def displayError(error : String): Unit = {
@@ -84,6 +89,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   }
 
   def displaySuccess(): Unit = {
+    println("Success")
     debug.innerHTML = ""
   }
 

@@ -3,7 +3,10 @@ package com.siigna.web.evaluating
 import com.siigna.web.Printer
 import com.siigna.web.lexing.Lexer
 import com.siigna.web.parsing._
+import org.scalajs.dom
 import org.scalajs.dom.extensions.Ajax
+import scala.concurrent.{Future, Await}
+import scala.concurrent.duration.Duration
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 import scala.util.Success
 
@@ -82,16 +85,11 @@ object Evaluator {
         }))
 
       case ImportExpr(name) =>
-        var result : Value = Left(s"Failed to fetch script $name")
-        // This will be a blocking call because we use the runNow context
-        val f = Ajax.get("http://siigna.com:20004/get/" + name.name).onComplete {
-          case Success(c) => Parser.parse(Lexer.lex(c.responseText)) match {
-            case Right(expr) => result = eval(expr, env, printer)
-            case Left(error) => result = Left(s"Script $name failed to compile with error: $error")
-          }
-          case fail => result = Left(s"Failed to import $name: $fail")
-        }
-        result
+        val xhr = new dom.XMLHttpRequest()
+        xhr.open("GET", "http://siigna.com:20004/get/" + name.name, false) // Handle synchronously
+        xhr.send()
+        println(xhr.responseText)
+        Left("No")
 
       case RangeExpr(name, from, to) =>
         val fromOption = env.get(name).map {

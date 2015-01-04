@@ -56,7 +56,9 @@ object Parser {
         parse(tail, (centerX, t1) =>
           parse(t1, (centerY, t2) =>
             parse(t2, (height, t3) =>
-              parse(t3, (text, t4) => success(TextExpr(centerX, centerY, height, text), t4), failure),
+              parse(t3, (text, t4) => {
+                println(text)
+                success(TextExpr(centerX, centerY, height, text), t4)}, failure),
               failure),
             failure),
           failure)
@@ -108,8 +110,8 @@ object Parser {
 
       // Misc
       case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
-
       case IntToken(value: Int) :~: tail => success(ConstantExpr(value), tail)
+      case StringToken(value : String) :~: tail => success(ConstantExpr(value), tail)
 
       case PunctToken("{") :~: tail => parseUntil(tokens, PunctToken("}"), success, failure)
       case PunctToken("(") :~: tail => parseUntil(tokens, PunctToken(")"), success, failure)
