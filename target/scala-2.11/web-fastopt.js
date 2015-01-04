@@ -3587,7 +3587,6 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displayError__T__V = (function(error)
   this.debug$1["innerHTML"] = error
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.displaySuccess__V = (function() {
-  ScalaJS.m.s_Predef().println__O__V("Success");
   this.debug$1["innerHTML"] = ""
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.printPdf__T__V = (function(name) {
@@ -3820,156 +3819,170 @@ ScalaJS.h.Lcom_siigna_web_evaluating_Evaluator$ = (function() {
 });
 ScalaJS.h.Lcom_siigna_web_evaluating_Evaluator$.prototype = ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype;
 ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either = (function(expr, env, printer) {
-  var x1 = expr;
-  if (ScalaJS.is.Lcom_siigna_web_parsing_CircleExpr(x1)) {
-    var x2 = ScalaJS.as.Lcom_siigna_web_parsing_CircleExpr(x1);
-    var centerX = x2.centerX__Lcom_siigna_web_parsing_Expr();
-    var centerY = x2.centerY__Lcom_siigna_web_parsing_Expr();
-    var radius = x2.radius__Lcom_siigna_web_parsing_Expr();
-    return this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(centerX, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Int__s_reflect_AnyValManifest()).right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(env, printer, centerY, radius))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_LineExpr(x1)) {
-    var x3 = ScalaJS.as.Lcom_siigna_web_parsing_LineExpr(x1);
-    var e1 = x3.e1__Lcom_siigna_web_parsing_Expr();
-    var e2 = x3.e2__Lcom_siigna_web_parsing_Expr();
-    var e3 = x3.e3__Lcom_siigna_web_parsing_Expr();
-    var e4 = x3.e4__Lcom_siigna_web_parsing_Expr();
-    return this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(e1, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Double__s_reflect_AnyValManifest()).right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$2().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(env, printer, e2, e3, e4))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_TextExpr(x1)) {
-    var x4 = ScalaJS.as.Lcom_siigna_web_parsing_TextExpr(x1);
-    var centerX$2 = x4.centerX__Lcom_siigna_web_parsing_Expr();
-    var centerY$2 = x4.centerY__Lcom_siigna_web_parsing_Expr();
-    var height = x4.size__Lcom_siigna_web_parsing_Expr();
-    var text = x4.t__Lcom_siigna_web_parsing_Expr();
-    return this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(centerX$2, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Int__s_reflect_AnyValManifest()).right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$3().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(env, printer, centerY$2, height, text))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_ConstantExpr(x1)) {
-    var x5 = ScalaJS.as.Lcom_siigna_web_parsing_ConstantExpr(x1);
-    var value = x5.value__O();
-    return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env), value))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_MessageExpr(x1)) {
-    var x6 = ScalaJS.as.Lcom_siigna_web_parsing_MessageExpr(x1);
-    var value$2 = x6.e1__Lcom_siigna_web_parsing_Expr();
-    return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env), value$2))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_CompExpr(x1)) {
-    var x7 = ScalaJS.as.Lcom_siigna_web_parsing_CompExpr(x1);
-    var e1$2 = x7.e1__Lcom_siigna_web_parsing_Expr();
-    var e2$2 = x7.e2__Lcom_siigna_web_parsing_Expr();
-    var op = x7.op__T();
-    return ScalaJS.as.s_util_Either(this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(e1$2, env, printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(e$2) {
-      var e = ScalaJS.as.T(e$2);
-      return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(e)
-    })), new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$5().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__T(env, printer, e2$2, op)))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_OpExpr(x1)) {
-    var x8 = ScalaJS.as.Lcom_siigna_web_parsing_OpExpr(x1);
-    var e1$3 = x8.e1__Lcom_siigna_web_parsing_Expr();
-    var e2$3 = x8.e2__Lcom_siigna_web_parsing_Expr();
-    var op$2 = x8.op__T();
-    return this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(e1$3, env, printer).right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$6().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__T(env, printer, e2$3, op$2))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_ImportExpr(x1)) {
-    var x9 = ScalaJS.as.Lcom_siigna_web_parsing_ImportExpr(x1);
-    var name = x9.name__Lcom_siigna_web_parsing_RefExpr();
-    var xhr = new ScalaJS.g["XMLHttpRequest"]();
-    xhr["open"]("GET", ("http://siigna.com:20004/get/" + name.name__T()), false);
-    xhr["send"]();
-    ScalaJS.m.s_Predef().println__O__V(ScalaJS.as.T(xhr["responseText"]));
-    return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left("No")
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_RangeExpr(x1)) {
-    var x10 = ScalaJS.as.Lcom_siigna_web_parsing_RangeExpr(x1);
-    var name$2 = x10.name__T();
-    var from = x10.from__Lcom_siigna_web_parsing_Expr();
-    var to = x10.to__Lcom_siigna_web_parsing_Expr();
-    var fromOption = ScalaJS.as.s_util_Either(env.get__O__s_Option(name$2).map__F1__s_Option(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x0$1$2) {
-      var x0$1 = ScalaJS.as.O(x0$1$2);
-      var x1 = x0$1;
-      if (ScalaJS.isInt(x1)) {
-        var x2 = ScalaJS.uI(x1);
-        return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(((x2 + 1) | 0))
+  var _$this = this;
+  tailCallLoop: while (true) {
+    var x1 = expr;
+    if (ScalaJS.is.Lcom_siigna_web_parsing_CircleExpr(x1)) {
+      var x2 = ScalaJS.as.Lcom_siigna_web_parsing_CircleExpr(x1);
+      var centerX = x2.centerX__Lcom_siigna_web_parsing_Expr();
+      var centerY = x2.centerY__Lcom_siigna_web_parsing_Expr();
+      var radius = x2.radius__Lcom_siigna_web_parsing_Expr();
+      return _$this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(centerX, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Int__s_reflect_AnyValManifest()).right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$1().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(env, printer, centerY, radius))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_LineExpr(x1)) {
+      var x3 = ScalaJS.as.Lcom_siigna_web_parsing_LineExpr(x1);
+      var e1 = x3.e1__Lcom_siigna_web_parsing_Expr();
+      var e2 = x3.e2__Lcom_siigna_web_parsing_Expr();
+      var e3 = x3.e3__Lcom_siigna_web_parsing_Expr();
+      var e4 = x3.e4__Lcom_siigna_web_parsing_Expr();
+      return _$this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(e1, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Double__s_reflect_AnyValManifest()).right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$2().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(env, printer, e2, e3, e4))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_TextExpr(x1)) {
+      var x4 = ScalaJS.as.Lcom_siigna_web_parsing_TextExpr(x1);
+      var centerX$2 = x4.centerX__Lcom_siigna_web_parsing_Expr();
+      var centerY$2 = x4.centerY__Lcom_siigna_web_parsing_Expr();
+      var height = x4.size__Lcom_siigna_web_parsing_Expr();
+      var text = x4.t__Lcom_siigna_web_parsing_Expr();
+      return _$this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(centerX$2, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Int__s_reflect_AnyValManifest()).right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$3().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr__Lcom_siigna_web_parsing_Expr(env, printer, centerY$2, height, text))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_ConstantExpr(x1)) {
+      var x5 = ScalaJS.as.Lcom_siigna_web_parsing_ConstantExpr(x1);
+      var value = x5.value__O();
+      return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env), value))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_MessageExpr(x1)) {
+      var x6 = ScalaJS.as.Lcom_siigna_web_parsing_MessageExpr(x1);
+      var value$2 = x6.e1__Lcom_siigna_web_parsing_Expr();
+      return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env), value$2))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_CompExpr(x1)) {
+      var x7 = ScalaJS.as.Lcom_siigna_web_parsing_CompExpr(x1);
+      var e1$2 = x7.e1__Lcom_siigna_web_parsing_Expr();
+      var e2$2 = x7.e2__Lcom_siigna_web_parsing_Expr();
+      var op = x7.op__T();
+      return ScalaJS.as.s_util_Either(_$this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(e1$2, env, printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(e$2) {
+        var e = ScalaJS.as.T(e$2);
+        return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(e)
+      })), new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$5().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__T(env, printer, e2$2, op)))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_OpExpr(x1)) {
+      var x8 = ScalaJS.as.Lcom_siigna_web_parsing_OpExpr(x1);
+      var e1$3 = x8.e1__Lcom_siigna_web_parsing_Expr();
+      var e2$3 = x8.e2__Lcom_siigna_web_parsing_Expr();
+      var op$2 = x8.op__T();
+      return _$this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(e1$3, env, printer).right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$6().init___sci_Map__Lcom_siigna_web_Printer__Lcom_siigna_web_parsing_Expr__T(env, printer, e2$3, op$2))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_ImportExpr(x1)) {
+      var x9 = ScalaJS.as.Lcom_siigna_web_parsing_ImportExpr(x1);
+      var name = x9.name__Lcom_siigna_web_parsing_RefExpr();
+      var xhr = new ScalaJS.g["XMLHttpRequest"]();
+      xhr["open"]("GET", ("http://siigna.com:20004/get/" + name.name__T()), false);
+      xhr["send"]();
+      var x1$2 = ScalaJS.m.Lcom_siigna_web_parsing_Parser().parse__Lcom_siigna_web_lexing_LiveStream__s_util_Either(ScalaJS.m.Lcom_siigna_web_lexing_Lexer().lex__T__Lcom_siigna_web_lexing_LiveStream(ScalaJS.as.T(xhr["responseText"])));
+      if (ScalaJS.is.s_util_Right(x1$2)) {
+        var x2$2 = ScalaJS.as.s_util_Right(x1$2);
+        var e = ScalaJS.as.Lcom_siigna_web_parsing_Expr(x2$2.b__O());
+        expr = e;
+        continue tailCallLoop
       };
-      return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Cannot parse ", " to int"]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [x1]))))
-    }))).getOrElse__F0__O(new ScalaJS.c.sjsr_AnonFunction0().init___sjs_js_Function0((function(env$1, printer$1, from$1) {
-      return (function() {
-        return ScalaJS.m.Lcom_siigna_web_evaluating_Evaluator().getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(from$1, env$1, printer$1, ScalaJS.m.s_reflect_ManifestFactory().Int__s_reflect_AnyValManifest())
-      })
-    })(env, printer, from))));
-    var toOption = this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(to, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Int__s_reflect_AnyValManifest());
-    return fromOption.right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$7().init___sci_Map__T__s_util_Either(env, name$2, toOption))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_RefExpr(x1)) {
-    var x11 = ScalaJS.as.Lcom_siigna_web_parsing_RefExpr(x1);
-    var name$3 = x11.name__T();
-    return ScalaJS.as.s_util_Either(env.get__O__s_Option(name$3).fold__F0__F1__O(new ScalaJS.c.sjsr_AnonFunction0().init___sjs_js_Function0((function(name$2) {
-      return (function() {
-        return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Failed to find variable '", "'. Please check if it has been declared."]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [name$2]))))
-      })
-    })(name$3)), new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(env$1) {
-      return (function(s$2) {
-        var s = ScalaJS.as.O(s$2);
-        return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env$1), s))
-      })
-    })(env))))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_SeqExpr(x1)) {
-    var x14 = ScalaJS.as.Lcom_siigna_web_parsing_SeqExpr(x1);
-    return this.com$siigna$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__Lcom_siigna_web_Printer__s_util_Either(x14.expr__sc_Seq().iterator__sc_Iterator(), env, printer)
-  };
-  if (ScalaJS.anyRefEqEq(ScalaJS.m.Lcom_siigna_web_parsing_UnitExpr(), x1)) {
-    return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env), ScalaJS.m.s_Unit()))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_ValExpr(x1)) {
-    var x12 = ScalaJS.as.Lcom_siigna_web_parsing_ValExpr(x1);
-    var name$4 = x12.name__T();
-    var value$3 = x12.value__Lcom_siigna_web_parsing_Expr();
-    return ScalaJS.as.s_util_Either(this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(value$3, env, printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$1$2) {
-      var x$1 = ScalaJS.as.T(x$1$2);
-      return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(x$1)
-    })), new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(env$1, name$3) {
-      return (function(value$2) {
-        var value = ScalaJS.as.T2(value$2);
-        return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env$1.$$plus__T2__sci_Map(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(name$3), value.$$und2__O()))), value.$$und2__O()))
-      })
-    })(env, name$4))))
-  };
-  if (ScalaJS.is.Lcom_siigna_web_parsing_LoopExpr(x1)) {
-    var x13 = ScalaJS.as.Lcom_siigna_web_parsing_LoopExpr(x1);
-    var condition = x13.condition__Lcom_siigna_web_parsing_Expr();
-    var body = x13.body__Lcom_siigna_web_parsing_Expr();
-    if ((condition !== null)) {
-      var x16 = condition;
-      if ((body !== null)) {
-        var x17 = body;
-        var loopEnv = ScalaJS.m.sr_ObjectRef().create__O__sr_ObjectRef(env);
-        var lastResult = ScalaJS.m.sr_ObjectRef().create__O__sr_ObjectRef(ScalaJS.m.s_Unit());
-        var lastError = ScalaJS.m.sr_ObjectRef().create__O__sr_ObjectRef(ScalaJS.m.s_None());
-        while ((ScalaJS.as.s_Option(lastError.elem$1).isEmpty__Z() && this.getCondition$1__p1__Lcom_siigna_web_Printer__sr_ObjectRef__sr_ObjectRef__Lcom_siigna_web_parsing_Expr__Z(printer, loopEnv, lastError, x16))) {
-          this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(x17, ScalaJS.as.sci_Map(loopEnv.elem$1), printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(lastError$1) {
-            return (function(s$2) {
-              var s = ScalaJS.as.T(s$2);
-              lastError$1.elem$1 = new ScalaJS.c.s_Some().init___O(s);
-              return s
-            })
-          })(lastError)), new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(loopEnv$1, lastResult$1) {
-            return (function(x$2) {
-              var x = ScalaJS.as.T2(x$2);
-              lastResult$1.elem$1 = x.$$und2__O();
-              loopEnv$1.elem$1 = ScalaJS.as.sci_Map(x.$$und1__O())
-            })
-          })(loopEnv, lastResult)))
+      if (ScalaJS.is.s_util_Left(x1$2)) {
+        var x3$2 = ScalaJS.as.s_util_Left(x1$2);
+        var error = ScalaJS.as.T(x3$2.a__O());
+        return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Script ", " failed to compile with error: ", ""]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [name, error]))))
+      };
+      throw new ScalaJS.c.s_MatchError().init___O(x1$2)
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_RangeExpr(x1)) {
+      var x10 = ScalaJS.as.Lcom_siigna_web_parsing_RangeExpr(x1);
+      var name$2 = x10.name__T();
+      var from = x10.from__Lcom_siigna_web_parsing_Expr();
+      var to = x10.to__Lcom_siigna_web_parsing_Expr();
+      var fromOption = ScalaJS.as.s_util_Either(env.get__O__s_Option(name$2).map__F1__s_Option(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x0$1$2) {
+        var x0$1 = ScalaJS.as.O(x0$1$2);
+        var x1 = x0$1;
+        if (ScalaJS.isInt(x1)) {
+          var x2 = ScalaJS.uI(x1);
+          return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(((x2 + 1) | 0))
         };
-        return ScalaJS.as.s_util_Either(ScalaJS.as.s_Option(lastError.elem$1).map__F1__s_Option(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$2$2) {
-          var x$2 = ScalaJS.as.T(x$2$2);
-          return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(x$2)
-        }))).getOrElse__F0__O(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$15().init___sci_Map__sr_ObjectRef__sr_ObjectRef(env, loopEnv, lastResult)))
+        return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Cannot parse ", " to int"]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [x1]))))
+      }))).getOrElse__F0__O(new ScalaJS.c.sjsr_AnonFunction0().init___sjs_js_Function0((function(env$1, printer$1, from$1) {
+        return (function() {
+          return ScalaJS.m.Lcom_siigna_web_evaluating_Evaluator().getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(from$1, env$1, printer$1, ScalaJS.m.s_reflect_ManifestFactory().Int__s_reflect_AnyValManifest())
+        })
+      })(env, printer, from))));
+      var toOption = _$this.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either(to, env, printer, ScalaJS.m.s_reflect_ManifestFactory().Int__s_reflect_AnyValManifest());
+      return fromOption.right__s_util_Either$RightProjection().flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$7().init___sci_Map__T__s_util_Either(env, name$2, toOption))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_RefExpr(x1)) {
+      var x11 = ScalaJS.as.Lcom_siigna_web_parsing_RefExpr(x1);
+      var name$3 = x11.name__T();
+      return ScalaJS.as.s_util_Either(env.get__O__s_Option(name$3).fold__F0__F1__O(new ScalaJS.c.sjsr_AnonFunction0().init___sjs_js_Function0((function(name$2) {
+        return (function() {
+          return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Failed to find variable '", "'. Please check if it has been declared."]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [name$2]))))
+        })
+      })(name$3)), new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(env$1) {
+        return (function(s$2) {
+          var s = ScalaJS.as.O(s$2);
+          return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env$1), s))
+        })
+      })(env))))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_SeqExpr(x1)) {
+      var x14 = ScalaJS.as.Lcom_siigna_web_parsing_SeqExpr(x1);
+      return _$this.com$siigna$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__Lcom_siigna_web_Printer__s_util_Either(x14.expr__sc_Seq().iterator__sc_Iterator(), env, printer)
+    };
+    if (ScalaJS.anyRefEqEq(ScalaJS.m.Lcom_siigna_web_parsing_UnitExpr(), x1)) {
+      return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env), ScalaJS.m.s_Unit()))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_ValExpr(x1)) {
+      var x12 = ScalaJS.as.Lcom_siigna_web_parsing_ValExpr(x1);
+      var name$4 = x12.name__T();
+      var value$3 = x12.value__Lcom_siigna_web_parsing_Expr();
+      return ScalaJS.as.s_util_Either(_$this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(value$3, env, printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$1$2) {
+        var x$1 = ScalaJS.as.T(x$1$2);
+        return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(x$1)
+      })), new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(env$1, name$3) {
+        return (function(value$2) {
+          var value = ScalaJS.as.T2(value$2);
+          return ScalaJS.m.s_package().Right__s_util_Right$().apply__O__s_util_Right(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(env$1.$$plus__T2__sci_Map(ScalaJS.m.s_Predef$ArrowAssoc().$$minus$greater$extension__O__O__T2(ScalaJS.m.s_Predef().ArrowAssoc__O__O(name$3), value.$$und2__O()))), value.$$und2__O()))
+        })
+      })(env, name$4))))
+    };
+    if (ScalaJS.is.Lcom_siigna_web_parsing_LoopExpr(x1)) {
+      var x13 = ScalaJS.as.Lcom_siigna_web_parsing_LoopExpr(x1);
+      var condition = x13.condition__Lcom_siigna_web_parsing_Expr();
+      var body = x13.body__Lcom_siigna_web_parsing_Expr();
+      if ((condition !== null)) {
+        var x16 = condition;
+        if ((body !== null)) {
+          var x17 = body;
+          var loopEnv = ScalaJS.m.sr_ObjectRef().create__O__sr_ObjectRef(env);
+          var lastResult = ScalaJS.m.sr_ObjectRef().create__O__sr_ObjectRef(ScalaJS.m.s_Unit());
+          var lastError = ScalaJS.m.sr_ObjectRef().create__O__sr_ObjectRef(ScalaJS.m.s_None());
+          while ((ScalaJS.as.s_Option(lastError.elem$1).isEmpty__Z() && _$this.getCondition$1__p1__Lcom_siigna_web_Printer__sr_ObjectRef__sr_ObjectRef__Lcom_siigna_web_parsing_Expr__Z(printer, loopEnv, lastError, x16))) {
+            _$this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(x17, ScalaJS.as.sci_Map(loopEnv.elem$1), printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(lastError$1) {
+              return (function(s$2) {
+                var s = ScalaJS.as.T(s$2);
+                lastError$1.elem$1 = new ScalaJS.c.s_Some().init___O(s);
+                return s
+              })
+            })(lastError)), new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(loopEnv$1, lastResult$1) {
+              return (function(x$2) {
+                var x = ScalaJS.as.T2(x$2);
+                lastResult$1.elem$1 = x.$$und2__O();
+                loopEnv$1.elem$1 = ScalaJS.as.sci_Map(x.$$und1__O())
+              })
+            })(loopEnv, lastResult)))
+          };
+          return ScalaJS.as.s_util_Either(ScalaJS.as.s_Option(lastError.elem$1).map__F1__s_Option(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$2$2) {
+            var x$2 = ScalaJS.as.T(x$2$2);
+            return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(x$2)
+          }))).getOrElse__F0__O(new ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$$anonfun$eval$15().init___sci_Map__sr_ObjectRef__sr_ObjectRef(env, loopEnv, lastResult)))
+        }
       }
-    }
-  };
-  return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Unknown expression ", ""]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [x1]))))
+    };
+    return ScalaJS.m.s_package().Left__s_util_Left$().apply__O__s_util_Left(new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Unknown expression ", ""]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [x1]))))
+  }
 });
 ScalaJS.c.Lcom_siigna_web_evaluating_Evaluator$.prototype.getValue__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_reflect_Manifest__s_util_Either = (function(expr, env, printer, evidence$1) {
   var x1 = this.eval__Lcom_siigna_web_parsing_Expr__sci_Map__Lcom_siigna_web_Printer__s_util_Either(expr, env, printer);

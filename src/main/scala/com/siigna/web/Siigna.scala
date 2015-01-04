@@ -89,7 +89,6 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   }
 
   def displaySuccess(): Unit = {
-    println("Success")
     debug.innerHTML = ""
   }
 
