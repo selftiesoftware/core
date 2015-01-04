@@ -16,11 +16,15 @@ object Drawing {
 #minute paper: used by pilots - one minute between each line
 
 #variables to customize the minute paper
-scale = 500000 #chart scale that the paper will be used for
+
+scale = 500000 #chart scale
 speedMin = 100
 speedMax = 160
 yStart = -110 # y-coord of the first speed line
 textSize = 4
+
+
+#SCRIPT STARTS HERE
 
 dist = speedMax - speedMin
 distance = 250 / dist
@@ -63,13 +67,19 @@ for i <- speedMin to speedMax {
 
 line -80 yStart 80 yStart #last speed line
 text -90 130 textSize speedMax #last speed text
-text -89 -130 6 1 #show the minute paper scale
-text -80 -130 6 scale #show the minute paper scale
+text -89 -130 9 "MINUTE PAPER FOR PILOTS       MAP SCALE 1:" #show the minute paper scale
+text 50 -130 9 scale #show the minute paper scale
 
 #5cm: use to x-check the size of the printed minute paper with a ruler
 line 90 60 90 70
 line 90 80 90 90
 line 90 100 90 110
+line 86 110 90 110
+line 86 60 90 60
+text 82 57 5 "5 cm"
+text 81 116 5 "print"
+text 81 120 5 "scale "
+text 81 124 5 "check"
 """
 
   def apply() : Drawing = {

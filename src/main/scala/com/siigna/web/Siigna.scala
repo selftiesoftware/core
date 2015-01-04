@@ -65,6 +65,7 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   def init() : Unit = {
     view.init()
     input.value = drawing.content
+    window.location.hash = drawing.name
     run()
   }
 
