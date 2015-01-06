@@ -9,6 +9,20 @@ class PdfPrinter extends Printer {
 
   val document = js.Dynamic.global.jsPDF()
 
+  /**
+   * create an arc.
+   * @param x The x-coordinate of the center of the circle
+   * @param y y	The y-coordinate of the center of the circle
+   * @param r r	The radius of the circle
+   * @param sAngle	The starting angle, in radians (0 is at the 3 o'clock position of the arc's circle)
+   * @param eAngle	The ending angle, in radians
+   */
+
+  def arc(x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) : Unit = {
+    val v = transform(Vector2D(x, y))
+    document.arc(v.x,v.y,r,sAngle,eAngle)
+  }
+
   def circle(x : Double, y : Double, r : Double) : Unit = {
     val v = transform(Vector2D(x, y))
     document.circle(v.x,v.y,r)

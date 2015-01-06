@@ -22,10 +22,24 @@ object Evaluator {
   def eval(expr: Expr, env : Env, printer : Printer) : Value = {
     expr match {
 
+      case ArcExpr(centerX, centerY, radius, sAngle, eAngle) =>
+        getValue[Double](centerX, env, printer).right.flatMap(x =>
+          getValue[Double](centerY, env, printer).right.flatMap(y =>
+            getValue[Double](radius, env, printer).right.flatMap(radiusValue =>
+              getValue[Double](sAngle, env, printer).right.flatMap(startAngle =>
+                getValue[Double](eAngle, env, printer).right.flatMap(endAngle => {
+                  printer.arc(x,y,radiusValue,startAngle,endAngle)
+                  Right(env -> Unit)
+              })
+            )
+          )
+        )
+      )
+
       case CircleExpr(centerX, centerY, radius) =>
-        getValue[Int](centerX, env, printer).right.flatMap(x =>
-          getValue[Int](centerY, env, printer).right.flatMap(y =>
-            getValue[Int](radius, env, printer).right.flatMap(radiusValue => {
+        getValue[Double](centerX, env, printer).right.flatMap(x =>
+          getValue[Double](centerY, env, printer).right.flatMap(y =>
+            getValue[Double](radius, env, printer).right.flatMap(radiusValue => {
               printer.circle(x,y,radiusValue)
               Right(env -> Unit)
             })

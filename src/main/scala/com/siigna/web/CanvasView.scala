@@ -67,6 +67,14 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     line(-pH/2,pW/2,-pH/2,-pW/2)
   }
 
+  override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
+    context.beginPath()
+    context.arc(x, y, r, sAngle, eAngle, false)
+    context.lineWidth = 0.2
+    context.stroke()
+    context.closePath()
+  }
+
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
     context.beginPath()
     context.moveTo(x1, y1)

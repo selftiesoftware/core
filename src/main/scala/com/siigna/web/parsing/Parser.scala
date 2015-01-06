@@ -31,11 +31,22 @@ object Parser {
       case SymbolToken("import") :~: SymbolToken(library) :~: tail =>
         success(ImportExpr(RefExpr(library)), tail)
 
+      case SymbolToken("arc") :~: tail =>
+        parse(tail, (centerX, t1) =>
+          parse(t1, (centerY, t2) =>
+            parse(t2, (radius, t3) =>
+              parse(t3, (sAngle, t4) =>
+                parse(t4, (eAngle, t5) => success(ArcExpr(centerX, centerY, radius, sAngle,eAngle), t5), failure),
+                failure),
+              failure),
+            failure),
+        failure)
+
       case SymbolToken("circle") :~: tail =>
         parse(tail, (centerX, t1) =>
           parse(t1, (centerY, t2) =>
             parse(t2, (radius, t3) => success(CircleExpr(centerX, centerY, radius), t3), failure),
-          failure),
+            failure),
         failure)
 
       case SymbolToken("line") :~: tail =>
