@@ -2545,22 +2545,22 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init__V = (function() {
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
   this.context$1["beginPath"]();
-  this.context$1["moveTo"](x1, y1);
-  this.context$1["lineTo"](x2, y2);
+  this.context$1["moveTo"](x1, (-y1));
+  this.context$1["lineTo"](x2, (-y2));
   this.context$1["stroke"]();
   this.context$1["lineWidth"] = 0.2;
   this.context$1["closePath"]()
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.circle__D__D__D__V = (function(x, y, r) {
   this.context$1["beginPath"]();
-  this.context$1["arc"](x, y, r, 0.0, (2 * ScalaJS.uD(ScalaJS.g["Math"]["PI"])), false);
+  this.context$1["arc"](x, (-y), r, 0.0, (2 * ScalaJS.uD(ScalaJS.g["Math"]["PI"])), false);
   this.context$1["lineWidth"] = 0.2;
   this.context$1["stroke"]();
   this.context$1["closePath"]()
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   this.context$1["beginPath"]();
-  this.context$1["arc"](x, y, r, sAngle, eAngle, false);
+  this.context$1["arc"](x, (-y), r, sAngle, eAngle, false);
   this.context$1["lineWidth"] = 0.2;
   this.context$1["stroke"]();
   this.context$1["closePath"]()
@@ -2570,7 +2570,7 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.text__D__D__D__O__V = (function(x
   var myFont = (ScalaJS.objectToString(correctedH) + "px Arial");
   this.context$1["font"] = myFont;
   this.context$1["fillStyle"] = "black";
-  this.context$1["fillText"](ScalaJS.objectToString(t), x, y)
+  this.context$1["fillText"](ScalaJS.objectToString(t), x, (-y))
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.drawPaper__V = (function() {
   var pH = ScalaJS.imul(this.paperH$1, this.calcPaperScale$1);
