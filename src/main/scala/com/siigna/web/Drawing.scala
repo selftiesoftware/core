@@ -7,7 +7,12 @@ import scala.scalajs.js
 /**
  * A drawing that is automatically synched
  */
-sealed case class Drawing(name : String, content : String)
+sealed case class Drawing(name : String, content : String) {
+  def save(): Response = {
+    val urlName = js.Dynamic.global.encodeURI(name)
+    Ajax.post("http://repocad.com:20004/post/" + urlName, content)
+  }
+}
 
 object Drawing {
 
@@ -26,7 +31,10 @@ object Drawing {
   dom.setInterval(() => listener(), 100)
 
   def get(name : String) : Either[String, Drawing] = {
-    Ajax("http://siigna.com:20004/get/" + name).right.map(content => Drawing(name, content))
+    Ajax.get("http://repocad.com:20004/get/" + name) match {
+      case Response(404, _, _) => Right(Drawing(name, ""))
+      case Response(status, state, response) => Right(Drawing(name, response))
+    }
   }
 
   def setHashListener(fn : (String) => Unit) = {
@@ -39,7 +47,5 @@ object Drawing {
       }
     }
   }
-
-  //private def getDrawing()
 
 }
