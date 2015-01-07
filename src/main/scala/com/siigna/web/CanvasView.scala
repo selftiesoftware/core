@@ -67,10 +67,18 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     line(-pH/2,pW/2,-pH/2,-pW/2)
   }
 
+  override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
+    context.beginPath()
+    context.arc(x, -y, r, sAngle, eAngle, false)
+    context.lineWidth = 0.2
+    context.stroke()
+    context.closePath()
+  }
+
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
     context.beginPath()
-    context.moveTo(x1, y1)
-    context.lineTo(x2, y2)
+    context.moveTo(x1, -y1)
+    context.lineTo(x2, -y2)
     context.stroke()
     context.lineWidth = 0.2
     context.closePath()
@@ -78,7 +86,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
     context.beginPath()
-    context.arc(x, y, r, 0, 2 * Math.PI, false)
+    context.arc(x, -y, r, 0, 2 * Math.PI, false)
     context.lineWidth = 0.2
     context.stroke()
     context.closePath()
@@ -92,7 +100,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     //context.font(1)
     //context.textAlign("left")
     //context.textBaseline("bottom")
-    context.fillText(t.toString(), x, y)
+    context.fillText(t.toString(), x, -y)
   }
 
   def translate(x : Double, y : Double) : Unit = {

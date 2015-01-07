@@ -6,6 +6,17 @@ package com.siigna.web
 trait Printer {
 
   /**
+   * Draws an arc
+   * @param x First coordinate
+   * @param y Second coordinate
+   * @param r Radius
+   * @param sAngle start angle (3'o clock)
+   * @param eAngle end angle
+   *
+   */
+  def arc(x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double)
+
+  /**
    * Draws a circle
    * @param x First coordinate
    * @param y Second coordinate

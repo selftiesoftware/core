@@ -9,6 +9,20 @@ class PdfPrinter extends Printer {
 
   val document = js.Dynamic.global.jsPDF()
 
+  /**
+   * create an arc.
+   * @param x The x-coordinate of the center of the circle
+   * @param y y	The y-coordinate of the center of the circle
+   * @param r r	The radius of the circle
+   * @param sAngle	The starting angle, in radians (0 is at the 3 o'clock position of the arc's circle)
+   * @param eAngle	The ending angle, in radians
+   */
+
+  def arc(x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) : Unit = {
+    val v = transform(Vector2D(x, y))
+    document.arc(v.x,v.y,r,sAngle,eAngle)
+  }
+
   def circle(x : Double, y : Double, r : Double) : Unit = {
     val v = transform(Vector2D(x, y))
     document.circle(v.x,v.y,r)
@@ -24,16 +38,17 @@ class PdfPrinter extends Printer {
   def text(x : Double, y : Double, h : Double, t : Any) : Unit = {
     val v = transform(Vector2D(x, y))
     //document.font("Arial")
-    document.setFontSize(h * 2)
-    document(t.toString())
-    //document.text(v.x,v.y,t.toString())
+    document.setFontSize(h * 1.92)
+    //document("test")
+    document.text(v.x,v.y,t.toString())
   }
 
   private def transform(v : Vector2D): Vector2D = {
     //TODO: use a calculated paper scale...
     val paperScale = 1
     //scale the artwork based on the current paper scale
-    val vec =  Vector2D(v.x / paperScale,v.y / paperScale)
+    //NOTE: Y is flipped.
+    val vec =  Vector2D(v.x / paperScale,-v.y / paperScale)
     //Transform by moving (0, 0) to center of paper
     vec + Vector2D(105,147)
 
