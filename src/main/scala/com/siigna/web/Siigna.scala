@@ -91,7 +91,10 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
 
   @JSExport
   def save() : Unit = {
-    displaySuccess(drawing.save().toString)
+    drawing.save() match {
+      case Response(_, 4, _) => displaySuccess(s"Successfully stored drawing '${drawing.name}'")
+      case x => displayError("Failure when saving drawing: " + x)
+    }
   }
 
   def eval(expr : Expr) : Unit = {

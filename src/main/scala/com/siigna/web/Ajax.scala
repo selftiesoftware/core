@@ -29,10 +29,10 @@ object Ajax {
     headers.foreach(t => xhr.setRequestHeader(t._1, t._2))
     try {
       xhr.send(data)
-      Response(xhr)
     } catch {
       case e : Throwable => Response(0, 0, "")
     }
+    Response(xhr)
   }
 
 }

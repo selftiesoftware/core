@@ -2494,15 +2494,16 @@ ScalaJS.c.Lcom_siigna_web_Ajax$.prototype.ajax__p1__T__T__T__sci_Map__Lcom_siign
     })
   })(xhr)));
   try {
-    return (xhr["send"](data), ScalaJS.m.Lcom_siigna_web_Response().apply__Lorg_scalajs_dom_XMLHttpRequest__Lcom_siigna_web_Response(xhr))
+    xhr["send"](data)
   } catch (ex) {
     ex = ScalaJS.wrapJavaScriptException(ex);
     if (ScalaJS.is.jl_Throwable(ex)) {
-      return new ScalaJS.c.Lcom_siigna_web_Response().init___I__I__T(0, 0, "")
+      new ScalaJS.c.Lcom_siigna_web_Response().init___I__I__T(0, 0, "")
     } else {
       throw ScalaJS.unwrapJavaScriptException(ex)
     }
-  }
+  };
+  return ScalaJS.m.Lcom_siigna_web_Response().apply__Lorg_scalajs_dom_XMLHttpRequest__Lcom_siigna_web_Response(xhr)
 });
 ScalaJS.c.Lcom_siigna_web_Ajax$.prototype.get__T__Lcom_siigna_web_Response = (function(url) {
   return this.ajax__p1__T__T__T__sci_Map__Lcom_siigna_web_Response("GET", url, "", ScalaJS.as.sci_Map(ScalaJS.m.s_Predef().Map$2.apply__sc_Seq__sc_GenMap(ScalaJS.m.sci_Nil())))
@@ -3143,8 +3144,20 @@ ScalaJS.c.Lcom_siigna_web_Siigna.prototype.loadDrawing__Lcom_siigna_web_Drawing_
   this.run__V()
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.save__V = (function() {
-  var this$1 = this.drawing$1.save__Lcom_siigna_web_Response();
-  this.displaySuccess__T__V(ScalaJS.m.sr_ScalaRunTime().$$undtoString__s_Product__T(this$1))
+  var x1 = this.drawing$1.save__Lcom_siigna_web_Response();
+  matchEnd7: {
+    if ((x1 !== null)) {
+      var p3 = x1.state$1;
+      if ((4 === p3)) {
+        this.displaySuccess__T__V(new ScalaJS.c.s_StringContext().init___sc_Seq(ScalaJS.m.s_Predef().wrapRefArray__AO__scm_WrappedArray(ScalaJS.asArrayOf.O(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.T.getArrayOf(), ["Successfully stored drawing '", "'"]), 1))).s__sc_Seq__T(ScalaJS.m.s_Predef().genericWrapArray__O__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.O.getArrayOf(), [this.drawing$1.name$1]))));
+        (void 0);
+        break matchEnd7
+      }
+    };
+    this.displayError__T__V(("Failure when saving drawing: " + x1));
+    (void 0);
+    break matchEnd7
+  }
 });
 ScalaJS.c.Lcom_siigna_web_Siigna.prototype.$$js$exported$meth$printPdf__T__O = (function(name) {
   return (this.printPdf__T__V(name), (void 0))
