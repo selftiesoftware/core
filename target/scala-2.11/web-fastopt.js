@@ -2830,10 +2830,6 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x,
   var v = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y));
   this.document$1["circle"](v.x$1, v.y$1, r)
 });
-ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
-  var v = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y));
-  this.document$1["arc"](v.x$1, v.y$1, r, sAngle, eAngle)
-});
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.save__T__V = (function(name) {
   this.document$1["save"](name)
 });
@@ -2841,6 +2837,10 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(x
   var v = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y));
   this.document$1["setFontSize"]((h * 1.92));
   this.document$1["text"](v.x$1, v.y$1, ScalaJS.objectToString(t))
+});
+ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
+  var v = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y));
+  this.document$1["arc"](v.x$1, v.y$1, r, sAngle, eAngle)
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(v) {
   var vec = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(v.x$1, v.y$1);
