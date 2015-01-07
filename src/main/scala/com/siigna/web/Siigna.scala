@@ -63,12 +63,16 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
   @JSExport
   def init() : Unit = {
     view.init()
-    loadDrawing(drawing)
-    Drawing.setHashListener(hash => {
-      Drawing.get(hash).fold(displayError, drawing => {
+    val listener = (hash : String) => {
+      val x = Drawing.get(hash)
+        x.fold(displayError, drawing => {
         loadDrawing(drawing)
+        displaySuccess(s"Loaded drawing $hash")
       })
-    })
+    }
+    // Call and set listener
+    loadDrawing(drawing)
+    Drawing.setHashListener(listener)
   }
 
   def loadDrawing(drawing : Drawing) : Unit = {
@@ -83,6 +87,11 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
     Parser.parse(Lexer.lex(drawing.content))
           .fold(left => displayError("Error while reading code " + left),
             right => eval(right))
+  }
+
+  @JSExport
+  def save() : Unit = {
+    displaySuccess(drawing.save().toString)
   }
 
   def eval(expr : Expr) : Unit = {
@@ -100,8 +109,8 @@ class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HT
     debug.innerHTML = error
   }
 
-  def displaySuccess(): Unit = {
-    debug.innerHTML = ""
+  def displaySuccess(success : String = ""): Unit = {
+    debug.innerHTML = success
   }
 
   @JSExport
