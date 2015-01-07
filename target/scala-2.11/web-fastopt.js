@@ -2843,7 +2843,7 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function
   this.document$1["arc"](v.x$1, v.y$1, r, sAngle, eAngle)
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(v) {
-  var vec = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(v.x$1, v.y$1);
+  var vec = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(v.x$1, (-v.y$1));
   return vec.$$plus__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(105.0, 147.0))
 });
 ScalaJS.is.Lcom_siigna_web_PdfPrinter = (function(obj) {
