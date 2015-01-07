@@ -36,6 +36,21 @@ object Evaluator {
         )
       )
 
+      case BezierExpr(centerX, centerY, radius, sAngle, eAngle) =>
+        getValue[Double](centerX, env, printer).right.flatMap(x =>
+          getValue[Double](centerY, env, printer).right.flatMap(y =>
+            getValue[Double](radius, env, printer).right.flatMap(radiusValue =>
+              getValue[Double](sAngle, env, printer).right.flatMap(startAngle =>
+                getValue[Double](eAngle, env, printer).right.flatMap(endAngle => {
+                  printer.arc(x,y,radiusValue,startAngle,endAngle)
+                  Right(env -> Unit)
+                })
+              )
+            )
+          )
+        )
+
+
       case CircleExpr(centerX, centerY, radius) =>
         getValue[Double](centerX, env, printer).right.flatMap(x =>
           getValue[Double](centerY, env, printer).right.flatMap(y =>
