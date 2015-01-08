@@ -36,19 +36,25 @@ object Evaluator {
         )
       )
 
-      case BezierExpr(centerX, centerY, radius, sAngle, eAngle) =>
-        getValue[Double](centerX, env, printer).right.flatMap(x =>
-          getValue[Double](centerY, env, printer).right.flatMap(y =>
-            getValue[Double](radius, env, printer).right.flatMap(radiusValue =>
-              getValue[Double](sAngle, env, printer).right.flatMap(startAngle =>
-                getValue[Double](eAngle, env, printer).right.flatMap(endAngle => {
-                  printer.arc(x,y,radiusValue,startAngle,endAngle)
-                  Right(env -> Unit)
-                })
+      case BezierExpr(sx1, sy1, sx2, sy2, sx3, sy3, sx4, sy4) =>
+        getValue[Double](sx1, env, printer).right.flatMap(x1 =>
+          getValue[Double](sy1, env, printer).right.flatMap(y1 =>
+            getValue[Double](sx2, env, printer).right.flatMap(x2 =>
+              getValue[Double](sy2, env, printer).right.flatMap(y2 =>
+                getValue[Double](sx3, env, printer).right.flatMap(x3 =>
+                  getValue[Double](sy3, env, printer).right.flatMap(y3 =>
+                    getValue[Double](sx4, env, printer).right.flatMap(x4 =>
+                      getValue[Double](sy4, env, printer).right.flatMap(y4 => {
+                      printer.bezierCurve(x1, y1, x2, y2, x3 , y3 , x4 , y4)
+                      Right(env -> Unit)
+                    })
+                  )
+                )
               )
             )
           )
         )
+      )
 
 
       case CircleExpr(centerX, centerY, radius) =>

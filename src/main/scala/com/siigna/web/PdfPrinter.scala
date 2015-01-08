@@ -11,16 +11,23 @@ class PdfPrinter extends Printer {
 
   /**
    * create an arc.
-   * @param x The x-coordinate of the center of the circle
-   * @param y y	The y-coordinate of the center of the circle
-   * @param r r	The radius of the circle
+   * @param x The x-coordinate of the center of the arc
+   * @param y y	The y-coordinate of the center of the arc
+   * @param r r	The radius of the arc
    * @param sAngle	The starting angle, in radians (0 is at the 3 o'clock position of the arc's circle)
    * @param eAngle	The ending angle, in radians
    */
-
-  def arc(x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) : Unit = {
+  def arc(x: Double,y: Double,r: Double,sAngle: Double,endAngle: Double) : Unit = {
     val v = transform(Vector2D(x, y))
-    document.arc(v.x,v.y,r,sAngle,eAngle)
+    //document.lines(v1.x,v1.y,v2.x,v2.y,v3.x,v3.y,v4.x,v4.y)
+  }
+
+  def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
+    val v1 = transform(Vector2D(x1, y1))
+    val v2 = transform(Vector2D(x2, y2))
+    val v3 = transform(Vector2D(x3, y3))
+    val v4 = transform(Vector2D(x4, y4))
+    document.lines(v1.x,v1.y,v2.x,v2.y,v3.x,v3.y,v4.x,v4.y)
   }
 
   def circle(x : Double, y : Double, r : Double) : Unit = {

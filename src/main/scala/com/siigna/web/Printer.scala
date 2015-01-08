@@ -14,7 +14,22 @@ trait Printer {
    * @param eAngle end angle
    *
    */
+
   def arc(x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double)
+
+  /**
+   * Draws a bezier curve
+   * @param x1 start x
+   * @param y1 start y
+   * @param x2 control point1 x
+   * @param y2 control point1 y
+   * @param x3 control point2 x
+   * @param y3 control point2 y
+   * @param x4 end x
+   * @param y4 start y
+   *
+   */
+  def bezierCurve(x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double)
 
   /**
    * Draws a circle

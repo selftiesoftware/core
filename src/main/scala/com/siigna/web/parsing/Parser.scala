@@ -42,6 +42,23 @@ object Parser {
             failure),
         failure)
 
+      case SymbolToken("bezierCurve") :~: tail =>
+        parse(tail, (x1, t1) =>
+          parse(t1, (y1, t2) =>
+            parse(t2, (x2, t3) =>
+              parse(t3, (y2, t4) =>
+              parse(t4, (x3, t5) =>
+              parse(t5, (y3, t6) =>
+              parse(t6, (x4, t7) =>
+                parse(t7, (y4, t8) => success(BezierExpr(x1,y1,x2,y2,x3,y3,x4,y4), t8), failure),
+                failure),
+                failure),
+              failure),
+            failure),
+          failure),
+        failure),
+      failure)
+
       case SymbolToken("circle") :~: tail =>
         parse(tail, (centerX, t1) =>
           parse(t1, (centerY, t2) =>
