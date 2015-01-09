@@ -2608,8 +2608,8 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.drawPaper__V = (function() {
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
   this.context$1["beginPath"]();
-  this.context$1["moveTo"](x1, y1);
-  this.context$1["bezierCurveTo"](x2, y2, x3, y3, x4, y4);
+  this.context$1["moveTo"](x1, (-y1));
+  this.context$1["bezierCurveTo"](x2, (-y2), x3, (-y3), x4, (-y4));
   this.context$1["stroke"]()
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement = (function(canvas) {
@@ -2886,12 +2886,12 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(x
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
   var v1 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x1, y1));
-  this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x2, y2));
-  this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x3, y3));
-  this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x4, y4));
-  v1.x$1;
-  v1.y$1;
-  var arr = ScalaJS.m.s_Array().apply__D__sc_Seq__AD(x2, ScalaJS.m.s_Predef().wrapDoubleArray__AD__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.D.getArrayOf(), [y2, x3, y3, x4, y4])));
+  var v2 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x2, y2));
+  var v3 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x3, y3));
+  var v4 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x4, y4));
+  var x = v1.x$1;
+  var y = v1.y$1;
+  var arr = ScalaJS.m.s_Array().apply__D__sc_Seq__AD((v2.x$1 - x), ScalaJS.m.s_Predef().wrapDoubleArray__AD__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.D.getArrayOf(), [(v2.y$1 - y), (v3.x$1 - x), (v3.y$1 - y), (v4.x$1 - x), (v4.y$1 - y)])));
   var $$this = ScalaJS.m.s_Predef().genericArrayOps__O__scm_ArrayOps(arr);
   var result = new ScalaJS.g["Array"]();
   var i = 0;
@@ -2921,7 +2921,7 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D_
     ScalaJS.uI(result$2["push"](x$2$2));
     i$2 = ((i$2 + 1) | 0)
   };
-  this.document$1["lines"](result$2, x1, y1, result$1)
+  this.document$1["lines"](result$2, v1.x$1, v1.y$1, result$1)
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(v) {
   var vec = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(v.x$1, (-v.y$1));

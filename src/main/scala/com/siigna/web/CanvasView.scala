@@ -77,8 +77,8 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   override def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
     context.beginPath();
-    context.moveTo(x1, y1);
-    context.bezierCurveTo(x2, y2, x3, y3, x4, y4);
+    context.moveTo(x1, -y1);
+    context.bezierCurveTo(x2, -y2, x3, -y3, x4, -y4);
     context.stroke();
   }
 

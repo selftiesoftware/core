@@ -29,14 +29,16 @@ class PdfPrinter extends Printer {
     val v1 = transform(Vector2D(x1, y1))
     val v2 = transform(Vector2D(x2, y2))
     val v3 = transform(Vector2D(x3, y3))
-    val v4 = transform(Vector2D(x4, y4))
+    val v4 = transform(Vector2D(x4, y4))//endPoint
     val x = v1.x
     val y = v1.y
 
-    //GENERAL SYNTAX: doc.lines([[1,8,20,-20,80,30]], 10, 10, [1,1]);
-    val six = Array(x2,y2,x3,y3,x4,y4).toJSArray     //two control points and end point:
+    //SYNTAX: doc.lines([[crtlPt1x,crtlPt1y,crtlPt2x,crtlPt2y,endX,endY]], startX, startY, [scaleX,scaleY]);
+    //coordinates are relative, so the start point x and y needs to be subtracted
+    val six = Array(v2.x - x,v2.y - y,v3.x - x,v3.y - y,v4.x - x, v4.y - y).toJSArray     //two control points and end point:
     val scale = Array(1,1).toJSArray //scale x/y
-    document.lines(Array(six).toJSArray,x1,y1,scale)
+    //create the bezier curve
+    document.lines(Array(six).toJSArray,v1.x,v1.y,scale)
   }
 
   def circle(x : Double, y : Double, r : Double) : Unit = {
