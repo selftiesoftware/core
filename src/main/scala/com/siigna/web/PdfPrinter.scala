@@ -1,6 +1,7 @@
 package com.siigna.web
 
 import scala.scalajs.js
+import scala.scalajs.js.JSConverters._
 
 /**
  * A printer that can generate pdf files
@@ -31,11 +32,11 @@ class PdfPrinter extends Printer {
     val v4 = transform(Vector2D(x4, y4))
     val x = v1.x
     val y = v1.y
-    //document.lines(((v2.x-x,v2.y-y,v3.x-x,v3.y-y,v4.x-x,v4.y-y)),x,y)
-    //document.lines(10,10,20,40,30,70)
-    document.lines([[2,2], [-2,2], [1,1,2,2,3,3], [2,1]], 0, 0, [10,10])
 
-    //document.lines([[2,2], [-2,2], [1,1,2,2,3,3], [2,1]], 0, 0, [10,10])
+    //GENERAL SYNTAX: doc.lines([[1,8,20,-20,80,30]], 10, 10, [1,1]);
+    val six = Array(x2,y2,x3,y3,x4,y4).toJSArray     //two control points and end point:
+    val scale = Array(1,1).toJSArray //scale x/y
+    document.lines(Array(six).toJSArray,x1,y1,scale)
   }
 
   def circle(x : Double, y : Double, r : Double) : Unit = {
