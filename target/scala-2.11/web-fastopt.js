@@ -2600,7 +2600,7 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.drawPaper__V = (function() {
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
   this.context$1["beginPath"]();
   this.context$1["moveTo"](x1, y1);
-  this.context$1["bezierCurveTo"](x2, x2, x3, y3, x4, y4);
+  this.context$1["bezierCurveTo"](x2, y2, x3, y3, x4, y4);
   this.context$1["stroke"]()
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement = (function(canvas) {
@@ -2668,17 +2668,17 @@ ScalaJS.h.Lcom_siigna_web_Drawing = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_siigna_web_Drawing.prototype = ScalaJS.c.Lcom_siigna_web_Drawing.prototype;
-ScalaJS.c.Lcom_siigna_web_Drawing.prototype.init___T__T = (function(name, content) {
-  this.name$1 = name;
-  this.content$1 = content;
-  return this
-});
 ScalaJS.c.Lcom_siigna_web_Drawing.prototype.save__Lcom_siigna_web_Response = (function() {
   var urlName = ScalaJS.g["encodeURI"](this.name$1);
   return ScalaJS.m.Lcom_siigna_web_Ajax().post__T__T__Lcom_siigna_web_Response(("http://repocad.com:20004/post/" + urlName), this.content$1)
 });
 ScalaJS.c.Lcom_siigna_web_Drawing.prototype.productPrefix__T = (function() {
   return "Drawing"
+});
+ScalaJS.c.Lcom_siigna_web_Drawing.prototype.init___T__T = (function(name, content) {
+  this.name$1 = name;
+  this.content$1 = content;
+  return this
 });
 ScalaJS.c.Lcom_siigna_web_Drawing.prototype.productArity__I = (function() {
   return 2
@@ -2864,6 +2864,9 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x,
   var v = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y));
   this.document$1["circle"](v.x$1, v.y$1, r)
 });
+ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, endAngle) {
+  this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y))
+});
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.save__T__V = (function(name) {
   this.document$1["save"](name)
 });
@@ -2872,15 +2875,14 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(x
   this.document$1["setFontSize"]((h * 1.92));
   this.document$1["text"](v.x$1, v.y$1, ScalaJS.objectToString(t))
 });
-ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, endAngle) {
-  this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y))
-});
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
   var v1 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x1, y1));
-  var v2 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x2, y2));
-  var v3 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x3, y3));
-  var v4 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x4, y4));
-  this.document$1["lines"](v1.x$1, v1.y$1, v2.x$1, v2.y$1, v3.x$1, v3.y$1, v4.x$1, v4.y$1)
+  this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x2, y2));
+  this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x3, y3));
+  this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x4, y4));
+  v1.x$1;
+  v1.y$1;
+  this.document$1["lines"](10, 10, 20, 40, 30, 70)
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D = (function(v) {
   var vec = new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(v.x$1, (-v.y$1));

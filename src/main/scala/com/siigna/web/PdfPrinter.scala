@@ -19,15 +19,23 @@ class PdfPrinter extends Printer {
    */
   def arc(x: Double,y: Double,r: Double,sAngle: Double,endAngle: Double) : Unit = {
     val v = transform(Vector2D(x, y))
+    //TODO; Use SplineToArc2D here...
     //document.lines(v1.x,v1.y,v2.x,v2.y,v3.x,v3.y,v4.x,v4.y)
   }
 
+  //TODO: unable to get the output format right.. some constellation of Array[Double]'s ??
   def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
     val v1 = transform(Vector2D(x1, y1))
     val v2 = transform(Vector2D(x2, y2))
     val v3 = transform(Vector2D(x3, y3))
     val v4 = transform(Vector2D(x4, y4))
-    document.lines(v1.x,v1.y,v2.x,v2.y,v3.x,v3.y,v4.x,v4.y)
+    val x = v1.x
+    val y = v1.y
+    //document.lines(((v2.x-x,v2.y-y,v3.x-x,v3.y-y,v4.x-x,v4.y-y)),x,y)
+    //document.lines(10,10,20,40,30,70)
+    document.lines([[2,2], [-2,2], [1,1,2,2,3,3], [2,1]], 0, 0, [10,10])
+
+    //document.lines([[2,2], [-2,2], [1,1,2,2,3,3], [2,1]], 0, 0, [10,10])
   }
 
   def circle(x : Double, y : Double, r : Double) : Unit = {
