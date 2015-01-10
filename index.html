@@ -89,10 +89,10 @@
             <p id="title"></p>
             <script type="text/javascript">
 
-                var href = alert(document.URL);
+                var href = document.URL;
 
                 var title = href.hash;
-                document.getElementById("title").innerHTML = title;
+                document.getElementById("title").innerHTML = href;
             </script>
 
             <textarea id="input" class="twelve columns"></textarea>
