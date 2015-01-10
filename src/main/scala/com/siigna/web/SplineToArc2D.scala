@@ -1,6 +1,8 @@
 package main.scala.com.siigna.web
 
-import scala.collection.mutable.ArrayBuffer
+import scala.scalajs.js.JSConverters._
+import scala.scalajs.js.Math
+
 
 /**
  * Created by Ole on 1/8/2015.
@@ -56,7 +58,7 @@ object SplineToArc2D {
   }
 
   /**
-   *  Return a array of objects that represent bezier curves which approximate the 
+   *  Return aN array of objects that represent bezier curves which approximate the
    *  circular arc centered at the origin, from startAngle to endAngle (radians) with 
    *  the specified radius.
    *
@@ -67,15 +69,17 @@ object SplineToArc2D {
 
   def createArc(radius : Double, startAngle : Double, endAngle : Double) : Array[Double] = {
       // normalize startAngle, endAngle to [-2PI, 2PI]
-
       var twoPI : Double = Math.PI * 2
       var startA = startAngle % twoPI
       var endA = endAngle % twoPI
 
+      println(startA)
+      println(endA)
+
       // Compute the sequence of arc curves, up to PI/2 at a time.  Total arc angle
       // is less than 2PI.
 
-      val curves = Array[Double]()
+      var curves = List[Double]()
       val piOverTwo : Double = Math.PI / 2.0
       val sgn : Double = if (startA < endA) 1 else -1
 
@@ -85,11 +89,14 @@ object SplineToArc2D {
       {
         val a2 : Double = a1 + sgn * Math.min(totalAngle, piOverTwo)
         val smallArc = createSmallArc(radius, a1, a2)
-        curves :+ smallArc
+        //add arc points to curve (replacing the old curves variable)
+        curves = curves ++ smallArc
         totalAngle -= Math.abs(a2 - a1)
         a1 = a2
       }
       //return curves
-      curves
+      for (a <- curves) {
+      }
+      curves.toArray.toJSArray
     }
   }

@@ -2,6 +2,7 @@ package com.siigna.web
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
+import main.scala.com.siigna.web.SplineToArc2D
 
 /**
  * A printer that can generate pdf files
@@ -19,9 +20,32 @@ class PdfPrinter extends Printer {
    * @param eAngle	The ending angle, in radians
    */
   def arc(x: Double,y: Double,r: Double,sAngle: Double,endAngle: Double) : Unit = {
-    val v = transform(Vector2D(x, y))
-    //TODO; Use SplineToArc2D here...
-    //document.lines(v1.x,v1.y,v2.x,v2.y,v3.x,v3.y,v4.x,v4.y)
+
+    val spline = SplineToArc2D.createArc(r,sAngle,endAngle)
+    println("FROM SPLINE ALGORITHM:")
+    spline.foreach(println)
+    val x1 = spline(0)
+    val y1 = spline(1)
+    val x2 = spline(2)
+    val y2 = spline(3)
+    val x3 = spline(4)
+    val y3 = spline(5)
+    val x4 = spline(6)
+    val y4 = spline(7)
+
+    val v1 = transform(Vector2D(x1, y1))
+    val v2 = transform(Vector2D(x2, y2))
+    val v3 = transform(Vector2D(x3, y3))
+    val v4 = transform(Vector2D(x4, y4))//endPoint
+    val xS = v1.x
+    val yS = v1.y
+
+    //SYNTAX: doc.lines([[crtlPt1x,crtlPt1y,crtlPt2x,crtlPt2y,endX,endY]], startX, startY, [scaleX,scaleY]);
+    //coordinates are relative, so the start point x and y needs to be subtracted
+    val six = Array(v2.x - xS,v2.y - yS,v3.x - xS,v3.y - yS,v4.x - xS, v4.y - yS).toJSArray     //two control points and end point:
+    val scale = Array(1,1).toJSArray //scale x/y
+    //create the bezier curve
+    document.lines(Array(six).toJSArray,v1.x,v1.y,scale)
   }
 
   //TODO: unable to get the output format right.. some constellation of Array[Double]'s ??
