@@ -91,8 +91,9 @@
 
                 var href = document.URL;
 
-                var title = href.hash;
-                document.getElementById("title").innerHTML = href;
+                href2 = href.replace("http://www.", 'http://');
+                var link = '<a target="_blank" href="'+href+'">'+href+'</a>';
+                document.getElementById("title").innerHTML = href2;
             </script>
 
             <textarea id="input" class="twelve columns"></textarea>
