@@ -2987,7 +2987,7 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.save__T__V = (function(name) {
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
   var v = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y));
-  this.document$1["setFontSize"]((h * 1.92));
+  this.document$1["setFontSize"]((h * 1.8));
   this.document$1["text"](v.x$1, v.y$1, ScalaJS.objectToString(t))
 });
 ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
