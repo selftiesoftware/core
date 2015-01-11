@@ -2,7 +2,6 @@ package com.siigna.web
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
-import main.scala.com.siigna.web.SplineToArc2D
 
 /**
  * A printer that can generate pdf files
@@ -17,7 +16,7 @@ class PdfPrinter extends Printer {
    * @param y y	The y-coordinate of the center of the arc
    * @param r r	The radius of the arc
    * @param sAngle	The starting angle, in radians (0 is at the 3 o'clock position of the arc's circle)
-   * @param eAngle	The ending angle, in radians
+   * @param endAngle	The ending angle, in radians
    */
   def arc(x: Double,y: Double,r: Double,sAngle: Double,endAngle: Double) : Unit = {
 
@@ -82,7 +81,7 @@ class PdfPrinter extends Printer {
     //document.font("Arial")
     document.setFontSize(h * 1.8)
     //document("test")
-    document.text(v.x,v.y,t.toString())
+    document.text(v.x,v.y,t.toString)
   }
 
   private def transform(v : Vector2D): Vector2D = {

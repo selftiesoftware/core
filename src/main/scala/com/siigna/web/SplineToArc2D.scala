@@ -1,11 +1,10 @@
-package main.scala.com.siigna.web
+package com.siigna.web
 
 import scala.scalajs.js.JSConverters._
 import scala.scalajs.js.Math
 
-
 /**
- * Created by Ole on 1/8/2015.
+ * Tools to transform splines to arcs in a 2-dimensional space
  */
 object SplineToArc2D {
 
@@ -97,6 +96,6 @@ object SplineToArc2D {
       //return curves
       for (a <- curves) {
       }
-      curves.toArray.toJSArray
+      curves.toArray
     }
   }

@@ -1,5 +1,7 @@
 package com.siigna.web.lexing
 
+import scala.language.implicitConversions
+
 /*
 
  Author: Matthew Might
@@ -40,7 +42,7 @@ abstract class RegularLanguage {
   /**
   @return the derivative of this regular expression.
     */
-  def derive(c: Char): RegularLanguage;
+  def derive(c: Char): RegularLanguage
 
   /**
   @return the derivative of this regular expression with respect
@@ -52,17 +54,17 @@ abstract class RegularLanguage {
   /**
   @return true iff the regular expression accepts the empty string.
     */
-  def acceptsEmptyString: Boolean;
+  def acceptsEmptyString: Boolean
 
   /**
   @return true if the regular expression accepts no strings at all.
     */
-  def rejectsAll: Boolean;
+  def rejectsAll: Boolean
 
   /**
   @return true iff this regular expression accepts only the empty string.
     */
-  def isEmptyString: Boolean;
+  def isEmptyString: Boolean
 
   /**
   @return true if this regular expression is definitely a subset of
@@ -158,10 +160,10 @@ object RegularLanguageImplicits {
   def oneOf(s: String): CharSet = CharSet(Set() ++ s)
 
   trait CharRangeable {
-    def thru(end: Char): RegularLanguage;
+    def thru(end: Char): RegularLanguage
   }
 
-  implicit def charToCharRangeable(start: Char) = new CharRangeable {
+  implicit def charToCharRangeable(start: Char) : CharRangeable = new CharRangeable {
     def thru(end: Char): RegularLanguage = new CharSet(new CharRangeSet(start, end))
   }
 }
@@ -332,7 +334,7 @@ A regular expression that matches zero or more repetitions of a regular expressi
   */
 case class Star(regex: RegularLanguage) extends RegularLanguage {
   def derive(c: Char): RegularLanguage =
-    regex.derive(c) ~ (regex *)
+    regex.derive(c) ~ regex.*
 
   def acceptsEmptyString = true
 
@@ -365,7 +367,7 @@ A non-blocking lexer consumes a live stream of characters (or objects
  which can be converted into characters) and emits a stream of type-A
  tokens.
   */
-abstract class NonblockingLexer[C <% Char, A] {
+abstract class NonblockingLexer[C <: Char, A] {
 
   private var outputSource: LiveStreamSource[A] = null
 
@@ -413,12 +415,12 @@ abstract class NonblockingLexer[C <% Char, A] {
     /**
     Rules for this lexing state.
       */
-    protected def rules: List[LexerRule];
+    protected def rules: List[LexerRule]
 
     /**
     Characters lexed so far in this state.
       */
-    protected def chars: List[C];
+    protected def chars: List[C]
 
     /**
     True iff this state could accept.
@@ -452,7 +454,7 @@ abstract class NonblockingLexer[C <% Char, A] {
       */
     def fire(): LexerState = {
       val accepting = rules filter (_.accepts)
-      accepting.last.fire(chars reverse)
+      accepting.last.fire(chars.reverse)
     }
 
     /**
@@ -502,7 +504,7 @@ abstract class NonblockingLexer[C <% Char, A] {
       */
     protected val chars = List()
 
-    private var _rules: List[LexerRule] = List();
+    private var _rules: List[LexerRule] = List()
 
     /**
     The rules for this state.
@@ -518,9 +520,9 @@ abstract class NonblockingLexer[C <% Char, A] {
     }
 
     trait Matchable {
-      def apply(action: => Unit);
+      def apply(action: => Unit)
 
-      def over(action: List[C] => Unit);
+      def over(action: List[C] => Unit)
     }
 
 
@@ -528,7 +530,7 @@ abstract class NonblockingLexer[C <% Char, A] {
     Adds a rule to this state which matches regex and fires action.
       */
     def apply(regex: RegularLanguage): Matchable = {
-      val that: LexerState = this;
+      val that: LexerState = this
       new Matchable {
         def apply(action: => Unit) {
           _rules = new LexerRule(regex, chars => {
@@ -554,13 +556,13 @@ abstract class NonblockingLexer[C <% Char, A] {
       /**
       Switches to a state, ignoring the input.
         */
-      def to(action: => LexerState);
+      def to(action: => LexerState)
 
 
       /**
       Switches to a state, consuming the input.
         */
-      def over(action: List[C] => LexerState);
+      def over(action: List[C] => LexerState)
     }
 
     /**
@@ -592,7 +594,7 @@ abstract class NonblockingLexer[C <% Char, A] {
       */
     def apply(s: S): StatefulMajorLexerState[S] = {
       this.state = s
-      this;
+      this
     }
 
     /**
@@ -614,7 +616,7 @@ abstract class NonblockingLexer[C <% Char, A] {
   /**
   During lexing, the input associated with the last accepting state.
     */
-  private var lastAcceptingInput: LiveStream[C] = null;
+  private var lastAcceptingInput: LiveStream[C] = null
 
   /**
   During lexing, the current lexer state.
@@ -637,9 +639,9 @@ abstract class NonblockingLexer[C <% Char, A] {
     outputSource = new LiveStreamSource[A]
     _output = new LiveStream[A](outputSource)
     input.source.addListener(chars => {
-      work();
+      work()
     })
-    work();
+    work()
   }
 
   /**
@@ -660,8 +662,8 @@ abstract class NonblockingLexer[C <% Char, A] {
 
     // First, check to se if the curret state accepts or rejects.
     if (currentState.isAccept) {
-      lastAcceptingState = currentState;
-      lastAcceptingInput = currentInput;
+      lastAcceptingState = currentState
+      lastAcceptingInput = currentInput
     } else if (currentState.isReject) {
       // Backtrack to the last accepting state; fail if none.
       currentState = lastAcceptingState.fire()
@@ -673,11 +675,11 @@ abstract class NonblockingLexer[C <% Char, A] {
 
     // If at the end of the input, clean up:
     if (currentInput.isEmpty) {
-      val terminalState = currentState.terminate();
+      val terminalState = currentState.terminate()
 
       if (terminalState.isAccept) {
-        terminalState.fire();
-        return false;
+        terminalState.fire()
+        return false
       } else {
         currentState = lastAcceptingState.fire()
         currentInput = lastAcceptingInput
@@ -739,7 +741,7 @@ abstract class NonblockingLexer[C <% Char, A] {
   /**
   Initial state when lexing.
     */
-  protected def MAIN: LexerState;
+  protected def MAIN: LexerState
 
 }
 
@@ -758,13 +760,13 @@ class CharRangeSet(start: Char, end: Char) extends scala.collection.immutable.Se
     private var current = start.toInt
     private val last = end.toInt
 
-    def hasNext(): Boolean = current <= last
+    def hasNext : Boolean = current <= last
 
     def next(): Char = {
       if (hasNext) {
         val ret = current
         current += 1
-        return ret.toChar
+        ret.toChar
       } else
         throw new java.util.NoSuchElementException()
     }

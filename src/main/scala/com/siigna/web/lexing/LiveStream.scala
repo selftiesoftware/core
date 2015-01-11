@@ -41,12 +41,12 @@ class LiveStreamSource[A] {
   /**
   @return true iff this source has more input ready.
     */
-  def hasNext() = !queue.isEmpty
+  def hasNext = queue.nonEmpty
 
   /**
   @return the next input.
     */
-  def next() = queue.dequeue
+  def next = queue.dequeue()
 
   /**
   Adds another element to this source.
@@ -116,7 +116,7 @@ class LiveStream[A](val source : LiveStreamSource[A]) {
   /**
   @return true iff this object is currently the last element in a stream.
     */
-  def isPlugged : Boolean = headCache.isEmpty && !source.hasNext()
+  def isPlugged : Boolean = headCache.isEmpty && !source.hasNext
 
   /**
   @return true iff this object is the last element in a stream, and the source is terminated.
@@ -128,37 +128,35 @@ class LiveStream[A](val source : LiveStreamSource[A]) {
     */
   def head = headCache match {
     case Some(a) => a
-    case None => {
-      if (this isPlugged)
+    case None =>
+      if (this.isPlugged)
         throw new IllegalStateException("Can't pull a plugged head!")
 
-      headCache = Some(source.next())
+      headCache = Some(source.next)
 
       headCache.get
-    }
   }
 
   /**
   @return if not plugged, the remainder of this stream.
     */
   def tail = {
-    if (this isPlugged)
+    if (this.isPlugged)
       throw new Exception("Can't pull a plugged tail!")
 
     tailCache match {
       case Some(as) => as
-      case None => {
+      case None =>
         this.head
         tailCache = Some(new LiveStream(source))
         tailCache.get
-      }
     }
   }
 
   override def toString : String = {
-    if (this isEmpty) {
+    if (this.isEmpty) {
       "LiveNil()"
-    } else if (this isPlugged) {
+    } else if (this.isPlugged) {
       "LivePlug()"
     } else {
       this.head + " :~: " + this.tail
@@ -172,9 +170,9 @@ Pattern matches the current last element of a live stream.
 object LivePlug {
   def unapplySeq[A](stream : LiveStream[A]) : Option[List[A]] = {
     if (stream.isPlugged)
-      return Some(Nil)
+      Some(Nil)
     else
-      return None
+      None
   }
 }
 
@@ -184,9 +182,9 @@ Pattern matches the end of a (terminated) live stream.
 object LiveNil {
   def unapplySeq[A](stream : LiveStream[A]) : Option[List[A]] = {
     if (stream.isEmpty)
-      return Some(Nil)
+      Some(Nil)
     else
-      return None
+      None
   }
 }
 
@@ -197,9 +195,9 @@ Pattern matches an element and its tail in a live stream.
 object :~: {
   def unapply[A](stream : LiveStream[A]) : Option[(A,LiveStream[A])] = {
     if (stream.isPlugged)
-      return None
+      None
     else
-      return Some(stream.head,stream.tail)
+      Some(stream.head -> stream.tail)
   }
 
   def unapplySeq[A](stream : LiveStream[A]) : Option[LiveStream[A]] = Some(stream)
