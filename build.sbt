@@ -12,3 +12,6 @@ scalacOptions ++= Seq(
   "-Xlint",
   "-deprecation"
   )
+
+// Needed to avoid sbt from hanging on JDK8: https://github.com/scala-js/scala-js/issues/1140
+ScalaJSKeys.parallelFastOptJS := false
