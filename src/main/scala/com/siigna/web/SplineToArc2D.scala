@@ -7,7 +7,7 @@ package com.siigna.web
     def arcToBezier(cX: Double, cY: Double, radius: Double, startAngle: Double, endAngle: Double) : List[Double] =
     {
 
-      
+
       //expanded: http://www.flong.com/blog/2009/bezier-approximation-of-a-circular-arc-in-processing/
 
       // Establish arc parameters.
