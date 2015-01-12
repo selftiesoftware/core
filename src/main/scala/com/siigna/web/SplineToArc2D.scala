@@ -1,98 +1,55 @@
 package com.siigna.web
+// Global variables: 
+// The true coordinates of the Bezier control points:
 
-import scala.scalajs.js.JSConverters._
-import scala.scalajs.js.Math
+  object SplineToArc2D {
 
-/**
- * Tools to transform splines to arcs in a 2-dimensional space
- */
-object SplineToArc2D {
+    def arcToBezier(cX: Double, cY: Double, radius: Double, startAngle: Double, endAngle: Double) : List[Double] =
+    {
 
-   var epsilon : Double = 0.00001  // Roughly 1/1000th of a degree, see below
+      
+      //expanded: http://www.flong.com/blog/2009/bezier-approximation-of-a-circular-arc-in-processing/
 
-  /**
-   *  units: radians
-   *  c = origin (x,y axis)
-   *  r = radius
-   *  spanning a1 to a2, where a2 - a1 < pi/2
-   *
-   *  Returns four points:
-   *  x1,y1 and x4,y4 = endpoints
-   *  x2,y2 and x3,y3 = control points.
-   */
+      // Establish arc parameters.
+      // (Note: assert theta != TWO_PI)
+      val theta: Double = endAngle - startAngle // spread of the arc.
 
-  def createSmallArc(r:Double, a1:Double, a2:Double) : List[Double] = {
-    val a : Double = (a2 - a1) / 2.0 //
+      // Compute raw Bezier coordinates.
+      val x0 = math.cos(theta / 2.0)
+      val y0 = math.sin(theta / 2.0)
+      val x3 = x0
+      val y3 = 0 - y0
+      val x1 = (4.0 - x0) / 3.0
+      val y1 = ((1.0 - x0) * (3.0 - x0)) / (3.0 * y0) // y0 != 0...
+      val x2 = x1
+      val y2 = 0 - y1
 
-    var x4 : Double = r * Math.cos(a)
-    var y4 : Double = r * Math.sin(a)
-    var x1 : Double = x4
-    var y1 : Double = -y4
+      // Compute rotationally-offset Bezier coordinates, using:
+      // x' = cos(angle) * x - sin(angle) * y
+      // y' = sin(angle) * x + cos(angle) * y
+      val bezAng = startAngle + theta / 2.0
+      val cBezAng = math.cos(bezAng)
+      val sBezAng = math.sin(bezAng)
+      val rx0 = cBezAng * x0 - sBezAng * y0
+      val ry0 = sBezAng * x0 + cBezAng * y0
+      val rx1 = cBezAng * x1 - sBezAng * y1
+      val ry1 = sBezAng * x1 + cBezAng * y1
+      val rx2 = cBezAng * x2 - sBezAng * y2
+      val ry2 = sBezAng * x2 + cBezAng * y2
+      val rx3 = cBezAng * x3 - sBezAng * y3
+      val ry3 = sBezAng * x3 + cBezAng * y3
 
-    val k : Double = 0.5522847498
-    val f : Double = k * Math.tan(a)
+      // Compute scaled and translated Bezier coordinates.
+      val px0 = cX + radius * rx0
+      val py0 = cY + radius * ry0
+      val px1 = cX + radius * rx1
+      val py1 = cY + radius * ry1
+      val px2 = cX + radius * rx2
+      val py2 = cY + radius * ry2
+      val px3 = cX + radius * rx3
+      val py3 = cY + radius * ry3
 
-    var x2 : Double = x1 + f * y4
-    var y2 : Double = y1 + f * x4
-    var x3 : Double = x2
-    var y3 : Double = -y2
-
-    // Find arc end points
-    val ar : Double = a + a1
-    val cos_ar : Double = Math.cos(ar)
-    val sin_ar : Double = Math.sin(ar)
-
-    x1 = r * Math.cos(a1)
-    y1 = r * Math.sin(a1)
-
-    // rotate control points by ar
-    x2 = x2 * cos_ar - y2 * sin_ar
-    y2 = x2 * sin_ar + y2 * cos_ar
-    x3 = x3 * cos_ar - y3 * sin_ar
-    y3 = x3 * sin_ar + y3 * cos_ar
-    x4 = r * Math.cos(a2)
-    y4 = r * Math.sin(a2)
-
-    List(x1,y1,x2,y2,x3,y3,x4,y4)
-  }
-
-  /**
-   *  Return aN array of objects that represent bezier curves which approximate the
-   *  circular arc centered at the origin, from startAngle to endAngle (radians) with 
-   *  the specified radius.
-   *
-   *  Each bezier curve is an object with four points, where x1,y1 and 
-   *  x4,y4 are the arc's end points and x2,y2 and x3,y3 are the cubic bezier's 
-   *  control points.
-   */
-
-  def createArc(radius : Double, startAngle : Double, endAngle : Double) : Array[Double] = {
-      // normalize startAngle, endAngle to [-2PI, 2PI]
-      var twoPI : Double = Math.PI * 2
-      var startA = startAngle % twoPI
-      var endA = endAngle % twoPI
-
-      // Compute the sequence of arc curves, up to PI/2 at a time.  Total arc angle
-      // is less than 2PI.
-
-      var curves = List[Double]()
-      val piOverTwo : Double = Math.PI / 2.0
-      val sgn : Double = if (startA < endA) 1 else -1
-
-      var a1 : Double = startAngle
-      var totalAngle : Double = Math.min(twoPI, Math.abs(endAngle - startAngle))
-      if ( totalAngle >= epsilon)
-      {
-        val a2 : Double = a1 + sgn * Math.min(totalAngle, piOverTwo)
-        val smallArc = createSmallArc(radius, a1, a2)
-        //add arc points to curve (replacing the old curves variable)
-        curves = curves ++ smallArc
-        totalAngle -= Math.abs(a2 - a1)
-        a1 = a2
-      }
-      //return curves
-      for (a <- curves) {
-      }
-      curves.toArray
+      //return NB: Y IS FLIPPED
+      List(px0, -py0, px1, -py1, px2, -py2, px3, -py3)
     }
   }

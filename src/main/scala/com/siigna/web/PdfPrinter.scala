@@ -2,7 +2,7 @@ package com.siigna.web
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
-
+import SplineToArc2D.arcToBezier
 /**
  * A printer that can generate pdf files
  */
@@ -16,11 +16,11 @@ class PdfPrinter extends Printer {
    * @param y y	The y-coordinate of the center of the arc
    * @param r r	The radius of the arc
    * @param sAngle	The starting angle, in radians (0 is at the 3 o'clock position of the arc's circle)
-   * @param endAngle	The ending angle, in radians
+   * @param eAngle	The ending angle, in radians
    */
   def arc(x: Double,y: Double,r: Double,sAngle: Double,eAngle: Double) : Unit = {
 
-    val spline = SplineToArc2D.createArc(r,sAngle,eAngle)
+    val spline = arcToBezier(x,y,r,sAngle,eAngle)
     println("FROM SPLINE ALGORITHM:")
     spline.foreach(println)
     val x1 = spline(0)
