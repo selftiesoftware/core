@@ -19,9 +19,9 @@ class PdfPrinter extends Printer {
    * @param sAngle	The starting angle, in radians (0 is at the 3 o'clock position of the arc's circle)
    * @param eAngle	The ending angle, in radians
    */
-  def arc(x: Double,y: Double,r: Double,sAngle: Double,endAngle: Double) : Unit = {
+  def arc(x: Double,y: Double,r: Double,sAngle: Double,eAngle: Double) : Unit = {
 
-    val spline = SplineToArc2D.createArc(r,sAngle,endAngle)
+    val spline = SplineToArc2D.createArc(r,sAngle,eAngle)
     println("FROM SPLINE ALGORITHM:")
     spline.foreach(println)
     val x1 = spline(0)

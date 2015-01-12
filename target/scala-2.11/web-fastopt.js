@@ -2920,8 +2920,8 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x,
   var v = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x, y));
   this.document$1["circle"](v.x$1, v.y$1, r)
 });
-ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, endAngle) {
-  var spline = ScalaJS.m.Lmain_scala_com_siigna_web_SplineToArc2D().createArc__D__D__D__AD(r, sAngle, endAngle);
+ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
+  var spline = ScalaJS.m.Lmain_scala_com_siigna_web_SplineToArc2D().createArc__D__D__D__AD(r, sAngle, eAngle);
   var this$2 = ScalaJS.m.s_Console();
   this$2.out__Ljava_io_PrintStream().println__O__V("FROM SPLINE ALGORITHM:");
   var this$4_$_repr$1 = spline;
@@ -7874,10 +7874,6 @@ ScalaJS.c.Lmain_scala_com_siigna_web_SplineToArc2D$.prototype.createArc__D__D__D
   var twoPI = (ScalaJS.uD(ScalaJS.g["Math"]["PI"]) * 2);
   var startA = (startAngle % twoPI);
   var endA = (endAngle % twoPI);
-  var this$2 = ScalaJS.m.s_Console();
-  this$2.out__Ljava_io_PrintStream().println__O__V(startA);
-  var this$4 = ScalaJS.m.s_Console();
-  this$4.out__Ljava_io_PrintStream().println__O__V(endA);
   var curves = ScalaJS.m.sci_Nil();
   var piOverTwo = (ScalaJS.uD(ScalaJS.g["Math"]["PI"]) / 2.0);
   var sgn = ((startA < endA) ? 1.0 : -1.0);
@@ -7908,22 +7904,22 @@ ScalaJS.c.Lmain_scala_com_siigna_web_SplineToArc2D$.prototype.createArc__D__D__D
     var a2 = (jsx$3 + (sgn * ScalaJS.uD(ScalaJS.applyMethodWithVarargs(jsx$2, "min", result$1))));
     var smallArc = this.createSmallArc__D__D__D__sci_List(radius, a1, a2);
     var jsx$4 = curves;
-    var this$7 = ScalaJS.m.sci_List();
-    curves = ScalaJS.as.sci_List(jsx$4.$$plus$plus__sc_GenTraversableOnce__scg_CanBuildFrom__O(smallArc, this$7.ReusableCBFInstance$2));
+    var this$3 = ScalaJS.m.sci_List();
+    curves = ScalaJS.as.sci_List(jsx$4.$$plus$plus__sc_GenTraversableOnce__scg_CanBuildFrom__O(smallArc, this$3.ReusableCBFInstance$2));
     totalAngle = (totalAngle - ScalaJS.uD(ScalaJS.g["Math"]["abs"]((a2 - a1))));
     a1 = a2
   };
-  var this$8 = curves;
-  var these = this$8;
+  var this$4 = curves;
+  var these = this$4;
   while ((!these.isEmpty__Z())) {
     var a$2 = these.head__O();
     ScalaJS.uD(a$2);
     these = ScalaJS.as.sci_List(these.tail__O())
   };
   var jsx$5 = ScalaJS.m.sjs_js_Any();
-  var this$9 = curves;
+  var this$5 = curves;
   var evidence$1 = ScalaJS.m.s_reflect_ClassTag().Double$1;
-  var arr = ScalaJS.i.sc_TraversableOnce$class__toArray__sc_TraversableOnce__s_reflect_ClassTag__O(this$9, evidence$1);
+  var arr = ScalaJS.i.sc_TraversableOnce$class__toArray__sc_TraversableOnce__s_reflect_ClassTag__O(this$5, evidence$1);
   var $$this = ScalaJS.m.s_Predef().genericArrayOps__O__scm_ArrayOps(arr);
   var result$2 = new ScalaJS.g["Array"]();
   var i$2 = 0;

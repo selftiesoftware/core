@@ -73,9 +73,6 @@ object SplineToArc2D {
       var startA = startAngle % twoPI
       var endA = endAngle % twoPI
 
-      println(startA)
-      println(endA)
-
       // Compute the sequence of arc curves, up to PI/2 at a time.  Total arc angle
       // is less than 2PI.
 
