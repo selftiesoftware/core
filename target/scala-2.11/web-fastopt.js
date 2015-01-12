@@ -2898,7 +2898,13 @@ ScalaJS.c.Lcom_siigna_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function
   var v4 = this.transform__p1__Lcom_siigna_web_Vector2D__Lcom_siigna_web_Vector2D(new ScalaJS.c.Lcom_siigna_web_Vector2D().init___D__D(x4, y4));
   var xS = v1.x$1;
   var yS = v1.y$1;
-  var arr = ScalaJS.m.s_Array().apply__D__sc_Seq__AD((v2.x$1 - xS), ScalaJS.m.s_Predef().wrapDoubleArray__AD__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.D.getArrayOf(), [(v2.y$1 - yS), (v3.x$1 - xS), (v3.y$1 - yS), (v4.x$1 - xS), (v4.y$1 - yS)])));
+  var aX = (v2.x$1 - xS);
+  var aY = (v2.y$1 - yS);
+  var bX = (v3.x$1 - xS);
+  var bY = (v3.y$1 - yS);
+  var cX = (v4.x$1 - xS);
+  var cY = (v4.y$1 - yS);
+  var arr = ScalaJS.m.s_Array().apply__D__sc_Seq__AD(aX, ScalaJS.m.s_Predef().wrapDoubleArray__AD__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.D.getArrayOf(), [aY, bX, bY, cX, cY])));
   var $$this = ScalaJS.m.s_Predef().genericArrayOps__O__scm_ArrayOps(arr);
   var result = new ScalaJS.g["Array"]();
   var i = 0;
@@ -3378,7 +3384,7 @@ ScalaJS.c.Lcom_siigna_web_SplineToArc2D$.prototype.arcToBezier__D__D__D__D__D__s
   var px3 = (cX + (radius * rx3));
   var py3 = (cY + (radius * ry3));
   ScalaJS.m.sci_List();
-  var xs = ScalaJS.m.s_Predef().wrapDoubleArray__AD__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.D.getArrayOf(), [px0, (-py0), px1, (-py1), px2, (-py2), px3, (-py3)]));
+  var xs = ScalaJS.m.s_Predef().wrapDoubleArray__AD__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.D.getArrayOf(), [px0, py0, px1, py1, px2, py2, px3, py3]));
   return ScalaJS.i.sc_TraversableOnce$class__toList__sc_TraversableOnce__sci_List(xs)
 });
 ScalaJS.is.Lcom_siigna_web_SplineToArc2D$ = (function(obj) {

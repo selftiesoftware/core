@@ -94,11 +94,8 @@
             <h4 id="title"></h4>
             <script type="text/javascript">
 
-                var href = document.URL;
-
-                href2 = href.replace("http://www.", '');
-                var link = '<a target="_blank" href="'+href+'">'+href+'</a>';
-                document.getElementById("title").innerHTML = href2;
+                var href = window.location;
+                document.getElementById("title").innerHTML = href;
             </script>
 
             <textarea id="input" class="twelve columns"></textarea>

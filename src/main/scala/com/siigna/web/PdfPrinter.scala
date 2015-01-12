@@ -41,7 +41,14 @@ class PdfPrinter extends Printer {
 
     //SYNTAX: doc.lines([[crtlPt1x,crtlPt1y,crtlPt2x,crtlPt2y,endX,endY]], startX, startY, [scaleX,scaleY]);
     //coordinates are relative, so the start point x and y needs to be subtracted
-    val six = Array(v2.x - xS,v2.y - yS,v3.x - xS,v3.y - yS,v4.x - xS, v4.y - yS).toJSArray     //two control points and end point:
+    val aX = v2.x - xS
+    val aY = v2.y - yS
+    val bX = v3.x - xS
+    val bY = v3.y - yS
+    val cX = v4.x - xS
+    val cY = v4.y - yS
+
+    val six = Array(aX,aY,bX,bY,cX,cY).toJSArray     //two control points and end point:
     val scale = Array(1,1).toJSArray //scale x/y
     //create the bezier curve
     document.lines(Array(six).toJSArray,v1.x,v1.y,scale)

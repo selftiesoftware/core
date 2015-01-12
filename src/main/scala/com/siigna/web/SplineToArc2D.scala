@@ -7,7 +7,6 @@ package com.siigna.web
     def arcToBezier(cX: Double, cY: Double, radius: Double, startAngle: Double, endAngle: Double) : List[Double] =
     {
 
-
       //expanded: http://www.flong.com/blog/2009/bezier-approximation-of-a-circular-arc-in-processing/
 
       // Establish arc parameters.
@@ -49,7 +48,7 @@ package com.siigna.web
       val px3 = cX + radius * rx3
       val py3 = cY + radius * ry3
 
-      //return NB: Y IS FLIPPED
-      List(px0, -py0, px1, -py1, px2, -py2, px3, -py3)
+      //return:
+      List(px0, py0, px1, py1, px2, py2, px3, py3)
     }
   }
