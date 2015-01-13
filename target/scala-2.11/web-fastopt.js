@@ -2666,14 +2666,14 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.line__D__D__D__D__V = (function(x
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.circle__D__D__D__V = (function(x, y, r) {
   this.context$1["beginPath"]();
-  this.context$1["arc"](x, (-y), r, 0.0, (2 * ScalaJS.uD(ScalaJS.g["Math"]["PI"])), false);
+  this.context$1["arc"](x, (-y), r, 0.0, (2 * ScalaJS.uD(ScalaJS.g["Math"]["PI"])));
   this.context$1["lineWidth"] = 0.2;
   this.context$1["stroke"]();
   this.context$1["closePath"]()
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   this.context$1["beginPath"]();
-  this.context$1["arc"](x, (-y), r, sAngle, eAngle, false);
+  this.context$1["arc"](x, (-y), r, sAngle, eAngle);
   this.context$1["lineWidth"] = 0.2;
   this.context$1["stroke"]();
   this.context$1["closePath"]()
@@ -2686,6 +2686,7 @@ ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.text__D__D__D__O__V = (function(x
   this.context$1["fillText"](ScalaJS.objectToString(t), x, (-y))
 });
 ScalaJS.c.Lcom_siigna_web_CanvasView.prototype.drawPaper__V = (function() {
+  new ScalaJS.c.Lcom_siigna_web_TransformationMatrix().init___D__D__D__D__D__D(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
   var pH = ScalaJS.imul(this.paperH$1, this.calcPaperScale$1);
   var pW = ScalaJS.imul(this.paperW$1, this.calcPaperScale$1);
   this.context$1["fillStyle"] = "White";
@@ -3553,6 +3554,126 @@ ScalaJS.m.Lcom_siigna_web_SplineToArc2D = (function() {
   };
   return ScalaJS.n.Lcom_siigna_web_SplineToArc2D
 });
+/** @constructor */
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix = (function() {
+  ScalaJS.c.O.call(this);
+  this.a$1 = 0.0;
+  this.b$1 = 0.0;
+  this.c$1 = 0.0;
+  this.d$1 = 0.0;
+  this.e$1 = 0.0;
+  this.f$1 = 0.0
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype = new ScalaJS.h.O();
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.constructor = ScalaJS.c.Lcom_siigna_web_TransformationMatrix;
+/** @constructor */
+ScalaJS.h.Lcom_siigna_web_TransformationMatrix = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_siigna_web_TransformationMatrix.prototype = ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype;
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.productPrefix__T = (function() {
+  return "TransformationMatrix"
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.productArity__I = (function() {
+  return 6
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.init___D__D__D__D__D__D = (function(a, b, c, d, e, f) {
+  this.a$1 = a;
+  this.b$1 = b;
+  this.c$1 = c;
+  this.d$1 = d;
+  this.e$1 = e;
+  this.f$1 = f;
+  return this
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else if (ScalaJS.is.Lcom_siigna_web_TransformationMatrix(x$1)) {
+    var TransformationMatrix$1 = ScalaJS.as.Lcom_siigna_web_TransformationMatrix(x$1);
+    return (((((((this.a$1 === TransformationMatrix$1.a$1) && (this.b$1 === TransformationMatrix$1.b$1)) && (this.c$1 === TransformationMatrix$1.c$1)) && (this.d$1 === TransformationMatrix$1.d$1)) && (this.e$1 === TransformationMatrix$1.e$1)) && (this.f$1 === TransformationMatrix$1.f$1)) && TransformationMatrix$1.canEqual__O__Z(this))
+  } else {
+    return false
+  }
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.productElement__I__O = (function(x$1) {
+  switch (x$1) {
+    case 0:
+      {
+        return this.a$1;
+        break
+      };
+    case 1:
+      {
+        return this.b$1;
+        break
+      };
+    case 2:
+      {
+        return this.c$1;
+        break
+      };
+    case 3:
+      {
+        return this.d$1;
+        break
+      };
+    case 4:
+      {
+        return this.e$1;
+        break
+      };
+    case 5:
+      {
+        return this.f$1;
+        break
+      };
+    default:
+      throw new ScalaJS.c.jl_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(x$1));
+  }
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.toString__T = (function() {
+  return ScalaJS.m.sr_ScalaRunTime().$$undtoString__s_Product__T(this)
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.Lcom_siigna_web_TransformationMatrix(x$1)
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.hashCode__I = (function() {
+  var acc = -889275714;
+  acc = ScalaJS.m.sr_Statics().mix__I__I__I(acc, ScalaJS.m.sr_Statics().doubleHash__D__I(this.a$1));
+  acc = ScalaJS.m.sr_Statics().mix__I__I__I(acc, ScalaJS.m.sr_Statics().doubleHash__D__I(this.b$1));
+  acc = ScalaJS.m.sr_Statics().mix__I__I__I(acc, ScalaJS.m.sr_Statics().doubleHash__D__I(this.c$1));
+  acc = ScalaJS.m.sr_Statics().mix__I__I__I(acc, ScalaJS.m.sr_Statics().doubleHash__D__I(this.d$1));
+  acc = ScalaJS.m.sr_Statics().mix__I__I__I(acc, ScalaJS.m.sr_Statics().doubleHash__D__I(this.e$1));
+  acc = ScalaJS.m.sr_Statics().mix__I__I__I(acc, ScalaJS.m.sr_Statics().doubleHash__D__I(this.f$1));
+  return ScalaJS.m.sr_Statics().finalizeHash__I__I__I(acc, 6)
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.productIterator__sc_Iterator = (function() {
+  return new ScalaJS.c.sr_ScalaRunTime$$anon$1().init___s_Product(this)
+});
+ScalaJS.is.Lcom_siigna_web_TransformationMatrix = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_siigna_web_TransformationMatrix)))
+});
+ScalaJS.as.Lcom_siigna_web_TransformationMatrix = (function(obj) {
+  return ((ScalaJS.is.Lcom_siigna_web_TransformationMatrix(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.siigna.web.TransformationMatrix"))
+});
+ScalaJS.isArrayOf.Lcom_siigna_web_TransformationMatrix = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_siigna_web_TransformationMatrix)))
+});
+ScalaJS.asArrayOf.Lcom_siigna_web_TransformationMatrix = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_siigna_web_TransformationMatrix(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.siigna.web.TransformationMatrix;", depth))
+});
+ScalaJS.d.Lcom_siigna_web_TransformationMatrix = new ScalaJS.ClassTypeData({
+  Lcom_siigna_web_TransformationMatrix: 0
+}, false, "com.siigna.web.TransformationMatrix", ScalaJS.d.O, {
+  Lcom_siigna_web_TransformationMatrix: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  s_Product: 1,
+  s_Equals: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_siigna_web_TransformationMatrix.prototype.$classData = ScalaJS.d.Lcom_siigna_web_TransformationMatrix;
 /** @constructor */
 ScalaJS.c.Lcom_siigna_web_Vector2D = (function() {
   ScalaJS.c.O.call(this);

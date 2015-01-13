@@ -21,7 +21,8 @@ License: MIT, header required.
  * All values are handled as doubles.
 */
 
-case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : Double,f : Double) {
+//case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : Double,f : Double) {
+case class TransformationMatrix(t : AffineTransform) {
 
   /*
   def Matrix(context) = {
@@ -74,17 +75,18 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
    * @param {number} y - vector end point for y (start = 0)
    * @returns {{x: number, y: number}}
    */
-  /*
-  reflectVector: function(x, y) {
 
-    var v = this.applyToPoint(0, 1),
+  /*
+  def reflectVector(x : Double, y : Double) {
+
+    var v = this.applyToPoint(0, 1)
     d = 2 * (v.x * x + v.y * y)
 
     x -= d * v.x
     y -= d * v.y
 
     return {x:x, y:y}
-  },
+  }
 
   /**
    * Short-hand to reset current matrix to an identity matrix.
@@ -93,16 +95,18 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
     return this.setTransform(1, 0, 0, 1, 0, 0)
   },
 
+  */
   /**
    * Rotates current matrix accumulative by angle.
-   * @param {number} angle - angle in radians
+   * @param {angle} - angle in radians
    */
-  rotate: function(angle) {
-    var cos = Math.cos(angle),
-    sin = Math.sin(angle)
-    return this._t(cos, sin, -sin, cos, 0, 0)
-  },
+  def rotate(angle : Double) {
+    var cos = math.cos(angle)
+    var sin = math.sin(angle)
+    this.transform(cos, sin, -sin, cos, 0, 0)
+  }
 
+  /*
   /**
    * Converts a vector given as x and y to angle, and
    * rotates (accumulative).
@@ -203,7 +207,7 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
    */
   skewY: function(ay) {
     return this.shearY(Math.tan(ay))
-  },
+
 
   /**
    * Set current matrix to new absolute matrix.

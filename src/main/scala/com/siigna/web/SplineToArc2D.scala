@@ -14,7 +14,7 @@ package com.siigna.web
         val x3 = x0
         val y3 = 0 - y0
         val x1 = (4.0 - x0) / 3.0
-        val y1 = ((1.0 - x0) * (3.0 - x0)) / (3.0 * y0) // y0 != 0...
+        val y1 = ((1.0 - x0) * (3.0 - x0)) / (3.0 * y0)
         val x2 = x1
         val y2 = 0 - y1
 
