@@ -3355,16 +3355,16 @@ ScalaJS.h.Lcom_siigna_web_SplineToArc2D$ = (function() {
 });
 ScalaJS.h.Lcom_siigna_web_SplineToArc2D$.prototype = ScalaJS.c.Lcom_siigna_web_SplineToArc2D$.prototype;
 ScalaJS.c.Lcom_siigna_web_SplineToArc2D$.prototype.arcToBezier__D__D__D__D__D__sci_List = (function(cX, cY, radius, startAngle, endAngle) {
-  var theta = (endAngle - startAngle);
-  var x = (theta / 2.0);
+  var span = (endAngle - startAngle);
+  var x = (span / 2.0);
   var x0 = ScalaJS.uD(ScalaJS.g["Math"]["cos"](x));
-  var x$1 = (theta / 2.0);
+  var x$1 = (span / 2.0);
   var y0 = ScalaJS.uD(ScalaJS.g["Math"]["sin"](x$1));
   var y3 = (-y0);
   var x1 = ((4.0 - x0) / 3.0);
   var y1 = (((1.0 - x0) * (3.0 - x0)) / (3.0 * y0));
   var y2 = (-y1);
-  var bezAng = (startAngle + (theta / 2.0));
+  var bezAng = (startAngle + (span / 2.0));
   var cBezAng = ScalaJS.uD(ScalaJS.g["Math"]["cos"](bezAng));
   var sBezAng = ScalaJS.uD(ScalaJS.g["Math"]["sin"](bezAng));
   var rx0 = ((cBezAng * x0) - (sBezAng * y0));
@@ -3375,16 +3375,16 @@ ScalaJS.c.Lcom_siigna_web_SplineToArc2D$.prototype.arcToBezier__D__D__D__D__D__s
   var ry2 = ((sBezAng * x1) + (cBezAng * y2));
   var rx3 = ((cBezAng * x0) - (sBezAng * y3));
   var ry3 = ((sBezAng * x0) + (cBezAng * y3));
-  var px0 = (cX + (radius * rx0));
-  var py0 = (cY + (radius * ry0));
-  var px1 = (cX + (radius * rx1));
-  var py1 = (cY + (radius * ry1));
-  var px2 = (cX + (radius * rx2));
-  var py2 = (cY + (radius * ry2));
-  var px3 = (cX + (radius * rx3));
-  var py3 = (cY + (radius * ry3));
+  var px0 = (radius * rx0);
+  var py0 = (radius * (-ry0));
+  var px1 = (radius * rx1);
+  var py1 = (radius * (-ry1));
+  var px2 = (radius * rx2);
+  var py2 = (radius * (-ry2));
+  var px3 = (radius * rx3);
+  var py3 = (radius * (-ry3));
   ScalaJS.m.sci_List();
-  var xs = ScalaJS.m.s_Predef().wrapDoubleArray__AD__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.D.getArrayOf(), [px0, py0, px1, py1, px2, py2, px3, py3]));
+  var xs = ScalaJS.m.s_Predef().wrapDoubleArray__AD__scm_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.d.D.getArrayOf(), [(px0 + cX), (py0 + cY), (px1 + cX), (py1 + cY), (px2 + cX), (py2 + cY), (px3 + cX), (py3 + cY)]));
   return ScalaJS.i.sc_TraversableOnce$class__toList__sc_TraversableOnce__sci_List(xs)
 });
 ScalaJS.is.Lcom_siigna_web_SplineToArc2D$ = (function(obj) {
