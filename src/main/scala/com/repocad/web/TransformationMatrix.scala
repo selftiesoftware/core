@@ -21,8 +21,8 @@ License: MIT, header required.
  * All values are handled as doubles.
 */
 
-//case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : Double,f : Double) {
-case class TransformationMatrix(t : AffineTransform) {
+case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : Double,f : Double) {
+//case class TransformationMatrix(t : AffineTransform) {
 
   /*
   def Matrix(context) = {
