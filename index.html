@@ -47,7 +47,7 @@
         <a class="button five columns" href="http://www.repocad.com/#manifesto">
             <i class="fa fa-lg fa-chevron-circle-right"></i> About <i>'repoCad'</i>
         </a>
-        <a class="button three columns" href="https://twitter.com/siigna_com">
+        <a class="button three columns" href="https://twitter.com/repocad">
             <i class="fa fa-lg fa-twitter"></i> Follow on twitter
         </a>
         <a class="button four columns" href= "https://github.com/repocad/">
@@ -133,7 +133,7 @@
     var toggleRun = document.getElementById("toggleRun");
     var toPdf = document.getElementById("toPdf");
     var save = document.getElementById("save");
-    var siigna = new Siigna(canvas, input, debug);
+    var repocad = new Repocad(canvas, input, debug);
 
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
     canvas.width = container.offsetWidth / 2 - 20;
@@ -144,7 +144,7 @@
         // cross-browser wheel delta
         var e = window.event || e; // old IE support
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        siigna.zoom(delta, e);
+        repocad.zoom(delta, e);
 
         // Stop scroll from happening
         if (e.preventDefault)
@@ -160,13 +160,13 @@
     }
 
     window.onload = function (e) {
-        siigna.init();
+        repocad.init();
 
         toPdf.onclick = function (e) {
-            siigna.printPdf("IOD_2d_print.pdf");
+            repocad.printPdf("IOD_2d_print.pdf");
         }
         save.onclick = function(e) {
-            siigna.save();
+            repocad.save();
         }
     };
 </script>
