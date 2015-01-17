@@ -8,6 +8,8 @@ scalaVersion := "2.11.2"
 
 libraryDependencies += "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % "0.6"
 
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1" % "test"
+
 scalacOptions ++= Seq(
   "-Xlint",
   "-deprecation"

@@ -12,6 +12,7 @@ case class ImportExpr(name : RefExpr) extends Expr
 case class CompExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
 case class OpExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
 
+case class FunctionExpr(name : String, params : Seq[String], body : Expr) extends Expr
 case class LoopExpr(condition : Expr, body : Expr) extends Expr
 
 case class SeqExpr(expr: Seq[Expr]) extends Expr
@@ -21,7 +22,8 @@ case class CircleExpr(centerX : Expr, centerY : Expr, radius : Expr) extends Exp
 case class LineExpr(e1: Expr, e2: Expr, e3: Expr, e4: Expr) extends Expr
 case class TextExpr(centerX : Expr, centerY : Expr, size : Expr, t : Expr) extends Expr
 
-case class ConstantExpr[A](value: A) extends Expr
-case class RefExpr(name: String) extends Expr
-case class ValExpr(name: String, value: Expr) extends Expr
-case class RangeExpr(name: String, from : Expr, to : Expr) extends Expr
+trait ValueExpr extends Expr
+case class ConstantExpr[A](value: A) extends ValueExpr
+case class RefExpr(name: String, params : Seq[Expr]*) extends ValueExpr
+case class ValExpr(name: String, value: Expr) extends ValueExpr
+case class RangeExpr(name: String, from : Expr, to : Expr) extends ValueExpr

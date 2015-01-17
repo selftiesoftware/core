@@ -10,21 +10,33 @@ object Parser {
   type Value = Either[String, Expr]
 
   def parse(tokens : LiveStream[Token]) : Value = {
-    var exprs : Seq[Expr] = Seq()
-    val failure : String => Value = err => Left(err)
     try {
-      def success : (Expr, LiveStream[Token]) => Value = (e, s) => {
-          parse(s, success, failure)
-        exprs = exprs.+:(e)
-        Right(SeqExpr(exprs))
+      var seq = Seq[Expr]()
+      var seqFail : Option[String] = None
+      var seqTail : LiveStream[Token] = tokens
+      def seqSuccess: (Expr, LiveStream[Token]) => Value = (e, s) => {
+        seqTail = s
+        Right(e)
       }
-      parse(tokens, success, failure)
+      def seqFailure: (String) => Value = (s) => {
+        seqFail = Some(s)
+        Left(s)
+      }
+      while (seqFail.isEmpty && !seqTail.isPlugged) {
+        parse(seqTail, seqSuccess, seqFailure)  match {
+          case Left(s) => seqFail = Some(s)
+          case Right(e) => if (seq != UnitExpr) seq = seq :+ e
+        }
+      }
+
+      seqFail.map(seqFailure).getOrElse(Right(SeqExpr(seq)))
     } catch {
       case e : Exception => Left(e.getLocalizedMessage)
     }
   }
 
   def parse(tokens: LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
+
     tokens match {
 
       // Import
@@ -130,17 +142,34 @@ object Parser {
         parseTripleOp(start, tail, "/", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 
 
-      // Misc
-      case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
+      // Function
+      case SymbolToken("function") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
+        parseUntil(tail, PunctToken(")"), (params, paramsTail) => {
+          params match {
+            case SeqExpr(xs) if !xs.exists(!_.isInstanceOf[RefExpr]) => parse(paramsTail, (body, bodyTail) => {
+              success(FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]].map(_.name), body), bodyTail)
+            }, failure)
+            case xs => failure("Expected parameter list, got " + xs)
+          }
+        }, failure)
+
+      // Values
       case IntToken(value: Int) :~: tail => success(ConstantExpr(value), tail)
       case DoubleToken(value : Double) :~: tail => success(ConstantExpr(value), tail)
       case StringToken(value : String) :~: tail => success(ConstantExpr(value), tail)
 
-      case PunctToken("{") :~: tail => parseUntil(tokens, PunctToken("}"), success, failure)
-      case PunctToken("(") :~: tail => parseUntil(tokens, PunctToken(")"), success, failure)
+      // Blocks
+      case PunctToken("{") :~: tail => parseUntil(tail, PunctToken("}"), success, failure)
+      case PunctToken("(") :~: tail => parseUntil(tail, PunctToken(")"), success, failure)
 
-      case LiveNil() :~: tail => Right(UnitExpr)
-      case LiveNil() => Right(UnitExpr)
+      // References
+      case SymbolToken(name) :~: tail if !tail.isEmpty && tail.head.tag.equals("(") => parse(tail, (params, paramsTail) => {
+        params match {
+          case SeqExpr(xs) => success(RefExpr(name, xs), paramsTail)
+          case xs => failure("Failed to parse ref call: Expected parameters, got " + xs)
+        }
+      }, failure)
+      case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
 
       case xs => failure(s"Unrecognised token pattern $xs")
     }
@@ -153,34 +182,25 @@ object Parser {
   }
 
   def parseUntil(tokens: LiveStream[Token], token : Token, success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
-    tokens match {
-      case newToken :~: tail =>
-        var lastFailure : Option[String] = None
-        var seqExpr : SeqExpr = SeqExpr(Seq())
-        var rhsTail = tail
-        while (lastFailure.isEmpty && rhsTail.head.compare(token) != 0) {
-          val res = parse(rhsTail, (e, s) => {
-            rhsTail = s
-            Right(e)
-          }, string => {
-            lastFailure = Some(string)
-            Left(string)
-          })
-          res.right.map(x => {
-            seqExpr = SeqExpr(seqExpr.expr :+ x)
-          })
-        }
-
-        if (lastFailure.isDefined) {
-          failure(s"Failure while parsing block: ${lastFailure.get}")
-        } else if (seqExpr.expr.isEmpty) {
-          failure(s"Failed to parse block until $token: $tokens")
-        } else {
-          success(seqExpr, rhsTail.tail)
-        }
-
-      case xs => failure(s"Expected token $token, found ${xs.head}")
+    var seq = Seq[Expr]()
+    var seqFail : Option[String] = None
+    var seqTail : LiveStream[Token] = tokens
+    def seqSuccess: (Expr, LiveStream[Token]) => Value = (e, s) => {
+      seqTail = s
+      Right(e)
     }
+    def seqFailure: (String) => Value = (s) => {
+      seqFail = Some(s)
+      Left(s)
+    }
+    while (seqFail.isEmpty && !seqTail.isPlugged && !seqTail.head.toString.equals(token.toString)) {
+      parse(seqTail, seqSuccess, failure)  match {
+        case Left(s) => seqFail = Some(s)
+        case Right(e) => if (seq != UnitExpr) seq = seq :+ e
+      }
+    }
+
+    seqFail.map(failure).getOrElse(success(SeqExpr(seq), if (seqTail.isPlugged) seqTail else seqTail.tail))
   }
 
 }
