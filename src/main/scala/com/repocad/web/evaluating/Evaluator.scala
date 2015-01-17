@@ -158,6 +158,13 @@ object Evaluator {
           case f : Function1[Any, Any] => {
             eval(params(0), env, printer).right.flatMap(a => Right(a._1 -> f.apply(a._2)))
           }
+          case f : Function2[Any, Any, Any] => {
+            eval(params(0), env, printer).right.flatMap(a =>
+              eval(params(1), a._1, printer).right.flatMap(b =>
+                Right(b._1 -> f.apply(a._2, b._2))
+              )
+            )
+          }
           case x => Left("Expected callable function, got " + x)
         }
 
