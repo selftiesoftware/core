@@ -7058,10 +7058,6 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.seqFailure$1__p1__sr_Object
 });
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either = (function(tokens, success, failure) {
   _parse: while (true) {
-    var x = tokens;
-    var this$2 = ScalaJS.m.s_Console();
-    var this$3 = this$2.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
     var x1 = tokens;
     var o160 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
     if ((!o160.isEmpty__Z())) {
@@ -7602,7 +7598,9 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
     return ScalaJS.as.s_util_Either(jsx$2)
   } catch (ex) {
     ex = ScalaJS.wrapJavaScriptException(ex);
-    if (ScalaJS.is.jl_Exception(ex)) {
+    if (ScalaJS.is.jl_InternalError(ex)) {
+      return (ScalaJS.m.s_package().Left$1, new ScalaJS.c.s_util_Left().init___O("Script too large (sorry - we're working on it!)"))
+    } else if (ScalaJS.is.jl_Exception(ex)) {
       var e$2 = ex;
       ScalaJS.m.s_package().Left$1;
       var a = e$2.getMessage__T();
@@ -28891,6 +28889,28 @@ ScalaJS.d.jl_IndexOutOfBoundsException = new ScalaJS.ClassTypeData({
   O: 1
 });
 ScalaJS.c.jl_IndexOutOfBoundsException.prototype.$classData = ScalaJS.d.jl_IndexOutOfBoundsException;
+ScalaJS.is.jl_InternalError = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.jl_InternalError)))
+});
+ScalaJS.as.jl_InternalError = (function(obj) {
+  return ((ScalaJS.is.jl_InternalError(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "java.lang.InternalError"))
+});
+ScalaJS.isArrayOf.jl_InternalError = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.jl_InternalError)))
+});
+ScalaJS.asArrayOf.jl_InternalError = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.jl_InternalError(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Ljava.lang.InternalError;", depth))
+});
+ScalaJS.d.jl_InternalError = new ScalaJS.ClassTypeData({
+  jl_InternalError: 0
+}, false, "java.lang.InternalError", ScalaJS.d.jl_VirtualMachineError, {
+  jl_InternalError: 1,
+  jl_VirtualMachineError: 1,
+  jl_Error: 1,
+  jl_Throwable: 1,
+  Ljava_io_Serializable: 1,
+  O: 1
+});
 /** @constructor */
 ScalaJS.c.jl_NullPointerException = (function() {
   ScalaJS.c.jl_RuntimeException.call(this)

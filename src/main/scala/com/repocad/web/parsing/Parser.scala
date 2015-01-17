@@ -31,12 +31,17 @@ object Parser {
 
       seqFail.map(seqFailure).getOrElse(Right(SeqExpr(seq)))
     } catch {
-      case e : Exception => Left(e.getLocalizedMessage)
+      case e : InternalError => {
+        Left("Script too large (sorry - we're working on it!)")
+      }
+      case e : Exception => {
+        Left(e.getLocalizedMessage)
+      }
     }
   }
 
   def parse(tokens: LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
-    println(tokens)
+
     tokens match {
 
       // Import
