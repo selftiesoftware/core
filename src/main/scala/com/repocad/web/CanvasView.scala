@@ -1,7 +1,6 @@
 package com.siigna.web
 
 import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
-import scala.scalajs.js
 import scala.scalajs.js.Math
 
 /**
@@ -50,6 +49,8 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   def drawPaper() : Unit = {
 
+    val t : TransformationMatrix = new TransformationMatrix(0,0,0,0,0,0)
+
     //TODO: re-scale paper to match current print-scale (depending on the bounding box of the artwork present)
 
     val pH = paperH * calcPaperScale
@@ -64,22 +65,25 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     //bottom
     line(pH/2,pW/2,-pH/2,pW/2)
     //left
+
+    //line(-pH/2,pW/2,-pH/2,-pW/2)
+
     line(-pH/2,pW/2,-pH/2,-pW/2)
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
     context.beginPath()
-    context.arc(x, -y, r, sAngle, eAngle, false)
+    context.arc(x, -y, r, sAngle, eAngle)
     context.lineWidth = 0.2
     context.stroke()
     context.closePath()
   }
 
   override def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
-    context.beginPath();
-    context.moveTo(x1, -y1);
-    context.bezierCurveTo(x2, -y2, x3, -y3, x4, -y4);
-    context.stroke();
+    context.beginPath()
+    context.moveTo(x1, -y1)
+    context.bezierCurveTo(x2, -y2, x3, -y3, x4, -y4)
+    context.stroke()
   }
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
@@ -93,7 +97,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
     context.beginPath()
-    context.arc(x, -y, r, 0, 2 * Math.PI, false)
+    context.arc(x, -y, r, 0, 2 * Math.PI)
     context.lineWidth = 0.2
     context.stroke()
     context.closePath()

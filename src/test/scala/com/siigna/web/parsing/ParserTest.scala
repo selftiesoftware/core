@@ -38,6 +38,40 @@ class ParserTest extends FlatSpec with Matchers {
     Parser.parse(stream) shouldBe a [Left[_, _]]
   }
 
+  it should "parse text" in {
+    val stream = Lexer.lex("text 0 0 10 \"Hello world\"")
+    Parser.parse(stream) should equal (Right(SeqExpr(Seq(TextExpr(ConstantExpr(0), ConstantExpr(0), ConstantExpr(10), ConstantExpr("Hello world"))))))
+  }
+
+  it should "parse circles" in {
+    val stream = Lexer.lex("circle 40 60 20")
+    Parser.parse(stream) should equal (Right(SeqExpr(Seq(CircleExpr(ConstantExpr(40), ConstantExpr(60), ConstantExpr(20))))))
+  }
+
+  it should "parse arcs" in {
+    val stream = Lexer.lex("arc 100 60 20 2 4")
+    Parser.parse(stream) should equal (Right(SeqExpr(Seq(ArcExpr(ConstantExpr(100), ConstantExpr(60), ConstantExpr(20), ConstantExpr(2), ConstantExpr(4))))))
+  }
+
+  it should "parse assignments" in {
+    val stream = Lexer.lex("x1 = -90\ny1 = 90")
+    Parser.parse(stream) should equal (Right(SeqExpr(Seq(ValExpr("x1", ConstantExpr(-90)), ValExpr("y1", ConstantExpr(90))))))
+  }
+
+  it should "parse assignments in expressions" in {
+    val stream = Lexer.lex("x1 = -90\ny1 = 90\ncircle x1 + 40 y1 - 60 20 ")
+    Parser.parse(stream) should equal (Right(SeqExpr(Seq(
+      ValExpr("x1", ConstantExpr(-90)),
+      ValExpr("y1", ConstantExpr(90)),
+      CircleExpr(OpExpr(RefExpr("x1"), ConstantExpr(40), "+"), OpExpr(RefExpr("y1"), ConstantExpr(60), "-"), ConstantExpr(20))
+    ))))
+  }
+
+  it should "parse empty spaces as unit expr" in {
+    val stream = Lexer.lex("text 0 0 10 \"Hello world\"  \n  ")
+    Parser.parse(stream) should equal (Right(SeqExpr(Seq(TextExpr(ConstantExpr(0), ConstantExpr(0), ConstantExpr(10), ConstantExpr("Hello world"))))))
+  }
+
   "A parser until a symbol" should "parse an empty parameter block" in {
     val stream = LiveStream(Iterable[Token](SymbolToken(")")))
     Parser.parseUntil(stream, SymbolToken(")"), mockSuccess, mockFailure) should equal (Right(SeqExpr(Seq())))

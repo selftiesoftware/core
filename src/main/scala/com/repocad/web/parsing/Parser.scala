@@ -36,7 +36,7 @@ object Parser {
   }
 
   def parse(tokens: LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
-
+    println(tokens)
     tokens match {
 
       // Import
@@ -163,7 +163,7 @@ object Parser {
       case PunctToken("(") :~: tail => parseUntil(tail, PunctToken(")"), success, failure)
 
       // References
-      case SymbolToken(name) :~: tail if !tail.isEmpty && tail.head.tag.equals("(") => parse(tail, (params, paramsTail) => {
+      case SymbolToken(name) :~: tail if !tail.isEmpty && !tail.isPlugged && tail.head.tag.equals("(") => parse(tail, (params, paramsTail) => {
         params match {
           case SeqExpr(xs) => success(RefExpr(name, xs), paramsTail)
           case xs => failure("Failed to parse ref call: Expected parameters, got " + xs)

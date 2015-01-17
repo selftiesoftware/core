@@ -15,8 +15,8 @@ import scala.scalajs.js.annotation.JSExport
  * @param input The input field containing the textual code
  * @param debug A debug field to be used for (error) messages
  */
-@JSExport("Siigna")
-class Siigna(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement) {
+@JSExport("Repocad")
+class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement) {
 
   val view = new CanvasView(canvas)
 
