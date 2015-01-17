@@ -1,8 +1,8 @@
-package com.siigna.web
+package com.repocad.web
 
-import com.siigna.web.evaluating.Evaluator
-import com.siigna.web.lexing.{Lexer}
-import com.siigna.web.parsing.{UnitExpr, Expr, Parser}
+import com.repocad.web.evaluating.Evaluator
+import com.repocad.web.lexing.{Lexer}
+import com.repocad.web.parsing.{UnitExpr, Expr, Parser}
 import org.scalajs.dom
 import org.scalajs.dom._
 

@@ -1,4 +1,4 @@
-package com.siigna.web
+package com.repocad.web
 
 import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
 import scala.scalajs.js.Math

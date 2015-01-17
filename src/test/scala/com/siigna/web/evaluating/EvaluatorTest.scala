@@ -1,9 +1,9 @@
-package com.siigna.web.evaluating
+package com.repocad.web.evaluating
 
-import com.siigna.web.Printer
-import com.siigna.web.lexing._
-import com.siigna.web.parsing._
-import com.siigna.web.parsing.Parser.Value
+import com.repocad.web.Printer
+import com.repocad.web.lexing._
+import com.repocad.web.parsing._
+import com.repocad.web.parsing.Parser.Value
 import org.scalatest.{FlatSpec, Matchers}
 
 class EvaluatorTest extends FlatSpec with Matchers {

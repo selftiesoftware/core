@@ -1,6 +1,6 @@
-package com.siigna.web.parsing
+package com.repocad.web.parsing
 
-import com.siigna.web.lexing._
+import com.repocad.web.lexing._
 
 /**
  * Parses code into drawing expressions (AST)

@@ -1,4 +1,4 @@
-package com.siigna.web.lexing
+package com.repocad.web.lexing
 
 /*
  SXLexer: A lexer for the programming language Scheme

@@ -17,7 +17,7 @@
  * Read more at http://siigna.com and https://github.com/siigna/main
  */
 
-package com.siigna.web
+package com.repocad.web
 
 /**
  * A vector class utility.

@@ -1,7 +1,7 @@
-package com.siigna.web.parsing
+package com.repocad.web.parsing
 
-import com.siigna.web.lexing._
-import com.siigna.web.parsing.Parser.Value
+import com.repocad.web.lexing._
+import com.repocad.web.parsing.Parser.Value
 import org.scalatest.{Matchers, FlatSpec}
 
 class ParserTest extends FlatSpec with Matchers {
