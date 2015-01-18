@@ -65,6 +65,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def init() : Unit = {
+    run()//run the Evaluator to get drawing boundary (needed to draw the paper)
     eval(lastAst)
     view.init()
 

@@ -3175,6 +3175,7 @@ ScalaJS.h.Lcom_repocad_web_Repocad = (function() {
 });
 ScalaJS.h.Lcom_repocad_web_Repocad.prototype = ScalaJS.c.Lcom_repocad_web_Repocad.prototype;
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init__V = (function() {
+  this.run__V();
   this.eval__Lcom_repocad_web_parsing_Expr__V(this.lastAst$1);
   this.view$1.init__V();
   var listener = new ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5().init___Lcom_repocad_web_Repocad(this);

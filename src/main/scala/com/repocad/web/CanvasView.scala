@@ -12,7 +12,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
   var landscape = 1.0
-
+  
   //window center
   def center = Vector2D((canvas.getBoundingClientRect().right + canvas.getBoundingClientRect().left) * 0.5,
     (canvas.getBoundingClientRect().bottom + canvas.getBoundingClientRect().top) * 0.5)
@@ -51,7 +51,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
       context.fillStyle = "white"
       context.fillRect(x, y, height, width)
       scale = paperCoords(4) //update scale
-      landscape= paperCoords(5)
+      landscape = paperCoords(5)
 
       val y2 = y + height
       val x2 = x + width

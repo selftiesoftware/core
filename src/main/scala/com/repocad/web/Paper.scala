@@ -69,20 +69,18 @@ object Paper {
 
     if (size.x >= size.y) { //landscape
       landscape = 0.0
-      //println("factor: "+factor)
-      //leftX = xMin * factor - (longSide * 0.5)
+
       leftX = center.x  - (longSide * 0.5)
-      //bottomY = yMin * factor - (shortSide * 0.5)
       topY = center.y - (shortSide * 0.5)
+
       width = longSide
       height = shortSide
 
     } else { //portrait
 
-      //leftX = xMin * factor - (shortSide * 0.5)
       leftX = center.x - (shortSide * 0.5)
-      //bottomY = yMin * factor - (longSide * 0.5)
       topY = center.y - (longSide * 0.5)
+
       width = shortSide
       height = longSide
     }
