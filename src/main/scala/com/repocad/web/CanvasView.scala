@@ -1,7 +1,8 @@
-package com.siigna.web
+package com.repocad.web
 
+import com.repocad.web.Paper._
+import com.repocad.web.evaluating.Evaluator
 import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
-import scala.scalajs.js.Math
 
 /**
  * A view that renders to a HTML5 canvas
@@ -10,12 +11,52 @@ import scala.scalajs.js.Math
 class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
-  //todo: allow setting paper size as a variable in the script
-  val paperH = 210
-  val paperW = 297
 
   def center = Vector2D((canvas.getBoundingClientRect().right + canvas.getBoundingClientRect().left) * 0.5,
     (canvas.getBoundingClientRect().bottom + canvas.getBoundingClientRect().top) * 0.5)
+
+
+  /**
+   * The boundary from the current content of the Model.
+   * The rectangle returned fits an A-paper format, but <b>a margin is added</b>.
+   * This is done in order to make sure that the print viewed on page is the
+   * actual print you get.
+   *
+   * @return A rectangle in an A-paper format. The scale is given in <code>boundaryScale</code>.
+   */
+
+
+  def drawPaper() = {
+
+    val t : TransformationMatrix = new TransformationMatrix(0,0,0,0,0,0)
+
+    //TODO: re-scale paper to match current print-scale (depending on the bounding box of the artwork present)
+    val wMin : Double = Evaluator.minX
+    val wMax : Double = Evaluator.maxX
+    val hMin : Double = Evaluator.minY
+    val hMax : Double = Evaluator.maxY
+
+    val center = Evaluator.center
+
+    //calculate the paper scale and placement
+    val paperCoords = scaleAndCoords(wMin,wMax,hMin,hMax)
+    val y = paperCoords(1)
+    val x = paperCoords(0)
+    val height = paperCoords(2)
+    val width = paperCoords(3)
+    context.fillStyle = "white"
+    context.fillRect(y,x,height, width)
+
+    val y2 = y + height
+    val x2 = x + width
+    //draw paper outline
+    //line(y,x,y2,x)
+    //line(y2,x,y2,x2)
+    //bottom
+    //line(y2,x2,y,x2)
+    //left
+    //line(y,x2,y,x)
+  }
 
   def clear(): Unit = {
     context.save()
@@ -23,52 +64,12 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.fillStyle = "AliceBlue"
     context.fillRect(0, 0, canvas.width, canvas.height)
     context.restore()
-    drawPaper()
+    drawPaper() //draw the paper
   }
 
   def init(): Unit = {
     context.translate(canvas.width / 2, canvas.height / 2)
-  }
 
-  //TODO: dynamically change calcPaperScale if artwork is larger than A4 in 1:1
-  //TODO: allow setting a fixed paper scale in the script: eg. by setting a variable "paperScale = 2
-  var calcPaperScale = {
-    //canvas.width is not the right value- it is not based on the artwork's bounding box (which is dynamic)..how to get that?
-    var w = canvas.width
-    var h = canvas.height
-
-    var scale = {
-      if (w < h) {
-        h/297
-      } else {
-        w/297
-      }
-    }
-    scale
-  }
-
-  def drawPaper() : Unit = {
-
-    val t : TransformationMatrix = new TransformationMatrix(0,0,0,0,0,0)
-
-    //TODO: re-scale paper to match current print-scale (depending on the bounding box of the artwork present)
-
-    val pH = paperH * calcPaperScale
-    val pW = paperW * calcPaperScale
-    //paper color
-    context.fillStyle = "White"
-    context.fillRect(-pH/2 ,-pW/2,pH, pW)
-
-    //draw paper outline
-    line(-pH/2,-pW/2,pH/2,-pW/2)
-    line(pH/2,-pW/2,pH/2,pW/2)
-    //bottom
-    line(pH/2,pW/2,-pH/2,pW/2)
-    //left
-
-    //line(-pH/2,pW/2,-pH/2,-pW/2)
-
-    line(-pH/2,pW/2,-pH/2,-pW/2)
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {

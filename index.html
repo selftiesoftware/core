@@ -126,6 +126,7 @@
 
 <!-- Run tutorial.webapp.TutorialApp -->
 <script type="text/javascript">
+
     var canvas = document.getElementById("canvas");
     var container = document.getElementById("container");
     var debug  = document.getElementById("debug");
@@ -135,7 +136,9 @@
     var save = document.getElementById("save");
     var repocad = new Repocad(canvas, input, debug);
 
+
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
+
     canvas.width = container.offsetWidth / 2 - 20;
     canvas.height = window.innerHeight * 0.7;
 
@@ -160,6 +163,7 @@
     }
 
     window.onload = function (e) {
+
         repocad.init();
 
         toPdf.onclick = function (e) {

@@ -1,8 +1,8 @@
-package com.siigna.web
+package com.repocad.web
 
-import com.siigna.web.evaluating.Evaluator
-import com.siigna.web.lexing.{Lexer}
-import com.siigna.web.parsing.{UnitExpr, Expr, Parser}
+import com.repocad.web.evaluating.Evaluator
+import com.repocad.web.lexing.{Lexer}
+import com.repocad.web.parsing.{UnitExpr, Expr, Parser}
 import org.scalajs.dom
 import org.scalajs.dom._
 
@@ -10,7 +10,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
 
 /**
- * The entry point for compiling and evaluating siigna code
+ * The entry point for compiling and evaluating repocad code
  * @param canvas The canvas on which to draw
  * @param input The input field containing the textual code
  * @param debug A debug field to be used for (error) messages
@@ -63,6 +63,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   @JSExport
   def init() : Unit = {
     view.init()
+
     val listener = (hash : String) => {
       val x = Drawing.get(hash)
         x.fold(displayError, drawing => {
@@ -71,8 +72,9 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
       })
     }
     // Call and set listener
-    loadDrawing(drawing)
+    val d = loadDrawing(drawing)
     Drawing.setHashListener(listener)
+
   }
 
   def loadDrawing(drawing : Drawing) : Unit = {
@@ -86,7 +88,9 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   def run() : Unit = {
     Parser.parse(Lexer.lex(drawing.content))
           .fold(left => displayError("Error while reading code " + left),
-            right => eval(right))
+            right => {
+              eval(right)
+            })
   }
 
   @JSExport
@@ -97,6 +101,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   def eval(expr : Expr) : Unit = {
     lastAst = expr
     view.clear()
+    Evaluator.resetBoundingBox() //set the default paper scale
     Evaluator.eval(expr, Map(), view)
       .fold(
         error => displayError(s"Failure during evaluation: $error"),

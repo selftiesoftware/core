@@ -1,8 +1,8 @@
-package com.siigna.web.evaluating
+package com.repocad.web.evaluating
 
-import com.siigna.web.Printer
-import com.siigna.web.lexing.Lexer
-import com.siigna.web.parsing._
+import com.repocad.web.{Vector2D, Printer}
+import com.repocad.web.lexing.Lexer
+import com.repocad.web.parsing._
 import org.scalajs.dom
 import org.scalajs.dom.extensions.Ajax
 import scala.concurrent.{Future, Await}
@@ -14,6 +14,33 @@ import scala.util.Success
  * An evaluator to evaluate a list of [[Expr]]
  */
 object Evaluator {
+  //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
+  var maxX = 105.0
+  var minX = -105.0
+  var maxY = 114.0
+  var minY = -114.0
+  var center = Vector2D(0,0)
+
+  //TODO: reset the scale to allow drawing paper to shrink again!
+  def updateBoundingBox(x : Double, y: Double) : Vector2D = {
+    if(x > maxX)  maxX = x
+    if(x < minX)  minX = x
+    if(x > maxY)  maxY = y
+    if(x < minY)  minY = y
+
+    val cX = (maxX-minX)/2 + minX
+    val cY = (maxY-minY)/2 + minY
+    val center = Vector2D(cX,cY) //move the paper center to the center of the current artwork on the paper
+    center
+  }
+  //resets the drawing size to the predefined size. Is run once before the evaluation loop, so ensure the paper
+  //is scaled down again if the drawing extends are smaller after user editing of the drawing.
+  def resetBoundingBox() = {
+    maxX = 105.0
+    minX = -105.0
+    maxY = 114.0
+    minY = -114.0
+  }
 
   type Env = Map[String, Any]
 
@@ -28,6 +55,7 @@ object Evaluator {
             getValue[Double](radius, env, printer).right.flatMap(radiusValue =>
               getValue[Double](sAngle, env, printer).right.flatMap(startAngle =>
                 getValue[Double](eAngle, env, printer).right.flatMap(endAngle => {
+                  center = updateBoundingBox(x + radiusValue,y + radiusValue)
                   printer.arc(x,y,radiusValue,startAngle,endAngle)
                   Right(env -> Unit)
               })
@@ -45,7 +73,11 @@ object Evaluator {
                   getValue[Double](sy3, env, printer).right.flatMap(y3 =>
                     getValue[Double](sx4, env, printer).right.flatMap(x4 =>
                       getValue[Double](sy4, env, printer).right.flatMap(y4 => {
-                      printer.bezierCurve(x1, y1, x2, y2, x3 , y3 , x4 , y4)
+                        center = updateBoundingBox(x1,y1)
+                        center = updateBoundingBox(x2,y2)
+                        center = updateBoundingBox(x3,y3)
+                        center = updateBoundingBox(x4,y4)
+                        printer.bezierCurve(x1, y1, x2, y2, x3 , y3 , x4 , y4)
                       Right(env -> Unit)
                     })
                   )
@@ -61,6 +93,8 @@ object Evaluator {
         getValue[Double](centerX, env, printer).right.flatMap(x =>
           getValue[Double](centerY, env, printer).right.flatMap(y =>
             getValue[Double](radius, env, printer).right.flatMap(radiusValue => {
+              center = updateBoundingBox(x + radiusValue,y + radiusValue)
+              center = updateBoundingBox(x - radiusValue,y - radiusValue)
               printer.circle(x,y,radiusValue)
               Right(env -> Unit)
             })
@@ -72,6 +106,8 @@ object Evaluator {
           getValue[Double](e2, env, printer).right.flatMap(y1 =>
             getValue[Double](e3, env, printer).right.flatMap(x2 =>
               getValue[Double](e4, env, printer).right.flatMap(y2 => {
+                center = updateBoundingBox(x1,y1)
+                center = updateBoundingBox(x2,y2)
                 printer.line(x1, y1, x2, y2)
                 Right(env -> Unit)
               })
@@ -84,6 +120,9 @@ object Evaluator {
           getValue[Double](centerY, env, printer).right.flatMap(y =>
             getValue[Double](height, env, printer).right.flatMap(heightValue =>
               getValue[Any](text, env, printer).right.flatMap(textValue => {
+                //TODO: calculate text bounding box and add that to the center to get correct extends of the text
+                center = updateBoundingBox(x + heightValue,y + heightValue)
+                center = updateBoundingBox(x - heightValue,y - heightValue)
                 printer.text(x,y,heightValue,textValue)
                 Right(env -> Unit)
               })
@@ -119,7 +158,7 @@ object Evaluator {
 
       case ImportExpr(name) =>
         val xhr = new dom.XMLHttpRequest()
-        xhr.open("GET", "http://siigna.com:20004/get/" + name.name, false) // Handle synchronously
+        xhr.open("GET", "http://repocad.com:20004/get/" + name.name, false) // Handle synchronously
         xhr.send()
         Parser.parse(Lexer.lex(xhr.responseText)) match {
           case Right(e) => eval(e, env, printer)

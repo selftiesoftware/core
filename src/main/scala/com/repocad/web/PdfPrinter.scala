@@ -1,4 +1,4 @@
-package com.siigna.web
+package com.repocad.web
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._

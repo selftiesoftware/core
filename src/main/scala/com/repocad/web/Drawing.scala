@@ -1,4 +1,4 @@
-package com.siigna.web
+package com.repocad.web
 
 import org.scalajs.dom
 import org.scalajs.dom._
@@ -15,7 +15,6 @@ sealed case class Drawing(name : String, content : String) {
 }
 
 object Drawing {
-
   def apply() : Drawing = {
     val hash = window.location.hash.replace("#", "")
     def getDefault = Drawing.get("default")
@@ -47,5 +46,7 @@ object Drawing {
       }
     }
   }
+
+
 
 }
