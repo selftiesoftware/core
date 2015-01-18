@@ -9,14 +9,7 @@ import SplineToArc2D.arcToBezier
 class PdfPrinter(scale : Double, landscape : Double) extends Printer {
 
   var orientation : String = "landscape"
-  println("in pdf with orientation; "+landscape)
-
-
-  if (landscape != 1.0) {
-    println("PORTRAIT!")
-    orientation = "portrait"
-  }
-
+  if (landscape != 1.0) orientation = "portrait"
   val document = js.Dynamic.global.jsPDF(orientation.toString)
 
   /**
@@ -29,11 +22,10 @@ class PdfPrinter(scale : Double, landscape : Double) extends Printer {
    */
   def arc(x: Double,y: Double,r: Double,sAngle: Double,eAngle: Double) : Unit = {
 
-    val splines = arcToBezier(x * scale, y * scale, r * scale, sAngle, eAngle)
+    val splines = arcToBezier(x, y, r, sAngle, eAngle)
 
     //iterate through the list of arcs ad add them to the PDF
     splines.foreach(spline => {
-
       val x1 = spline(0)
       val y1 = spline(1)
       val x2 = spline(2)
@@ -43,10 +35,10 @@ class PdfPrinter(scale : Double, landscape : Double) extends Printer {
       val x4 = spline(6)
       val y4 = spline(7)
 
-      val v1 = transform(Vector2D(x1, y1))
-      val v2 = transform(Vector2D(x2, y2))
-      val v3 = transform(Vector2D(x3, y3))
-      val v4 = transform(Vector2D(x4, y4)) //endPoint
+      val v1 = transform(Vector2D(x1 / scale, y1 / scale))
+      val v2 = transform(Vector2D(x2 / scale, y2 / scale))
+      val v3 = transform(Vector2D(x3 / scale, y3 / scale))
+      val v4 = transform(Vector2D(x4 / scale, y4 / scale)) //endPoint
       val xS = v1.x
       val yS = v1.y
 
@@ -59,28 +51,28 @@ class PdfPrinter(scale : Double, landscape : Double) extends Printer {
       val cX = v4.x - xS
       val cY = v4.y - yS
 
-      val six = Array(aX * scale, aY / scale, bX / scale, bY / scale, cX / scale, cY / scale).toJSArray //two control points and end point:
+      val six = Array(aX, aY, bX, bY, cX, cY).toJSArray //two control points and end point:
       val scaleCurve = Array(1, 1).toJSArray //scale x/y
       //create the bezier curve
-      document.lines(Array(six).toJSArray, v1.x / scale, v1.y / scale, scaleCurve)
+      document.lines(Array(six).toJSArray, v1.x, v1.y, scaleCurve)
     })
   }
 
   //TODO: unable to get the output format right.. some constellation of Array[Double]'s ??
   def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
-    val v1 = transform(Vector2D(x1, y1))
-    val v2 = transform(Vector2D(x2, y2))
-    val v3 = transform(Vector2D(x3, y3))
-    val v4 = transform(Vector2D(x4, y4))//endPoint
+    val v1 = transform(Vector2D(x1 / scale, y1 / scale))
+    val v2 = transform(Vector2D(x2 / scale, y2 / scale))
+    val v3 = transform(Vector2D(x3 / scale, y3 / scale))
+    val v4 = transform(Vector2D(x4 / scale, y4 / scale))//endPoint
     val x = v1.x
     val y = v1.y
 
     //SYNTAX: doc.lines([[crtlPt1x,crtlPt1y,crtlPt2x,crtlPt2y,endX,endY]], startX, startY, [scaleX,scaleY]);
     //coordinates are relative, so the start point x and y needs to be subtracted
     val six = Array(v2.x - x,v2.y - y,v3.x - x,v3.y - y,v4.x - x, v4.y - y).toJSArray     //two control points and end point:
-    val scale = Array(1,1).toJSArray //scale x/y
+    val scaleCurve = Array(1,1).toJSArray //scale x/y
     //create the bezier curve
-    document.lines(Array(six).toJSArray,v1.x,v1.y,scale)
+    document.lines(Array(six).toJSArray,v1.x,v1.y,scaleCurve)
   }
 
   def circle(x : Double, y : Double, r : Double) : Unit = {
@@ -92,7 +84,6 @@ class PdfPrinter(scale : Double, landscape : Double) extends Printer {
     val v1 = transform(Vector2D(x1 / scale, y1 / scale))
     val v2 = transform(Vector2D(x2 / scale, y2 / scale))
     document.setLineWidth(0.02)
-    println("scale: "+scale)
     document.line(v1.x, v1.y, v2.x, v2.y)
   }
 

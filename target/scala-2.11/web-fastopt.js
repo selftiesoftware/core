@@ -2996,10 +2996,6 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(
   var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x1 / this.com$repocad$web$PdfPrinter$$scale$f), (y1 / this.com$repocad$web$PdfPrinter$$scale$f)));
   var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x2 / this.com$repocad$web$PdfPrinter$$scale$f), (y2 / this.com$repocad$web$PdfPrinter$$scale$f)));
   this.document$1["setLineWidth"](0.02);
-  var x = ("scale: " + this.com$repocad$web$PdfPrinter$$scale$f);
-  var this$2 = ScalaJS.m.s_Console();
-  var this$3 = this$2.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
   this.document$1["line"](v1.x$1, v1.y$1, v2.x$1, v2.y$1)
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D = (function(v) {
@@ -3025,10 +3021,7 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   var this$1 = ScalaJS.m.Lcom_repocad_web_SplineToArc2D();
-  var cX = (x * this.com$repocad$web$PdfPrinter$$scale$f);
-  var cY = (y * this.com$repocad$web$PdfPrinter$$scale$f);
-  var radius = (r * this.com$repocad$web$PdfPrinter$$scale$f);
-  var splines = this$1.createArc$1__p1__D__D__D__D__D__D__sci_List(radius, sAngle, eAngle, cX, cY, radius);
+  var splines = this$1.createArc$1__p1__D__D__D__D__D__D__sci_List(r, sAngle, eAngle, x, y, r);
   var these = splines;
   while ((!these.isEmpty__Z())) {
     var spline$2 = these.head__O();
@@ -3041,19 +3034,19 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (functio
     var y3 = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(spline, 5));
     var x4 = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(spline, 6));
     var y4 = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(spline, 7));
-    var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x1, y1));
-    var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x2, y2));
-    var v3 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x3, y3));
-    var v4 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x4, y4));
+    var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x1 / this.com$repocad$web$PdfPrinter$$scale$f), (y1 / this.com$repocad$web$PdfPrinter$$scale$f)));
+    var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x2 / this.com$repocad$web$PdfPrinter$$scale$f), (y2 / this.com$repocad$web$PdfPrinter$$scale$f)));
+    var v3 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x3 / this.com$repocad$web$PdfPrinter$$scale$f), (y3 / this.com$repocad$web$PdfPrinter$$scale$f)));
+    var v4 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x4 / this.com$repocad$web$PdfPrinter$$scale$f), (y4 / this.com$repocad$web$PdfPrinter$$scale$f)));
     var xS = v1.x$1;
     var yS = v1.y$1;
     var aX = (v2.x$1 - xS);
     var aY = (v2.y$1 - yS);
     var bX = (v3.x$1 - xS);
     var bY = (v3.y$1 - yS);
-    var cX$1 = (v4.x$1 - xS);
-    var cY$1 = (v4.y$1 - yS);
-    var arr = ScalaJS.m.s_Array().apply__D__sc_Seq__AD((aX * this.com$repocad$web$PdfPrinter$$scale$f), new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([(aY / this.com$repocad$web$PdfPrinter$$scale$f), (bX / this.com$repocad$web$PdfPrinter$$scale$f), (bY / this.com$repocad$web$PdfPrinter$$scale$f), (cX$1 / this.com$repocad$web$PdfPrinter$$scale$f), (cY$1 / this.com$repocad$web$PdfPrinter$$scale$f)]));
+    var cX = (v4.x$1 - xS);
+    var cY = (v4.y$1 - yS);
+    var arr = ScalaJS.m.s_Array().apply__D__sc_Seq__AD(aX, new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([aY, bX, bY, cX, cY]));
     var $$this = ScalaJS.m.s_Predef().genericArrayOps__O__scm_ArrayOps(arr);
     var result = [];
     var i = 0;
@@ -3083,7 +3076,7 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (functio
       ScalaJS.uI(result$2["push"](x$2$2));
       i$2 = ((i$2 + 1) | 0)
     };
-    this.document$1["lines"](result$2, (v1.x$1 / this.com$repocad$web$PdfPrinter$$scale$f), (v1.y$1 / this.com$repocad$web$PdfPrinter$$scale$f), result$1);
+    this.document$1["lines"](result$2, v1.x$1, v1.y$1, result$1);
     these = ScalaJS.as.sci_List(these.tail__O())
   }
 });
@@ -3091,24 +3084,17 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.init___D__D = (function(scale, l
   this.com$repocad$web$PdfPrinter$$scale$f = scale;
   this.landscape$1 = landscape;
   this.orientation$1 = "landscape";
-  var x = ("in pdf with orientation; " + landscape);
-  var this$2 = ScalaJS.m.s_Console();
-  var this$3 = this$2.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
   if ((landscape !== 1.0)) {
-    var this$5 = ScalaJS.m.s_Console();
-    var this$6 = this$5.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$6.tl$1.get__O()).println__O__V("PORTRAIT!");
     this.orientation$1 = "portrait"
   };
   this.document$1 = ScalaJS.g["jsPDF"](this.orientation$1.toString());
   return this
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
-  var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x1, y1));
-  var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x2, y2));
-  var v3 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x3, y3));
-  var v4 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x4, y4));
+  var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x1 / this.com$repocad$web$PdfPrinter$$scale$f), (y1 / this.com$repocad$web$PdfPrinter$$scale$f)));
+  var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x2 / this.com$repocad$web$PdfPrinter$$scale$f), (y2 / this.com$repocad$web$PdfPrinter$$scale$f)));
+  var v3 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x3 / this.com$repocad$web$PdfPrinter$$scale$f), (y3 / this.com$repocad$web$PdfPrinter$$scale$f)));
+  var v4 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x4 / this.com$repocad$web$PdfPrinter$$scale$f), (y4 / this.com$repocad$web$PdfPrinter$$scale$f)));
   var x = v1.x$1;
   var y = v1.y$1;
   var arr = ScalaJS.m.s_Array().apply__D__sc_Seq__AD((v2.x$1 - x), new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([(v2.y$1 - y), (v3.x$1 - x), (v3.y$1 - y), (v4.x$1 - x), (v4.y$1 - y)]));
