@@ -11,10 +11,13 @@ import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
 class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
+  var landscape = 1.0
 
+  //window center
   def center = Vector2D((canvas.getBoundingClientRect().right + canvas.getBoundingClientRect().left) * 0.5,
     (canvas.getBoundingClientRect().bottom + canvas.getBoundingClientRect().top) * 0.5)
 
+  var scale = 1.0
 
   /**
    * The boundary from the current content of the Model.
@@ -31,31 +34,30 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     val t : TransformationMatrix = new TransformationMatrix(0,0,0,0,0,0)
 
     //TODO: re-scale paper to match current print-scale (depending on the bounding box of the artwork present)
-    val wMin : Double = Evaluator.minX
-    val wMax : Double = Evaluator.maxX
-    val hMin : Double = Evaluator.minY
-    val hMax : Double = Evaluator.maxY
+    val xMin : Option[Double] = Evaluator.minX
+    val xMax : Option[Double] = Evaluator.maxX
+    val yMin : Option[Double] = Evaluator.minY
+    val yMax : Option[Double] = Evaluator.maxY
 
     val center = Evaluator.center
 
     //calculate the paper scale and placement
-    val paperCoords = scaleAndCoords(wMin,wMax,hMin,hMax)
-    val y = paperCoords(1)
-    val x = paperCoords(0)
-    val height = paperCoords(2)
-    val width = paperCoords(3)
-    context.fillStyle = "white"
-    context.fillRect(y,x,height, width)
+    if(xMin.isDefined && xMax.isDefined && yMin.isDefined && yMax.isDefined) {
+      val paperCoords = scaleAndCoords(xMin.get, xMax.get, yMin.get, yMax.get)
+      val x = paperCoords(0)
+      val y = paperCoords(1)
+      val height = paperCoords(2)
+      val width = paperCoords(3)
+      context.fillStyle = "white"
+      context.fillRect(x, y, height, width)
+      scale = paperCoords(4) //update scale
+      landscape= paperCoords(5)
 
-    val y2 = y + height
-    val x2 = x + width
-    //draw paper outline
-    //line(y,x,y2,x)
-    //line(y2,x,y2,x2)
-    //bottom
-    //line(y2,x2,y,x2)
-    //left
-    //line(y,x2,y,x)
+      val y2 = y + height
+      val x2 = x + width
+
+      //draw paper outline
+    }
   }
 
   def clear(): Unit = {
@@ -75,8 +77,8 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
   override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
     context.beginPath()
     context.arc(x, -y, r, sAngle, eAngle)
-    context.lineWidth = 0.2
     context.stroke()
+    context.lineWidth = 0.2 * scale
     context.closePath()
   }
 
@@ -85,6 +87,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.moveTo(x1, -y1)
     context.bezierCurveTo(x2, -y2, x3, -y3, x4, -y4)
     context.stroke()
+    context.lineWidth = 0.2 * scale
   }
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
@@ -92,14 +95,14 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.moveTo(x1, -y1)
     context.lineTo(x2, -y2)
     context.stroke()
-    context.lineWidth = 0.2
+    context.lineWidth = 0.2 * scale
     context.closePath()
   }
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
     context.beginPath()
     context.arc(x, -y, r, 0, 2 * Math.PI)
-    context.lineWidth = 0.2
+    context.lineWidth = 0.2 * scale
     context.stroke()
     context.closePath()
   }

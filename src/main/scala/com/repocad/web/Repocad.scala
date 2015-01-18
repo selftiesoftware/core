@@ -26,6 +26,9 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   var lastAst : Expr = UnitExpr
   var lastValue : String = ""
 
+  var scale = view.scale
+  var landscape = view.landscape
+
   val mouseExit = (e : MouseEvent) => {
     mouseDown = false
   }
@@ -62,6 +65,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def init() : Unit = {
+    eval(lastAst)
     view.init()
 
     val listener = (hash : String) => {
@@ -86,6 +90,9 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def run() : Unit = {
+    scale = view.scale //get the current drawing scale
+    landscape = view.landscape
+
     val tokens = Lexer.lex(drawing.content)
     Parser.parse(tokens)
       .fold(left => {
@@ -93,9 +100,9 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
       displayError("Error while compiling code: " + left)
     },
         right => {
-          println("AST: " + right)
+          //println("AST: " + right)
           val x = eval(right)
-          println("Eval: " + x)
+          //println("Eval: " + x)
           x
         })
 
@@ -127,7 +134,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def printPdf(name : String) : Unit = {
-    val printer = new PdfPrinter()
+    val printer = new PdfPrinter(scale, landscape)
     Evaluator.eval(lastAst, Map(), printer)
     printer.save(name)
   }

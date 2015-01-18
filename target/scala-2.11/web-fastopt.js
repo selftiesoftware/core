@@ -2568,7 +2568,9 @@ ScalaJS.m.Lcom_repocad_web_Ajax = (function() {
 ScalaJS.c.Lcom_repocad_web_CanvasView = (function() {
   ScalaJS.c.O.call(this);
   this.canvas$1 = null;
-  this.context$1 = null
+  this.context$1 = null;
+  this.landscape$1 = 0.0;
+  this.scale$1 = 0.0
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype = new ScalaJS.h.O();
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.constructor = ScalaJS.c.Lcom_repocad_web_CanvasView;
@@ -2585,21 +2587,21 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.line__D__D__D__D__V = (function(
   this.context$1["moveTo"](x1, (-y1));
   this.context$1["lineTo"](x2, (-y2));
   this.context$1["stroke"]();
-  this.context$1["lineWidth"] = 0.2;
+  this.context$1["lineWidth"] = (0.2 * this.scale$1);
   this.context$1["closePath"]()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.circle__D__D__D__V = (function(x, y, r) {
   this.context$1["beginPath"]();
   this.context$1["arc"](x, (-y), r, 0.0, 6.283185307179586);
-  this.context$1["lineWidth"] = 0.2;
+  this.context$1["lineWidth"] = (0.2 * this.scale$1);
   this.context$1["stroke"]();
   this.context$1["closePath"]()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   this.context$1["beginPath"]();
   this.context$1["arc"](x, (-y), r, sAngle, eAngle);
-  this.context$1["lineWidth"] = 0.2;
   this.context$1["stroke"]();
+  this.context$1["lineWidth"] = (0.2 * this.scale$1);
   this.context$1["closePath"]()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
@@ -2611,18 +2613,22 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.text__D__D__D__O__V = (function(
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.drawPaper__V = (function() {
   new ScalaJS.c.Lcom_repocad_web_TransformationMatrix().init___D__D__D__D__D__D(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-  var wMin = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().minX$1;
-  var wMax = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().maxX$1;
-  var hMin = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().minY$1;
-  var hMax = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().maxY$1;
+  var xMin = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().minX$1;
+  var xMax = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().maxX$1;
+  var yMin = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().minY$1;
+  var yMax = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().maxY$1;
   ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().center$1;
-  var paperCoords = ScalaJS.m.Lcom_repocad_web_Paper().scaleAndCoords__D__D__D__D__sci_List(wMin, wMax, hMin, hMax);
-  var y = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 1));
-  var x = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 0));
-  var height = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 2));
-  var width = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 3));
-  this.context$1["fillStyle"] = "white";
-  this.context$1["fillRect"](y, x, height, width)
+  if ((((xMin.isDefined__Z() && xMax.isDefined__Z()) && yMin.isDefined__Z()) && yMax.isDefined__Z())) {
+    var paperCoords = ScalaJS.m.Lcom_repocad_web_Paper().scaleAndCoords__D__D__D__D__sci_List(ScalaJS.uD(xMin.get__O()), ScalaJS.uD(xMax.get__O()), ScalaJS.uD(yMin.get__O()), ScalaJS.uD(yMax.get__O()));
+    var x = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 0));
+    var y = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 1));
+    var height = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 2));
+    var width = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 3));
+    this.context$1["fillStyle"] = "white";
+    this.context$1["fillRect"](x, y, height, width);
+    this.scale$1 = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 4));
+    this.landscape$1 = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(paperCoords, 5))
+  }
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.center__Lcom_repocad_web_Vector2D = (function() {
   return new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["right"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"])) * 0.5), ((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["bottom"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"])) * 0.5))
@@ -2631,11 +2637,14 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.bezierCurve__D__D__D__D__D__D__D
   this.context$1["beginPath"]();
   this.context$1["moveTo"](x1, (-y1));
   this.context$1["bezierCurveTo"](x2, (-y2), x3, (-y3), x4, (-y4));
-  this.context$1["stroke"]()
+  this.context$1["stroke"]();
+  this.context$1["lineWidth"] = (0.2 * this.scale$1)
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement = (function(canvas) {
   this.canvas$1 = canvas;
   this.context$1 = canvas["getContext"]("2d");
+  this.landscape$1 = 1.0;
+  this.scale$1 = 1.0;
   return this
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.translate__D__D__V = (function(x, y) {
@@ -2878,32 +2887,32 @@ ScalaJS.h.Lcom_repocad_web_Paper$ = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_repocad_web_Paper$.prototype = ScalaJS.c.Lcom_repocad_web_Paper$.prototype;
-ScalaJS.c.Lcom_repocad_web_Paper$.prototype.scaleAndCoords__D__D__D__D__sci_List = (function(wMin, wMax, hMin, hMax) {
-  var this$2 = ScalaJS.m.s_Console();
-  var this$3 = this$2.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V("running s and c");
-  var bottomRight = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(wMin, hMin);
-  var topLeft = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(wMax, hMax);
+ScalaJS.c.Lcom_repocad_web_Paper$.prototype.scaleAndCoords__D__D__D__D__sci_List = (function(xMin, xMax, yMin, yMax) {
+  var yMaxF = (-yMax);
+  var yMinF = (-yMin);
+  var landscape = 1.0;
+  var scale = 1.0;
+  var bottomRight = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(xMax, yMinF);
+  var topLeft = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(xMin, yMaxF);
   var size = bottomRight.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(topLeft).abs__Lcom_repocad_web_Vector2D();
-  var aFormatMin = 210.0;
-  var aFormatMax = 297.0;
-  var w = (wMax - wMin);
-  var h = (hMax - hMin);
-  var center = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(((w / 2) + wMin), ((h / 2) + hMin));
+  var shortSide = 210.0;
+  var longSide = 297.0;
+  var center = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((((xMax - xMin) / 2) + xMin), (((yMaxF - yMinF) / 2) + yMinF));
+  scale = 1.0;
   ScalaJS.m.sci_List();
   var xs = new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([2.0, 2.5, 2.0]);
-  var this$5 = ScalaJS.m.sci_List();
-  var cbf = this$5.ReusableCBFInstance$2;
+  var this$2 = ScalaJS.m.sci_List();
+  var cbf = this$2.ReusableCBFInstance$2;
   var list = ScalaJS.as.sci_List(ScalaJS.i.sc_TraversableLike$class__to__sc_TraversableLike__scg_CanBuildFrom__O(xs, cbf));
   var take = 0;
   while (true) {
-    var jsx$2 = aFormatMin;
+    var jsx$2 = shortSide;
     var x = size.x$1;
     var y = size.y$1;
     if ((jsx$2 < ((x < y) ? x : y))) {
       var jsx$1 = true
     } else {
-      var jsx$3 = aFormatMax;
+      var jsx$3 = longSide;
       var x$1 = size.x$1;
       var y$1 = size.y$1;
       var jsx$1 = (jsx$3 < ((x$1 > y$1) ? x$1 : y$1))
@@ -2911,28 +2920,35 @@ ScalaJS.c.Lcom_repocad_web_Paper$.prototype.scaleAndCoords__D__D__D__D__sci_List
     if (jsx$1) {
       var n = take;
       var factor = ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(list, n));
-      aFormatMin = (aFormatMin * factor);
-      aFormatMax = (aFormatMax * factor);
-      take = ((take < 2) ? ((take + 1) | 0) : 0)
+      shortSide = (shortSide * factor);
+      longSide = (longSide * factor);
+      take = ((take < 2) ? ((take + 1) | 0) : 0);
+      scale = (scale * factor)
     } else {
       break
     }
   };
-  aFormatMin = (aFormatMin + 13.0);
-  aFormatMax = (aFormatMax + 13.0);
+  var leftX = xMin;
+  var topY = yMinF;
+  var width = shortSide;
+  var height = longSide;
   if ((size.x$1 >= size.y$1)) {
-    center.x$1;
-    center.y$1
+    landscape = 0.0;
+    leftX = (center.x$1 - (longSide * 0.5));
+    topY = (center.y$1 - (shortSide * 0.5));
+    width = longSide;
+    height = shortSide
+  } else {
+    leftX = (center.x$1 - (shortSide * 0.5));
+    topY = (center.y$1 - (longSide * 0.5));
+    width = shortSide;
+    height = longSide
   };
   ScalaJS.m.sci_List();
-  var xs$1 = new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([0, 0, aFormatMin, aFormatMax]);
-  var this$11 = ScalaJS.m.sci_List();
-  var cbf$1 = this$11.ReusableCBFInstance$2;
+  var xs$1 = new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([leftX, topY, width, height, scale, landscape]);
+  var this$8 = ScalaJS.m.sci_List();
+  var cbf$1 = this$8.ReusableCBFInstance$2;
   var calculatedPaper = ScalaJS.as.sci_List(ScalaJS.i.sc_TraversableLike$class__to__sc_TraversableLike__scg_CanBuildFrom__O(xs$1, cbf$1));
-  var x$2 = ("return; " + calculatedPaper);
-  var this$13 = ScalaJS.m.s_Console();
-  var this$14 = this$13.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$14.tl$1.get__O()).println__O__V(x$2);
   return calculatedPaper
 });
 ScalaJS.is.Lcom_repocad_web_Paper$ = (function(obj) {
@@ -2964,6 +2980,8 @@ ScalaJS.m.Lcom_repocad_web_Paper = (function() {
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_PdfPrinter = (function() {
   ScalaJS.c.O.call(this);
+  this.com$repocad$web$PdfPrinter$$scale$f = 0.0;
+  this.orientation$1 = null;
   this.document$1 = null
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype = new ScalaJS.h.O();
@@ -2973,14 +2991,14 @@ ScalaJS.h.Lcom_repocad_web_PdfPrinter = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_repocad_web_PdfPrinter.prototype = ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype;
-ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
-  this.document$1 = ScalaJS.g["jsPDF"]();
-  return this
-});
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
-  var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x1, y1));
-  var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x2, y2));
+  var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x1 / this.com$repocad$web$PdfPrinter$$scale$f), (y1 / this.com$repocad$web$PdfPrinter$$scale$f)));
+  var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x2 / this.com$repocad$web$PdfPrinter$$scale$f), (y2 / this.com$repocad$web$PdfPrinter$$scale$f)));
   this.document$1["setLineWidth"](0.02);
+  var x = ("scale: " + this.com$repocad$web$PdfPrinter$$scale$f);
+  var this$2 = ScalaJS.m.s_Console();
+  var this$3 = this$2.outVar$2;
+  ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
   this.document$1["line"](v1.x$1, v1.y$1, v2.x$1, v2.y$1)
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D = (function(v) {
@@ -2988,9 +3006,6 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$tran
   return vec.$$plus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(105.0, 147.0))
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
-  var this$2 = ScalaJS.m.s_Console();
-  var this$3 = this$2.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V("IN CIRCLE");
   var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x, y));
   this.document$1["circle"](v.x$1, v.y$1, r)
 });
@@ -3004,7 +3019,10 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   var this$1 = ScalaJS.m.Lcom_repocad_web_SplineToArc2D();
-  var splines = this$1.createArc$1__p1__D__D__D__D__D__D__sci_List(r, sAngle, eAngle, x, y, r);
+  var cX = (x * this.com$repocad$web$PdfPrinter$$scale$f);
+  var cY = (y * this.com$repocad$web$PdfPrinter$$scale$f);
+  var radius = (r * this.com$repocad$web$PdfPrinter$$scale$f);
+  var splines = this$1.createArc$1__p1__D__D__D__D__D__D__sci_List(radius, sAngle, eAngle, cX, cY, radius);
   var these = splines;
   while ((!these.isEmpty__Z())) {
     var spline$2 = these.head__O();
@@ -3027,9 +3045,9 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (functio
     var aY = (v2.y$1 - yS);
     var bX = (v3.x$1 - xS);
     var bY = (v3.y$1 - yS);
-    var cX = (v4.x$1 - xS);
-    var cY = (v4.y$1 - yS);
-    var arr = ScalaJS.m.s_Array().apply__D__sc_Seq__AD(aX, new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([aY, bX, bY, cX, cY]));
+    var cX$1 = (v4.x$1 - xS);
+    var cY$1 = (v4.y$1 - yS);
+    var arr = ScalaJS.m.s_Array().apply__D__sc_Seq__AD((aX * this.com$repocad$web$PdfPrinter$$scale$f), new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([(aY / this.com$repocad$web$PdfPrinter$$scale$f), (bX / this.com$repocad$web$PdfPrinter$$scale$f), (bY / this.com$repocad$web$PdfPrinter$$scale$f), (cX$1 / this.com$repocad$web$PdfPrinter$$scale$f), (cY$1 / this.com$repocad$web$PdfPrinter$$scale$f)]));
     var $$this = ScalaJS.m.s_Predef().genericArrayOps__O__scm_ArrayOps(arr);
     var result = [];
     var i = 0;
@@ -3059,12 +3077,21 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (functio
       ScalaJS.uI(result$2["push"](x$2$2));
       i$2 = ((i$2 + 1) | 0)
     };
-    this.document$1["lines"](result$2, v1.x$1, v1.y$1, result$1);
-    var this$12 = ScalaJS.m.s_Console();
-    var this$13 = this$12.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$13.tl$1.get__O()).println__O__V("ADDED AN ARC");
+    this.document$1["lines"](result$2, (v1.x$1 / this.com$repocad$web$PdfPrinter$$scale$f), (v1.y$1 / this.com$repocad$web$PdfPrinter$$scale$f), result$1);
     these = ScalaJS.as.sci_List(these.tail__O())
   }
+});
+ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.init___D__D = (function(scale, landscape) {
+  this.com$repocad$web$PdfPrinter$$scale$f = scale;
+  this.orientation$1 = "landscape";
+  if ((landscape !== 1.0)) {
+    var this$2 = ScalaJS.m.s_Console();
+    var this$3 = this$2.outVar$2;
+    ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V("AAA");
+    this.orientation$1 = "portrait"
+  };
+  this.document$1 = ScalaJS.g["jsPDF"](this.orientation$1);
+  return this
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
   var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x1, y1));
@@ -3136,6 +3163,8 @@ ScalaJS.c.Lcom_repocad_web_Repocad = (function() {
   this.mouseDown$1 = false;
   this.lastAst$1 = null;
   this.lastValue$1 = null;
+  this.scale$1 = 0.0;
+  this.landscape$1 = 0.0;
   this.mouseExit$1 = null
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype = new ScalaJS.h.O();
@@ -3146,6 +3175,7 @@ ScalaJS.h.Lcom_repocad_web_Repocad = (function() {
 });
 ScalaJS.h.Lcom_repocad_web_Repocad.prototype = ScalaJS.c.Lcom_repocad_web_Repocad.prototype;
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init__V = (function() {
+  this.eval__Lcom_repocad_web_parsing_Expr__V(this.lastAst$1);
   this.view$1.init__V();
   var listener = new ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5().init___Lcom_repocad_web_Repocad(this);
   this.loadDrawing__Lcom_repocad_web_Drawing__V(this.drawing$1);
@@ -3160,6 +3190,8 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
   this.mouseDown$1 = false;
   this.lastAst$1 = ScalaJS.m.Lcom_repocad_web_parsing_UnitExpr();
   this.lastValue$1 = "";
+  this.scale$1 = this.view$1.scale$1;
+  this.landscape$1 = this.view$1.landscape$1;
   this.mouseExit$1 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
     return (function(e$2) {
       arg$outer.mouseDown$1 = false
@@ -3207,6 +3239,8 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
   return this
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.run__V = (function() {
+  this.scale$1 = this.view$1.scale$1;
+  this.landscape$1 = this.view$1.landscape$1;
   var tokens = ScalaJS.m.Lcom_repocad_web_lexing_Lexer().lex__T__Lcom_repocad_web_lexing_LiveStream(this.drawing$1.content$1);
   var this$1 = ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__s_util_Either(tokens);
   if (ScalaJS.is.s_util_Left(this$1)) {
@@ -3222,15 +3256,7 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.run__V = (function() {
     var x3 = ScalaJS.as.s_util_Right(this$1);
     var b = x3.b$2;
     var right = ScalaJS.as.Lcom_repocad_web_parsing_Expr(b);
-    var x$1 = ("AST: " + right);
-    var this$6 = ScalaJS.m.s_Console();
-    var this$7 = this$6.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$7.tl$1.get__O()).println__O__V(x$1);
-    var x$2 = (this.eval__Lcom_repocad_web_parsing_Expr__V(right), (void 0));
-    var x$3 = ("Eval: " + x$2);
-    var this$9 = ScalaJS.m.s_Console();
-    var this$10 = this$9.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$10.tl$1.get__O()).println__O__V(x$3)
+    this.eval__Lcom_repocad_web_parsing_Expr__V(right)
   } else {
     throw new ScalaJS.c.s_MatchError().init___O(this$1)
   }
@@ -3278,7 +3304,7 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.loadDrawing__Lcom_repocad_web_Drawi
   this.run__V()
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.printPdf__T__V = (function(name) {
-  var printer = new ScalaJS.c.Lcom_repocad_web_PdfPrinter().init___();
+  var printer = new ScalaJS.c.Lcom_repocad_web_PdfPrinter().init___D__D(this.scale$1, this.landscape$1);
   ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.lastAst$1, ScalaJS.as.sci_Map(ScalaJS.m.s_Predef().Map$2.apply__sc_Seq__sc_GenMap(ScalaJS.m.sci_Nil())), printer);
   printer.save__T__V(name)
 });
@@ -3818,10 +3844,10 @@ ScalaJS.c.Lcom_repocad_web_Vector2D.prototype.$classData = ScalaJS.d.Lcom_repoca
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$ = (function() {
   ScalaJS.c.O.call(this);
-  this.maxX$1 = 0.0;
-  this.minX$1 = 0.0;
-  this.maxY$1 = 0.0;
-  this.minY$1 = 0.0;
+  this.minX$1 = null;
+  this.maxX$1 = null;
+  this.minY$1 = null;
+  this.maxY$1 = null;
   this.center$1 = null
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype = new ScalaJS.h.O();
@@ -3833,10 +3859,10 @@ ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$ = (function() {
 ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype;
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.init___ = (function() {
   ScalaJS.n.Lcom_repocad_web_evaluating_Evaluator = this;
-  this.maxX$1 = 105.0;
-  this.minX$1 = (-105.0);
-  this.maxY$1 = 114.0;
-  this.minY$1 = (-114.0);
+  this.minX$1 = ScalaJS.m.s_None();
+  this.maxX$1 = ScalaJS.m.s_None();
+  this.minY$1 = ScalaJS.m.s_None();
+  this.maxY$1 = ScalaJS.m.s_None();
   this.center$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(0.0, 0.0);
   return this
 });
@@ -4270,28 +4296,36 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.getValue__Lcom_repoca
   return new ScalaJS.c.s_util_Left().init___O(a)
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.resetBoundingBox__V = (function() {
-  this.maxX$1 = 105.0;
-  this.minX$1 = (-105.0);
-  this.maxY$1 = 114.0;
-  this.minY$1 = (-114.0)
+  this.maxX$1 = ScalaJS.m.s_None();
+  this.minX$1 = ScalaJS.m.s_None();
+  this.maxY$1 = ScalaJS.m.s_None();
+  this.minY$1 = ScalaJS.m.s_None()
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.updateBoundingBox__D__D__Lcom_repocad_web_Vector2D = (function(x, y) {
-  if ((x > this.maxX$1)) {
-    this.maxX$1 = x
-  };
-  if ((x < this.minX$1)) {
-    this.minX$1 = x
-  };
-  if ((x > this.maxY$1)) {
-    this.maxY$1 = y
-  };
-  if ((x < this.minY$1)) {
-    this.minY$1 = y
-  };
-  var cX = (((this.maxX$1 - this.minX$1) / 2) + this.minX$1);
-  var cY = (((this.maxY$1 - this.minY$1) / 2) + this.minY$1);
-  var center = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(cX, cY);
-  return center
+  if ((((this.minX$1.isDefined__Z() && this.maxX$1.isDefined__Z()) && this.minY$1.isDefined__Z()) && this.maxY$1.isDefined__Z())) {
+    if ((x > ScalaJS.uD(this.maxX$1.get__O()))) {
+      this.maxX$1 = new ScalaJS.c.s_Some().init___O(x)
+    };
+    if ((x < ScalaJS.uD(this.minX$1.get__O()))) {
+      this.minX$1 = new ScalaJS.c.s_Some().init___O(x)
+    };
+    if ((x > ScalaJS.uD(this.maxY$1.get__O()))) {
+      this.maxY$1 = new ScalaJS.c.s_Some().init___O(y)
+    };
+    if ((x < ScalaJS.uD(this.minY$1.get__O()))) {
+      this.minY$1 = new ScalaJS.c.s_Some().init___O(y)
+    };
+    var cX = (((ScalaJS.uD(this.maxX$1.get__O()) - ScalaJS.uD(this.minX$1.get__O())) / 2) - ScalaJS.uD(this.minX$1.get__O()));
+    var cY = (((ScalaJS.uD(this.maxY$1.get__O()) - ScalaJS.uD(this.minY$1.get__O())) / 2) - ScalaJS.uD(this.minY$1.get__O()));
+    var center = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(cX, cY);
+    return center
+  } else {
+    this.maxX$1 = new ScalaJS.c.s_Some().init___O(x);
+    this.minX$1 = new ScalaJS.c.s_Some().init___O(x);
+    this.maxY$1 = new ScalaJS.c.s_Some().init___O(y);
+    this.minY$1 = new ScalaJS.c.s_Some().init___O(y);
+    return this.center$1
+  }
 });
 ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$ = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$)))
@@ -19712,8 +19746,8 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5$$anonfun$apply$1
   } else if (ScalaJS.is.s_util_Right(x1)) {
     var x3 = ScalaJS.as.s_util_Right(x1);
     var b = x3.b$2;
-    ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().center$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.x$5$f + heightValue), (this.y$3$f + heightValue));
-    ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().center$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.x$5$f - heightValue), (this.y$3$f - heightValue));
+    ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().center$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.x$5$f + (heightValue * 2)), (this.y$3$f + (heightValue * 2)));
+    ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().center$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.x$5$f - (heightValue * 2)), (this.y$3$f - (heightValue * 2)));
     this.$$outer$2.$$outer$2.printer$1$f.text__D__D__D__O__V(this.$$outer$2.x$5$f, this.y$3$f, heightValue, b);
     ScalaJS.m.s_package().Right$1;
     var $$this = this.$$outer$2.$$outer$2.env$1$f;

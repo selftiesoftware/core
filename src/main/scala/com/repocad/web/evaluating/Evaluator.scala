@@ -15,32 +15,45 @@ import scala.util.Success
  * An evaluator to evaluate a list of [[Expr]]
  */
 object Evaluator {
+  //vars needed to update the drawing bounding box
   //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
-  var maxX = 105.0
-  var minX = -105.0
-  var maxY = 114.0
-  var minY = -114.0
+  var minX : Option[Double] = None
+  var maxX : Option[Double] = None
+  var minY : Option[Double] = None
+  var maxY : Option[Double] = None
   var center = Vector2D(0,0)
 
-  //TODO: reset the scale to allow drawing paper to shrink again!
+  /*
+  update the bounding box each time the drawing is evaluated.
+   */
   def updateBoundingBox(x : Double, y: Double) : Vector2D = {
-    if(x > maxX)  maxX = x
-    if(x < minX)  minX = x
-    if(x > maxY)  maxY = y
-    if(x < minY)  minY = y
+    if(minX.isDefined && maxX.isDefined && minY.isDefined && maxY.isDefined) {
+      if (x > maxX.get) maxX = Some(x)
+      if (x < minX.get) minX = Some(x)
+      if (x > maxY.get) maxY = Some(y)
+      if (x < minY.get) minY = Some(y)
 
-    val cX = (maxX-minX)/2 + minX
-    val cY = (maxY-minY)/2 + minY
-    val center = Vector2D(cX,cY) //move the paper center to the center of the current artwork on the paper
-    center
+      val cX = (maxX.get - minX.get) / 2 - minX.get
+      val cY = (maxY.get - minY.get) / 2 - minY.get
+      val center = Vector2D(cX, cY) //move the paper center to the center of the current artwork on the paper
+      center
+      //first run: set the bounding box.
+    } else {
+        maxX = Some(x)
+        minX = Some(x)
+        maxY = Some(y)
+        minY = Some(y)
+      center
+    }
   }
-  //resets the drawing size to the predefined size. Is run once before the evaluation loop, so ensure the paper
-  //is scaled down again if the drawing extends are smaller after user editing of the drawing.
+  /* run once before the evaluation loop to ensure the paper is scaled down again
+     if the drawing extends are smaller after user editing of the drawing.
+  */
   def resetBoundingBox() = {
-    maxX = 105.0
-    minX = -105.0
-    maxY = 114.0
-    minY = -114.0
+    maxX = None
+    minX = None
+    maxY = None
+    minY = None
   }
 
   type Env = Map[String, Any]
@@ -136,8 +149,8 @@ object Evaluator {
             getValue[Double](height, env, printer).right.flatMap(heightValue =>
               getValue[Any](text, env, printer).right.flatMap(textValue => {
                 //TODO: calculate text bounding box and add that to the center to get correct extends of the text
-                center = updateBoundingBox(x + heightValue,y + heightValue)
-                center = updateBoundingBox(x - heightValue,y - heightValue)
+                center = updateBoundingBox(x + heightValue * 2,y + heightValue * 2)
+                center = updateBoundingBox(x - heightValue * 2,y - heightValue * 2)
                 printer.text(x,y,heightValue,textValue)
                 Right(env -> Unit)
               })

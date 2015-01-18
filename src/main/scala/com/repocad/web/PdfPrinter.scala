@@ -6,9 +6,16 @@ import SplineToArc2D.arcToBezier
 /**
  * A printer that can generate pdf files
  */
-class PdfPrinter extends Printer {
+class PdfPrinter(scale : Double, landscape : Double) extends Printer {
 
-  val document = js.Dynamic.global.jsPDF()
+  var orientation = "landscape"
+
+  if (landscape != 1.0) {
+    println("AAA")
+    orientation = "portrait"
+  }
+
+  val document = js.Dynamic.global.jsPDF(orientation)
 
   /**
    * create an arc.
@@ -20,7 +27,7 @@ class PdfPrinter extends Printer {
    */
   def arc(x: Double,y: Double,r: Double,sAngle: Double,eAngle: Double) : Unit = {
 
-    val splines = arcToBezier(x, y, r, sAngle, eAngle)
+    val splines = arcToBezier(x * scale, y * scale, r * scale, sAngle, eAngle)
 
     //iterate through the list of arcs ad add them to the PDF
     splines.foreach(spline => {
@@ -50,11 +57,10 @@ class PdfPrinter extends Printer {
       val cX = v4.x - xS
       val cY = v4.y - yS
 
-      val six = Array(aX, aY, bX, bY, cX, cY).toJSArray //two control points and end point:
-      val scale = Array(1, 1).toJSArray //scale x/y
+      val six = Array(aX * scale, aY / scale, bX / scale, bY / scale, cX / scale, cY / scale).toJSArray //two control points and end point:
+      val scaleCurve = Array(1, 1).toJSArray //scale x/y
       //create the bezier curve
-      document.lines(Array(six).toJSArray, v1.x, v1.y, scale)
-      println("ADDED AN ARC")
+      document.lines(Array(six).toJSArray, v1.x / scale, v1.y / scale, scaleCurve)
     })
   }
 
@@ -76,15 +82,15 @@ class PdfPrinter extends Printer {
   }
 
   def circle(x : Double, y : Double, r : Double) : Unit = {
-    println("IN CIRCLE")
     val v = transform(Vector2D(x, y))
     document.circle(v.x,v.y,r)
   }
 
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : Unit = {
-    val v1 = transform(Vector2D(x1, y1))
-    val v2 = transform(Vector2D(x2, y2))
+    val v1 = transform(Vector2D(x1 / scale, y1 / scale))
+    val v2 = transform(Vector2D(x2 / scale, y2 / scale))
     document.setLineWidth(0.02)
+    println("scale: "+scale)
     document.line(v1.x, v1.y, v2.x, v2.y)
   }
 
@@ -97,11 +103,9 @@ class PdfPrinter extends Printer {
   }
 
   private def transform(v : Vector2D): Vector2D = {
-    //TODO: use a calculated paper scale...
-    val paperScale = 1
-    //scale the artwork based on the current paper scale
+
     //NOTE: Y is flipped.
-    val vec =  Vector2D(v.x / paperScale,-v.y / paperScale)
+    val vec = Vector2D(v.x,-v.y)
     //Transform by moving (0, 0) to center of paper
     vec + Vector2D(105,147)
 
