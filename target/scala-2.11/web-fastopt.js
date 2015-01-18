@@ -18582,6 +18582,7 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$1$$anonfun$apply$1
     var b = x3.b$2;
     var endAngle = ScalaJS.uD(b);
     ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().center$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.$$outer$2.x$3$f + this.radiusValue$1$f), (this.$$outer$2.y$1$f + this.radiusValue$1$f));
+    ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().center$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.$$outer$2.x$3$f - this.radiusValue$1$f), (this.$$outer$2.y$1$f - this.radiusValue$1$f));
     this.$$outer$2.$$outer$2.$$outer$2.printer$1$f.arc__D__D__D__D__D__V(this.$$outer$2.$$outer$2.x$3$f, this.$$outer$2.y$1$f, this.radiusValue$1$f, startAngle, endAngle);
     ScalaJS.m.s_package().Right$1;
     var $$this = this.$$outer$2.$$outer$2.$$outer$2.env$1$f;

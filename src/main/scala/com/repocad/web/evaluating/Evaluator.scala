@@ -71,6 +71,7 @@ object Evaluator {
               getValue[Double](sAngle, env, printer).right.flatMap(startAngle =>
                 getValue[Double](eAngle, env, printer).right.flatMap(endAngle => {
                   center = updateBoundingBox(x + radiusValue,y + radiusValue)
+                  center = updateBoundingBox(x - radiusValue,y - radiusValue)
                   printer.arc(x,y,radiusValue,startAngle,endAngle)
                   Right(env -> Unit)
               })
