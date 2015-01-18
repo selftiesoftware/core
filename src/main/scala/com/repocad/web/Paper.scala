@@ -68,7 +68,7 @@ object Paper {
     //    center.x + aFormatMin * 0.5, center.y + aFormatMax * 0.5)
     }
 
-    xMin =
+    //xMin =
 
     val calculatedPaper = List(xMin, yMin, aFormatMin, aFormatMax)
 

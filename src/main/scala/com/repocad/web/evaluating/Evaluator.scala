@@ -1,6 +1,7 @@
 package com.repocad.web.evaluating
 
 import com.repocad.web.{Vector2D, Printer}
+
 import com.repocad.web.lexing.Lexer
 import com.repocad.web.parsing._
 import org.scalajs.dom
@@ -47,6 +48,7 @@ object Evaluator {
   type Value = Either[String, (Env, Any)]
 
   def eval(expr: Expr, env : Env, printer : Printer) : Value = {
+
     expr match {
 
       case ArcExpr(centerX, centerY, radius, sAngle, eAngle) =>
@@ -101,17 +103,30 @@ object Evaluator {
           )
         )
 
+      case FunctionExpr(name, params, body) =>
+        val function = params.size match {
+          case 0 => () => eval(body, env, printer)
+          case 1 => (a : Any) => {
+            eval(body, env.+(params(0) -> a), printer)
+          }
+          case 2 => (a : Any, b : Any) => eval(body, env.+(params(0) -> a, params(1) -> b), printer)
+          case 3 => (a : Any, b : Any, c : Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c), printer)
+          case 4 => (a : Any, b : Any, c : Any, d : Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d), printer)
+          case x => Left("Unsupported number of arguments: " + x)
+        }
+        Right(env.+(name -> function), function)
+
       case LineExpr(e1, e2, e3, e4) =>
         getValue[Double](e1, env, printer).right.flatMap(x1 =>
           getValue[Double](e2, env, printer).right.flatMap(y1 =>
-            getValue[Double](e3, env, printer).right.flatMap(x2 =>
+            getValue[Double](e3, env, printer).right.flatMap(x2 => {
               getValue[Double](e4, env, printer).right.flatMap(y2 => {
                 center = updateBoundingBox(x1,y1)
                 center = updateBoundingBox(x2,y2)
                 printer.line(x1, y1, x2, y2)
                 Right(env -> Unit)
               })
-            )
+            })
           )
         )
 
@@ -157,13 +172,12 @@ object Evaluator {
         }))
 
       case ImportExpr(name) =>
-        val xhr = new dom.XMLHttpRequest()
-        xhr.open("GET", "http://repocad.com:20004/get/" + name.name, false) // Handle synchronously
-        xhr.send()
-        Parser.parse(Lexer.lex(xhr.responseText)) match {
-          case Right(e) => eval(e, env, printer)
-          case Left(error) => Left(s"Script $name failed to compile with error: $error")
-        }
+        Ajax.get("http://siigna.com:20004/get/" + name.name).map(xhr => {
+          Parser.parse(Lexer.lex(xhr.responseText)) match {
+            case Right(e) => eval(e, env, printer)
+            case Left(error) => Left(s"Script $name failed to compile with error: $error")
+          }
+        }).value.get.get
 
       case RangeExpr(name, from, to) =>
         val fromOption : Either[String, Double] = env.get(name).map {
@@ -177,8 +191,25 @@ object Evaluator {
           Right((env + (name -> fromValue)) -> (fromValue < toValue))
         }))
 
+      case RefExpr(name, params) =>
+        val x = env.get(name)
+        x.fold[Value](Left(s"Failed to find function '$name'. Please check if it has been declared.")){
+          case f : Function0[Any] => Right(env -> f())
+          case f : Function1[Any, Any] => {
+            eval(params(0), env, printer).right.flatMap(a => Right(a._1 -> f.apply(a._2)))
+          }
+          case f : Function2[Any, Any, Any] => {
+            eval(params(0), env, printer).right.flatMap(a =>
+              eval(params(1), a._1, printer).right.flatMap(b =>
+                Right(b._1 -> f.apply(a._2, b._2))
+              )
+            )
+          }
+          case x => Left("Expected callable function, got " + x)
+        }
+
       case RefExpr(name) =>
-        env.get(name).fold[Value](Left(s"Failed to find variable '$name'. Please check if it has been declared."))(s => Right(env -> s))
+        env.get(name).fold[Value](Left(s"Failed to find function '$name'. Please check if it has been declared."))(x => Right(env -> x))
 
       case seq : SeqExpr =>
         def foldRecursive(it : Iterator[Expr], foldEnv : Env) : Value = {
@@ -219,10 +250,13 @@ object Evaluator {
 
   }
 
-  def getValue[T : Manifest](expr : Expr, env : Env, printer : Printer) : Either[String, T] = {
+  def getValue[T](expr : Expr, env : Env, printer : Printer) : Either[String, T] = {
     eval(expr, env, printer) match {
+      case Right((_, t)) if (t.isInstanceOf[Int]) => Right(t.asInstanceOf[Int].toDouble.asInstanceOf[T])
       case Right((_, t : T)) => Right(t)
-      case fail => Left(s"Failed to read value from $expr, failed with: $fail")
+      case fail => {
+        Left(s"Failed to read value from $expr, failed with: $fail")
+      }
     }
   }
 

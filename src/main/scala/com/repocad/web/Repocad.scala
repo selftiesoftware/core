@@ -86,13 +86,20 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def run() : Unit = {
-    Parser.parse(Lexer.lex(drawing.content))
-          .fold(left => displayError("Error while reading code " + left),
-            right => {
-              eval(right)
-            })
-  }
+    val tokens = Lexer.lex(drawing.content)
+    Parser.parse(tokens)
+      .fold(left => {
+      println("Error: " + left)
+      displayError("Error while compiling code: " + left)
+    },
+        right => {
+          println("AST: " + right)
+          val x = eval(right)
+          println("Eval: " + x)
+          x
+        })
 
+  }
   @JSExport
   def save() : Unit = {
     displaySuccess(drawing.save().toString)
