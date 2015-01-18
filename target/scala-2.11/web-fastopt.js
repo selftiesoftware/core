@@ -2643,7 +2643,7 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.bezierCurve__D__D__D__D__D__D__D
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement = (function(canvas) {
   this.canvas$1 = canvas;
   this.context$1 = canvas["getContext"]("2d");
-  this.landscape$1 = 1.0;
+  this.landscape$1 = 0.0;
   this.scale$1 = 1.0;
   return this
 });
@@ -2890,7 +2890,7 @@ ScalaJS.h.Lcom_repocad_web_Paper$.prototype = ScalaJS.c.Lcom_repocad_web_Paper$.
 ScalaJS.c.Lcom_repocad_web_Paper$.prototype.scaleAndCoords__D__D__D__D__sci_List = (function(xMin, xMax, yMin, yMax) {
   var yMaxF = (-yMax);
   var yMinF = (-yMin);
-  var landscape = 1.0;
+  var landscape = 0.0;
   var scale = 1.0;
   var bottomRight = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(xMax, yMinF);
   var topLeft = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(xMin, yMaxF);
@@ -2933,7 +2933,7 @@ ScalaJS.c.Lcom_repocad_web_Paper$.prototype.scaleAndCoords__D__D__D__D__sci_List
   var width = shortSide;
   var height = longSide;
   if ((size.x$1 >= size.y$1)) {
-    landscape = 0.0;
+    landscape = 1.0;
     leftX = (center.x$1 - (longSide * 0.5));
     topY = (center.y$1 - (shortSide * 0.5));
     width = longSide;
@@ -2981,6 +2981,7 @@ ScalaJS.m.Lcom_repocad_web_Paper = (function() {
 ScalaJS.c.Lcom_repocad_web_PdfPrinter = (function() {
   ScalaJS.c.O.call(this);
   this.com$repocad$web$PdfPrinter$$scale$f = 0.0;
+  this.landscape$1 = 0.0;
   this.orientation$1 = null;
   this.document$1 = null
 });
@@ -3003,7 +3004,12 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D = (function(v) {
   var vec = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(v.x$1, (-v.y$1));
-  return vec.$$plus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(105.0, 147.0))
+  if ((this.landscape$1 !== 1.0)) {
+    vec = vec.$$plus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(105.0, 147.0))
+  } else {
+    vec = vec.$$plus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(147.0, 105.0))
+  };
+  return vec
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
   var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x, y));
@@ -3083,14 +3089,19 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (functio
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.init___D__D = (function(scale, landscape) {
   this.com$repocad$web$PdfPrinter$$scale$f = scale;
+  this.landscape$1 = landscape;
   this.orientation$1 = "landscape";
+  var x = ("in pdf with orientation; " + landscape);
+  var this$2 = ScalaJS.m.s_Console();
+  var this$3 = this$2.outVar$2;
+  ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
   if ((landscape !== 1.0)) {
-    var this$2 = ScalaJS.m.s_Console();
-    var this$3 = this$2.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V("AAA");
+    var this$5 = ScalaJS.m.s_Console();
+    var this$6 = this$5.outVar$2;
+    ScalaJS.as.Ljava_io_PrintStream(this$6.tl$1.get__O()).println__O__V("PORTRAIT!");
     this.orientation$1 = "portrait"
   };
-  this.document$1 = ScalaJS.g["jsPDF"](this.orientation$1);
+  this.document$1 = ScalaJS.g["jsPDF"](this.orientation$1.toString());
   return this
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
@@ -3165,6 +3176,7 @@ ScalaJS.c.Lcom_repocad_web_Repocad = (function() {
   this.lastValue$1 = null;
   this.scale$1 = 0.0;
   this.landscape$1 = 0.0;
+  this.center$1 = null;
   this.mouseExit$1 = null
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype = new ScalaJS.h.O();
@@ -3193,6 +3205,7 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
   this.lastValue$1 = "";
   this.scale$1 = this.view$1.scale$1;
   this.landscape$1 = this.view$1.landscape$1;
+  this.center$1 = this.view$1.center__Lcom_repocad_web_Vector2D();
   this.mouseExit$1 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
     return (function(e$2) {
       arg$outer.mouseDown$1 = false

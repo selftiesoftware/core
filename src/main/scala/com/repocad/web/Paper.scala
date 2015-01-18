@@ -19,7 +19,7 @@ object Paper {
     val yMaxF : Double = yMax * -1
     val yMinF : Double= yMin * -1
 
-    var landscape = 1.0
+    var landscape = 0.0
 
     var scale : Double = 1.0
 
@@ -68,7 +68,7 @@ object Paper {
     var height = longSide
 
     if (size.x >= size.y) { //landscape
-      landscape = 0.0
+      landscape = 1.0
 
       leftX = center.x  - (longSide * 0.5)
       topY = center.y - (shortSide * 0.5)

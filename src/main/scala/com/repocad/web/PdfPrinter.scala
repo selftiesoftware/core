@@ -8,14 +8,16 @@ import SplineToArc2D.arcToBezier
  */
 class PdfPrinter(scale : Double, landscape : Double) extends Printer {
 
-  var orientation = "landscape"
+  var orientation : String = "landscape"
+  println("in pdf with orientation; "+landscape)
+
 
   if (landscape != 1.0) {
-    println("AAA")
+    println("PORTRAIT!")
     orientation = "portrait"
   }
 
-  val document = js.Dynamic.global.jsPDF(orientation)
+  val document = js.Dynamic.global.jsPDF(orientation.toString)
 
   /**
    * create an arc.
@@ -105,10 +107,12 @@ class PdfPrinter(scale : Double, landscape : Double) extends Printer {
   private def transform(v : Vector2D): Vector2D = {
 
     //NOTE: Y is flipped.
-    val vec = Vector2D(v.x,-v.y)
+    var vec = Vector2D(v.x,-v.y)
     //Transform by moving (0, 0) to center of paper
-    vec + Vector2D(105,147)
-
+    if (landscape != 1.0) {
+      vec = vec + Vector2D(105,147)
+    } else vec = vec + Vector2D(147,105)
+    vec //return
   }
 
   def save(name : String): Unit = {

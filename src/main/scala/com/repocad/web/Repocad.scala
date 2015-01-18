@@ -28,6 +28,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   var scale = view.scale
   var landscape = view.landscape
+  var center : Vector2D = view.center
 
   val mouseExit = (e : MouseEvent) => {
     mouseDown = false
