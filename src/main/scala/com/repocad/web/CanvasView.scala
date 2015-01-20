@@ -48,6 +48,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   def init(): Unit = {
     context.translate(canvas.width / 2, canvas.height / 2)
+    drawPaper() //redraw the paper
   }
 
   /**

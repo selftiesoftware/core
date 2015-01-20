@@ -15,6 +15,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 import scala.util.Success
 import scala.util.Try
 import scala.util.Failure
+import com.repocad.web._
 
 /**
  * An evaluator to evaluate a list of [[Expr]]
@@ -26,37 +27,31 @@ object Evaluator {
   var maxX : Option[Double] = None
   var minY : Option[Double] = None
   var maxY : Option[Double] = None
-  var center = com.repocad.web.drawingCenter
 
   /*
   update the bounding box each time the drawing is evaluated.
    */
   def updateBoundingBox(x : Double, y: Double) : Vector2D = {
-    var newCenter = Vector2D(0,0)
     if(minX.isDefined && maxX.isDefined && minY.isDefined && maxY.isDefined) {
-      if (x > maxX.get) maxX = Some(x)
-      if (x < minX.get) minX = Some(x)
-      if (x > maxY.get) maxY = Some(y)
-      if (x < minY.get) minY = Some(y)
-
-      val cX = minX.get + (maxX.get - minX.get) / 2
-      val cY = minY.get + (maxY.get - minY.get) / 2
-
-      newCenter = Vector2D(cX, cY) //move the paper center to the center of the current artwork on the paper
+      if (x >= maxX.get) maxX = Some(x)
+      if (x <= minX.get) minX = Some(x)
+      if (y >= maxY.get) maxY = Some(y)
+      if (y <= minY.get) minY = Some(y)
 
       //first run: set the bounding box.
     } else {
-        maxX = Some(x)
-        minX = Some(x)
-        maxY = Some(y)
-        minY = Some(y)
-        val cX = minX.get + (maxX.get - minX.get) / 2
-        val cY = minY.get + (maxY.get - minY.get) / 2
-        newCenter = Vector2D(cX, cY) //move the paper center to the center of the current artwork on the paper
+
+      maxX = Some(x+1)
+        minX = Some(x-1)
+        maxY = Some(y+1)
+        minY = Some(y-1)
     }
-    com.repocad.web.drawingCenter = newCenter //update the global center variable
-    newCenter
+    //move the paper center to the center of the current artwork on the paper
+    val cX = minX.get + (maxX.get - minX.get) / 2
+    val cY = minY.get + (maxY.get - minY.get) / 2
+    Vector2D(cX, cY)
   }
+
   /* run once before the evaluation loop to ensure the paper is scaled down again
      if the drawing extends are smaller after user editing of the drawing.
   */
@@ -83,8 +78,8 @@ object Evaluator {
               getValue[Double](radius, env, printer).right.flatMap(radiusValue =>
                 getValue[Double](sAngle, env, printer).right.flatMap(startAngle =>
                   getValue[Double](eAngle, env, printer).right.flatMap(endAngle => {
-                    center = updateBoundingBox(x + radiusValue, y + radiusValue)
-                    center = updateBoundingBox(x - radiusValue, y - radiusValue)
+                    drawingCenter = updateBoundingBox(x + radiusValue, y + radiusValue)
+                    drawingCenter = updateBoundingBox(x - radiusValue, y - radiusValue)
                     printer.arc(x, y, radiusValue, startAngle, endAngle)
                     Right(env -> Unit)
                   })
@@ -102,10 +97,10 @@ object Evaluator {
                     getValue[Double](sy3, env, printer).right.flatMap(y3 =>
                       getValue[Double](sx4, env, printer).right.flatMap(x4 =>
                         getValue[Double](sy4, env, printer).right.flatMap(y4 => {
-                          center = updateBoundingBox(x1, y1)
-                          center = updateBoundingBox(x2, y2)
-                          center = updateBoundingBox(x3, y3)
-                          center = updateBoundingBox(x4, y4)
+                          drawingCenter = updateBoundingBox(x1, y1)
+                          drawingCenter = updateBoundingBox(x2, y2)
+                          drawingCenter = updateBoundingBox(x3, y3)
+                          drawingCenter = updateBoundingBox(x4, y4)
                           printer.bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)
                           Right(env -> Unit)
                         })
@@ -122,8 +117,8 @@ object Evaluator {
           getValue[Double](centerX, env, printer).right.flatMap(x =>
             getValue[Double](centerY, env, printer).right.flatMap(y =>
               getValue[Double](radius, env, printer).right.flatMap(radiusValue => {
-                center = updateBoundingBox(x + radiusValue, y + radiusValue)
-                center = updateBoundingBox(x - radiusValue, y - radiusValue)
+                drawingCenter = updateBoundingBox(x + radiusValue, y + radiusValue)
+                drawingCenter = updateBoundingBox(x - radiusValue, y - radiusValue)
                 printer.circle(x, y, radiusValue)
                 Right(env -> Unit)
               })
@@ -148,8 +143,8 @@ object Evaluator {
             getValue[Double](e2, env, printer).right.flatMap(y1 =>
               getValue[Double](e3, env, printer).right.flatMap(x2 => {
                 getValue[Double](e4, env, printer).right.flatMap(y2 => {
-                  center = updateBoundingBox(x1, y1)
-                  center = updateBoundingBox(x2, y2)
+                  drawingCenter = updateBoundingBox(x1, y1)
+                  drawingCenter = updateBoundingBox(x2, y2)
                   printer.line(x1, y1, x2, y2)
                   Right(env -> Unit)
                 })
@@ -163,8 +158,8 @@ object Evaluator {
               getValue[Double](height, env, printer).right.flatMap(heightValue =>
                 getValue[Any](text, env, printer).right.flatMap(textValue => {
                   //TODO: calculate text bounding box and add that to the center to get correct extends of the text
-                  center = updateBoundingBox(x + heightValue * 2, y + heightValue * 2)
-                  center = updateBoundingBox(x - heightValue * 2, y - heightValue * 2)
+                  drawingCenter = updateBoundingBox(x + heightValue * 2, y + heightValue * 2)
+                  drawingCenter = updateBoundingBox(x - heightValue * 2, y - heightValue * 2)
                   printer.text(x, y, heightValue, textValue)
                   Right(env -> Unit)
                 })

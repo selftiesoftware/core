@@ -5,7 +5,6 @@ package com.repocad
  */
 package object web {
 
-  println("INITIATING WEB")
   /**
    * The absolute double tolerance in Repocad
    * @return the tolerance

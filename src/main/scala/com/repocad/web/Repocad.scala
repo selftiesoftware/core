@@ -68,7 +68,6 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
     run()//run the Evaluator to get drawing boundary (needed to draw the paper)
     eval(lastAst)
     view.init()
-    run() // run again
 
     val listener = (hash : String) => {
       val x = Drawing.get(hash)
@@ -92,8 +91,6 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def run() : Unit = {
-    landscape = view.landscape
-
     val tokens = Lexer.lex(drawing.content)
     Parser.parse(tokens)
       .fold(left => displayError("Error while compiling code: " + left),
