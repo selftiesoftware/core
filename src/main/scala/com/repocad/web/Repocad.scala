@@ -96,10 +96,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
     val tokens = Lexer.lex(drawing.content)
     Parser.parse(tokens)
-      .fold(left => {
-      println("Error: " + left)
-      displayError("Error while compiling code: " + left)
-    },
+      .fold(left => displayError("Error while compiling code: " + left),
         right => {
           //println("AST: " + right)
           val x = eval(right)
