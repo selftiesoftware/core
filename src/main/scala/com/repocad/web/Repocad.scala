@@ -129,7 +129,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def printPdf(name : String) : Unit = {
-    val printer = new PdfPrinter(landscape)
+    val printer = new PdfPrinter()
     Evaluator.eval(lastAst, Map(), printer)
     printer.save(name)
   }

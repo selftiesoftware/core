@@ -6,8 +6,9 @@ import SplineToArc2D.arcToBezier
 /**
  * A printer that can generate pdf files
  */
-class PdfPrinter(landscape : Boolean) extends Printer {
+class PdfPrinter() extends Printer {
 
+  val landscape = Paper.scaleAndRotation() //update the paper scale and rotation so the correct values are used when generating the PDF
   var orientation : String = "landscape"
   if (!landscape) orientation = "portrait"
   val document = js.Dynamic.global.jsPDF(orientation.toString)
