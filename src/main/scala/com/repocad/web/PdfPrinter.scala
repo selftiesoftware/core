@@ -6,11 +6,16 @@ import SplineToArc2D.arcToBezier
 /**
  * A printer that can generate pdf files
  */
-class PdfPrinter(scale : Double, landscape : Double) extends Printer {
+class PdfPrinter(landscape : Boolean) extends Printer {
 
   var orientation : String = "landscape"
-  if (landscape != 1.0) orientation = "portrait"
+  if (!landscape) orientation = "portrait"
   val document = js.Dynamic.global.jsPDF(orientation.toString)
+  val offsetX = com.repocad.web.drawingCenter.x
+  val offsetY = com.repocad.web.drawingCenter.y
+
+  //Transform by moving (0, 0) to center of paper NOTE: Y is flipped.
+  var scaledCenter = Vector2D(drawingCenter.x / paperScale ,-drawingCenter.y / paperScale)
 
   /**
    * create an arc.
@@ -35,10 +40,10 @@ class PdfPrinter(scale : Double, landscape : Double) extends Printer {
       val x4 = spline(6)
       val y4 = spline(7)
 
-      val v1 = transform(Vector2D(x1 / scale, y1 / scale))
-      val v2 = transform(Vector2D(x2 / scale, y2 / scale))
-      val v3 = transform(Vector2D(x3 / scale, y3 / scale))
-      val v4 = transform(Vector2D(x4 / scale, y4 / scale)) //endPoint
+      val v1 = transform(Vector2D(x1 / paperScale, y1 / paperScale))
+      val v2 = transform(Vector2D(x2 / paperScale, y2 / paperScale))
+      val v3 = transform(Vector2D(x3 / paperScale, y3 / paperScale))
+      val v4 = transform(Vector2D(x4 / paperScale, y4 / paperScale)) //endPoint
       val xS = v1.x
       val yS = v1.y
 
@@ -60,10 +65,10 @@ class PdfPrinter(scale : Double, landscape : Double) extends Printer {
 
   //TODO: unable to get the output format right.. some constellation of Array[Double]'s ??
   def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
-    val v1 = transform(Vector2D(x1 / scale, y1 / scale))
-    val v2 = transform(Vector2D(x2 / scale, y2 / scale))
-    val v3 = transform(Vector2D(x3 / scale, y3 / scale))
-    val v4 = transform(Vector2D(x4 / scale, y4 / scale))//endPoint
+    val v1 = transform(Vector2D(x1 / paperScale, y1 / paperScale))
+    val v2 = transform(Vector2D(x2 / paperScale, y2 / paperScale))
+    val v3 = transform(Vector2D(x3 / paperScale, y3 / paperScale))
+    val v4 = transform(Vector2D(x4 / paperScale, y4 / paperScale))//endPoint
     val x = v1.x
     val y = v1.y
 
@@ -81,8 +86,8 @@ class PdfPrinter(scale : Double, landscape : Double) extends Printer {
   }
 
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : Unit = {
-    val v1 = transform(Vector2D(x1 / scale, y1 / scale))
-    val v2 = transform(Vector2D(x2 / scale, y2 / scale))
+    val v1 = transform(Vector2D(x1 / paperScale, y1 / paperScale))
+    val v2 = transform(Vector2D(x2 / paperScale, y2 / paperScale))
     document.setLineWidth(0.02)
     document.line(v1.x, v1.y, v2.x, v2.y)
   }
@@ -92,18 +97,17 @@ class PdfPrinter(scale : Double, landscape : Double) extends Printer {
     //document.font("Arial")
     document.setFontSize(h * 1.8)
     //document("test")
-    document.text(v.x,v.y,t.toString)
+    document.text(v.x / paperScale,v.y / paperScale,t.toString)
   }
 
   private def transform(v : Vector2D): Vector2D = {
-
-    //NOTE: Y is flipped.
-    var vec = Vector2D(v.x,-v.y)
-    //Transform by moving (0, 0) to center of paper
-    if (landscape != 1.0) {
-      vec = vec + Vector2D(105,147)
-    } else vec = vec + Vector2D(147,105)
-    vec //return
+    if (!landscape) {
+      val a = Vector2D(v.x,-v.y) - scaledCenter + Vector2D(paperSize(0)/2,paperSize(1)/2)
+      a
+    } else {
+      val b = Vector2D(v.x,-v.y) - scaledCenter + Vector2D(paperSize(1)/2,paperSize(0)/2)
+      b
+    }
   }
 
   def save(name : String): Unit = {

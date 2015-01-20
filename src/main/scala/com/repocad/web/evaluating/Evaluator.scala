@@ -21,30 +21,36 @@ object Evaluator {
   var maxX : Option[Double] = None
   var minY : Option[Double] = None
   var maxY : Option[Double] = None
-  var center = Vector2D(0,0)
+  var center = com.repocad.web.drawingCenter
 
   /*
   update the bounding box each time the drawing is evaluated.
    */
   def updateBoundingBox(x : Double, y: Double) : Vector2D = {
+    var newCenter = Vector2D(0,0)
     if(minX.isDefined && maxX.isDefined && minY.isDefined && maxY.isDefined) {
       if (x > maxX.get) maxX = Some(x)
       if (x < minX.get) minX = Some(x)
       if (x > maxY.get) maxY = Some(y)
       if (x < minY.get) minY = Some(y)
 
-      val cX = (maxX.get - minX.get) / 2 - minX.get
-      val cY = (maxY.get - minY.get) / 2 - minY.get
-      val center = Vector2D(cX, cY) //move the paper center to the center of the current artwork on the paper
-      center
+      val cX = minX.get + (maxX.get - minX.get) / 2
+      val cY = minY.get + (maxY.get - minY.get) / 2
+
+      newCenter = Vector2D(cX, cY) //move the paper center to the center of the current artwork on the paper
+
       //first run: set the bounding box.
     } else {
         maxX = Some(x)
         minX = Some(x)
         maxY = Some(y)
         minY = Some(y)
-      center
+        val cX = minX.get + (maxX.get - minX.get) / 2
+        val cY = minY.get + (maxY.get - minY.get) / 2
+        newCenter = Vector2D(cX, cY) //move the paper center to the center of the current artwork on the paper
     }
+    com.repocad.web.drawingCenter = newCenter //update the global center variable
+    newCenter
   }
   /* run once before the evaluation loop to ensure the paper is scaled down again
      if the drawing extends are smaller after user editing of the drawing.

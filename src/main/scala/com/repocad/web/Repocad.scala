@@ -26,9 +26,8 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   var lastAst : Expr = UnitExpr
   var lastValue : String = ""
 
-  var scale = view.scale
   var landscape = view.landscape
-  var center : Vector2D = view.center
+  var center : Vector2D = view.windowCenter
 
   val mouseExit = (e : MouseEvent) => {
     mouseDown = false
@@ -69,6 +68,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
     run()//run the Evaluator to get drawing boundary (needed to draw the paper)
     eval(lastAst)
     view.init()
+    run() // run again
 
     val listener = (hash : String) => {
       val x = Drawing.get(hash)
@@ -92,7 +92,6 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def run() : Unit = {
-    scale = view.scale //get the current drawing scale
     landscape = view.landscape
 
     val tokens = Lexer.lex(drawing.content)
@@ -136,7 +135,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def printPdf(name : String) : Unit = {
-    val printer = new PdfPrinter(scale, landscape)
+    val printer = new PdfPrinter(landscape)
     Evaluator.eval(lastAst, Map(), printer)
     printer.save(name)
   }
