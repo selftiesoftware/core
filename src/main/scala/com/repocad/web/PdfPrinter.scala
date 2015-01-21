@@ -95,7 +95,7 @@ class PdfPrinter() extends Printer {
 
   def text(x : Double, y : Double, h : Double, t : Any) : Unit = {
     val v = transform(Vector2D(x, y))
-    //document.font("Arial")
+    document.setFont("times")
     document.setFontSize(h * 1.8)
     //document("test")
     document.text(v.x / paperScale,v.y / paperScale,t.toString)

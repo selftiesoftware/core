@@ -84,7 +84,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   def loadDrawing(drawing : Drawing) : Unit = {
     this.drawing = drawing
-    Paper.scaleAndRotation()//adapt paper 
+    Paper.scaleAndRotation()//adapt paper
     input.value = drawing.content
     window.location.hash = drawing.name
     run()

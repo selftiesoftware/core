@@ -63,7 +63,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     //context.fillStyle = "Black"
     //context.fillRect(x, y, 80, 20)
     //context.restore()
-    val myFont = 20.toString() + "px Arial"
+    val myFont = 20.toString() + "pt Serif"
     context.font = myFont
     //context.font(1)
     //context.textAlign("left")
