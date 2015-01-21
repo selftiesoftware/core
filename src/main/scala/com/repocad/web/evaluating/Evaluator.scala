@@ -159,7 +159,8 @@ object Evaluator {
                 getValue[Any](text, env, printer).right.flatMap(textValue => {
                   //the average length of a char/int is 0.3 units * the text height.
                   val length = textValue.toString.length * 0.3 * heightValue
-                  drawingCenter = updateBoundingBox(x + length, y + heightValue)
+                  drawingCenter = updateBoundingBox(x-10, y-10)
+                  drawingCenter = updateBoundingBox(x + length, y + heightValue+10)
                   printer.text(x, y, heightValue, textValue)
                   Right(env -> Unit)
                 })

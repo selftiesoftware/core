@@ -3240,11 +3240,7 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
         if ((arg$outer$3.zoomLevel$1 < 0)) {
           arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * newZ1), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 * newZ1))
         } else if ((arg$outer$3.zoomLevel$1 > 0)) {
-          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 / newZ2), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 / newZ2));
-          var x$3 = (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * newZ2);
-          var this$10 = ScalaJS.m.s_Console();
-          var this$11 = this$10.outVar$2;
-          ScalaJS.as.Ljava_io_PrintStream(this$11.tl$1.get__O()).println__O__V(x$3)
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 / newZ2), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 / newZ2))
         } else {
           arg$outer$3.view$1.translate__D__D__V(newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1)
         };
@@ -19682,7 +19678,8 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5$$anonfun$apply$1
     var x3 = ScalaJS.as.s_util_Right(x1);
     var b = x3.b$2;
     var length = ((ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(ScalaJS.objectToString(b)) * 0.3) * heightValue);
-    ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.x$5$f + length), (this.y$3$f + heightValue));
+    ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.x$5$f - 10), (this.y$3$f - 10));
+    ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.x$5$f + length), ((this.y$3$f + heightValue) + 10));
     this.$$outer$2.$$outer$2.printer$1$f.text__D__D__D__O__V(this.$$outer$2.x$5$f, this.y$3$f, heightValue, b);
     ScalaJS.m.s_package().Right$1;
     var $$this = this.$$outer$2.$$outer$2.env$1$f;
