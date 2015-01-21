@@ -37,7 +37,6 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
       val y = -drawingCenter.y - (paperSize(1) * paperScale) /2
       context.fillRect(x, y, paperSize(0) * paperScale, paperSize(1) * paperScale)
     }
-    //draw paper outline here...
   }
 
   def clear(): Unit = {

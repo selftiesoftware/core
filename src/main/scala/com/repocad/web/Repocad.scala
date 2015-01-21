@@ -56,12 +56,17 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   canvas.onmousemove = (e : MouseEvent) => {
     if (mouseDown) {
-      val zoomFactor = zoomLevel.toDouble.abs / 2
+
+
+      val zoomFactor = zoomLevel.toDouble.abs
+      val newZ1 = math.pow(zoomFactor,1.1)
+      val newZ2 = math.pow(zoomFactor,0.5)
+
       val newV = Vector2D(e.clientX, e.clientY)
-      if(zoomLevel < 0) {
-        view.translate((newV - mousePosition).x * zoomFactor, (newV - mousePosition).y * zoomFactor)
-      } else if(zoomLevel > 0){
-        view.translate((newV - mousePosition).x / zoomFactor, (newV - mousePosition).y / zoomFactor)
+      if(zoomLevel < 0) { //zooming out
+        view.translate((newV - mousePosition).x * newZ1, (newV - mousePosition).y * newZ1)
+      } else if(zoomLevel > 0){//zooming in
+        view.translate((newV - mousePosition).x / newZ2, (newV - mousePosition).y / newZ2)
       } else view.translate((newV - mousePosition).x, (newV - mousePosition).y)
       mousePosition = newV
       eval(lastAst)

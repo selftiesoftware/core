@@ -3233,12 +3233,18 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
       var e$4 = e$2$3;
       if (arg$outer$3.mouseDown$1) {
         var $$this = arg$outer$3.zoomLevel$1;
-        var zoomFactor = ((($$this < 0) ? (-$$this) : $$this) / 2);
+        var zoomFactor = (($$this < 0) ? (-$$this) : $$this);
+        var newZ1 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 1.1));
+        var newZ2 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 0.5));
         var newV = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$4["clientX"]), ScalaJS.uI(e$4["clientY"]));
         if ((arg$outer$3.zoomLevel$1 < 0)) {
-          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * zoomFactor), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 * zoomFactor))
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * newZ1), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 * newZ1))
         } else if ((arg$outer$3.zoomLevel$1 > 0)) {
-          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 / zoomFactor), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 / zoomFactor))
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 / newZ2), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 / newZ2));
+          var x$3 = (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * newZ2);
+          var this$10 = ScalaJS.m.s_Console();
+          var this$11 = this$10.outVar$2;
+          ScalaJS.as.Ljava_io_PrintStream(this$11.tl$1.get__O()).println__O__V(x$3)
         } else {
           arg$outer$3.view$1.translate__D__D__V(newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1)
         };
