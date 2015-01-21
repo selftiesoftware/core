@@ -52,6 +52,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   }
 
   canvas.onmousemove = (e : MouseEvent) => {
+    //TODO: take into account the zoom level - when zoomed out the translation should be greater
     if (mouseDown) {
       val newPosition = Vector2D(e.clientX, e.clientY)
       view.translate((newPosition - mousePosition).x, (newPosition - mousePosition).y)

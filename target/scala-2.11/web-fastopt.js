@@ -2569,7 +2569,8 @@ ScalaJS.c.Lcom_repocad_web_CanvasView = (function() {
   ScalaJS.c.O.call(this);
   this.canvas$1 = null;
   this.context$1 = null;
-  this.landscape$1 = false
+  this.landscape$1 = false;
+  this.zoomLevel$1 = 0.0
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype = new ScalaJS.h.O();
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.constructor = ScalaJS.c.Lcom_repocad_web_CanvasView;
@@ -2654,6 +2655,7 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.init___Lorg_scalajs_dom_HTMLCanv
   this.canvas$1 = canvas;
   this.context$1 = canvas["getContext"]("2d");
   this.landscape$1 = false;
+  this.zoomLevel$1 = 1.0;
   return this
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.translate__D__D__V = (function(x, y) {
@@ -2667,12 +2669,13 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.clear__V = (function() {
   this.context$1["restore"]();
   this.drawPaper__V()
 });
-ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.zoom__D__D__D__V = (function(level, pointX, pointY) {
-  var delta = (1 + (level * 0.15));
+ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.zoom__D__D__D__V = (function(delta, pointX, pointY) {
+  var zoomScale = (1 + (delta * 0.15));
   var mousePoint = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((pointX - this.windowCenter__Lcom_repocad_web_Vector2D().x$1), (pointY - this.windowCenter__Lcom_repocad_web_Vector2D().y$1));
-  this.context$1["translate"](mousePoint.x$1, mousePoint.y$1);
-  this.context$1["scale"](delta, delta);
-  this.context$1["translate"]((-mousePoint.x$1), (-mousePoint.y$1))
+  this.context$1["translate"]((mousePoint.x$1 * delta), (mousePoint.y$1 * delta));
+  this.context$1["scale"](zoomScale, zoomScale);
+  this.context$1["translate"](((-mousePoint.x$1) * delta), ((-mousePoint.y$1) * delta));
+  this.zoomLevel$1 = delta
 });
 ScalaJS.is.Lcom_repocad_web_CanvasView = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_CanvasView)))
@@ -19665,14 +19668,7 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5$$anonfun$apply$1
     var x3 = ScalaJS.as.s_util_Right(x1);
     var b = x3.b$2;
     var length = ((ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(ScalaJS.objectToString(b)) * 0.3) * heightValue);
-    var this$4 = ScalaJS.m.s_Console();
-    var this$5 = this$4.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$5.tl$1.get__O()).println__O__V(length);
     ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.x$5$f + length), (this.y$3$f + heightValue));
-    var x = ("CTR: " + ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1);
-    var this$7 = ScalaJS.m.s_Console();
-    var this$8 = this$7.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$8.tl$1.get__O()).println__O__V(x);
     this.$$outer$2.$$outer$2.printer$1$f.text__D__D__D__O__V(this.$$outer$2.x$5$f, this.y$3$f, heightValue, b);
     ScalaJS.m.s_package().Right$1;
     var $$this = this.$$outer$2.$$outer$2.env$1$f;
