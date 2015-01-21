@@ -14,7 +14,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   var landscape = false //paper orientation
 
-  var zoomLevel = 1.0 // the current zoom-level
+
 
   //window center
   def windowCenter = Vector2D((canvas.getBoundingClientRect().right + canvas.getBoundingClientRect().left) * 0.5,
@@ -129,19 +129,20 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
    * Also, if the delta is cropped at (+/-)10, to avoid touch-pad bugs with huge deltas etc.
    * The zoom is logarithmic (base 2) since linear zooming gives some very brutal zoom-steps.
    *
-   * @param delta  The change in zoom (-1 = out, 1 = in) as recieved from the mouse wheel / touch pad via js
+   * @param delta  The current zoom delta (1 or -1) as received from the mouse wheel / touch pad via js
    * @param pointX  The center X for the zoom-operation
    * @param pointY  The center Y for the zoom-operation
    */
 
   def zoom(delta : Double, pointX : Double, pointY : Double) {
 
-    val zoomScale = 1 + (delta * 0.15)
+    val increment = 0.15
+    //TODO: put .1767 on a formula..
+    val zoomScale = if(delta == -1) 1 + (delta * increment) else 1 + (delta * 0.1767) //zoom in needs to be bigger
     val mousePoint = Vector2D(pointX - windowCenter.x, pointY - windowCenter.y)
-    context.translate(mousePoint.x * delta, mousePoint.y * delta)
+    context.translate(mousePoint.x, mousePoint.y)
     context.scale(zoomScale, zoomScale)
-    context.translate(-mousePoint.x * delta, -mousePoint.y * delta)
-    zoomLevel = delta
+    context.translate(-mousePoint.x, -mousePoint.y)
   }
 
   /**

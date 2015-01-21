@@ -29,13 +29,16 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   var landscape = view.landscape
   var center : Vector2D = view.windowCenter
 
+  var zoomLevel : Int = 0 // the current zoom-level
+
   val mouseExit = (e : MouseEvent) => {
     mouseDown = false
   }
 
   @JSExport
-  def zoom(level : Double, e : MouseEvent) = {
-    view.zoom(level, e.clientX, e.clientY)
+  def zoom(delta : Double, e : MouseEvent) = {
+    view.zoom(delta, e.clientX, e.clientY)
+    zoomLevel = zoomLevel + delta.toInt //update the zoom level
     eval(lastAst)
   }
 
@@ -52,11 +55,15 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   }
 
   canvas.onmousemove = (e : MouseEvent) => {
-    //TODO: take into account the zoom level - when zoomed out the translation should be greater
     if (mouseDown) {
-      val newPosition = Vector2D(e.clientX, e.clientY)
-      view.translate((newPosition - mousePosition).x, (newPosition - mousePosition).y)
-      mousePosition = newPosition
+      val zoomFactor = zoomLevel.toDouble.abs / 2
+      val newV = Vector2D(e.clientX, e.clientY)
+      if(zoomLevel < 0) {
+        view.translate((newV - mousePosition).x * zoomFactor, (newV - mousePosition).y * zoomFactor)
+      } else if(zoomLevel > 0){
+        view.translate((newV - mousePosition).x / zoomFactor, (newV - mousePosition).y / zoomFactor)
+      } else view.translate((newV - mousePosition).x, (newV - mousePosition).y)
+      mousePosition = newV
       eval(lastAst)
     }
   }

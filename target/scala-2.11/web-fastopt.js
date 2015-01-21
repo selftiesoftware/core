@@ -2569,8 +2569,7 @@ ScalaJS.c.Lcom_repocad_web_CanvasView = (function() {
   ScalaJS.c.O.call(this);
   this.canvas$1 = null;
   this.context$1 = null;
-  this.landscape$1 = false;
-  this.zoomLevel$1 = 0.0
+  this.landscape$1 = false
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype = new ScalaJS.h.O();
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.constructor = ScalaJS.c.Lcom_repocad_web_CanvasView;
@@ -2655,7 +2654,6 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.init___Lorg_scalajs_dom_HTMLCanv
   this.canvas$1 = canvas;
   this.context$1 = canvas["getContext"]("2d");
   this.landscape$1 = false;
-  this.zoomLevel$1 = 1.0;
   return this
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.translate__D__D__V = (function(x, y) {
@@ -2670,12 +2668,11 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.clear__V = (function() {
   this.drawPaper__V()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.zoom__D__D__D__V = (function(delta, pointX, pointY) {
-  var zoomScale = (1 + (delta * 0.15));
+  var zoomScale = ((delta === (-1)) ? (1 + (delta * 0.15)) : (1 + (delta * 0.1767)));
   var mousePoint = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((pointX - this.windowCenter__Lcom_repocad_web_Vector2D().x$1), (pointY - this.windowCenter__Lcom_repocad_web_Vector2D().y$1));
-  this.context$1["translate"]((mousePoint.x$1 * delta), (mousePoint.y$1 * delta));
+  this.context$1["translate"](mousePoint.x$1, mousePoint.y$1);
   this.context$1["scale"](zoomScale, zoomScale);
-  this.context$1["translate"](((-mousePoint.x$1) * delta), ((-mousePoint.y$1) * delta));
-  this.zoomLevel$1 = delta
+  this.context$1["translate"]((-mousePoint.x$1), (-mousePoint.y$1))
 });
 ScalaJS.is.Lcom_repocad_web_CanvasView = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_CanvasView)))
@@ -3178,6 +3175,7 @@ ScalaJS.c.Lcom_repocad_web_Repocad = (function() {
   this.lastValue$1 = null;
   this.landscape$1 = false;
   this.center$1 = null;
+  this.zoomLevel$1 = 0;
   this.mouseExit$1 = null
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype = new ScalaJS.h.O();
@@ -3206,6 +3204,7 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
   this.lastValue$1 = "";
   this.landscape$1 = this.view$1.landscape$1;
   this.center$1 = this.view$1.windowCenter__Lcom_repocad_web_Vector2D();
+  this.zoomLevel$1 = 0;
   this.mouseExit$1 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
     return (function(e$2) {
       arg$outer.mouseDown$1 = false
@@ -3233,9 +3232,17 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
     return (function(e$2$3) {
       var e$4 = e$2$3;
       if (arg$outer$3.mouseDown$1) {
-        var newPosition = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$4["clientX"]), ScalaJS.uI(e$4["clientY"]));
-        arg$outer$3.view$1.translate__D__D__V(newPosition.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newPosition.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1);
-        arg$outer$3.mousePosition$1 = newPosition;
+        var $$this = arg$outer$3.zoomLevel$1;
+        var zoomFactor = ((($$this < 0) ? (-$$this) : $$this) / 2);
+        var newV = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$4["clientX"]), ScalaJS.uI(e$4["clientY"]));
+        if ((arg$outer$3.zoomLevel$1 < 0)) {
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * zoomFactor), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 * zoomFactor))
+        } else if ((arg$outer$3.zoomLevel$1 > 0)) {
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 / zoomFactor), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 / zoomFactor))
+        } else {
+          arg$outer$3.view$1.translate__D__D__V(newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1)
+        };
+        arg$outer$3.mousePosition$1 = newV;
         arg$outer$3.eval__Lcom_repocad_web_parsing_Expr__V(arg$outer$3.lastAst$1)
       }
     })
@@ -3269,15 +3276,16 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.run__V = (function() {
     throw new ScalaJS.c.s_MatchError().init___O(this$1)
   }
 });
-ScalaJS.c.Lcom_repocad_web_Repocad.prototype.zoom__D__Lorg_scalajs_dom_MouseEvent__V = (function(level, e) {
-  this.view$1.zoom__D__D__D__V(level, ScalaJS.uI(e["clientX"]), ScalaJS.uI(e["clientY"]));
+ScalaJS.c.Lcom_repocad_web_Repocad.prototype.zoom__D__Lorg_scalajs_dom_MouseEvent__V = (function(delta, e) {
+  this.view$1.zoom__D__D__D__V(delta, ScalaJS.uI(e["clientX"]), ScalaJS.uI(e["clientY"]));
+  this.zoomLevel$1 = ((this.zoomLevel$1 + (delta | 0)) | 0);
   this.eval__Lcom_repocad_web_parsing_Expr__V(this.lastAst$1)
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$init__O = (function() {
   return (this.init__V(), (void 0))
 });
-ScalaJS.c.Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$zoom__D__Lorg_scalajs_dom_MouseEvent__O = (function(level, e) {
-  return (this.zoom__D__Lorg_scalajs_dom_MouseEvent__V(level, e), (void 0))
+ScalaJS.c.Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$zoom__D__Lorg_scalajs_dom_MouseEvent__O = (function(delta, e) {
+  return (this.zoom__D__Lorg_scalajs_dom_MouseEvent__V(delta, e), (void 0))
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.save__V = (function() {
   var this$1 = this.drawing$1.save__Lcom_repocad_web_Response();
