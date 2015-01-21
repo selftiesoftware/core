@@ -157,9 +157,9 @@ object Evaluator {
             getValue[Double](centerY, env, printer).right.flatMap(y =>
               getValue[Double](height, env, printer).right.flatMap(heightValue =>
                 getValue[Any](text, env, printer).right.flatMap(textValue => {
-                  //TODO: calculate text bounding box and add that to the center to get correct extends of the text
-                  drawingCenter = updateBoundingBox(x + heightValue * 2, y + heightValue * 2)
-                  drawingCenter = updateBoundingBox(x - heightValue * 2, y - heightValue * 2)
+                  //the average length of a char/int is 0.3 units * the text height.
+                  val length = textValue.toString.length * 0.3 * heightValue
+                  drawingCenter = updateBoundingBox(x + length, y + heightValue)
                   printer.text(x, y, heightValue, textValue)
                   Right(env -> Unit)
                 })
