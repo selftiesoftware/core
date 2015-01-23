@@ -7,7 +7,7 @@ trait Expr
 
 case object UnitExpr extends Expr
 
-case class ImportExpr(name : RefExpr) extends Expr
+case class ImportExpr(name : String) extends Expr
 
 case class CompExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
 case class OpExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
