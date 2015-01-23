@@ -118,12 +118,11 @@ object Evaluator {
             Right(scriptEnv(name) -> Unit)
           } else {
             Ajax.get("http://siigna.com:20004/get/" + name) match {
-              case Response(_, 4, text) => {
+              case Response(_, 4, text) =>
                 Parser.parse(Lexer.lex(text)).right.flatMap(expr => eval(expr, Map(), printer)).right.flatMap(v => {
                   scriptEnv += name -> v._1
                   Right(v._1 -> Unit)
                 })
-              }
               case xs => Left(s"Script $name failed to load with error: $xs")
             }
           }
