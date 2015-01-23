@@ -41,11 +41,13 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     }
     //DEBUGGING
 
+    //screenText(5,6,"paper center from canvas corner: "+panVector)
+
     //canvas center in canvas coordinates
-    screenText(20,6,canvasCorner)
+    //screenText(5,6,canvasCorner)
 
     //mouse position in canvas coordinates
-    screenText(20,12,mouseCanvas)
+    //screenText(5,12,"mouse from canvas corner: "+mouseCanvas)
   }
 
   def clear(): Unit = {
@@ -119,7 +121,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.font = "100 px Arial"
     context.fillStyle = "black"
     context.save()
-    context.setTransform(3, 0, 0, 3, 0, 0)
+    context.setTransform(5, 0, 0, 5, 0, 0)
     context.fillText(t.toString(), x, y)
     context.restore()
   }

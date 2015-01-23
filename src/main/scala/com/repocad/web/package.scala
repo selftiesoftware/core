@@ -34,4 +34,5 @@ package object web {
    */
   var paperSize : List[Double] = List(210,297)
 
+  var panVector : Vector2D = Vector2D(0,0)
 }

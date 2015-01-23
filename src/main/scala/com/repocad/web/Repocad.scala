@@ -39,6 +39,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   def zoom(delta : Double, e : MouseEvent) = {
     view.zoom(delta, e.clientX, e.clientY)
     zoomLevel = zoomLevel + delta.toInt //update the zoom level
+
     eval(lastAst)
   }
 
@@ -56,23 +57,24 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   canvas.onmousemove = (e : MouseEvent) => {
 
-    //calculate the paper center in canvas coordinates
-    mouseClient = Vector2D(e.clientX,e.clientY)
+    //get the current zoom level
+    def zoomFactor = {
+      if (zoomLevel < 0) 1/zoomLevel.abs else if(zoomLevel == 0) 1 else zoomLevel
+    }
+      //calculate the paper center in canvas coordinates
+        mouseClient = Vector2D(e.clientX,e.clientY)
 
     mouseCanvas = Vector2D(mouseClient.x - canvasCorner.x,-mouseClient.y + canvasCorner.y)
 
-    //GEM Papirets center i relation til canvas TL corner. = PAN VECTOREN!!
+    //TODO: Papirets center i relation til canvas TL corner mangler.
 
     if (mouseDown) {
 
-      val zoomFactor = zoomLevel.toDouble.abs
-
       val newV = Vector2D(e.clientX, e.clientY)
-      if(zoomLevel < 0) { //zooming out
-        view.translate((newV - mousePosition).x, (newV - mousePosition).y)
-      } else if(zoomLevel > 0){//zooming in
-        view.translate((newV - mousePosition).x, (newV - mousePosition).y)
-      } else view.translate((newV - mousePosition).x, (newV - mousePosition).y)
+      val translation = Vector2D((newV - mousePosition).x, (newV - mousePosition).y)
+
+      view.translate(translation.x,translation.y)
+
       mousePosition = newV
       eval(lastAst)
     }
