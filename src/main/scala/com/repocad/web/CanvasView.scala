@@ -25,6 +25,8 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
    */
   def drawPaper() = {
 
+    canvasCorner = Vector2D(canvas.getBoundingClientRect().left,canvas.getBoundingClientRect().top)
+
     context.fillStyle = "white"
     landscape = scaleAndRotation() //run the scale and rotation evaluation
 
@@ -37,6 +39,13 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
       val y = -drawingCenter.y - (paperSize(1) * paperScale) /2
       context.fillRect(x, y, paperSize(0) * paperScale, paperSize(1) * paperScale)
     }
+    //DEBUGGING
+
+    //canvas center in canvas coordinates
+    screenText(20,6,canvasCorner)
+
+    //mouse position in canvas coordinates
+    screenText(20,12,mouseCanvas)
   }
 
   def clear(): Unit = {
@@ -105,6 +114,16 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.stroke()
     context.closePath()
   }
+
+  def screenText (x: Double, y: Double, t: Any): Unit = {
+    context.font = "100 px Arial"
+    context.fillStyle = "black"
+    context.save()
+    context.setTransform(3, 0, 0, 3, 0, 0)
+    context.fillText(t.toString(), x, y)
+    context.restore()
+  }
+
 
   override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
     val correctedH = h / 1.5

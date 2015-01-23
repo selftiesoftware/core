@@ -55,18 +55,23 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   }
 
   canvas.onmousemove = (e : MouseEvent) => {
+
+    //calculate the paper center in canvas coordinates
+    mouseClient = Vector2D(e.clientX,e.clientY)
+
+    mouseCanvas = Vector2D(mouseClient.x - canvasCorner.x,-mouseClient.y + canvasCorner.y)
+
+    //GEM Papirets center i relation til canvas TL corner. = PAN VECTOREN!!
+
     if (mouseDown) {
 
-
       val zoomFactor = zoomLevel.toDouble.abs
-      val newZ1 = math.pow(zoomFactor,1.1)
-      val newZ2 = math.pow(zoomFactor,0.5)
 
       val newV = Vector2D(e.clientX, e.clientY)
       if(zoomLevel < 0) { //zooming out
-        view.translate((newV - mousePosition).x * newZ1, (newV - mousePosition).y * newZ1)
+        view.translate((newV - mousePosition).x, (newV - mousePosition).y)
       } else if(zoomLevel > 0){//zooming in
-        view.translate((newV - mousePosition).x / newZ2, (newV - mousePosition).y / newZ2)
+        view.translate((newV - mousePosition).x, (newV - mousePosition).y)
       } else view.translate((newV - mousePosition).x, (newV - mousePosition).y)
       mousePosition = newV
       eval(lastAst)

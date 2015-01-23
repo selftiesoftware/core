@@ -5,6 +5,8 @@ package com.repocad
  */
 package object web {
 
+  var canvasCorner = Vector2D(0,0)
+
   /**
    * The absolute double tolerance in Repocad
    * @return the tolerance
@@ -23,11 +25,13 @@ package object web {
     */
   var drawingCenter : Vector2D = Vector2D(105,147)
 
+  var mouseCanvas : Vector2D = Vector2D(0,0)
+  var mouseClient : Vector2D = Vector2D(0,0)
+
   /**
    * The size of the drawing paper. Defaults to A4
    * @return width and height of the paper
    */
-
   var paperSize : List[Double] = List(210,297)
 
 }
