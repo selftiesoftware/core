@@ -41,7 +41,6 @@ object Paper {
       scale = 1
       var shortSide = 210.0 //reset side lengths
       var longSide = 297.0 //reset side lengths
-      println(paperScale)
       val list = List[Double](2, 2.5, 2) //1*(2) = 2 -- 2 * (2.5) = 5 -- 5 * (2) = 10 -- 10 * 2 = 20 etc.
       var take = 0 // which element to "take" from the above list
       while (shortSide < scala.math.min(size.x, size.y) || longSide < scala.math.max(size.x, size.y)) {
@@ -50,7 +49,6 @@ object Paper {
         longSide *= factor
         take = if (take < 2) take + 1 else 0
         paperScale = paperScale * factor
-        println("scale after eval: "+paperScale)
       }}
 
     if (size.x >= size.y) landscape = true

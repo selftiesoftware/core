@@ -2894,27 +2894,23 @@ ScalaJS.c.Lcom_repocad_web_Paper$.prototype.scaleAndRotation__Z = (function() {
   scale = 1.0;
   var shortSide$2 = 210.0;
   var longSide$2 = 297.0;
-  var x = ScalaJS.m.Lcom_repocad_web_package().paperScale$1;
-  var this$8 = ScalaJS.m.s_Console();
-  var this$9 = this$8.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$9.tl$1.get__O()).println__O__V(x);
   ScalaJS.m.sci_List();
   var xs = new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([2.0, 2.5, 2.0]);
-  var this$11 = ScalaJS.m.sci_List();
-  var cbf = this$11.ReusableCBFInstance$2;
+  var this$8 = ScalaJS.m.sci_List();
+  var cbf = this$8.ReusableCBFInstance$2;
   var list = ScalaJS.as.sci_List(ScalaJS.i.sc_TraversableLike$class__to__sc_TraversableLike__scg_CanBuildFrom__O(xs, cbf));
   var take = 0;
   while (true) {
     var jsx$2 = shortSide$2;
-    var x$1 = size.x$1;
+    var x = size.x$1;
     var y = size.y$1;
-    if ((jsx$2 < ((x$1 < y) ? x$1 : y))) {
+    if ((jsx$2 < ((x < y) ? x : y))) {
       var jsx$1 = true
     } else {
       var jsx$3 = longSide$2;
-      var x$2 = size.x$1;
+      var x$1 = size.x$1;
       var y$1 = size.y$1;
-      var jsx$1 = (jsx$3 < ((x$2 > y$1) ? x$2 : y$1))
+      var jsx$1 = (jsx$3 < ((x$1 > y$1) ? x$1 : y$1))
     };
     if (jsx$1) {
       var n = take;
@@ -2922,11 +2918,7 @@ ScalaJS.c.Lcom_repocad_web_Paper$.prototype.scaleAndRotation__Z = (function() {
       shortSide$2 = (shortSide$2 * factor);
       longSide$2 = (longSide$2 * factor);
       take = ((take < 2) ? ((take + 1) | 0) : 0);
-      ScalaJS.m.Lcom_repocad_web_package().paperScale$1 = (ScalaJS.m.Lcom_repocad_web_package().paperScale$1 * factor);
-      var x$3 = ("scale after eval: " + ScalaJS.m.Lcom_repocad_web_package().paperScale$1);
-      var this$17 = ScalaJS.m.s_Console();
-      var this$18 = this$17.outVar$2;
-      ScalaJS.as.Ljava_io_PrintStream(this$18.tl$1.get__O()).println__O__V(x$3)
+      ScalaJS.m.Lcom_repocad_web_package().paperScale$1 = (ScalaJS.m.Lcom_repocad_web_package().paperScale$1 * factor)
     } else {
       break
     }
@@ -3245,9 +3237,6 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.run__V = (function() {
   } else {
     throw new ScalaJS.c.s_MatchError().init___O(this$1)
   };
-  var this$3 = ScalaJS.m.s_Console();
-  var this$4 = this$3.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$4.tl$1.get__O()).println__O__V("AAA");
   ScalaJS.m.Lcom_repocad_web_Paper().scaleAndRotation__Z()
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.zoom__D__Lorg_scalajs_dom_MouseEvent__V = (function(delta, e) {

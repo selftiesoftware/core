@@ -122,7 +122,6 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
           x
         })
     //update the paper scale and position
-    println("AAA")
     Paper.scaleAndRotation()//
   }
 
