@@ -224,6 +224,27 @@ object Evaluator {
                 )
               )
             }
+            case f: Function3[Any, Any, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    Right(b._1 -> f.apply(a._2, b._2, c._2))
+                  )
+                )
+              )
+            }
+            case f: Function4[Any, Any, Any, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    eval(params(3), c._1, printer).right.flatMap(d =>
+                      Right(c._1 -> f.apply(a._2, b._2, c._2, d._2))
+                    )
+                  )
+                )
+              )
+            }
+
             case x => Left("Expected callable function, got " + x)
           }
 
