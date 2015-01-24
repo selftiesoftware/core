@@ -33,6 +33,7 @@ object Evaluator {
         maxY = Some(y+1)
         minY = Some(y-1)
     }
+
     //move the paper center to the center of the current artwork on the paper
     val cX = minX.get + (maxX.get - minX.get) / 2
     val cY = minY.get + (maxY.get - minY.get) / 2
@@ -43,6 +44,7 @@ object Evaluator {
      if the drawing extends are smaller after user editing of the drawing.
   */
   def resetBoundingBox() = {
+
     maxX = None
     minX = None
     maxY = None
@@ -271,7 +273,6 @@ object Evaluator {
     } catch {
       case e : Exception => Left(s"Failure when evaluating script: ${e.getLocalizedMessage}")
     }
-
   }
 
   def getValue[T](expr : Expr, env : Env, printer : Printer) : Either[String, T] = {
