@@ -2643,6 +2643,14 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.circle__D__D__D__V = (function(x
   this.context$1["stroke"]();
   this.context$1["closePath"]()
 });
+ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.screenText__D__D__D__O__V = (function(x, y, size, t) {
+  this.context$1["font"] = (ScalaJS.objectToString(size) + " pt Arial");
+  this.context$1["fillStyle"] = "black";
+  this.context$1["save"]();
+  this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+  this.context$1["fillText"](ScalaJS.objectToString(t), x, y);
+  this.context$1["restore"]()
+});
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   this.context$1["beginPath"]();
   this.context$1["arc"](x, (-y), r, sAngle, eAngle);
@@ -2652,10 +2660,12 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.arc__D__D__D__D__D__V = (functio
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
   var correctedH = (h / 1.5);
+  this.context$1["save"]();
   var myFont = (ScalaJS.objectToString(correctedH) + "px Arial");
   this.context$1["font"] = myFont;
   this.context$1["fillStyle"] = "black";
-  this.context$1["fillText"](ScalaJS.objectToString(t), x, (-y))
+  this.context$1["fillText"](ScalaJS.objectToString(t), x, (-y));
+  this.context$1["restore"]()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.drawPaper__V = (function() {
   ScalaJS.m.Lcom_repocad_web_package().canvasCorner$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"]), ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"]));
@@ -2687,7 +2697,7 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.drawPaper__V = (function() {
     this.context$1["fillRect"](x$2, y$2, (ScalaJS.uD(jsx$8) * jsx$7), (ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 1)) * ScalaJS.m.Lcom_repocad_web_package().paperScale$1))
   };
   var txt = ("p a p e r : A 4   i n    s c a l e:   1 :  " + ScalaJS.objectToString(ScalaJS.m.Lcom_repocad_web_package().paperScale$1));
-  this.screenText__D__D__O__V(5.0, 5.0, txt)
+  this.screenText__D__D__D__O__V(5.0, 10.0, 70.0, txt)
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.windowCenter__Lcom_repocad_web_Vector2D = (function() {
   return new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["right"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"])) * 0.5), ((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["bottom"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"])) * 0.5))
@@ -2698,14 +2708,6 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.bezierCurve__D__D__D__D__D__D__D
   this.context$1["bezierCurveTo"](x2, (-y2), x3, (-y3), x4, (-y4));
   this.context$1["stroke"]();
   this.context$1["lineWidth"] = (0.2 * ScalaJS.m.Lcom_repocad_web_package().paperScale$1)
-});
-ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.screenText__D__D__O__V = (function(x, y, t) {
-  this.context$1["font"] = "100 pt Arial";
-  this.context$1["fillStyle"] = "black";
-  this.context$1["save"]();
-  this.context$1["setTransform"](4.0, 0.0, 0.0, 3.0, 0.0, 0.0);
-  this.context$1["fillText"](ScalaJS.objectToString(t), x, y);
-  this.context$1["restore"]()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement = (function(canvas) {
   this.canvas$1 = canvas;
