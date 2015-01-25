@@ -33,6 +33,7 @@ object Evaluator {
         maxY = Some(y+1)
         minY = Some(y-1)
     }
+
     //move the paper center to the center of the current artwork on the paper
     val cX = minX.get + (maxX.get - minX.get) / 2
     val cY = minY.get + (maxY.get - minY.get) / 2
@@ -43,6 +44,7 @@ object Evaluator {
      if the drawing extends are smaller after user editing of the drawing.
   */
   def resetBoundingBox() = {
+
     maxX = None
     minX = None
     maxY = None
@@ -170,6 +172,23 @@ object Evaluator {
             )
           )
 
+        case TextBoxExpr(centerX, centerY, width, height, text) =>
+          getValue[Double](centerX, env, printer).right.flatMap(x =>
+            getValue[Double](centerY, env, printer).right.flatMap(y =>
+              getValue[Double](width, env, printer).right.flatMap(w =>
+                getValue[Double](height, env, printer).right.flatMap(heightValue =>
+                  getValue[Any](text, env, printer).right.flatMap(textValue => {
+                    val length = textValue.toString.length * 0.3 * heightValue
+                    drawingCenter = updateBoundingBox(x + length/(length/w), y - heightValue*length/w.ceil)
+                    drawingCenter = updateBoundingBox(x,y + heightValue)
+                    printer.textBox(x, y, w, heightValue, textValue)
+                    Right(env -> Unit)
+                  })
+                )
+              )
+            )
+          )
+
         case ConstantExpr(value) => Right(env -> value)
 
         case CompExpr(e1, e2, op) =>
@@ -221,6 +240,27 @@ object Evaluator {
                 )
               )
             }
+            case f: Function3[Any, Any, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    Right(b._1 -> f.apply(a._2, b._2, c._2))
+                  )
+                )
+              )
+            }
+            case f: Function4[Any, Any, Any, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    eval(params(3), c._1, printer).right.flatMap(d =>
+                      Right(c._1 -> f.apply(a._2, b._2, c._2, d._2))
+                    )
+                  )
+                )
+              )
+            }
+
             case x => Left("Expected callable function, got " + x)
           }
 
@@ -270,7 +310,6 @@ object Evaluator {
     } catch {
       case e : Exception => Left(s"Failure when evaluating script: ${e.getLocalizedMessage}")
     }
-
   }
 
   def getValue[T](expr : Expr, env : Env, printer : Printer) : Either[String, T] = {

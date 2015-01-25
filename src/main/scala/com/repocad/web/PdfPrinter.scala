@@ -101,6 +101,19 @@ class PdfPrinter() extends Printer {
     document.text(v.x / paperScale,v.y / paperScale,t.toString)
   }
 
+  def textBox(x : Double, y : Double, w: Double, h : Double, t : Any) : Unit = {
+    val v = transform(Vector2D(x, y))
+    document.setFontSize(h * 1.8)
+    var newY = v.y
+    val length = t.toString.length * 0.3 * h
+    val lines = length/w
+
+    for (i <- 0 to lines.toInt) {
+      document.text(v.x / paperScale,newY / paperScale,t.toString)
+      newY = newY + h
+    }
+  }
+
   private def transform(v : Vector2D): Vector2D = {
     if (!landscape) {
       val a = Vector2D(v.x,-v.y) - scaledCenter + Vector2D(paperSize(0)/2,paperSize(1)/2)

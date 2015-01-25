@@ -126,7 +126,6 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.restore()
   }
 
-
   override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
     val correctedH = h / 1.5
     val myFont = correctedH.toString() + "px Arial"
@@ -136,6 +135,35 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     //context.textAlign("left")
     //context.textBaseline("bottom")
     context.fillText(t.toString(), x, -y)
+  }
+
+  /**
+   * Display text inside a box with a given width
+   * @param x position of the top left corner of the box
+   * @param y position of the top left corner of the box
+   * @param w the width of the text box
+   * @param h text height
+   * @param t string to display
+   */
+  override def textBox(x: Double, y: Double, w: Double, h: Double, t: Any): Unit = {
+    val text = t.toString
+    val correctedH = h / 1.5
+    var newY = y
+    val length = t.toString.length * 0.3 * h
+    val lines = length/w
+    var string = text.toList
+    val chars = text.length
+    val charsPerLine = (chars / lines).toInt
+
+    for (i <- 1 to lines.toInt + 1) {
+      val myFont = correctedH.toString() + "px Arial"
+      val str = string.take(charsPerLine) //make the string from the first elements
+      string = string.takeRight(chars - charsPerLine * i) //pass the last elements to a new list
+      context.font = myFont
+      context.fillStyle = "black"
+      context.fillText(str.mkString, x, newY)
+      newY = newY + h
+    }
   }
 
   def translate(x : Double, y : Double) : Unit = {
