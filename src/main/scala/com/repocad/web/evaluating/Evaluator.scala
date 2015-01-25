@@ -168,6 +168,22 @@ object Evaluator {
             )
           )
 
+        case TextBoxExpr(centerX, centerY, width, height, text) =>
+          getValue[Double](centerX, env, printer).right.flatMap(x =>
+            getValue[Double](centerY, env, printer).right.flatMap(y =>
+              getValue[Double](width, env, printer).right.flatMap(w =>
+                getValue[Double](height, env, printer).right.flatMap(heightValue =>
+                  getValue[Any](text, env, printer).right.flatMap(textValue => {
+                    val length = textValue.toString.length * 0.3 * heightValue
+                    drawingCenter = updateBoundingBox(x + length, y + heightValue*length/w.ceil)
+                    printer.textBox(x, y, w, heightValue, textValue)
+                    Right(env -> Unit)
+                  })
+                )
+              )
+            )
+          )
+
         case ConstantExpr(value) => Right(env -> value)
 
         case CompExpr(e1, e2, op) =>
