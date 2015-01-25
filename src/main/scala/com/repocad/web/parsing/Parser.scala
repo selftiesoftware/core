@@ -45,8 +45,9 @@ object Parser {
     tokens match {
 
       // Import
-      case SymbolToken("import") :~: SymbolToken(library) :~: tail =>
-        success(ImportExpr(RefExpr(library)), tail)
+      case SymbolToken("import") :~: SymbolToken(script) :~: tail => {
+        success(ImportExpr(script), tail)
+      }
 
       case SymbolToken("arc") :~: tail =>
         parse(tail, (centerX, t1) =>

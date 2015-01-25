@@ -121,8 +121,10 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
           //println("Eval: " + x)
           x
         })
-
+    //update the paper scale and position
+    Paper.scaleAndRotation()//
   }
+
   @JSExport
   def save() : Unit = {
     displaySuccess(drawing.save().toString)

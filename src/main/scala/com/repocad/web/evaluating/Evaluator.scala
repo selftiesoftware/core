@@ -1,21 +1,8 @@
 package com.repocad.web.evaluating
 
-import java.io.FileNotFoundException
-
-import com.repocad.web.{Vector2D, Printer}
-
 import com.repocad.web.lexing.Lexer
 import com.repocad.web.parsing._
-import org.scalajs.dom
-import org.scalajs.dom.extensions.Ajax
-import scala.concurrent.Promise
-import scala.concurrent.{Future, Await}
-import scala.concurrent.duration.Duration
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
-import scala.util.Success
-import scala.util.Try
-import scala.util.Failure
-import com.repocad.web._
+import com.repocad.web.{Printer, Vector2D, _}
 
 /**
  * An evaluator to evaluate a list of [[Expr]]
@@ -46,6 +33,7 @@ object Evaluator {
         maxY = Some(y+1)
         minY = Some(y-1)
     }
+
     //move the paper center to the center of the current artwork on the paper
     val cX = minX.get + (maxX.get - minX.get) / 2
     val cY = minY.get + (maxY.get - minY.get) / 2
@@ -56,6 +44,7 @@ object Evaluator {
      if the drawing extends are smaller after user editing of the drawing.
   */
   def resetBoundingBox() = {
+
     maxX = None
     minX = None
     maxY = None
@@ -66,9 +55,10 @@ object Evaluator {
 
   type Value = Either[String, (Env, Any)]
 
-  private var scriptCache : Env = Map()
+  private var scriptEnv : Map[String, Env] = Map()
 
   def eval(expr: Expr, env : Env, printer : Printer) : Value = {
+
     try {
       expr match {
 
@@ -124,6 +114,21 @@ object Evaluator {
               })
             )
           )
+
+        case ImportExpr(name) =>
+          if (scriptEnv.contains(name)) {
+            Right(scriptEnv(name) -> Unit)
+          } else {
+            Ajax.get("http://siigna.com:20004/get/" + name) match {
+              case Response(_, 4, text) => {
+                Parser.parse(Lexer.lex(text)).right.flatMap(expr => eval(expr, Map(), printer)).right.flatMap(v => {
+                  scriptEnv += name -> v._1
+                  Right(v._1 -> Unit)
+                })
+              }
+              case xs => Left(s"Script $name failed to load with error: $xs")
+            }
+          }
 
         case FunctionExpr(name, params, body) =>
           val function = params.size match {
@@ -210,19 +215,6 @@ object Evaluator {
             }
           }))
 
-        case ImportExpr(name) =>
-          val request = Ajax.get("http://siigna.com:20004/get/" + name.name).map(xhr => {
-            Parser.parse(Lexer.lex(xhr.responseText)) match {
-              case Right(e) => eval(e, env, printer)
-              case Left(error) => Left(s"Script $name failed to compile with error: $error")
-            }
-          })
-          request.onComplete(x => {
-            x.get.fold(l => (), r => scriptCache = scriptCache ++ r._1)
-          })
-          /* This is very weird */
-          Right(env -> Unit)
-
         case RangeExpr(name, from, to) =>
           val fromOption: Either[String, Double] = env.get(name).map {
             case i: Int => Right(i + 1d)
@@ -236,8 +228,7 @@ object Evaluator {
           }))
 
         case RefExpr(name, params) =>
-          val x = env.get(name)
-          x.orElse(scriptCache.get(name)).fold[Value](Left(s"Failed to find function '$name'. Please check if it has been declared.")) {
+          env.get(name).fold[Value](Left(s"Failed to find function '$name'. Please check if it has been declared.")) {
             case f: Function0[Any] => Right(env -> f())
             case f: Function1[Any, Any] => {
               eval(params(0), env, printer).right.flatMap(a => Right(a._1 -> f.apply(a._2)))
@@ -249,6 +240,27 @@ object Evaluator {
                 )
               )
             }
+            case f: Function3[Any, Any, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    Right(b._1 -> f.apply(a._2, b._2, c._2))
+                  )
+                )
+              )
+            }
+            case f: Function4[Any, Any, Any, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    eval(params(3), c._1, printer).right.flatMap(d =>
+                      Right(c._1 -> f.apply(a._2, b._2, c._2, d._2))
+                    )
+                  )
+                )
+              )
+            }
+
             case x => Left("Expected callable function, got " + x)
           }
 
@@ -298,7 +310,6 @@ object Evaluator {
     } catch {
       case e : Exception => Left(s"Failure when evaluating script: ${e.getLocalizedMessage}")
     }
-
   }
 
   def getValue[T](expr : Expr, env : Env, printer : Printer) : Either[String, T] = {
