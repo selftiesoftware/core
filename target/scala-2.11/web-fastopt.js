@@ -20110,7 +20110,8 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$2
     var jsx$2 = ScalaJS.m.Lcom_repocad_web_package();
     var jsx$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator();
     var $$this = this.w$1$f;
-    jsx$2.drawingCenter$1 = jsx$1.updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.$$outer$2.x$6$f + length), (this.$$outer$2.y$4$f + ((heightValue * length) / ScalaJS.uD(ScalaJS.g["Math"]["ceil"]($$this)))));
+    jsx$2.drawingCenter$1 = jsx$1.updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.$$outer$2.x$6$f + (length / (length / this.w$1$f))), (this.$$outer$2.y$4$f - ((heightValue * length) / ScalaJS.uD(ScalaJS.g["Math"]["ceil"]($$this)))));
+    ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(this.$$outer$2.$$outer$2.x$6$f, (this.$$outer$2.y$4$f + heightValue));
     this.$$outer$2.$$outer$2.$$outer$2.printer$1$f.textBox__D__D__D__D__O__V(this.$$outer$2.$$outer$2.x$6$f, this.$$outer$2.y$4$f, this.w$1$f, heightValue, b);
     ScalaJS.m.s_package().Right$1;
     var $$this$1 = this.$$outer$2.$$outer$2.$$outer$2.env$1$f;

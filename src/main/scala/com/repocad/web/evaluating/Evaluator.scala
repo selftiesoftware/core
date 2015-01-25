@@ -180,7 +180,8 @@ object Evaluator {
                 getValue[Double](height, env, printer).right.flatMap(heightValue =>
                   getValue[Any](text, env, printer).right.flatMap(textValue => {
                     val length = textValue.toString.length * 0.3 * heightValue
-                    drawingCenter = updateBoundingBox(x + length, y + heightValue*length/w.ceil)
+                    drawingCenter = updateBoundingBox(x + length/(length/w), y - heightValue*length/w.ceil)
+                    drawingCenter = updateBoundingBox(x,y + heightValue)
                     printer.textBox(x, y, w, heightValue, textValue)
                     Right(env -> Unit)
                   })
