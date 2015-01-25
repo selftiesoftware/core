@@ -39,6 +39,11 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
       val y = -drawingCenter.y - (paperSize(1) * paperScale) /2
       context.fillRect(x, y, paperSize(0) * paperScale, paperSize(1) * paperScale)
     }
+
+    //annotation
+    val txt : String = "p a p e r : A 4   i n    s c a l e:   1 :  " + paperScale.toString
+    screenText(5,5,txt)
+
     //DEBUGGING
 
     //screenText(5,6,"paper center from canvas corner: "+panVector)
@@ -118,10 +123,10 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
   }
 
   def screenText (x: Double, y: Double, t: Any): Unit = {
-    context.font = "100 px Arial"
+    context.font = "100 pt Arial"
     context.fillStyle = "black"
     context.save()
-    context.setTransform(5, 0, 0, 5, 0, 0)
+    context.setTransform(4, 0, 0, 3, 0, 0)
     context.fillText(t.toString(), x, y)
     context.restore()
   }
