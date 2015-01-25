@@ -154,14 +154,11 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     var string = text.toList
     val chars = text.length
     val charsPerLine = (chars / lines).toInt
-    println("AAA")
 
     for (i <- 1 to lines.toInt + 1) {
       val myFont = correctedH.toString() + "px Arial"
       val str = string.take(charsPerLine) //make the string from the first elements
       string = string.takeRight(chars - charsPerLine * i) //pass the last elements to a new list
-      println(charsPerLine)
-      println(string)
       context.font = myFont
       context.fillStyle = "black"
       context.fillText(str.mkString, x, newY)

@@ -2605,29 +2605,19 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.textBox__D__D__D__D__O__V = (fun
   elem$1$1 = elem;
   var chars = ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(text);
   var charsPerLine = ((chars / lines) | 0);
-  var this$7 = ScalaJS.m.s_Console();
-  var this$8 = this$7.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$8.tl$1.get__O()).println__O__V("AAA");
   var end = (((lines | 0) + 1) | 0);
-  var this$12 = new ScalaJS.c.sci_Range$Inclusive().init___I__I__I(1, end, 1);
-  this$12.scala$collection$immutable$Range$$validateMaxLength__V();
-  var isCommonCase = ((this$12.start$4 !== (-2147483648)) || (this$12.end$4 !== (-2147483648)));
-  var i = this$12.start$4;
+  var this$9 = new ScalaJS.c.sci_Range$Inclusive().init___I__I__I(1, end, 1);
+  this$9.scala$collection$immutable$Range$$validateMaxLength__V();
+  var isCommonCase = ((this$9.start$4 !== (-2147483648)) || (this$9.end$4 !== (-2147483648)));
+  var i = this$9.start$4;
   var count = 0;
-  var terminal = this$12.terminalElement$4;
-  var step = this$12.step$4;
-  while ((isCommonCase ? (i !== terminal) : (count < this$12.numRangeElements$4))) {
+  var terminal = this$9.terminalElement$4;
+  var step = this$9.step$4;
+  while ((isCommonCase ? (i !== terminal) : (count < this$9.numRangeElements$4))) {
     var i$2 = i;
     var myFont = (ScalaJS.objectToString(correctedH) + "px Arial");
     var str = ScalaJS.as.sci_List(elem$1$1).take__I__sci_List(charsPerLine);
     elem$1$1 = ScalaJS.as.sci_List(elem$1$1).takeRight__I__sci_List(((chars - ScalaJS.imul(charsPerLine, i$2)) | 0));
-    var this$14 = ScalaJS.m.s_Console();
-    var this$15 = this$14.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$15.tl$1.get__O()).println__O__V(charsPerLine);
-    var x$1 = ScalaJS.as.sci_List(elem$1$1);
-    var this$17 = ScalaJS.m.s_Console();
-    var this$18 = this$17.outVar$2;
-    ScalaJS.as.Ljava_io_PrintStream(this$18.tl$1.get__O()).println__O__V(x$1);
     this.context$1["font"] = myFont;
     this.context$1["fillStyle"] = "black";
     this.context$1["fillText"](ScalaJS.i.sc_TraversableOnce$class__mkString__sc_TraversableOnce__T__T__T__T(str, "", "", ""), x, elem$1);
