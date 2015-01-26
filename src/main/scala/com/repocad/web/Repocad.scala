@@ -71,7 +71,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
       eval(lastAst)
     }
   }
-  
+
   canvas.onmouseleave = mouseExit
   canvas.onmouseup = mouseExit
 
