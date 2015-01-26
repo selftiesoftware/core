@@ -111,7 +111,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
     }
 
     newDrawing.onclick = (e : MouseEvent) => {
-      val title = prompt("Name the new drawing")
+      val title = scala.scalajs.js.Dynamic.global.prompt("Name the new drawing").toString
       if (title != null && !title.isEmpty) {
         listener(title)
         window.location.hash = title

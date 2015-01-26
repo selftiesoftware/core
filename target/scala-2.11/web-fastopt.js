@@ -3315,7 +3315,7 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init__V = (function() {
   })(this, listener);
   this.newDrawing$1["onclick"] = (function(listener$1$2) {
     return (function(e$2$2) {
-      var title = ScalaJS.as.T(ScalaJS.g["prompt"]("Name the new drawing"));
+      var title = ScalaJS.objectToString(ScalaJS.g["prompt"]("Name the new drawing"));
       if (((title !== null) && (!ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z(title)))) {
         listener$1$2.apply__O__O(title);
         ScalaJS.g["window"]["location"]["hash"] = title
