@@ -57,63 +57,14 @@ object Evaluator {
 
   private var scriptEnv : Map[String, Env] = Map()
 
-  def eval(expr: Expr, env : Env, printer : Printer) : Value = {
+  def eval(expr : Expr, printer : Printer) : Value = {
+    eval(expr, printer.toEnv, printer)
+  }
+
+  private def eval(expr: Expr, env : Env, printer : Printer) : Value = {
 
     try {
       expr match {
-
-        case ArcExpr(centerX, centerY, radius, sAngle, eAngle) =>
-          getValue[Double](centerX, env, printer).right.flatMap(x =>
-            getValue[Double](centerY, env, printer).right.flatMap(y =>
-              getValue[Double](radius, env, printer).right.flatMap(radiusValue =>
-                getValue[Double](sAngle, env, printer).right.flatMap(startAngle =>
-                  getValue[Double](eAngle, env, printer).right.flatMap(endAngle => {
-                    drawingCenter = updateBoundingBox(x + radiusValue, y + radiusValue)
-                    drawingCenter = updateBoundingBox(x - radiusValue, y - radiusValue)
-                    printer.arc(x, y, radiusValue, startAngle, endAngle)
-                    Right(env -> Unit)
-                  })
-                )
-              )
-            )
-          )
-
-        case BezierExpr(sx1, sy1, sx2, sy2, sx3, sy3, sx4, sy4) =>
-          getValue[Double](sx1, env, printer).right.flatMap(x1 =>
-            getValue[Double](sy1, env, printer).right.flatMap(y1 =>
-              getValue[Double](sx2, env, printer).right.flatMap(x2 =>
-                getValue[Double](sy2, env, printer).right.flatMap(y2 =>
-                  getValue[Double](sx3, env, printer).right.flatMap(x3 =>
-                    getValue[Double](sy3, env, printer).right.flatMap(y3 =>
-                      getValue[Double](sx4, env, printer).right.flatMap(x4 =>
-                        getValue[Double](sy4, env, printer).right.flatMap(y4 => {
-                          drawingCenter = updateBoundingBox(x1, y1)
-                          drawingCenter = updateBoundingBox(x2, y2)
-                          drawingCenter = updateBoundingBox(x3, y3)
-                          drawingCenter = updateBoundingBox(x4, y4)
-                          printer.bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)
-                          Right(env -> Unit)
-                        })
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          )
-
-
-        case CircleExpr(centerX, centerY, radius) =>
-          getValue[Double](centerX, env, printer).right.flatMap(x =>
-            getValue[Double](centerY, env, printer).right.flatMap(y =>
-              getValue[Double](radius, env, printer).right.flatMap(radiusValue => {
-                drawingCenter = updateBoundingBox(x + radiusValue, y + radiusValue)
-                drawingCenter = updateBoundingBox(x - radiusValue, y - radiusValue)
-                printer.circle(x, y, radiusValue)
-                Right(env -> Unit)
-              })
-            )
-          )
 
         case ImportExpr(name) =>
           if (scriptEnv.contains(name)) {
@@ -141,53 +92,6 @@ object Evaluator {
             case x => Left("Unsupported number of arguments: " + x)
           }
           Right(env.+(name -> function), function)
-
-        case LineExpr(e1, e2, e3, e4) =>
-          getValue[Double](e1, env, printer).right.flatMap(x1 =>
-            getValue[Double](e2, env, printer).right.flatMap(y1 =>
-              getValue[Double](e3, env, printer).right.flatMap(x2 => {
-                getValue[Double](e4, env, printer).right.flatMap(y2 => {
-                  drawingCenter = updateBoundingBox(x1, y1)
-                  drawingCenter = updateBoundingBox(x2, y2)
-                  printer.line(x1, y1, x2, y2)
-                  Right(env -> Unit)
-                })
-              })
-            )
-          )
-
-        case TextExpr(centerX, centerY, height, text) =>
-          getValue[Double](centerX, env, printer).right.flatMap(x =>
-            getValue[Double](centerY, env, printer).right.flatMap(y =>
-              getValue[Double](height, env, printer).right.flatMap(heightValue =>
-                getValue[Any](text, env, printer).right.flatMap(textValue => {
-                  //the average length of a char/int is 0.3 units * the text height.
-                  val length = textValue.toString.length * 0.3 * heightValue
-                  drawingCenter = updateBoundingBox(x-10, y-10)
-                  drawingCenter = updateBoundingBox(x + length, y + heightValue+10)
-                  printer.text(x, y, heightValue, textValue)
-                  Right(env -> Unit)
-                })
-              )
-            )
-          )
-
-        case TextBoxExpr(centerX, centerY, width, height, text) =>
-          getValue[Double](centerX, env, printer).right.flatMap(x =>
-            getValue[Double](centerY, env, printer).right.flatMap(y =>
-              getValue[Double](width, env, printer).right.flatMap(w =>
-                getValue[Double](height, env, printer).right.flatMap(heightValue =>
-                  getValue[Any](text, env, printer).right.flatMap(textValue => {
-                    val length = textValue.toString.length * 0.3 * heightValue
-                    drawingCenter = updateBoundingBox(x + length/(length/w), y - heightValue*length/w.ceil)
-                    drawingCenter = updateBoundingBox(x,y + heightValue)
-                    printer.textBox(x, y, w, heightValue, textValue)
-                    Right(env -> Unit)
-                  })
-                )
-              )
-            )
-          )
 
         case ConstantExpr(value) => Right(env -> value)
 
@@ -260,6 +164,69 @@ object Evaluator {
                 )
               )
             }
+            case f: Function6[Printer, Any, Any, Any, Any, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    eval(params(3), c._1, printer).right.flatMap(d =>
+                      eval(params(4), d._1, printer).right.flatMap(e =>
+                        Right(e._1 -> f.apply(printer, a._2, b._2, c._2, d._2, e._2))
+                      )
+                    )
+                  )
+                )
+              )
+            }
+            case f: Function7[Printer, Any, Any, Any, Any, Any, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    eval(params(3), c._1, printer).right.flatMap(d =>
+                      eval(params(4), d._1, printer).right.flatMap(e =>
+                        eval(params(5), e._1, printer).right.flatMap(g =>
+                          Right(g._1 -> f.apply(printer, a._2, b._2, c._2, d._2, e._2, g._2))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            }
+            case f: Function8[Printer, Any, Any, Any, Any, Any, Any, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    eval(params(3), c._1, printer).right.flatMap(d =>
+                      eval(params(4), d._1, printer).right.flatMap(e =>
+                        eval(params(5), e._1, printer).right.flatMap(g =>
+                          eval(params(6), g._1, printer).right.flatMap(h =>
+                            Right(h._1 -> f.apply(printer, a._2, b._2, c._2, d._2, e._2, g._2, h._2))
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            }
+            case f: Function9[Printer, Any, Any, Any, Any, Any, Any, Any, Any, Any] =>
+              eval(params(0), env, printer).right.flatMap(a =>
+                eval(params(1), a._1, printer).right.flatMap(b =>
+                  eval(params(2), b._1, printer).right.flatMap(c =>
+                    eval(params(3), c._1, printer).right.flatMap(d =>
+                      eval(params(4), d._1, printer).right.flatMap(e =>
+                        eval(params(5), e._1, printer).right.flatMap(g =>
+                          eval(params(6), g._1, printer).right.flatMap(h =>
+                            eval(params(7), h._1, printer).right.flatMap(i =>
+                              Right(i._1 -> f.apply(printer, a._2, b._2, c._2, d._2, e._2, g._2, h._2, i._2))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
 
             case x => Left("Expected callable function, got " + x)
           }

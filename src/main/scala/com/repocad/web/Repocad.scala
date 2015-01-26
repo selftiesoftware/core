@@ -151,7 +151,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
     lastAst = expr
     view.clear()
     Evaluator.resetBoundingBox() //set the default paper scale
-    Evaluator.eval(expr, Map(), view)
+    Evaluator.eval(expr, view)
       .fold(
         error => displayError(s"Failure during evaluation: $error"),
         success => {
@@ -170,7 +170,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   @JSExport
   def printPdf(name : String) : Unit = {
     val printer = new PdfPrinter()
-    Evaluator.eval(lastAst, Map(), printer)
+    Evaluator.eval(lastAst, printer)
     printer.save(name)
   }
 
