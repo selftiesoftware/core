@@ -56,22 +56,15 @@
     </div>
 
     <div class="row">
-        <div class="one column"><br></div>
-        <div class="eleven columns">
-            <i id="titleIcon" class="fa fa-lg fa-edit"></i>
-            <input type="text" id="drawingTitle" style="margin-top: 0; display: inline; padding: 0 10px;" />
-        </div>
-
+        <div class="one column"><br><!--<i id="titleIcon" class="fa fa-lg fa-search"></i>--></div>
+        <input type="text" id="drawingTitle" style="margin-top: 0; display: inline; padding: 0 10px 0 10px;" class="seven columns" />
+        <button class="two columns" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i> Search</button>
+        <button class="two columns" id="drawingNewButton"><i class="fa fa-lg fa-edit"></i> New drawing</button>
     </div>
 
     <div class="row">
         <div class="one column">
             <!-- git based script- and drawings library goes here... -->
-            <span class="dropt" title="Title for the pop-up">
-            <span style="width:150px;">new drawing</span>
-            <a href="#new"><img src=images/new.png alt="new" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
-            </span></span>
-
             <span class="dropt" title="Title for the pop-up">
             <span style="width:150px;">manifesto</span>
             <a href="#manifesto"><img src=images/manifesto.png alt="manifesto" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
@@ -138,8 +131,9 @@
     var toPdf = document.getElementById("toPdf");
     var save = document.getElementById("save");
     var title = document.getElementById("drawingTitle");
-    var titleIcon = document.getElementById("titleIcon");
-    var repocad = new Repocad(canvas, input, debug, title);
+    var newDrawing = document.getElementById("drawingNewButton");
+    var searchDrawing = document.getElementById("drawingSearchButton");
+    var repocad = new Repocad(canvas, input, debug, title, searchDrawing, newDrawing);
 
     //function copyToClipboard(text) {
     //    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);

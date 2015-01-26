@@ -14,7 +14,8 @@ import scala.scalajs.js.annotation.JSExport
  * @param debug A debug field to be used for (error) messages
  */
 @JSExport("Repocad")
-class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement, title : HTMLInputElement) {
+class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement, title : HTMLInputElement,
+              searchDrawing : HTMLButtonElement, newDrawing : HTMLButtonElement) {
 
   val view = new CanvasView(canvas)
 
@@ -82,21 +83,38 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
     view.init()
 
     val listener = (hash : String) => {
-      val x = Drawing.get(hash)
-        x.fold(displayError, drawing => {
+      if (!hash.isEmpty) {
+        Drawing.get(hash).fold(displayError, drawing => {
           title.value = drawing.name
           loadDrawing(drawing)
           displaySuccess(s"Loaded drawing $hash")
-      })
+        })
+      }
     }
     // Call and set listener
     val d = loadDrawing(drawing)
     title.value = drawing.name
 
     Drawing.setHashListener(listener)
+
+    val loadListener =
     title.onkeydown = (e : KeyboardEvent) => {
       if (e.keyCode == 13) {
         listener(title.value)
+        window.location.hash = title.value
+      }
+    }
+
+    searchDrawing.onclick = (e : MouseEvent) => {
+      listener(title.value)
+      window.location.hash = title.value
+    }
+
+    newDrawing.onclick = (e : MouseEvent) => {
+      val title = prompt("Name the new drawing")
+      if (title != null && !title.isEmpty) {
+        listener(title)
+        window.location.hash = title
       }
     }
   }

@@ -3270,6 +3270,8 @@ ScalaJS.c.Lcom_repocad_web_Repocad = (function() {
   this.com$repocad$web$Repocad$$input$f = null;
   this.debug$1 = null;
   this.com$repocad$web$Repocad$$title$f = null;
+  this.searchDrawing$1 = null;
+  this.newDrawing$1 = null;
   this.view$1 = null;
   this.drawing$1 = null;
   this.mousePosition$1 = null;
@@ -3300,10 +3302,97 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init__V = (function() {
     return (function(e$2) {
       var e = e$2;
       if ((ScalaJS.uI(e["keyCode"]) === 13)) {
-        listener$1.apply__O__O(ScalaJS.as.T(arg$outer.com$repocad$web$Repocad$$title$f["value"]))
+        listener$1.apply__O__O(ScalaJS.as.T(arg$outer.com$repocad$web$Repocad$$title$f["value"]));
+        ScalaJS.g["window"]["location"]["hash"] = ScalaJS.as.T(arg$outer.com$repocad$web$Repocad$$title$f["value"])
       }
     })
-  })(this, listener)
+  })(this, listener);
+  this.searchDrawing$1["onclick"] = (function(arg$outer$1, listener$1$1) {
+    return (function(e$2$1) {
+      listener$1$1.apply__O__O(ScalaJS.as.T(arg$outer$1.com$repocad$web$Repocad$$title$f["value"]));
+      ScalaJS.g["window"]["location"]["hash"] = ScalaJS.as.T(arg$outer$1.com$repocad$web$Repocad$$title$f["value"])
+    })
+  })(this, listener);
+  this.newDrawing$1["onclick"] = (function(listener$1$2) {
+    return (function(e$2$2) {
+      var title = ScalaJS.as.T(ScalaJS.g["prompt"]("Name the new drawing"));
+      if (((title !== null) && (!ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z(title)))) {
+        listener$1$2.apply__O__O(title);
+        ScalaJS.g["window"]["location"]["hash"] = title
+      }
+    })
+  })(listener)
+});
+ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLTextAreaElement__Lorg_scalajs_dom_HTMLDivElement__Lorg_scalajs_dom_HTMLInputElement__Lorg_scalajs_dom_HTMLButtonElement__Lorg_scalajs_dom_HTMLButtonElement = (function(canvas, input, debug, title, searchDrawing, newDrawing) {
+  this.com$repocad$web$Repocad$$input$f = input;
+  this.debug$1 = debug;
+  this.com$repocad$web$Repocad$$title$f = title;
+  this.searchDrawing$1 = searchDrawing;
+  this.newDrawing$1 = newDrawing;
+  this.view$1 = new ScalaJS.c.Lcom_repocad_web_CanvasView().init___Lorg_scalajs_dom_HTMLCanvasElement(canvas);
+  this.drawing$1 = ScalaJS.m.Lcom_repocad_web_Drawing().apply__Lcom_repocad_web_Drawing();
+  this.mousePosition$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(0.0, 0.0);
+  this.mouseDown$1 = false;
+  this.lastAst$1 = ScalaJS.m.Lcom_repocad_web_parsing_UnitExpr();
+  this.lastValue$1 = "";
+  this.landscape$1 = this.view$1.landscape$1;
+  this.center$1 = this.view$1.windowCenter__Lcom_repocad_web_Vector2D();
+  this.zoomLevel$1 = 0;
+  this.mouseExit$1 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
+    return (function(e$2) {
+      arg$outer.mouseDown$1 = false
+    })
+  })(this));
+  input["onkeyup"] = (function(arg$outer$1) {
+    return (function(e$2$1) {
+      if ((!ScalaJS.anyRefEqEq(arg$outer$1.drawing$1.content$1, ScalaJS.as.T(arg$outer$1.com$repocad$web$Repocad$$input$f["value"])))) {
+        var qual$1 = arg$outer$1.drawing$1;
+        var x$1 = ScalaJS.as.T(arg$outer$1.com$repocad$web$Repocad$$input$f["value"]);
+        var x$2 = qual$1.name$1;
+        arg$outer$1.drawing$1 = new ScalaJS.c.Lcom_repocad_web_Drawing().init___T__T(x$2, x$1);
+        arg$outer$1.run__V()
+      }
+    })
+  })(this);
+  canvas["onmousedown"] = (function(arg$outer$2) {
+    return (function(e$2$2) {
+      var e$3 = e$2$2;
+      arg$outer$2.mouseDown$1 = true;
+      arg$outer$2.mousePosition$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$3["clientX"]), ScalaJS.uI(e$3["clientY"]))
+    })
+  })(this);
+  canvas["onmousemove"] = (function(arg$outer$3) {
+    return (function(e$2$3) {
+      var e$4 = e$2$3;
+      if (arg$outer$3.mouseDown$1) {
+        var $$this = arg$outer$3.zoomLevel$1;
+        var zoomFactor = (($$this < 0) ? (-$$this) : $$this);
+        var newZ1 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 1.1));
+        var newZ2 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 0.5));
+        var newV = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$4["clientX"]), ScalaJS.uI(e$4["clientY"]));
+        if ((arg$outer$3.zoomLevel$1 < 0)) {
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * newZ1), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 * newZ1))
+        } else if ((arg$outer$3.zoomLevel$1 > 0)) {
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 / newZ2), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 / newZ2))
+        } else {
+          arg$outer$3.view$1.translate__D__D__V(newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1)
+        };
+        arg$outer$3.mousePosition$1 = newV;
+        arg$outer$3.eval__Lcom_repocad_web_parsing_Expr__V(arg$outer$3.lastAst$1)
+      }
+    })
+  })(this);
+  canvas["onmouseleave"] = (function(f) {
+    return (function(arg1) {
+      return f.apply__O__O(arg1)
+    })
+  })(this.mouseExit$1);
+  canvas["onmouseup"] = (function(f$1) {
+    return (function(arg1$1) {
+      return f$1.apply__O__O(arg1$1)
+    })
+  })(this.mouseExit$1);
+  return this
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.run__V = (function() {
   var tokens = ScalaJS.m.Lcom_repocad_web_lexing_Lexer().lex__T__Lcom_repocad_web_lexing_LiveStream(this.drawing$1.content$1);
@@ -3372,75 +3461,6 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.printPdf__T__V = (function(name) {
   ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.lastAst$1, ScalaJS.as.sci_Map(ScalaJS.m.s_Predef().Map$2.apply__sc_Seq__sc_GenMap(ScalaJS.m.sci_Nil())), printer);
   printer.save__T__V(name)
 });
-ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLTextAreaElement__Lorg_scalajs_dom_HTMLDivElement__Lorg_scalajs_dom_HTMLInputElement = (function(canvas, input, debug, title) {
-  this.com$repocad$web$Repocad$$input$f = input;
-  this.debug$1 = debug;
-  this.com$repocad$web$Repocad$$title$f = title;
-  this.view$1 = new ScalaJS.c.Lcom_repocad_web_CanvasView().init___Lorg_scalajs_dom_HTMLCanvasElement(canvas);
-  this.drawing$1 = ScalaJS.m.Lcom_repocad_web_Drawing().apply__Lcom_repocad_web_Drawing();
-  this.mousePosition$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(0.0, 0.0);
-  this.mouseDown$1 = false;
-  this.lastAst$1 = ScalaJS.m.Lcom_repocad_web_parsing_UnitExpr();
-  this.lastValue$1 = "";
-  this.landscape$1 = this.view$1.landscape$1;
-  this.center$1 = this.view$1.windowCenter__Lcom_repocad_web_Vector2D();
-  this.zoomLevel$1 = 0;
-  this.mouseExit$1 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
-    return (function(e$2) {
-      arg$outer.mouseDown$1 = false
-    })
-  })(this));
-  input["onkeyup"] = (function(arg$outer$1) {
-    return (function(e$2$1) {
-      if ((!ScalaJS.anyRefEqEq(arg$outer$1.drawing$1.content$1, ScalaJS.as.T(arg$outer$1.com$repocad$web$Repocad$$input$f["value"])))) {
-        var qual$1 = arg$outer$1.drawing$1;
-        var x$1 = ScalaJS.as.T(arg$outer$1.com$repocad$web$Repocad$$input$f["value"]);
-        var x$2 = qual$1.name$1;
-        arg$outer$1.drawing$1 = new ScalaJS.c.Lcom_repocad_web_Drawing().init___T__T(x$2, x$1);
-        arg$outer$1.run__V()
-      }
-    })
-  })(this);
-  canvas["onmousedown"] = (function(arg$outer$2) {
-    return (function(e$2$2) {
-      var e$3 = e$2$2;
-      arg$outer$2.mouseDown$1 = true;
-      arg$outer$2.mousePosition$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$3["clientX"]), ScalaJS.uI(e$3["clientY"]))
-    })
-  })(this);
-  canvas["onmousemove"] = (function(arg$outer$3) {
-    return (function(e$2$3) {
-      var e$4 = e$2$3;
-      if (arg$outer$3.mouseDown$1) {
-        var $$this = arg$outer$3.zoomLevel$1;
-        var zoomFactor = (($$this < 0) ? (-$$this) : $$this);
-        var newZ1 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 1.1));
-        var newZ2 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 0.5));
-        var newV = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$4["clientX"]), ScalaJS.uI(e$4["clientY"]));
-        if ((arg$outer$3.zoomLevel$1 < 0)) {
-          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * newZ1), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 * newZ1))
-        } else if ((arg$outer$3.zoomLevel$1 > 0)) {
-          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 / newZ2), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 / newZ2))
-        } else {
-          arg$outer$3.view$1.translate__D__D__V(newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1)
-        };
-        arg$outer$3.mousePosition$1 = newV;
-        arg$outer$3.eval__Lcom_repocad_web_parsing_Expr__V(arg$outer$3.lastAst$1)
-      }
-    })
-  })(this);
-  canvas["onmouseleave"] = (function(f) {
-    return (function(arg1) {
-      return f.apply__O__O(arg1)
-    })
-  })(this.mouseExit$1);
-  canvas["onmouseup"] = (function(f$1) {
-    return (function(arg1$1) {
-      return f$1.apply__O__O(arg1$1)
-    })
-  })(this.mouseExit$1);
-  return this
-});
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.displayError__T__V = (function(error) {
   this.debug$1["innerHTML"] = error
 });
@@ -3495,13 +3515,15 @@ ScalaJS.d.Lcom_repocad_web_Repocad = new ScalaJS.ClassTypeData({
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.$classData = ScalaJS.d.Lcom_repocad_web_Repocad;
 /** @constructor */
-ScalaJS.e["Repocad"] = (function(arg$1, arg$2, arg$3, arg$4) {
+ScalaJS.e["Repocad"] = (function(arg$1, arg$2, arg$3, arg$4, arg$5, arg$6) {
   ScalaJS.c.Lcom_repocad_web_Repocad.call(this);
   arg$1 = arg$1;
   arg$2 = arg$2;
   arg$3 = arg$3;
   arg$4 = arg$4;
-  this.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLTextAreaElement__Lorg_scalajs_dom_HTMLDivElement__Lorg_scalajs_dom_HTMLInputElement(arg$1, arg$2, arg$3, arg$4)
+  arg$5 = arg$5;
+  arg$6 = arg$6;
+  this.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLTextAreaElement__Lorg_scalajs_dom_HTMLDivElement__Lorg_scalajs_dom_HTMLInputElement__Lorg_scalajs_dom_HTMLButtonElement__Lorg_scalajs_dom_HTMLButtonElement(arg$1, arg$2, arg$3, arg$4, arg$5, arg$6)
 });
 ScalaJS.e["Repocad"].prototype = ScalaJS.c.Lcom_repocad_web_Repocad.prototype;
 /** @constructor */
@@ -8612,13 +8634,13 @@ ScalaJS.c.T2.prototype.equals__O__Z = (function(x$1) {
     return false
   }
 });
+ScalaJS.c.T2.prototype.productElement__I__O = (function(n) {
+  return ScalaJS.i.s_Product2$class__productElement__s_Product2__I__O(this, n)
+});
 ScalaJS.c.T2.prototype.init___O__O = (function(_1, _2) {
   this.$$und1$f = _1;
   this.$$und2$f = _2;
   return this
-});
-ScalaJS.c.T2.prototype.productElement__I__O = (function(n) {
-  return ScalaJS.i.s_Product2$class__productElement__s_Product2__I__O(this, n)
 });
 ScalaJS.c.T2.prototype.toString__T = (function() {
   return (((("(" + this.$$und1$f) + ",") + this.$$und2$f) + ")")
@@ -18029,21 +18051,23 @@ ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5.prototype.apply__O__O = (function(
   return (this.apply__T__V(ScalaJS.as.T(v1)), (void 0))
 });
 ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5.prototype.apply__T__V = (function(hash) {
-  var x = ScalaJS.m.Lcom_repocad_web_Drawing().get__T__s_util_Either(hash);
-  if (ScalaJS.is.s_util_Left(x)) {
-    var x2 = ScalaJS.as.s_util_Left(x);
-    var a = x2.a$2;
-    var error = ScalaJS.as.T(a);
-    this.$$outer$2.displayError__T__V(error)
-  } else if (ScalaJS.is.s_util_Right(x)) {
-    var x3 = ScalaJS.as.s_util_Right(x);
-    var b = x3.b$2;
-    var drawing = ScalaJS.as.Lcom_repocad_web_Drawing(b);
-    this.$$outer$2.com$repocad$web$Repocad$$title$f["value"] = drawing.name$1;
-    this.$$outer$2.loadDrawing__Lcom_repocad_web_Drawing__V(drawing);
-    this.$$outer$2.displaySuccess__T__V(new ScalaJS.c.s_StringContext().init___sc_Seq(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array(["Loaded drawing ", ""])).s__sc_Seq__T(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([hash])))
-  } else {
-    throw new ScalaJS.c.s_MatchError().init___O(x)
+  if ((!ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z(hash))) {
+    var this$1 = ScalaJS.m.Lcom_repocad_web_Drawing().get__T__s_util_Either(hash);
+    if (ScalaJS.is.s_util_Left(this$1)) {
+      var x2 = ScalaJS.as.s_util_Left(this$1);
+      var a = x2.a$2;
+      var error = ScalaJS.as.T(a);
+      this.$$outer$2.displayError__T__V(error)
+    } else if (ScalaJS.is.s_util_Right(this$1)) {
+      var x3 = ScalaJS.as.s_util_Right(this$1);
+      var b = x3.b$2;
+      var drawing = ScalaJS.as.Lcom_repocad_web_Drawing(b);
+      this.$$outer$2.com$repocad$web$Repocad$$title$f["value"] = drawing.name$1;
+      this.$$outer$2.loadDrawing__Lcom_repocad_web_Drawing__V(drawing);
+      this.$$outer$2.displaySuccess__T__V(new ScalaJS.c.s_StringContext().init___sc_Seq(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array(["Loaded drawing ", ""])).s__sc_Seq__T(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([hash])))
+    } else {
+      throw new ScalaJS.c.s_MatchError().init___O(this$1)
+    }
   }
 });
 ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5.prototype.init___Lcom_repocad_web_Repocad = (function($$outer) {
