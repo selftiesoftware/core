@@ -2600,6 +2600,13 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.line__D__D__D__D__V = (function(
   this.context$1["lineWidth"] = (0.2 * ScalaJS.m.Lcom_repocad_web_package().paperScale$1);
   this.context$1["closePath"]()
 });
+ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.circle__D__D__D__V = (function(x, y, r) {
+  this.context$1["beginPath"]();
+  this.context$1["arc"](x, (-y), r, 0.0, 6.283185307179586);
+  this.context$1["lineWidth"] = (0.2 * ScalaJS.m.Lcom_repocad_web_package().paperScale$1);
+  this.context$1["stroke"]();
+  this.context$1["closePath"]()
+});
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.textBox__D__D__D__D__O__V = (function(x, y, w, h, t) {
   var text = ScalaJS.objectToString(t);
   var correctedH = (h / 1.5);
@@ -2636,19 +2643,13 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.textBox__D__D__D__D__O__V = (fun
     i = ((i + step) | 0)
   }
 });
-ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.circle__D__D__D__V = (function(x, y, r) {
-  this.context$1["beginPath"]();
-  this.context$1["arc"](x, (-y), r, 0.0, 6.283185307179586);
-  this.context$1["lineWidth"] = (0.2 * ScalaJS.m.Lcom_repocad_web_package().paperScale$1);
-  this.context$1["stroke"]();
-  this.context$1["closePath"]()
-});
-ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
-  var correctedH = (h / 1.5);
-  var myFont = (ScalaJS.objectToString(correctedH) + "px Arial");
-  this.context$1["font"] = myFont;
+ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.screenText__D__D__D__O__V = (function(x, y, size, t) {
+  this.context$1["font"] = (ScalaJS.objectToString(size) + " pt Arial");
   this.context$1["fillStyle"] = "black";
-  this.context$1["fillText"](ScalaJS.objectToString(t), x, (-y))
+  this.context$1["save"]();
+  this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+  this.context$1["fillText"](ScalaJS.objectToString(t), x, y);
+  this.context$1["restore"]()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   this.context$1["beginPath"]();
@@ -2656,6 +2657,15 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.arc__D__D__D__D__D__V = (functio
   this.context$1["stroke"]();
   this.context$1["lineWidth"] = (0.2 * ScalaJS.m.Lcom_repocad_web_package().paperScale$1);
   this.context$1["closePath"]()
+});
+ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
+  var correctedH = (h / 1.5);
+  this.context$1["save"]();
+  var myFont = (ScalaJS.objectToString(correctedH) + "px Arial");
+  this.context$1["font"] = myFont;
+  this.context$1["fillStyle"] = "black";
+  this.context$1["fillText"](ScalaJS.objectToString(t), x, (-y));
+  this.context$1["restore"]()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.drawPaper__V = (function() {
   ScalaJS.m.Lcom_repocad_web_package().canvasCorner$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"]), ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"]));
@@ -2685,7 +2695,9 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.drawPaper__V = (function() {
     var jsx$7 = ScalaJS.m.Lcom_repocad_web_package().paperScale$1;
     var this$8 = ScalaJS.m.Lcom_repocad_web_package().paperSize$1;
     this.context$1["fillRect"](x$2, y$2, (ScalaJS.uD(jsx$8) * jsx$7), (ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 1)) * ScalaJS.m.Lcom_repocad_web_package().paperScale$1))
-  }
+  };
+  var txt = ("p a p e r : A 4   i n    s c a l e:   1 :  " + ScalaJS.objectToString(ScalaJS.m.Lcom_repocad_web_package().paperScale$1));
+  this.screenText__D__D__D__O__V(5.0, 10.0, 70.0, txt)
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.windowCenter__Lcom_repocad_web_Vector2D = (function() {
   return new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["right"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"])) * 0.5), ((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["bottom"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"])) * 0.5))
@@ -3043,12 +3055,6 @@ ScalaJS.h.Lcom_repocad_web_PdfPrinter = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_repocad_web_PdfPrinter.prototype = ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype;
-ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
-  var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), (y1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1)));
-  var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x2 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), (y2 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1)));
-  this.document$1["setLineWidth"](0.02);
-  this.document$1["line"](v1.x$1, v1.y$1, v2.x$1, v2.y$1)
-});
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
   this.landscape$1 = ScalaJS.m.Lcom_repocad_web_Paper().scaleAndRotation__Z();
   this.orientation$1 = "landscape";
@@ -3060,6 +3066,16 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
   this.offsetY$1 = ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1.y$1;
   this.scaledCenter$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1.x$1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), ((-ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1.y$1) / ScalaJS.m.Lcom_repocad_web_package().paperScale$1));
   return this
+});
+ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
+  var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), (y1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1)));
+  var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x2 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), (y2 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1)));
+  this.document$1["setLineWidth"](0.02);
+  this.document$1["line"](v1.x$1, v1.y$1, v2.x$1, v2.y$1)
+});
+ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
+  var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x, y));
+  this.document$1["circle"](v.x$1, v.y$1, r)
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.textBox__D__D__D__D__O__V = (function(x, y, w, h, t) {
   var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x, y));
@@ -3084,10 +3100,6 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.textBox__D__D__D__D__O__V = (fun
     count = ((count + 1) | 0);
     i = ((i + step) | 0)
   }
-});
-ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
-  var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x, y));
-  this.document$1["circle"](v.x$1, v.y$1, r)
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D = (function(v) {
   if ((!this.landscape$1)) {
@@ -3378,19 +3390,35 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
       arg$outer$2.mousePosition$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$3["clientX"]), ScalaJS.uI(e$3["clientY"]))
     })
   })(this);
-  canvas["onmousemove"] = (function(f) {
+  canvas["onmousemove"] = (function(arg$outer$3) {
+    return (function(e$2$3) {
+      var e$4 = e$2$3;
+      if (arg$outer$3.mouseDown$1) {
+        var $$this = arg$outer$3.zoomLevel$1;
+        var zoomFactor = (($$this < 0) ? (-$$this) : $$this);
+        var newZ1 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 1.1));
+        var newZ2 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 0.5));
+        var newV = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$4["clientX"]), ScalaJS.uI(e$4["clientY"]));
+        if ((arg$outer$3.zoomLevel$1 < 0)) {
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * newZ1), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 * newZ1))
+        } else if ((arg$outer$3.zoomLevel$1 > 0)) {
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 / newZ2), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 / newZ2))
+        } else {
+          arg$outer$3.view$1.translate__D__D__V(newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1)
+        };
+        arg$outer$3.mousePosition$1 = newV;
+        arg$outer$3.eval__Lcom_repocad_web_parsing_Expr__V(arg$outer$3.lastAst$1)
+      }
+    })
+  })(this);
+  canvas["onmouseleave"] = (function(f) {
     return (function(arg1) {
       return f.apply__O__O(arg1)
     })
-  })(new ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4().init___Lcom_repocad_web_Repocad(this));
-  canvas["onmouseleave"] = (function(f$1) {
+  })(this.mouseExit$1);
+  canvas["onmouseup"] = (function(f$1) {
     return (function(arg1$1) {
       return f$1.apply__O__O(arg1$1)
-    })
-  })(this.mouseExit$1);
-  canvas["onmouseup"] = (function(f$2) {
-    return (function(arg1$2) {
-      return f$2.apply__O__O(arg1$2)
     })
   })(this.mouseExit$1);
   return this
@@ -12289,20 +12317,20 @@ ScalaJS.c.sc_AbstractTraversable.prototype.toBuffer__scm_Buffer = (function() {
 ScalaJS.c.sc_AbstractTraversable.prototype.addString__scm_StringBuilder__T__T__T__scm_StringBuilder = (function(b, start, sep, end) {
   return ScalaJS.i.sc_TraversableOnce$class__addString__sc_TraversableOnce__scm_StringBuilder__T__T__T__scm_StringBuilder(this, b, start, sep, end)
 });
-ScalaJS.c.sc_AbstractTraversable.prototype.$$div$colon__O__F2__O = (function(z, op) {
-  return this.foldLeft__O__F2__O(z, op)
-});
 ScalaJS.c.sc_AbstractTraversable.prototype.repr__O = (function() {
   return this
+});
+ScalaJS.c.sc_AbstractTraversable.prototype.$$div$colon__O__F2__O = (function(z, op) {
+  return this.foldLeft__O__F2__O(z, op)
 });
 ScalaJS.c.sc_AbstractTraversable.prototype.isTraversableAgain__Z = (function() {
   return true
 });
-ScalaJS.c.sc_AbstractTraversable.prototype.map__F1__scg_CanBuildFrom__O = (function(f, bf) {
-  return ScalaJS.i.sc_TraversableLike$class__map__sc_TraversableLike__F1__scg_CanBuildFrom__O(this, f, bf)
-});
 ScalaJS.c.sc_AbstractTraversable.prototype.toArray__s_reflect_ClassTag__O = (function(evidence$1) {
   return ScalaJS.i.sc_TraversableOnce$class__toArray__sc_TraversableOnce__s_reflect_ClassTag__O(this, evidence$1)
+});
+ScalaJS.c.sc_AbstractTraversable.prototype.map__F1__scg_CanBuildFrom__O = (function(f, bf) {
+  return ScalaJS.i.sc_TraversableLike$class__map__sc_TraversableLike__F1__scg_CanBuildFrom__O(this, f, bf)
 });
 ScalaJS.c.sc_AbstractTraversable.prototype.nonEmpty__Z = (function() {
   return ScalaJS.i.sc_TraversableOnce$class__nonEmpty__sc_TraversableOnce__Z(this)
@@ -17929,63 +17957,6 @@ ScalaJS.m.sr_Statics = (function() {
   return ScalaJS.n.sr_Statics
 });
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4 = (function() {
-  ScalaJS.c.sr_AbstractFunction1.call(this);
-  this.$$outer$2 = null
-});
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.constructor = ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4;
-/** @constructor */
-ScalaJS.h.Lcom_repocad_web_Repocad$$anonfun$4 = (function() {
-  /*<skip>*/
-});
-ScalaJS.h.Lcom_repocad_web_Repocad$$anonfun$4.prototype = ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype;
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.apply__O__O = (function(v1) {
-  return (this.apply__Lorg_scalajs_dom_MouseEvent__V(v1), (void 0))
-});
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.apply__Lorg_scalajs_dom_MouseEvent__V = (function(e) {
-  ScalaJS.m.Lcom_repocad_web_package().mouseClient$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e["clientX"]), ScalaJS.uI(e["clientY"]));
-  ScalaJS.m.Lcom_repocad_web_package().mouseCanvas$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((ScalaJS.m.Lcom_repocad_web_package().mouseClient$1.x$1 - ScalaJS.m.Lcom_repocad_web_package().canvasCorner$1.x$1), ((-ScalaJS.m.Lcom_repocad_web_package().mouseClient$1.y$1) + ScalaJS.m.Lcom_repocad_web_package().canvasCorner$1.y$1));
-  if (this.$$outer$2.mouseDown$1) {
-    var newV = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e["clientX"]), ScalaJS.uI(e["clientY"]));
-    var translation = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(this.$$outer$2.mousePosition$1).x$1, newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(this.$$outer$2.mousePosition$1).y$1);
-    this.$$outer$2.view$1.translate__D__D__V(translation.x$1, translation.y$1);
-    this.$$outer$2.mousePosition$1 = newV;
-    this.$$outer$2.eval__Lcom_repocad_web_parsing_Expr__V(this.$$outer$2.lastAst$1)
-  }
-});
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.init___Lcom_repocad_web_Repocad = (function($$outer) {
-  if (($$outer === null)) {
-    throw ScalaJS.unwrapJavaScriptException(null)
-  } else {
-    this.$$outer$2 = $$outer
-  };
-  return this
-});
-ScalaJS.is.Lcom_repocad_web_Repocad$$anonfun$4 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_Repocad$$anonfun$4)))
-});
-ScalaJS.as.Lcom_repocad_web_Repocad$$anonfun$4 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_Repocad$$anonfun$4(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.Repocad$$anonfun$4"))
-});
-ScalaJS.isArrayOf.Lcom_repocad_web_Repocad$$anonfun$4 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_Repocad$$anonfun$4)))
-});
-ScalaJS.asArrayOf.Lcom_repocad_web_Repocad$$anonfun$4 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_Repocad$$anonfun$4(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.Repocad$$anonfun$4;", depth))
-});
-ScalaJS.d.Lcom_repocad_web_Repocad$$anonfun$4 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_Repocad$$anonfun$4: 0
-}, false, "com.repocad.web.Repocad$$anonfun$4", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_Repocad$$anonfun$4: 1,
-  s_Serializable: 1,
-  Ljava_io_Serializable: 1,
-  sr_AbstractFunction1: 1,
-  F1: 1,
-  O: 1
-});
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.$classData = ScalaJS.d.Lcom_repocad_web_Repocad$$anonfun$4;
-/** @constructor */
 ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.$$outer$2 = null
@@ -23583,11 +23554,11 @@ ScalaJS.c.s_Predef$.prototype.genericArrayOps__O__scm_ArrayOps = (function(xs) {
     throw new ScalaJS.c.s_MatchError().init___O(xs)
   }
 });
-ScalaJS.c.s_Predef$.prototype.Boolean2boolean__jl_Boolean__Z = (function(x) {
-  return ScalaJS.booleanBooleanValue(x)
-});
 ScalaJS.c.s_Predef$.prototype.Integer2int__jl_Integer__I = (function(x) {
   return ScalaJS.numberIntValue(x)
+});
+ScalaJS.c.s_Predef$.prototype.Boolean2boolean__jl_Boolean__Z = (function(x) {
+  return ScalaJS.booleanBooleanValue(x)
 });
 ScalaJS.c.s_Predef$.prototype.Long2long__jl_Long__J = (function(x) {
   return ScalaJS.numberLongValue(x)
