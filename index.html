@@ -56,7 +56,16 @@
     </div>
 
     <div class="row">
-        <div class="one columns">
+        <div class="one column"><br></div>
+        <div class="eleven columns">
+            <i id="titleIcon" class="fa fa-lg fa-edit"></i>
+            <input type="text" id="drawingTitle" style="margin-top: 0; display: inline; padding: 0 10px;" />
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="one column">
             <!-- git based script- and drawings library goes here... -->
             <span class="dropt" title="Title for the pop-up">
             <span style="width:150px;">new drawing</span>
@@ -89,26 +98,9 @@
             </span></span>
             <!--<a href="http://www.repocad.com/library">more drawings... / library page? or you tube style (scroll down..) </a> -->
 
-            </div>
+        </div>
+
         <div class="five columns">
-            <div id="test"></div>
-            <script type="text/javascript">
-                var href = window.location;
-                document.getElementById("test").innerHTML = href;
-
-                function copyToClipboard(text) {
-                    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-                }
-
-                // Use JQuery
-                // Ole: jQuery er et JS bibliotek, der skal importeres før det kan bruges
-                //
-                //$('#test').click(function() {
-                //    copyToClipboard(href)
-                //});
-
-            </script>
-
             <textarea id="input" class="twelve columns"></textarea>
             <div class="row">
                 <button id="save" class="six columns">
@@ -145,8 +137,20 @@
     var toggleRun = document.getElementById("toggleRun");
     var toPdf = document.getElementById("toPdf");
     var save = document.getElementById("save");
-    var repocad = new Repocad(canvas, input, debug);
+    var title = document.getElementById("drawingTitle");
+    var titleIcon = document.getElementById("titleIcon");
+    var repocad = new Repocad(canvas, input, debug, title);
 
+    //function copyToClipboard(text) {
+    //    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+    //}
+
+    // Use JQuery
+    // Ole: jQuery er et JS bibliotek, der skal importeres før det kan bruges
+    //
+    //$('#test').click(function() {
+    //    copyToClipboard(href)
+    //});
 
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
 
@@ -174,7 +178,6 @@
     }
 
     window.onload = function (e) {
-
         repocad.init();
 
         toPdf.onclick = function (e) {

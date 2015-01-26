@@ -1,12 +1,10 @@
 package com.repocad.web
 
 import com.repocad.web.evaluating.Evaluator
-import com.repocad.web.lexing.{Lexer}
-import com.repocad.web.parsing.{UnitExpr, Expr, Parser}
-import org.scalajs.dom
+import com.repocad.web.lexing.Lexer
+import com.repocad.web.parsing.{Expr, Parser, UnitExpr}
 import org.scalajs.dom._
 
-import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
 
 /**
@@ -16,7 +14,7 @@ import scala.scalajs.js.annotation.JSExport
  * @param debug A debug field to be used for (error) messages
  */
 @JSExport("Repocad")
-class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement) {
+class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement, title : HTMLInputElement) {
 
   val view = new CanvasView(canvas)
 
@@ -92,14 +90,21 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
     val listener = (hash : String) => {
       val x = Drawing.get(hash)
         x.fold(displayError, drawing => {
-        loadDrawing(drawing)
-        displaySuccess(s"Loaded drawing $hash")
+          title.value = drawing.name
+          loadDrawing(drawing)
+          displaySuccess(s"Loaded drawing $hash")
       })
     }
     // Call and set listener
     val d = loadDrawing(drawing)
-    Drawing.setHashListener(listener)
+    title.value = drawing.name
 
+    Drawing.setHashListener(listener)
+    title.onkeydown = (e : KeyboardEvent) => {
+      if (e.keyCode == 13) {
+        listener(title.value)
+      }
+    }
   }
 
   def loadDrawing(drawing : Drawing) : Unit = {
