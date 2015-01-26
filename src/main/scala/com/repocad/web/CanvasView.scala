@@ -39,6 +39,11 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
       val y = -drawingCenter.y - (paperSize(1) * paperScale) /2
       context.fillRect(x, y, paperSize(0) * paperScale, paperSize(1) * paperScale)
     }
+
+    //annotation
+    val txt : String = "p a p e r : A 4   i n    s c a l e:   1 :  " + paperScale.toString
+    screenText(5,10,70,txt)
+
     //DEBUGGING
 
     //screenText(5,6,"paper center from canvas corner: "+panVector)
@@ -117,25 +122,56 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.closePath()
   }
 
-  def screenText (x: Double, y: Double, t: Any): Unit = {
-    context.font = "100 px Arial"
+  def screenText (x: Double, y: Double, size: Double, t: Any): Unit = {
+    context.font = size.toString + " pt Arial"
     context.fillStyle = "black"
     context.save()
-    context.setTransform(5, 0, 0, 5, 0, 0)
+    context.setTransform(1, 0, 0, 1, 0, 0)
     context.fillText(t.toString(), x, y)
     context.restore()
   }
 
-
   override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
     val correctedH = h / 1.5
+    context.save()
     val myFont = correctedH.toString() + "px Arial"
     context.font = myFont
     context.fillStyle = "black"
+    //context.setTransform(1, 0, 0, 1, 0, 0)
     //context.font(1)
     //context.textAlign("left")
     //context.textBaseline("bottom")
     context.fillText(t.toString(), x, -y)
+    context.restore()
+  }
+
+  /**
+   * Display text inside a box with a given width
+   * @param x position of the top left corner of the box
+   * @param y position of the top left corner of the box
+   * @param w the width of the text box
+   * @param h text height
+   * @param t string to display
+   */
+  override def textBox(x: Double, y: Double, w: Double, h: Double, t: Any): Unit = {
+    val text = t.toString
+    val correctedH = h / 1.5
+    var newY = y
+    val length = t.toString.length * 0.3 * h
+    val lines = length/w
+    var string = text.toList
+    val chars = text.length
+    val charsPerLine = (chars / lines).toInt
+
+    for (i <- 1 to lines.toInt + 1) {
+      val myFont = correctedH.toString() + "px Arial"
+      val str = string.take(charsPerLine) //make the string from the first elements
+      string = string.takeRight(chars - charsPerLine * i) //pass the last elements to a new list
+      context.font = myFont
+      context.fillStyle = "black"
+      context.fillText(str.mkString, x, newY)
+      newY = newY + h
+    }
   }
 
   def translate(x : Double, y : Double) : Unit = {

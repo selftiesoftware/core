@@ -56,59 +56,44 @@
     </div>
 
     <div class="row">
-        <div class="one columns">
+        <div class="one column"><br><!--<i id="titleIcon" class="fa fa-lg fa-search"></i>--></div>
+        <input type="text" id="drawingTitle" style="margin-top: 0; display: inline; padding: 0 10px 0 10px;" class="seven columns" />
+        <button class="two columns" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i> Search</button>
+        <button class="two columns" id="drawingNewButton"><i class="fa fa-lg fa-edit"></i> New drawing</button>
+    </div>
+
+    <div class="row">
+        <div class="one column">
             <!-- git based script- and drawings library goes here... -->
             <span class="dropt" title="Title for the pop-up">
-            <span style="width:150px;">new drawing</span>
-            <a href="http://www.repocad.com/#new"><img src=images/new.png alt="new" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
-            </span></span>
-
-            <span class="dropt" title="Title for the pop-up">
             <span style="width:150px;">manifesto</span>
-            <a href="http://www.repocad.com/#manifesto"><img src=images/manifesto.png alt="manifesto" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            <a href="#manifesto"><img src=images/manifesto.png alt="manifesto" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
             </span></span>
 
             <span class="dropt" title="Title for the pop-up">
             <span style="width:150px;">default</span>
-            <a href="http://www.repocad.com/#default"><img src=images/default.png alt="default" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            <a href="#default"><img src=images/default.png alt="default" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
             </span></span>
 
             <span class="dropt" title="Title for the pop-up">
             <span style="width:150px;">theater</span>
-            <a href="http://www.repocad.com/#amphiTheater"><img src=images/theater.png alt="amphiTheater" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            <a href="#amphiTheater"><img src=images/theater.png alt="amphiTheater" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
             </span></span>
 
             <span class="dropt" title="Title for the pop-up">
-            <span style="width:150px;">minutePaper</span>
-            <a href="http://www.repocad.com/#minutePaper"><img src=images/minutePaper.png alt="minutePaper" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            <span style="width:150px;">patternForGuzman2</span>
+            <a href="#patternForGuzman2"><img src=images/patternForGuzman2.png alt="patternForGuzman2" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
            </span></span>
 
             <span class="dropt" title="Title for the pop-up">
-            <span style="width:150px;">inventory</span>
-            <a href="http://www.repocad.com/#inventar"><img src=images/inventar.png alt="inventar" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            <span style="width:150px;">geometry2d</span>
+            <a href="#geometry2d"><img src=images/geometry2d.png alt="geometry2d" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
             </span></span>
             <!--<a href="http://www.repocad.com/library">more drawings... / library page? or you tube style (scroll down..) </a> -->
 
-            </div>
+        </div>
+
         <div class="five columns">
-            <div id="test"></div>
-            <script type="text/javascript">
-                var href = window.location;
-                document.getElementById("test").innerHTML = href;
-
-                function copyToClipboard(text) {
-                    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-                }
-
-                // Use JQuery
-                // Ole: jQuery er et JS bibliotek, der skal importeres før det kan bruges
-                //
-                //$('#test').click(function() {
-                //    copyToClipboard(href)
-                //});
-
-            </script>
-
             <textarea id="input" class="twelve columns"></textarea>
             <div class="row">
                 <button id="save" class="six columns">
@@ -145,8 +130,21 @@
     var toggleRun = document.getElementById("toggleRun");
     var toPdf = document.getElementById("toPdf");
     var save = document.getElementById("save");
-    var repocad = new Repocad(canvas, input, debug);
+    var title = document.getElementById("drawingTitle");
+    var newDrawing = document.getElementById("drawingNewButton");
+    var searchDrawing = document.getElementById("drawingSearchButton");
+    var repocad = new Repocad(canvas, input, debug, title, searchDrawing, newDrawing);
 
+    //function copyToClipboard(text) {
+    //    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+    //}
+
+    // Use JQuery
+    // Ole: jQuery er et JS bibliotek, der skal importeres før det kan bruges
+    //
+    //$('#test').click(function() {
+    //    copyToClipboard(href)
+    //});
 
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
 
@@ -174,7 +172,6 @@
     }
 
     window.onload = function (e) {
-
         repocad.init();
 
         toPdf.onclick = function (e) {

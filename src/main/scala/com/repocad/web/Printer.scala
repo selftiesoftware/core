@@ -40,13 +40,23 @@ trait Printer {
   def circle(x : Double, y : Double, r : Double)
 
   /**
-   * Renders a textual string
+   * Renders a text string
    * @param x First coordinate
    * @param y Second coordinate
    * @param h Height
    * @param t Text
    */
   def text(x : Double, y : Double, h : Double, t : Any)
+
+  /**
+   * Renders a text box
+   * @param x First coordinate
+   * @param y Second coordinate
+   * @param w Width
+   * @param h Line height
+   * @param t Text
+   */
+  def textBox(x : Double, y : Double, w: Double, h : Double, t : Any)
 
   /**
    * Draws a line

@@ -21,6 +21,7 @@ case class BezierExpr(x1 : Expr, y1 : Expr, x2 : Expr, y2 : Expr, x3 : Expr, y3 
 case class CircleExpr(centerX : Expr, centerY : Expr, radius : Expr) extends Expr
 case class LineExpr(e1: Expr, e2: Expr, e3: Expr, e4: Expr) extends Expr
 case class TextExpr(centerX : Expr, centerY : Expr, size : Expr, t : Expr) extends Expr
+case class TextBoxExpr(centerX : Expr, centerY : Expr, width: Expr, size : Expr, t : Expr) extends Expr
 
 trait ValueExpr extends Expr
 case class ConstantExpr[A](value: A) extends ValueExpr

@@ -103,6 +103,18 @@ object Parser {
             failure),
           failure)
 
+      case SymbolToken("textBox") :~: tail =>
+        parse(tail, (centerX, t1) =>
+          parse(t1, (centerY, t2) =>
+            parse(t2, (width, t3) =>
+              parse(t3, (height, t4) =>
+                parse(t4, (text, t5) => {
+                  success(TextBoxExpr(centerX, centerY, width, height, text), t5)}, failure),
+                failure),
+              failure),
+            failure),
+          failure)
+
       // Loops
       case SymbolToken("while") :~: tail =>
         parse(tail, (condition, blockTail) =>

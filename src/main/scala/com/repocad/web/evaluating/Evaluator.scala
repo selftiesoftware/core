@@ -120,25 +120,24 @@ object Evaluator {
             Right(scriptEnv(name) -> Unit)
           } else {
             Ajax.get("http://siigna.com:20004/get/" + name) match {
-              case Response(_, 4, text) => {
+              case Response(_, 4, text) =>
                 Parser.parse(Lexer.lex(text)).right.flatMap(expr => eval(expr, Map(), printer)).right.flatMap(v => {
                   scriptEnv += name -> v._1
                   Right(v._1 -> Unit)
                 })
-              }
               case xs => Left(s"Script $name failed to load with error: $xs")
             }
           }
 
         case FunctionExpr(name, params, body) =>
           val function = params.size match {
-            case 0 => () => eval(body, env, printer)
-            case 1 => (a: Any) => {
-              eval(body, env.+(params(0) -> a), printer)
+            case 0 => (p : Printer) => eval(body, env, p)
+            case 1 => (p : Printer, a: Any) => {
+              eval(body, env.+(params(0) -> a), p)
             }
-            case 2 => (a: Any, b: Any) => eval(body, env.+(params(0) -> a, params(1) -> b), printer)
-            case 3 => (a: Any, b: Any, c: Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c), printer)
-            case 4 => (a: Any, b: Any, c: Any, d: Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d), printer)
+            case 2 => (p : Printer, a: Any, b: Any) => eval(body, env.+(params(0) -> a, params(1) -> b), p)
+            case 3 => (p : Printer, a: Any, b: Any, c: Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c), p)
+            case 4 => (p : Printer, a: Any, b: Any, c: Any, d: Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d), p)
             case x => Left("Unsupported number of arguments: " + x)
           }
           Right(env.+(name -> function), function)
@@ -169,6 +168,23 @@ object Evaluator {
                   printer.text(x, y, heightValue, textValue)
                   Right(env -> Unit)
                 })
+              )
+            )
+          )
+
+        case TextBoxExpr(centerX, centerY, width, height, text) =>
+          getValue[Double](centerX, env, printer).right.flatMap(x =>
+            getValue[Double](centerY, env, printer).right.flatMap(y =>
+              getValue[Double](width, env, printer).right.flatMap(w =>
+                getValue[Double](height, env, printer).right.flatMap(heightValue =>
+                  getValue[Any](text, env, printer).right.flatMap(textValue => {
+                    val length = textValue.toString.length * 0.3 * heightValue
+                    drawingCenter = updateBoundingBox(x + length/(length/w), y - heightValue*length/w.ceil)
+                    drawingCenter = updateBoundingBox(x,y + heightValue)
+                    printer.textBox(x, y, w, heightValue, textValue)
+                    Right(env -> Unit)
+                  })
+                )
               )
             )
           )
@@ -213,32 +229,32 @@ object Evaluator {
 
         case RefExpr(name, params) =>
           env.get(name).fold[Value](Left(s"Failed to find function '$name'. Please check if it has been declared.")) {
-            case f: Function0[Any] => Right(env -> f())
-            case f: Function1[Any, Any] => {
-              eval(params(0), env, printer).right.flatMap(a => Right(a._1 -> f.apply(a._2)))
+            case f: Function1[Printer, Any] => Right(env -> f(printer))
+            case f: Function2[Printer, Any, Any] => {
+              eval(params(0), env, printer).right.flatMap(a => Right(a._1 -> f.apply(printer, a._2)))
             }
-            case f: Function2[Any, Any, Any] => {
+            case f: Function3[Printer, Any, Any, Any] => {
               eval(params(0), env, printer).right.flatMap(a =>
                 eval(params(1), a._1, printer).right.flatMap(b =>
-                  Right(b._1 -> f.apply(a._2, b._2))
+                  Right(b._1 -> f.apply(printer, a._2, b._2))
                 )
               )
             }
-            case f: Function3[Any, Any, Any, Any] => {
+            case f: Function4[Printer, Any, Any, Any, Any] => {
               eval(params(0), env, printer).right.flatMap(a =>
                 eval(params(1), a._1, printer).right.flatMap(b =>
                   eval(params(2), b._1, printer).right.flatMap(c =>
-                    Right(b._1 -> f.apply(a._2, b._2, c._2))
+                    Right(b._1 -> f.apply(printer, a._2, b._2, c._2))
                   )
                 )
               )
             }
-            case f: Function4[Any, Any, Any, Any, Any] => {
+            case f: Function5[Printer, Any, Any, Any, Any, Any] => {
               eval(params(0), env, printer).right.flatMap(a =>
                 eval(params(1), a._1, printer).right.flatMap(b =>
                   eval(params(2), b._1, printer).right.flatMap(c =>
                     eval(params(3), c._1, printer).right.flatMap(d =>
-                      Right(c._1 -> f.apply(a._2, b._2, c._2, d._2))
+                      Right(c._1 -> f.apply(printer, a._2, b._2, c._2, d._2))
                     )
                   )
                 )

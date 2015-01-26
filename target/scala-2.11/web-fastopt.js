@@ -2418,24 +2418,6 @@ ScalaJS.i.sjsr_RuntimeString$class__lastIndexOf__sjsr_RuntimeString__T__I = (fun
 ScalaJS.i.sjsr_RuntimeString$class__replace__sjsr_RuntimeString__jl_CharSequence__jl_CharSequence__T = (function($$this, target, replacement) {
   return ScalaJS.as.T($$this["split"](ScalaJS.objectToString(target))["join"](ScalaJS.objectToString(replacement)))
 });
-ScalaJS.is.F0 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.F0)))
-});
-ScalaJS.as.F0 = (function(obj) {
-  return ((ScalaJS.is.F0(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "scala.Function0"))
-});
-ScalaJS.isArrayOf.F0 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.F0)))
-});
-ScalaJS.asArrayOf.F0 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.F0(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lscala.Function0;", depth))
-});
-ScalaJS.d.F0 = new ScalaJS.ClassTypeData({
-  F0: 0
-}, true, "scala.Function0", (void 0), {
-  F0: 1,
-  O: 1
-});
 ScalaJS.is.F1 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.F1)))
 });
@@ -2506,6 +2488,24 @@ ScalaJS.d.F4 = new ScalaJS.ClassTypeData({
   F4: 0
 }, true, "scala.Function4", (void 0), {
   F4: 1,
+  O: 1
+});
+ScalaJS.is.F5 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.F5)))
+});
+ScalaJS.as.F5 = (function(obj) {
+  return ((ScalaJS.is.F5(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "scala.Function5"))
+});
+ScalaJS.isArrayOf.F5 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.F5)))
+});
+ScalaJS.asArrayOf.F5 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.F5(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lscala.Function5;", depth))
+});
+ScalaJS.d.F5 = new ScalaJS.ClassTypeData({
+  F5: 0
+}, true, "scala.Function5", (void 0), {
+  F5: 1,
   O: 1
 });
 /** @constructor */
@@ -2600,6 +2600,42 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.line__D__D__D__D__V = (function(
   this.context$1["lineWidth"] = (0.2 * ScalaJS.m.Lcom_repocad_web_package().paperScale$1);
   this.context$1["closePath"]()
 });
+ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.textBox__D__D__D__D__O__V = (function(x, y, w, h, t) {
+  var text = ScalaJS.objectToString(t);
+  var correctedH = (h / 1.5);
+  var elem$1 = 0.0;
+  elem$1 = y;
+  var length = ((ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(ScalaJS.objectToString(t)) * 0.3) * h);
+  var lines = (length / w);
+  var this$3 = new ScalaJS.c.sci_StringOps().init___T(text);
+  var this$4 = ScalaJS.m.sci_List();
+  var cbf = this$4.ReusableCBFInstance$2;
+  var elem = ScalaJS.as.sci_List(ScalaJS.i.sc_TraversableLike$class__to__sc_TraversableLike__scg_CanBuildFrom__O(this$3, cbf));
+  var elem$1$1 = null;
+  elem$1$1 = elem;
+  var chars = ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(text);
+  var charsPerLine = ((chars / lines) | 0);
+  var end = (((lines | 0) + 1) | 0);
+  var this$9 = new ScalaJS.c.sci_Range$Inclusive().init___I__I__I(1, end, 1);
+  this$9.scala$collection$immutable$Range$$validateMaxLength__V();
+  var isCommonCase = ((this$9.start$4 !== (-2147483648)) || (this$9.end$4 !== (-2147483648)));
+  var i = this$9.start$4;
+  var count = 0;
+  var terminal = this$9.terminalElement$4;
+  var step = this$9.step$4;
+  while ((isCommonCase ? (i !== terminal) : (count < this$9.numRangeElements$4))) {
+    var i$2 = i;
+    var myFont = (ScalaJS.objectToString(correctedH) + "px Arial");
+    var str = ScalaJS.as.sci_List(elem$1$1).take__I__sci_List(charsPerLine);
+    elem$1$1 = ScalaJS.as.sci_List(elem$1$1).takeRight__I__sci_List(((chars - ScalaJS.imul(charsPerLine, i$2)) | 0));
+    this.context$1["font"] = myFont;
+    this.context$1["fillStyle"] = "black";
+    this.context$1["fillText"](ScalaJS.i.sc_TraversableOnce$class__mkString__sc_TraversableOnce__T__T__T__T(str, "", "", ""), x, elem$1);
+    elem$1 = (elem$1 + h);
+    count = ((count + 1) | 0);
+    i = ((i + step) | 0)
+  }
+});
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.circle__D__D__D__V = (function(x, y, r) {
   this.context$1["beginPath"]();
   this.context$1["arc"](x, (-y), r, 0.0, 6.283185307179586);
@@ -2614,12 +2650,22 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.arc__D__D__D__D__D__V = (functio
   this.context$1["lineWidth"] = (0.2 * ScalaJS.m.Lcom_repocad_web_package().paperScale$1);
   this.context$1["closePath"]()
 });
+ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.screenText__D__D__D__O__V = (function(x, y, size, t) {
+  this.context$1["font"] = (ScalaJS.objectToString(size) + " pt Arial");
+  this.context$1["fillStyle"] = "black";
+  this.context$1["save"]();
+  this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+  this.context$1["fillText"](ScalaJS.objectToString(t), x, y);
+  this.context$1["restore"]()
+});
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
   var correctedH = (h / 1.5);
+  this.context$1["save"]();
   var myFont = (ScalaJS.objectToString(correctedH) + "px Arial");
   this.context$1["font"] = myFont;
   this.context$1["fillStyle"] = "black";
-  this.context$1["fillText"](ScalaJS.objectToString(t), x, (-y))
+  this.context$1["fillText"](ScalaJS.objectToString(t), x, (-y));
+  this.context$1["restore"]()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.drawPaper__V = (function() {
   ScalaJS.m.Lcom_repocad_web_package().canvasCorner$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"]), ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"]));
@@ -2649,7 +2695,9 @@ ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.drawPaper__V = (function() {
     var jsx$7 = ScalaJS.m.Lcom_repocad_web_package().paperScale$1;
     var this$8 = ScalaJS.m.Lcom_repocad_web_package().paperSize$1;
     this.context$1["fillRect"](x$2, y$2, (ScalaJS.uD(jsx$8) * jsx$7), (ScalaJS.uD(ScalaJS.i.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 1)) * ScalaJS.m.Lcom_repocad_web_package().paperScale$1))
-  }
+  };
+  var txt = ("p a p e r : A 4   i n    s c a l e:   1 :  " + ScalaJS.objectToString(ScalaJS.m.Lcom_repocad_web_package().paperScale$1));
+  this.screenText__D__D__D__O__V(5.0, 10.0, 70.0, txt)
 });
 ScalaJS.c.Lcom_repocad_web_CanvasView.prototype.windowCenter__Lcom_repocad_web_Vector2D = (function() {
   return new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["right"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"])) * 0.5), ((ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["bottom"]) + ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"])) * 0.5))
@@ -3007,12 +3055,6 @@ ScalaJS.h.Lcom_repocad_web_PdfPrinter = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_repocad_web_PdfPrinter.prototype = ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype;
-ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
-  var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), (y1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1)));
-  var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x2 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), (y2 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1)));
-  this.document$1["setLineWidth"](0.1);
-  this.document$1["line"](v1.x$1, v1.y$1, v2.x$1, v2.y$1)
-});
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
   this.landscape$1 = ScalaJS.m.Lcom_repocad_web_Paper().scaleAndRotation__Z();
   this.orientation$1 = "landscape";
@@ -3026,9 +3068,39 @@ ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
   this.document$1["setLineWidth"](0.1);
   return this
 });
+ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
+  var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), (y1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1)));
+  var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((x2 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), (y2 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1)));
+  this.document$1["setLineWidth"](0.1);
+  this.document$1["line"](v1.x$1, v1.y$1, v2.x$1, v2.y$1)
+});
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
   var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x, y));
   this.document$1["circle"](v.x$1, v.y$1, r)
+});
+ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.textBox__D__D__D__D__O__V = (function(x, y, w, h, t) {
+  var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(x, y));
+  this.document$1["setFontSize"]((h * 1.8));
+  var elem = v.y$1;
+  var elem$1 = 0.0;
+  elem$1 = elem;
+  var length = ((ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(ScalaJS.objectToString(t)) * 0.3) * h);
+  var lines = (length / w);
+  var end = (lines | 0);
+  var this$5 = new ScalaJS.c.sci_Range$Inclusive().init___I__I__I(0, end, 1);
+  this$5.scala$collection$immutable$Range$$validateMaxLength__V();
+  var isCommonCase = ((this$5.start$4 !== (-2147483648)) || (this$5.end$4 !== (-2147483648)));
+  var i = this$5.start$4;
+  var count = 0;
+  var terminal = this$5.terminalElement$4;
+  var step = this$5.step$4;
+  while ((isCommonCase ? (i !== terminal) : (count < this$5.numRangeElements$4))) {
+    var i$2 = i;
+    this.document$1["text"]((v.x$1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), (elem$1 / ScalaJS.m.Lcom_repocad_web_package().paperScale$1), ScalaJS.objectToString(t));
+    elem$1 = (elem$1 + h);
+    count = ((count + 1) | 0);
+    i = ((i + step) | 0)
+  }
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D = (function(v) {
   if ((!this.landscape$1)) {
@@ -3175,11 +3247,32 @@ ScalaJS.d.Lcom_repocad_web_PdfPrinter = new ScalaJS.ClassTypeData({
   O: 1
 });
 ScalaJS.c.Lcom_repocad_web_PdfPrinter.prototype.$classData = ScalaJS.d.Lcom_repocad_web_PdfPrinter;
+ScalaJS.is.Lcom_repocad_web_Printer = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_Printer)))
+});
+ScalaJS.as.Lcom_repocad_web_Printer = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_Printer(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.Printer"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_Printer = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_Printer)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_Printer = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_Printer(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.Printer;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_Printer = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_Printer: 0
+}, true, "com.repocad.web.Printer", (void 0), {
+  Lcom_repocad_web_Printer: 1,
+  O: 1
+});
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_Repocad = (function() {
   ScalaJS.c.O.call(this);
   this.com$repocad$web$Repocad$$input$f = null;
   this.debug$1 = null;
+  this.com$repocad$web$Repocad$$title$f = null;
+  this.searchDrawing$1 = null;
+  this.newDrawing$1 = null;
   this.view$1 = null;
   this.drawing$1 = null;
   this.mousePosition$1 = null;
@@ -3204,11 +3297,39 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init__V = (function() {
   this.view$1.init__V();
   var listener = new ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5().init___Lcom_repocad_web_Repocad(this);
   this.loadDrawing__Lcom_repocad_web_Drawing__V(this.drawing$1);
-  ScalaJS.m.Lcom_repocad_web_Drawing().setHashListener__F1__V(listener)
+  this.com$repocad$web$Repocad$$title$f["value"] = this.drawing$1.name$1;
+  ScalaJS.m.Lcom_repocad_web_Drawing().setHashListener__F1__V(listener);
+  this.com$repocad$web$Repocad$$title$f["onkeydown"] = (function(arg$outer, listener$1) {
+    return (function(e$2) {
+      var e = e$2;
+      if ((ScalaJS.uI(e["keyCode"]) === 13)) {
+        listener$1.apply__O__O(ScalaJS.as.T(arg$outer.com$repocad$web$Repocad$$title$f["value"]));
+        ScalaJS.g["window"]["location"]["hash"] = ScalaJS.as.T(arg$outer.com$repocad$web$Repocad$$title$f["value"])
+      }
+    })
+  })(this, listener);
+  this.searchDrawing$1["onclick"] = (function(arg$outer$1, listener$1$1) {
+    return (function(e$2$1) {
+      listener$1$1.apply__O__O(ScalaJS.as.T(arg$outer$1.com$repocad$web$Repocad$$title$f["value"]));
+      ScalaJS.g["window"]["location"]["hash"] = ScalaJS.as.T(arg$outer$1.com$repocad$web$Repocad$$title$f["value"])
+    })
+  })(this, listener);
+  this.newDrawing$1["onclick"] = (function(listener$1$2) {
+    return (function(e$2$2) {
+      var title = ScalaJS.objectToString(ScalaJS.g["prompt"]("Name the new drawing"));
+      if (((title !== null) && (!ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z(title)))) {
+        listener$1$2.apply__O__O(title);
+        ScalaJS.g["window"]["location"]["hash"] = title
+      }
+    })
+  })(listener)
 });
-ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLTextAreaElement__Lorg_scalajs_dom_HTMLDivElement = (function(canvas, input, debug) {
+ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLTextAreaElement__Lorg_scalajs_dom_HTMLDivElement__Lorg_scalajs_dom_HTMLInputElement__Lorg_scalajs_dom_HTMLButtonElement__Lorg_scalajs_dom_HTMLButtonElement = (function(canvas, input, debug, title, searchDrawing, newDrawing) {
   this.com$repocad$web$Repocad$$input$f = input;
   this.debug$1 = debug;
+  this.com$repocad$web$Repocad$$title$f = title;
+  this.searchDrawing$1 = searchDrawing;
+  this.newDrawing$1 = newDrawing;
   this.view$1 = new ScalaJS.c.Lcom_repocad_web_CanvasView().init___Lorg_scalajs_dom_HTMLCanvasElement(canvas);
   this.drawing$1 = ScalaJS.m.Lcom_repocad_web_Drawing().apply__Lcom_repocad_web_Drawing();
   this.mousePosition$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(0.0, 0.0);
@@ -3241,19 +3362,35 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
       arg$outer$2.mousePosition$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$3["clientX"]), ScalaJS.uI(e$3["clientY"]))
     })
   })(this);
-  canvas["onmousemove"] = (function(f) {
+  canvas["onmousemove"] = (function(arg$outer$3) {
+    return (function(e$2$3) {
+      var e$4 = e$2$3;
+      if (arg$outer$3.mouseDown$1) {
+        var $$this = arg$outer$3.zoomLevel$1;
+        var zoomFactor = (($$this < 0) ? (-$$this) : $$this);
+        var newZ1 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 1.1));
+        var newZ2 = ScalaJS.uD(ScalaJS.g["Math"]["pow"](zoomFactor, 0.5));
+        var newV = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e$4["clientX"]), ScalaJS.uI(e$4["clientY"]));
+        if ((arg$outer$3.zoomLevel$1 < 0)) {
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 * newZ1), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 * newZ1))
+        } else if ((arg$outer$3.zoomLevel$1 > 0)) {
+          arg$outer$3.view$1.translate__D__D__V((newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1 / newZ2), (newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1 / newZ2))
+        } else {
+          arg$outer$3.view$1.translate__D__D__V(newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).x$1, newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(arg$outer$3.mousePosition$1).y$1)
+        };
+        arg$outer$3.mousePosition$1 = newV;
+        arg$outer$3.eval__Lcom_repocad_web_parsing_Expr__V(arg$outer$3.lastAst$1)
+      }
+    })
+  })(this);
+  canvas["onmouseleave"] = (function(f) {
     return (function(arg1) {
       return f.apply__O__O(arg1)
     })
-  })(new ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4().init___Lcom_repocad_web_Repocad(this));
-  canvas["onmouseleave"] = (function(f$1) {
+  })(this.mouseExit$1);
+  canvas["onmouseup"] = (function(f$1) {
     return (function(arg1$1) {
       return f$1.apply__O__O(arg1$1)
-    })
-  })(this.mouseExit$1);
-  canvas["onmouseup"] = (function(f$2) {
-    return (function(arg1$2) {
-      return f$2.apply__O__O(arg1$2)
     })
   })(this.mouseExit$1);
   return this
@@ -3379,12 +3516,15 @@ ScalaJS.d.Lcom_repocad_web_Repocad = new ScalaJS.ClassTypeData({
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.$classData = ScalaJS.d.Lcom_repocad_web_Repocad;
 /** @constructor */
-ScalaJS.e["Repocad"] = (function(arg$1, arg$2, arg$3) {
+ScalaJS.e["Repocad"] = (function(arg$1, arg$2, arg$3, arg$4, arg$5, arg$6) {
   ScalaJS.c.Lcom_repocad_web_Repocad.call(this);
   arg$1 = arg$1;
   arg$2 = arg$2;
   arg$3 = arg$3;
-  this.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLTextAreaElement__Lorg_scalajs_dom_HTMLDivElement(arg$1, arg$2, arg$3)
+  arg$4 = arg$4;
+  arg$5 = arg$5;
+  arg$6 = arg$6;
+  this.init___Lorg_scalajs_dom_HTMLCanvasElement__Lorg_scalajs_dom_HTMLTextAreaElement__Lorg_scalajs_dom_HTMLDivElement__Lorg_scalajs_dom_HTMLInputElement__Lorg_scalajs_dom_HTMLButtonElement__Lorg_scalajs_dom_HTMLButtonElement(arg$1, arg$2, arg$3, arg$4, arg$5, arg$6)
 });
 ScalaJS.e["Repocad"].prototype = ScalaJS.c.Lcom_repocad_web_Repocad.prototype;
 /** @constructor */
@@ -3795,8 +3935,8 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.com$repocad$web$evalu
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either = (function(expr, env, printer) {
   try {
-    var rc22 = false;
-    var x13 = null;
+    var rc23 = false;
+    var x14 = null;
     if (ScalaJS.is.Lcom_repocad_web_parsing_ArcExpr(expr)) {
       var x2 = ScalaJS.as.Lcom_repocad_web_parsing_ArcExpr(expr);
       var centerX = x2.centerX$1;
@@ -3898,56 +4038,61 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_we
       switch (x1$3) {
         case 0:
           {
-            var function$2 = new ScalaJS.c.sjsr_AnonFunction0().init___sjs_js_Function0((function(env$1, printer$1, body$1) {
-              return (function() {
-                return ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1, env$1, printer$1)
+            var function$2 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(env$1, body$1) {
+              return (function(p$2) {
+                var p = ScalaJS.as.Lcom_repocad_web_Printer(p$2);
+                return ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1, env$1, p)
               })
-            })(env, printer, body));
+            })(env, body));
             break
           };
         case 1:
           {
-            var function$2 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(env$1$1, printer$1$1, params$1, body$1$1) {
-              return (function(a$2$1) {
+            var function$2 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(env$1$1, params$1, body$1$1) {
+              return (function(p$2$1, a$2$1) {
+                var p$1 = ScalaJS.as.Lcom_repocad_web_Printer(p$2$1);
                 var jsx$3 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator();
                 var $$this$2 = params$1.apply__I__O(0);
-                return jsx$3.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1$1, env$1$1.$$plus__T2__sci_Map(new ScalaJS.c.T2().init___O__O($$this$2, a$2$1)), printer$1$1)
+                return jsx$3.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1$1, env$1$1.$$plus__T2__sci_Map(new ScalaJS.c.T2().init___O__O($$this$2, a$2$1)), p$1)
               })
-            })(env, printer, params, body));
+            })(env, params, body));
             break
           };
         case 2:
           {
-            var function$2 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(env$1$2, printer$1$2, params$1$1, body$1$2) {
-              return (function(a$2$2, b$2$1) {
+            var function$2 = new ScalaJS.c.sjsr_AnonFunction3().init___sjs_js_Function3((function(env$1$2, params$1$1, body$1$2) {
+              return (function(p$2$2, a$2$2, b$2$1) {
+                var p$3 = ScalaJS.as.Lcom_repocad_web_Printer(p$2$2);
                 var jsx$5 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator();
                 var $$this$3 = params$1$1.apply__I__O(0);
                 var jsx$4 = new ScalaJS.c.T2().init___O__O($$this$3, a$2$2);
                 var $$this$4 = params$1$1.apply__I__O(1);
-                return jsx$5.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1$2, env$1$2.$$plus__T2__T2__sc_Seq__sci_Map(jsx$4, new ScalaJS.c.T2().init___O__O($$this$4, b$2$1), new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([])), printer$1$2)
+                return jsx$5.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1$2, env$1$2.$$plus__T2__T2__sc_Seq__sci_Map(jsx$4, new ScalaJS.c.T2().init___O__O($$this$4, b$2$1), new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([])), p$3)
               })
-            })(env, printer, params, body));
+            })(env, params, body));
             break
           };
         case 3:
           {
-            var function$2 = new ScalaJS.c.sjsr_AnonFunction3().init___sjs_js_Function3((function(env$1$3, printer$1$3, params$1$2, body$1$3) {
-              return (function(a$2$3, b$2$2, c$2) {
+            var function$2 = new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(env$1$3, params$1$2, body$1$3) {
+              return (function(p$2$3, a$2$3, b$2$2, c$2) {
+                var p$4 = ScalaJS.as.Lcom_repocad_web_Printer(p$2$3);
                 var jsx$8 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator();
                 var $$this$5 = params$1$2.apply__I__O(0);
                 var jsx$7 = new ScalaJS.c.T2().init___O__O($$this$5, a$2$3);
                 var $$this$6 = params$1$2.apply__I__O(1);
                 var jsx$6 = new ScalaJS.c.T2().init___O__O($$this$6, b$2$2);
                 var $$this$7 = params$1$2.apply__I__O(2);
-                return jsx$8.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1$3, env$1$3.$$plus__T2__T2__sc_Seq__sci_Map(jsx$7, jsx$6, new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([new ScalaJS.c.T2().init___O__O($$this$7, c$2)])), printer$1$3)
+                return jsx$8.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1$3, env$1$3.$$plus__T2__T2__sc_Seq__sci_Map(jsx$7, jsx$6, new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([new ScalaJS.c.T2().init___O__O($$this$7, c$2)])), p$4)
               })
-            })(env, printer, params, body));
+            })(env, params, body));
             break
           };
         case 4:
           {
-            var function$2 = new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(env$1$4, printer$1$4, params$1$3, body$1$4) {
-              return (function(a$2$4, b$2$3, c$2$1, d$2) {
+            var function$2 = new ScalaJS.c.sjsr_AnonFunction5().init___sjs_js_Function5((function(env$1$4, params$1$3, body$1$4) {
+              return (function(p$2$4, a$2$4, b$2$3, c$2$1, d$2) {
+                var p$5 = ScalaJS.as.Lcom_repocad_web_Printer(p$2$4);
                 var jsx$12 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator();
                 var $$this$8 = params$1$3.apply__I__O(0);
                 var jsx$11 = new ScalaJS.c.T2().init___O__O($$this$8, a$2$4);
@@ -3956,9 +4101,9 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_we
                 var $$this$10 = params$1$3.apply__I__O(2);
                 var jsx$9 = new ScalaJS.c.T2().init___O__O($$this$10, c$2$1);
                 var $$this$11 = params$1$3.apply__I__O(3);
-                return jsx$12.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1$4, env$1$4.$$plus__T2__T2__sc_Seq__sci_Map(jsx$11, jsx$10, new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([jsx$9, new ScalaJS.c.T2().init___O__O($$this$11, d$2)])), printer$1$4)
+                return jsx$12.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$1$4, env$1$4.$$plus__T2__T2__sc_Seq__sci_Map(jsx$11, jsx$10, new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([jsx$9, new ScalaJS.c.T2().init___O__O($$this$11, d$2)])), p$5)
               })
-            })(env, printer, params, body));
+            })(env, params, body));
             break
           };
         default:
@@ -3990,42 +4135,52 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_we
       var this$43 = this.getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(centerX$3, env, printer);
       return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$43).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$7().init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(env, printer, centerY$3, height, text$2))
     };
+    if (ScalaJS.is.Lcom_repocad_web_parsing_TextBoxExpr(expr)) {
+      var x9 = ScalaJS.as.Lcom_repocad_web_parsing_TextBoxExpr(expr);
+      var centerX$4 = x9.centerX$1;
+      var centerY$4 = x9.centerY$1;
+      var width = x9.width$1;
+      var height$2 = x9.size$1;
+      var text$3 = x9.t$1;
+      var this$44 = this.getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(centerX$4, env, printer);
+      return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$44).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8().init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(env, printer, centerY$4, width, height$2, text$3))
+    };
     if (ScalaJS.is.Lcom_repocad_web_parsing_ConstantExpr(expr)) {
-      var x9 = ScalaJS.as.Lcom_repocad_web_parsing_ConstantExpr(expr);
-      var value = x9.value$1;
+      var x10 = ScalaJS.as.Lcom_repocad_web_parsing_ConstantExpr(expr);
+      var value = x10.value$1;
       ScalaJS.m.s_package().Right$1;
       var b$5 = new ScalaJS.c.T2().init___O__O(env, value);
       return new ScalaJS.c.s_util_Right().init___O(b$5)
     };
     if (ScalaJS.is.Lcom_repocad_web_parsing_CompExpr(expr)) {
-      var x10 = ScalaJS.as.Lcom_repocad_web_parsing_CompExpr(expr);
-      var e1$2 = x10.e1$1;
-      var e2$2 = x10.e2$1;
-      var op = x10.op$1;
+      var x11 = ScalaJS.as.Lcom_repocad_web_parsing_CompExpr(expr);
+      var e1$2 = x11.e1$1;
+      var e2$2 = x11.e2$1;
+      var op = x11.op$1;
       return ScalaJS.as.s_util_Either(this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(e1$2, env, printer).fold__F1__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(e$2) {
         var e = ScalaJS.as.T(e$2);
         ScalaJS.m.s_package().Left$1;
         return new ScalaJS.c.s_util_Left().init___O(e)
-      })), new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9().init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T(env, printer, e2$2, op)))
+      })), new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10().init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T(env, printer, e2$2, op)))
     };
     if (ScalaJS.is.Lcom_repocad_web_parsing_OpExpr(expr)) {
-      var x11 = ScalaJS.as.Lcom_repocad_web_parsing_OpExpr(expr);
-      var e1$3 = x11.e1$1;
-      var e2$3 = x11.e2$1;
-      var op$2 = x11.op$1;
-      var this$48 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(e1$3, env, printer);
-      return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$48).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10().init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T(env, printer, e2$3, op$2))
+      var x12 = ScalaJS.as.Lcom_repocad_web_parsing_OpExpr(expr);
+      var e1$3 = x12.e1$1;
+      var e2$3 = x12.e2$1;
+      var op$2 = x12.op$1;
+      var this$49 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(e1$3, env, printer);
+      return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$49).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11().init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T(env, printer, e2$3, op$2))
     };
     if (ScalaJS.is.Lcom_repocad_web_parsing_RangeExpr(expr)) {
-      var x12 = ScalaJS.as.Lcom_repocad_web_parsing_RangeExpr(expr);
-      var name$3 = x12.name$1;
-      var from = x12.from$1;
-      var to = x12.to$1;
-      var this$49 = env.get__O__s_Option(name$3);
-      if (this$49.isEmpty__Z()) {
-        var this$53 = ScalaJS.m.s_None()
+      var x13 = ScalaJS.as.Lcom_repocad_web_parsing_RangeExpr(expr);
+      var name$3 = x13.name$1;
+      var from = x13.from$1;
+      var to = x13.to$1;
+      var this$50 = env.get__O__s_Option(name$3);
+      if (this$50.isEmpty__Z()) {
+        var this$54 = ScalaJS.m.s_None()
       } else {
-        var x0$1$2 = this$49.get__O();
+        var x0$1$2 = this$50.get__O();
         if (ScalaJS.isInt(x0$1$2)) {
           var x2$3 = ScalaJS.uI(x0$1$2);
           ScalaJS.m.s_package().Right$1;
@@ -4041,19 +4196,19 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_we
           var a$4 = new ScalaJS.c.s_StringContext().init___sc_Seq(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array(["Cannot parse ", " to int"])).s__sc_Seq__T(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([x0$1$2]));
           var jsx$13 = new ScalaJS.c.s_util_Left().init___O(a$4)
         };
-        var this$53 = new ScalaJS.c.s_Some().init___O(jsx$13)
+        var this$54 = new ScalaJS.c.s_Some().init___O(jsx$13)
       };
-      var fromOption = ScalaJS.as.s_util_Either((this$53.isEmpty__Z() ? ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(from, env, printer) : this$53.get__O()));
+      var fromOption = ScalaJS.as.s_util_Either((this$54.isEmpty__Z() ? ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(from, env, printer) : this$54.get__O()));
       var toOption = this.getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(to, env, printer);
-      return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(fromOption).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11().init___sci_Map__T__s_util_Either(env, name$3, toOption))
+      return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(fromOption).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12().init___sci_Map__T__s_util_Either(env, name$3, toOption))
     };
     if (ScalaJS.is.Lcom_repocad_web_parsing_RefExpr(expr)) {
-      rc22 = true;
-      x13 = ScalaJS.as.Lcom_repocad_web_parsing_RefExpr(expr);
-      if (((x13.params$1 !== null) && (x13.params$1.lengthCompare__I__I(1) === 0))) {
-        var name$4 = x13.name$1;
-        var params$2 = ScalaJS.as.sc_Seq(x13.params$1.apply__I__O(0));
-        var this$55 = env.get__O__s_Option(name$4);
+      rc23 = true;
+      x14 = ScalaJS.as.Lcom_repocad_web_parsing_RefExpr(expr);
+      if (((x14.params$1 !== null) && (x14.params$1.lengthCompare__I__I(1) === 0))) {
+        var name$4 = x14.name$1;
+        var params$2 = ScalaJS.as.sc_Seq(x14.params$1.apply__I__O(0));
+        var this$56 = env.get__O__s_Option(name$4);
         var ifEmpty = new ScalaJS.c.sjsr_AnonFunction0().init___sjs_js_Function0((function(name$3$1) {
           return (function() {
             ScalaJS.m.s_package().Left$1;
@@ -4061,26 +4216,26 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_we
             return new ScalaJS.c.s_util_Left().init___O(a$5)
           })
         })(name$4));
-        var f = new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13().init___sci_Map__Lcom_repocad_web_Printer__sc_Seq(env, printer, params$2);
-        if (this$55.isEmpty__Z()) {
+        var f = new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14().init___sci_Map__Lcom_repocad_web_Printer__sc_Seq(env, printer, params$2);
+        if (this$56.isEmpty__Z()) {
           var jsx$14 = ifEmpty.apply__O()
         } else {
-          var v1 = this$55.get__O();
+          var v1 = this$56.get__O();
           var jsx$14 = f.apply__O__s_util_Either(v1)
         };
         return ScalaJS.as.s_util_Either(jsx$14)
       }
     };
-    if (rc22) {
-      if (((x13.params$1 !== null) && (x13.params$1.lengthCompare__I__I(0) === 0))) {
-        var name$5 = x13.name$1;
-        var this$56 = env.get__O__s_Option(name$5);
-        if (this$56.isEmpty__Z()) {
+    if (rc23) {
+      if (((x14.params$1 !== null) && (x14.params$1.lengthCompare__I__I(0) === 0))) {
+        var name$5 = x14.name$1;
+        var this$57 = env.get__O__s_Option(name$5);
+        if (this$57.isEmpty__Z()) {
           ScalaJS.m.s_package().Left$1;
           var a$6 = new ScalaJS.c.s_StringContext().init___sc_Seq(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array(["Failed to find function '", "'. Please check if it has been declared."])).s__sc_Seq__T(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([name$5]));
           var jsx$15 = new ScalaJS.c.s_util_Left().init___O(a$6)
         } else {
-          var x$2 = this$56.get__O();
+          var x$2 = this$57.get__O();
           ScalaJS.m.s_package().Right$1;
           var b$8 = new ScalaJS.c.T2().init___O__O(env, x$2);
           var jsx$15 = new ScalaJS.c.s_util_Right().init___O(b$8)
@@ -4089,8 +4244,8 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_we
       }
     };
     if (ScalaJS.is.Lcom_repocad_web_parsing_SeqExpr(expr)) {
-      var x17 = ScalaJS.as.Lcom_repocad_web_parsing_SeqExpr(expr);
-      return this.com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__Lcom_repocad_web_Printer__s_util_Either(x17.expr$1.iterator__sc_Iterator(), env, printer)
+      var x18 = ScalaJS.as.Lcom_repocad_web_parsing_SeqExpr(expr);
+      return this.com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__Lcom_repocad_web_Printer__s_util_Either(x18.expr$1.iterator__sc_Iterator(), env, printer)
     };
     if (ScalaJS.anyRefEqEq(ScalaJS.m.Lcom_repocad_web_parsing_UnitExpr(), expr)) {
       ScalaJS.m.s_package().Right$1;
@@ -4099,18 +4254,18 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_we
       return new ScalaJS.c.s_util_Right().init___O(b$9)
     };
     if (ScalaJS.is.Lcom_repocad_web_parsing_ValExpr(expr)) {
-      var x15 = ScalaJS.as.Lcom_repocad_web_parsing_ValExpr(expr);
-      var name$6 = x15.name$1;
-      var value$2 = x15.value$1;
-      var this$64 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(value$2, env, printer);
-      if (ScalaJS.is.s_util_Left(this$64)) {
-        var x2$4 = ScalaJS.as.s_util_Left(this$64);
+      var x16 = ScalaJS.as.Lcom_repocad_web_parsing_ValExpr(expr);
+      var name$6 = x16.name$1;
+      var value$2 = x16.value$1;
+      var this$65 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(value$2, env, printer);
+      if (ScalaJS.is.s_util_Left(this$65)) {
+        var x2$4 = ScalaJS.as.s_util_Left(this$65);
         var a$7 = x2$4.a$2;
         var x$1 = ScalaJS.as.T(a$7);
         ScalaJS.m.s_package().Left$1;
         var jsx$16 = new ScalaJS.c.s_util_Left().init___O(x$1)
-      } else if (ScalaJS.is.s_util_Right(this$64)) {
-        var x3$4 = ScalaJS.as.s_util_Right(this$64);
+      } else if (ScalaJS.is.s_util_Right(this$65)) {
+        var x3$4 = ScalaJS.as.s_util_Right(this$65);
         var b$10 = x3$4.b$2;
         var value$1 = ScalaJS.as.T2(b$10);
         ScalaJS.m.s_package().Right$1;
@@ -4121,14 +4276,14 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_we
         var jsx$16 = new ScalaJS.c.s_util_Right().init___O(b$11)
       } else {
         var jsx$16;
-        throw new ScalaJS.c.s_MatchError().init___O(this$64)
+        throw new ScalaJS.c.s_MatchError().init___O(this$65)
       };
       return ScalaJS.as.s_util_Either(jsx$16)
     };
     if (ScalaJS.is.Lcom_repocad_web_parsing_LoopExpr(expr)) {
-      var x16 = ScalaJS.as.Lcom_repocad_web_parsing_LoopExpr(expr);
-      var condition = x16.condition$1;
-      var body$2 = x16.body$1;
+      var x17 = ScalaJS.as.Lcom_repocad_web_parsing_LoopExpr(expr);
+      var condition = x17.condition$1;
+      var body$2 = x17.body$1;
       if ((condition !== null)) {
         if ((body$2 !== null)) {
           var loopEnv = new ScalaJS.c.sr_ObjectRef().init___O(env);
@@ -4139,57 +4294,57 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_we
           elem$1$1 = elem$1;
           while (true) {
             if (ScalaJS.as.s_Option(elem$1$1).isEmpty__Z()) {
-              var this$74 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(condition, ScalaJS.as.sci_Map(loopEnv.elem$1), printer);
-              if (ScalaJS.is.s_util_Left(this$74)) {
-                var x2$5 = ScalaJS.as.s_util_Left(this$74);
+              var this$75 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(condition, ScalaJS.as.sci_Map(loopEnv.elem$1), printer);
+              if (ScalaJS.is.s_util_Left(this$75)) {
+                var x2$5 = ScalaJS.as.s_util_Left(this$75);
                 var a$8 = x2$5.a$2;
                 var error = ScalaJS.as.T(a$8);
                 elem$1$1 = new ScalaJS.c.s_Some().init___O(error);
                 var jsx$17 = false
-              } else if (ScalaJS.is.s_util_Right(this$74)) {
-                var x3$5 = ScalaJS.as.s_util_Right(this$74);
+              } else if (ScalaJS.is.s_util_Right(this$75)) {
+                var x3$5 = ScalaJS.as.s_util_Right(this$75);
                 var b$12 = x3$5.b$2;
                 var v$1 = ScalaJS.as.T2(b$12);
                 loopEnv.elem$1 = ScalaJS.as.sci_Map(v$1.$$und1$f);
                 var jsx$17 = ScalaJS.uZ(v$1.$$und2$f)
               } else {
                 var jsx$17;
-                throw new ScalaJS.c.s_MatchError().init___O(this$74)
+                throw new ScalaJS.c.s_MatchError().init___O(this$75)
               }
             } else {
               var jsx$17 = false
             };
             if (jsx$17) {
-              var this$75 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$2, ScalaJS.as.sci_Map(loopEnv.elem$1), printer);
-              if (ScalaJS.is.s_util_Left(this$75)) {
-                var x2$6 = ScalaJS.as.s_util_Left(this$75);
+              var this$76 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$2, ScalaJS.as.sci_Map(loopEnv.elem$1), printer);
+              if (ScalaJS.is.s_util_Left(this$76)) {
+                var x2$6 = ScalaJS.as.s_util_Left(this$76);
                 var a$9 = x2$6.a$2;
                 var s = ScalaJS.as.T(a$9);
                 elem$1$1 = new ScalaJS.c.s_Some().init___O(s)
-              } else if (ScalaJS.is.s_util_Right(this$75)) {
-                var x3$6 = ScalaJS.as.s_util_Right(this$75);
+              } else if (ScalaJS.is.s_util_Right(this$76)) {
+                var x3$6 = ScalaJS.as.s_util_Right(this$76);
                 var b$13 = x3$6.b$2;
                 var x = ScalaJS.as.T2(b$13);
                 lastResult.elem$1 = x.$$und2$f;
                 loopEnv.elem$1 = ScalaJS.as.sci_Map(x.$$und1$f)
               } else {
-                throw new ScalaJS.c.s_MatchError().init___O(this$75)
+                throw new ScalaJS.c.s_MatchError().init___O(this$76)
               }
             } else {
               break
             }
           };
-          var this$76 = ScalaJS.as.s_Option(elem$1$1);
-          if (this$76.isEmpty__Z()) {
-            var this$78 = ScalaJS.m.s_None()
+          var this$77 = ScalaJS.as.s_Option(elem$1$1);
+          if (this$77.isEmpty__Z()) {
+            var this$79 = ScalaJS.m.s_None()
           } else {
-            var x$2$2 = this$76.get__O();
+            var x$2$2 = this$77.get__O();
             var x$2$1 = ScalaJS.as.T(x$2$2);
             ScalaJS.m.s_package().Left$1;
-            var this$78 = new ScalaJS.c.s_Some().init___O(new ScalaJS.c.s_util_Left().init___O(x$2$1))
+            var this$79 = new ScalaJS.c.s_Some().init___O(new ScalaJS.c.s_util_Left().init___O(x$2$1))
           };
-          var default$2 = new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21().init___sci_Map__sr_ObjectRef__sr_ObjectRef(env, loopEnv, lastResult);
-          return ScalaJS.as.s_util_Either((this$78.isEmpty__Z() ? default$2.apply__s_util_Right() : this$78.get__O()))
+          var default$2 = new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22().init___sci_Map__sr_ObjectRef__sr_ObjectRef(env, loopEnv, lastResult);
+          return ScalaJS.as.s_util_Either((this$79.isEmpty__Z() ? default$2.apply__s_util_Right() : this$79.get__O()))
         }
       }
     };
@@ -7177,18 +7332,18 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.seqFailure$1__p1__sr_Object
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either = (function(tokens, success, failure) {
   _parse: while (true) {
     var x1 = tokens;
-    var o160 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o160.isEmpty__Z())) {
-      var p3 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o160.get__O()).$$und1$f);
-      var p4 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o160.get__O()).$$und2$f);
+    var o165 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o165.isEmpty__Z())) {
+      var p3 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o165.get__O()).$$und1$f);
+      var p4 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o165.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p3)) {
         var x5 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p3);
         var p6 = x5.s$1;
         if (ScalaJS.anyRefEqEq("import", p6)) {
-          var o159 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p4);
-          if ((!o159.isEmpty__Z())) {
-            var p8 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o159.get__O()).$$und1$f);
-            var tail = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o159.get__O()).$$und2$f);
+          var o164 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p4);
+          if ((!o164.isEmpty__Z())) {
+            var p8 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o164.get__O()).$$und1$f);
+            var tail = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o164.get__O()).$$und2$f);
             if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p8)) {
               var x9 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p8);
               var script = x9.s$1;
@@ -7198,10 +7353,10 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o162 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o162.isEmpty__Z())) {
-      var p11 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o162.get__O()).$$und1$f);
-      var tail$2 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o162.get__O()).$$und2$f);
+    var o167 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o167.isEmpty__Z())) {
+      var p11 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o167.get__O()).$$und1$f);
+      var tail$2 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o167.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p11)) {
         var x12 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p11);
         var p13 = x12.s$1;
@@ -7213,10 +7368,10 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o164 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o164.isEmpty__Z())) {
-      var p15 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o164.get__O()).$$und1$f);
-      var tail$3 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o164.get__O()).$$und2$f);
+    var o169 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o169.isEmpty__Z())) {
+      var p15 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o169.get__O()).$$und1$f);
+      var tail$3 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o169.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p15)) {
         var x16 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p15);
         var p17 = x16.s$1;
@@ -7228,10 +7383,10 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o166 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o166.isEmpty__Z())) {
-      var p19 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o166.get__O()).$$und1$f);
-      var tail$4 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o166.get__O()).$$und2$f);
+    var o171 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o171.isEmpty__Z())) {
+      var p19 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o171.get__O()).$$und1$f);
+      var tail$4 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o171.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p19)) {
         var x20 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p19);
         var p21 = x20.s$1;
@@ -7243,10 +7398,10 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o168 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o168.isEmpty__Z())) {
-      var p23 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o168.get__O()).$$und1$f);
-      var tail$5 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o168.get__O()).$$und2$f);
+    var o173 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o173.isEmpty__Z())) {
+      var p23 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o173.get__O()).$$und1$f);
+      var tail$5 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o173.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p23)) {
         var x24 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p23);
         var p25 = x24.s$1;
@@ -7258,10 +7413,10 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o170 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o170.isEmpty__Z())) {
-      var p27 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o170.get__O()).$$und1$f);
-      var tail$6 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o170.get__O()).$$und2$f);
+    var o175 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o175.isEmpty__Z())) {
+      var p27 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o175.get__O()).$$und1$f);
+      var tail$6 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o175.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p27)) {
         var x28 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p27);
         var p29 = x28.s$1;
@@ -7273,14 +7428,14 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o172 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o172.isEmpty__Z())) {
-      var p31 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o172.get__O()).$$und1$f);
-      var tail$7 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o172.get__O()).$$und2$f);
+    var o177 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o177.isEmpty__Z())) {
+      var p31 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o177.get__O()).$$und1$f);
+      var tail$7 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o177.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p31)) {
         var x32 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p31);
         var p33 = x32.s$1;
-        if (ScalaJS.anyRefEqEq("while", p33)) {
+        if (ScalaJS.anyRefEqEq("textBox", p33)) {
           var temp$success$6 = new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7().init___F2__F1(success, failure);
           tokens = tail$7;
           success = temp$success$6;
@@ -7288,14 +7443,14 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o174 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o174.isEmpty__Z())) {
-      var p35 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o174.get__O()).$$und1$f);
-      var tail$8 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o174.get__O()).$$und2$f);
+    var o179 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o179.isEmpty__Z())) {
+      var p35 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o179.get__O()).$$und1$f);
+      var tail$8 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o179.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p35)) {
         var x36 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p35);
         var p37 = x36.s$1;
-        if (ScalaJS.anyRefEqEq("for", p37)) {
+        if (ScalaJS.anyRefEqEq("while", p37)) {
           var temp$success$7 = new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8().init___F2__F1(success, failure);
           tokens = tail$8;
           success = temp$success$7;
@@ -7303,52 +7458,43 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o177 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o177.isEmpty__Z())) {
-      var p39 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o177.get__O()).$$und1$f);
-      var p40 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o177.get__O()).$$und2$f);
+    var o181 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o181.isEmpty__Z())) {
+      var p39 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o181.get__O()).$$und1$f);
+      var tail$9 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o181.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p39)) {
-        var x41 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p39);
-        var name = x41.s$1;
-        var o176 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p40);
-        if ((!o176.isEmpty__Z())) {
-          var p43 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o176.get__O()).$$und1$f);
-          var tail$9 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o176.get__O()).$$und2$f);
-          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p43)) {
-            var x44 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p43);
-            var p45 = x44.s$1;
-            if (ScalaJS.anyRefEqEq("=", p45)) {
-              var temp$success$8 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1, name$1) {
+        var x40 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p39);
+        var p41 = x40.s$1;
+        if (ScalaJS.anyRefEqEq("for", p41)) {
+          var temp$success$8 = new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9().init___F2__F1(success, failure);
+          tokens = tail$9;
+          success = temp$success$8;
+          continue _parse
+        }
+      }
+    };
+    var o184 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o184.isEmpty__Z())) {
+      var p43 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o184.get__O()).$$und1$f);
+      var p44 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o184.get__O()).$$und2$f);
+      if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p43)) {
+        var x45 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p43);
+        var name = x45.s$1;
+        var o183 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p44);
+        if ((!o183.isEmpty__Z())) {
+          var p47 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o183.get__O()).$$und1$f);
+          var tail$10 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o183.get__O()).$$und2$f);
+          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p47)) {
+            var x48 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p47);
+            var p49 = x48.s$1;
+            if (ScalaJS.anyRefEqEq("=", p49)) {
+              var temp$success$9 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1, name$1) {
                 return (function(e$2, stream$2) {
                   var e = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e$2);
                   var stream = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(stream$2);
                   return ScalaJS.as.s_util_Either(success$1.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_ValExpr().init___T__Lcom_repocad_web_parsing_Expr(name$1, e), stream))
                 })
               })(success, name));
-              tokens = tail$9;
-              success = temp$success$8;
-              continue _parse
-            }
-          }
-        }
-      }
-    };
-    var o180 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o180.isEmpty__Z())) {
-      var p47 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o180.get__O()).$$und1$f);
-      var p48 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o180.get__O()).$$und2$f);
-      if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p47)) {
-        var x49 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p47);
-        var name$2 = x49.s$1;
-        var o179 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p48);
-        if ((!o179.isEmpty__Z())) {
-          var p51 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o179.get__O()).$$und1$f);
-          var tail$10 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o179.get__O()).$$und2$f);
-          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p51)) {
-            var x52 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p51);
-            var p53 = x52.s$1;
-            if (ScalaJS.anyRefEqEq("<-", p53)) {
-              var temp$success$9 = new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10().init___F2__F1__T(success, failure, name$2);
               tokens = tail$10;
               success = temp$success$9;
               continue _parse
@@ -7357,20 +7503,44 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o183 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o183.isEmpty__Z())) {
-      var start = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o183.get__O()).$$und1$f);
-      var p55 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o183.get__O()).$$und2$f);
+    var o187 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o187.isEmpty__Z())) {
+      var p51 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o187.get__O()).$$und1$f);
+      var p52 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o187.get__O()).$$und2$f);
+      if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p51)) {
+        var x53 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p51);
+        var name$2 = x53.s$1;
+        var o186 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p52);
+        if ((!o186.isEmpty__Z())) {
+          var p55 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o186.get__O()).$$und1$f);
+          var tail$11 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o186.get__O()).$$und2$f);
+          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p55)) {
+            var x56 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p55);
+            var p57 = x56.s$1;
+            if (ScalaJS.anyRefEqEq("<-", p57)) {
+              var temp$success$10 = new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11().init___F2__F1__T(success, failure, name$2);
+              tokens = tail$11;
+              success = temp$success$10;
+              continue _parse
+            }
+          }
+        }
+      }
+    };
+    var o190 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o190.isEmpty__Z())) {
+      var start = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o190.get__O()).$$und1$f);
+      var p59 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o190.get__O()).$$und2$f);
       if ((start !== null)) {
-        var o182 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p55);
-        if ((!o182.isEmpty__Z())) {
-          var p57 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o182.get__O()).$$und1$f);
-          var tail$11 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o182.get__O()).$$und2$f);
-          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p57)) {
-            var x58 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p57);
-            var p59 = x58.s$1;
-            if (ScalaJS.anyRefEqEq(">", p59)) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start, tail$11, ">", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$1) {
+        var o189 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p59);
+        if ((!o189.isEmpty__Z())) {
+          var p61 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o189.get__O()).$$und1$f);
+          var tail$12 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o189.get__O()).$$und2$f);
+          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p61)) {
+            var x62 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p61);
+            var p63 = x62.s$1;
+            if (ScalaJS.anyRefEqEq(">", p63)) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start, tail$12, ">", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$1) {
                 return (function(e1$2, e2$2, op$2, stream$2$1) {
                   var e1 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e1$2);
                   var e2 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e2$2);
@@ -7384,20 +7554,20 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o186 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o186.isEmpty__Z())) {
-      var start$2 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o186.get__O()).$$und1$f);
-      var p61 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o186.get__O()).$$und2$f);
+    var o193 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o193.isEmpty__Z())) {
+      var start$2 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o193.get__O()).$$und1$f);
+      var p65 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o193.get__O()).$$und2$f);
       if ((start$2 !== null)) {
-        var o185 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p61);
-        if ((!o185.isEmpty__Z())) {
-          var p63 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o185.get__O()).$$und1$f);
-          var tail$12 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o185.get__O()).$$und2$f);
-          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p63)) {
-            var x64 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p63);
-            var p65 = x64.s$1;
-            if (ScalaJS.anyRefEqEq("<", p65)) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$2, tail$12, "<", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$2) {
+        var o192 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p65);
+        if ((!o192.isEmpty__Z())) {
+          var p67 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o192.get__O()).$$und1$f);
+          var tail$13 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o192.get__O()).$$und2$f);
+          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p67)) {
+            var x68 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p67);
+            var p69 = x68.s$1;
+            if (ScalaJS.anyRefEqEq("<", p69)) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$2, tail$13, "<", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$2) {
                 return (function(e1$2$1, e2$2$1, op$2$1, stream$2$2) {
                   var e1$1 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e1$2$1);
                   var e2$1 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e2$2$1);
@@ -7411,20 +7581,20 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o189 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o189.isEmpty__Z())) {
-      var start$3 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o189.get__O()).$$und1$f);
-      var p67 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o189.get__O()).$$und2$f);
+    var o196 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o196.isEmpty__Z())) {
+      var start$3 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o196.get__O()).$$und1$f);
+      var p71 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o196.get__O()).$$und2$f);
       if ((start$3 !== null)) {
-        var o188 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p67);
-        if ((!o188.isEmpty__Z())) {
-          var p69 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o188.get__O()).$$und1$f);
-          var tail$13 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o188.get__O()).$$und2$f);
-          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p69)) {
-            var x70 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p69);
-            var p71 = x70.s$1;
-            if (ScalaJS.anyRefEqEq("+", p71)) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$3, tail$13, "+", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$3) {
+        var o195 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p71);
+        if ((!o195.isEmpty__Z())) {
+          var p73 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o195.get__O()).$$und1$f);
+          var tail$14 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o195.get__O()).$$und2$f);
+          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p73)) {
+            var x74 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p73);
+            var p75 = x74.s$1;
+            if (ScalaJS.anyRefEqEq("+", p75)) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$3, tail$14, "+", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$3) {
                 return (function(e1$2$2, e2$2$2, op$2$2, stream$2$3) {
                   var e1$3 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e1$2$2);
                   var e2$3 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e2$2$2);
@@ -7438,20 +7608,20 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o192 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o192.isEmpty__Z())) {
-      var start$4 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o192.get__O()).$$und1$f);
-      var p73 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o192.get__O()).$$und2$f);
+    var o199 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o199.isEmpty__Z())) {
+      var start$4 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o199.get__O()).$$und1$f);
+      var p77 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o199.get__O()).$$und2$f);
       if ((start$4 !== null)) {
-        var o191 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p73);
-        if ((!o191.isEmpty__Z())) {
-          var p75 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o191.get__O()).$$und1$f);
-          var tail$14 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o191.get__O()).$$und2$f);
-          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p75)) {
-            var x76 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p75);
-            var p77 = x76.s$1;
-            if (ScalaJS.anyRefEqEq("-", p77)) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$4, tail$14, "-", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$4) {
+        var o198 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p77);
+        if ((!o198.isEmpty__Z())) {
+          var p79 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o198.get__O()).$$und1$f);
+          var tail$15 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o198.get__O()).$$und2$f);
+          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p79)) {
+            var x80 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p79);
+            var p81 = x80.s$1;
+            if (ScalaJS.anyRefEqEq("-", p81)) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$4, tail$15, "-", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$4) {
                 return (function(e1$2$3, e2$2$3, op$2$3, stream$2$4) {
                   var e1$4 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e1$2$3);
                   var e2$4 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e2$2$3);
@@ -7465,20 +7635,20 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o195 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o195.isEmpty__Z())) {
-      var start$5 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o195.get__O()).$$und1$f);
-      var p79 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o195.get__O()).$$und2$f);
+    var o202 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o202.isEmpty__Z())) {
+      var start$5 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o202.get__O()).$$und1$f);
+      var p83 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o202.get__O()).$$und2$f);
       if ((start$5 !== null)) {
-        var o194 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p79);
-        if ((!o194.isEmpty__Z())) {
-          var p81 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o194.get__O()).$$und1$f);
-          var tail$15 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o194.get__O()).$$und2$f);
-          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p81)) {
-            var x82 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p81);
-            var p83 = x82.s$1;
-            if (ScalaJS.anyRefEqEq("*", p83)) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$5, tail$15, "*", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$5) {
+        var o201 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p83);
+        if ((!o201.isEmpty__Z())) {
+          var p85 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o201.get__O()).$$und1$f);
+          var tail$16 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o201.get__O()).$$und2$f);
+          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p85)) {
+            var x86 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p85);
+            var p87 = x86.s$1;
+            if (ScalaJS.anyRefEqEq("*", p87)) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$5, tail$16, "*", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$5) {
                 return (function(e1$2$4, e2$2$4, op$2$4, stream$2$5) {
                   var e1$5 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e1$2$4);
                   var e2$5 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e2$2$4);
@@ -7492,20 +7662,20 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o198 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o198.isEmpty__Z())) {
-      var start$6 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o198.get__O()).$$und1$f);
-      var p85 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o198.get__O()).$$und2$f);
+    var o205 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o205.isEmpty__Z())) {
+      var start$6 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o205.get__O()).$$und1$f);
+      var p89 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o205.get__O()).$$und2$f);
       if ((start$6 !== null)) {
-        var o197 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p85);
-        if ((!o197.isEmpty__Z())) {
-          var p87 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o197.get__O()).$$und1$f);
-          var tail$16 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o197.get__O()).$$und2$f);
-          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p87)) {
-            var x88 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p87);
-            var p89 = x88.s$1;
-            if (ScalaJS.anyRefEqEq("/", p89)) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$6, tail$16, "/", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$6) {
+        var o204 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p89);
+        if ((!o204.isEmpty__Z())) {
+          var p91 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o204.get__O()).$$und1$f);
+          var tail$17 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o204.get__O()).$$und2$f);
+          if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p91)) {
+            var x92 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p91);
+            var p93 = x92.s$1;
+            if (ScalaJS.anyRefEqEq("/", p93)) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$6, tail$17, "/", new ScalaJS.c.sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$6) {
                 return (function(e1$2$5, e2$2$5, op$2$5, stream$2$6) {
                   var e1$6 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e1$2$5);
                   var e2$6 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(e2$2$5);
@@ -7519,30 +7689,30 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o202 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o202.isEmpty__Z())) {
-      var p91 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o202.get__O()).$$und1$f);
-      var p92 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o202.get__O()).$$und2$f);
-      if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p91)) {
-        var x93 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p91);
-        var p94 = x93.s$1;
-        if (ScalaJS.anyRefEqEq("function", p94)) {
-          var o201 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p92);
-          if ((!o201.isEmpty__Z())) {
-            var p96 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o201.get__O()).$$und1$f);
-            var p97 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o201.get__O()).$$und2$f);
-            if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p96)) {
-              var x98 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p96);
-              var name$3 = x98.s$1;
-              var o200 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p97);
-              if ((!o200.isEmpty__Z())) {
-                var p100 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o200.get__O()).$$und1$f);
-                var tail$17 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o200.get__O()).$$und2$f);
-                if (ScalaJS.is.Lcom_repocad_web_lexing_PunctToken(p100)) {
-                  var x101 = ScalaJS.as.Lcom_repocad_web_lexing_PunctToken(p100);
-                  var p102 = x101.s$1;
-                  if (ScalaJS.anyRefEqEq("(", p102)) {
-                    return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$17, new ScalaJS.c.Lcom_repocad_web_lexing_PunctToken().init___T(")"), new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17().init___F2__F1__T(success, failure, name$3), failure)
+    var o209 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o209.isEmpty__Z())) {
+      var p95 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o209.get__O()).$$und1$f);
+      var p96 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o209.get__O()).$$und2$f);
+      if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p95)) {
+        var x97 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p95);
+        var p98 = x97.s$1;
+        if (ScalaJS.anyRefEqEq("function", p98)) {
+          var o208 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p96);
+          if ((!o208.isEmpty__Z())) {
+            var p100 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o208.get__O()).$$und1$f);
+            var p101 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o208.get__O()).$$und2$f);
+            if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p100)) {
+              var x102 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p100);
+              var name$3 = x102.s$1;
+              var o207 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p101);
+              if ((!o207.isEmpty__Z())) {
+                var p104 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o207.get__O()).$$und1$f);
+                var tail$18 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o207.get__O()).$$und2$f);
+                if (ScalaJS.is.Lcom_repocad_web_lexing_PunctToken(p104)) {
+                  var x105 = ScalaJS.as.Lcom_repocad_web_lexing_PunctToken(p104);
+                  var p106 = x105.s$1;
+                  if (ScalaJS.anyRefEqEq("(", p106)) {
+                    return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$18, new ScalaJS.c.Lcom_repocad_web_lexing_PunctToken().init___T(")"), new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18().init___F2__F1__T(success, failure, name$3), failure)
                   }
                 }
               }
@@ -7551,71 +7721,71 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
         }
       }
     };
-    var o204 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o204.isEmpty__Z())) {
-      var p104 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o204.get__O()).$$und1$f);
-      var tail$18 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o204.get__O()).$$und2$f);
-      if (ScalaJS.is.Lcom_repocad_web_lexing_IntToken(p104)) {
-        var x105 = ScalaJS.as.Lcom_repocad_web_lexing_IntToken(p104);
-        var value = x105.n$1;
-        return ScalaJS.as.s_util_Either(success.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_ConstantExpr().init___O(value), tail$18))
+    var o211 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o211.isEmpty__Z())) {
+      var p108 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o211.get__O()).$$und1$f);
+      var tail$19 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o211.get__O()).$$und2$f);
+      if (ScalaJS.is.Lcom_repocad_web_lexing_IntToken(p108)) {
+        var x109 = ScalaJS.as.Lcom_repocad_web_lexing_IntToken(p108);
+        var value = x109.n$1;
+        return ScalaJS.as.s_util_Either(success.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_ConstantExpr().init___O(value), tail$19))
       }
     };
-    var o206 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o206.isEmpty__Z())) {
-      var p107 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o206.get__O()).$$und1$f);
-      var tail$19 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o206.get__O()).$$und2$f);
-      if (ScalaJS.is.Lcom_repocad_web_lexing_DoubleToken(p107)) {
-        var x108 = ScalaJS.as.Lcom_repocad_web_lexing_DoubleToken(p107);
-        var value$2 = x108.d$1;
-        return ScalaJS.as.s_util_Either(success.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_ConstantExpr().init___O(value$2), tail$19))
+    var o213 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o213.isEmpty__Z())) {
+      var p111 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o213.get__O()).$$und1$f);
+      var tail$20 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o213.get__O()).$$und2$f);
+      if (ScalaJS.is.Lcom_repocad_web_lexing_DoubleToken(p111)) {
+        var x112 = ScalaJS.as.Lcom_repocad_web_lexing_DoubleToken(p111);
+        var value$2 = x112.d$1;
+        return ScalaJS.as.s_util_Either(success.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_ConstantExpr().init___O(value$2), tail$20))
       }
     };
-    var o208 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o208.isEmpty__Z())) {
-      var p110 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o208.get__O()).$$und1$f);
-      var tail$20 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o208.get__O()).$$und2$f);
-      if (ScalaJS.is.Lcom_repocad_web_lexing_StringToken(p110)) {
-        var x111 = ScalaJS.as.Lcom_repocad_web_lexing_StringToken(p110);
-        var value$3 = x111.s$1;
+    var o215 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o215.isEmpty__Z())) {
+      var p114 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o215.get__O()).$$und1$f);
+      var tail$21 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o215.get__O()).$$und2$f);
+      if (ScalaJS.is.Lcom_repocad_web_lexing_StringToken(p114)) {
+        var x115 = ScalaJS.as.Lcom_repocad_web_lexing_StringToken(p114);
+        var value$3 = x115.s$1;
         if ((value$3 !== null)) {
-          return ScalaJS.as.s_util_Either(success.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_ConstantExpr().init___O(value$3), tail$20))
+          return ScalaJS.as.s_util_Either(success.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_ConstantExpr().init___O(value$3), tail$21))
         }
       }
     };
-    var o210 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o210.isEmpty__Z())) {
-      var p113 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o210.get__O()).$$und1$f);
-      var tail$21 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o210.get__O()).$$und2$f);
-      if (ScalaJS.is.Lcom_repocad_web_lexing_PunctToken(p113)) {
-        var x114 = ScalaJS.as.Lcom_repocad_web_lexing_PunctToken(p113);
-        var p115 = x114.s$1;
-        if (ScalaJS.anyRefEqEq("{", p115)) {
-          return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$21, new ScalaJS.c.Lcom_repocad_web_lexing_PunctToken().init___T("}"), success, failure)
-        }
-      }
-    };
-    var o212 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o212.isEmpty__Z())) {
-      var p117 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o212.get__O()).$$und1$f);
-      var tail$22 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o212.get__O()).$$und2$f);
+    var o217 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o217.isEmpty__Z())) {
+      var p117 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o217.get__O()).$$und1$f);
+      var tail$22 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o217.get__O()).$$und2$f);
       if (ScalaJS.is.Lcom_repocad_web_lexing_PunctToken(p117)) {
         var x118 = ScalaJS.as.Lcom_repocad_web_lexing_PunctToken(p117);
         var p119 = x118.s$1;
-        if (ScalaJS.anyRefEqEq("(", p119)) {
-          return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$22, new ScalaJS.c.Lcom_repocad_web_lexing_PunctToken().init___T(")"), success, failure)
+        if (ScalaJS.anyRefEqEq("{", p119)) {
+          return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$22, new ScalaJS.c.Lcom_repocad_web_lexing_PunctToken().init___T("}"), success, failure)
         }
       }
     };
-    var o214 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o214.isEmpty__Z())) {
-      var p121 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o214.get__O()).$$und1$f);
-      var tail$23 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o214.get__O()).$$und2$f);
-      if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p121)) {
-        var x122 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p121);
-        var name$4 = x122.s$1;
-        if ((((!tail$23.isEmpty__Z()) && (!tail$23.isPlugged__Z())) && ScalaJS.objectEquals(ScalaJS.as.Lcom_repocad_web_lexing_Token(tail$23.head__O()).tag__O(), "("))) {
-          var temp$success$10 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1$7, failure$1, name$4$1) {
+    var o219 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o219.isEmpty__Z())) {
+      var p121 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o219.get__O()).$$und1$f);
+      var tail$23 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o219.get__O()).$$und2$f);
+      if (ScalaJS.is.Lcom_repocad_web_lexing_PunctToken(p121)) {
+        var x122 = ScalaJS.as.Lcom_repocad_web_lexing_PunctToken(p121);
+        var p123 = x122.s$1;
+        if (ScalaJS.anyRefEqEq("(", p123)) {
+          return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$23, new ScalaJS.c.Lcom_repocad_web_lexing_PunctToken().init___T(")"), success, failure)
+        }
+      }
+    };
+    var o221 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o221.isEmpty__Z())) {
+      var p125 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o221.get__O()).$$und1$f);
+      var tail$24 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o221.get__O()).$$und2$f);
+      if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p125)) {
+        var x126 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p125);
+        var name$4 = x126.s$1;
+        if ((((!tail$24.isEmpty__Z()) && (!tail$24.isPlugged__Z())) && ScalaJS.objectEquals(ScalaJS.as.Lcom_repocad_web_lexing_Token(tail$24.head__O()).tag__O(), "("))) {
+          var temp$success$11 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1$7, failure$1, name$4$1) {
             return (function(params$2, paramsTail$2) {
               var params = ScalaJS.as.Lcom_repocad_web_parsing_Expr(params$2);
               var paramsTail = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(paramsTail$2);
@@ -7628,20 +7798,20 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lex
               }
             })
           })(success, failure, name$4));
-          tokens = tail$23;
-          success = temp$success$10;
+          tokens = tail$24;
+          success = temp$success$11;
           continue _parse
         }
       }
     };
-    var o216 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o216.isEmpty__Z())) {
-      var p124 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o216.get__O()).$$und1$f);
-      var tail$24 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o216.get__O()).$$und2$f);
-      if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p124)) {
-        var x125 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p124);
-        var name$5 = x125.s$1;
-        return ScalaJS.as.s_util_Either(success.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_RefExpr().init___T__sc_Seq(name$5, new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([])), tail$24))
+    var o223 = ScalaJS.m.Lcom_repocad_web_lexing_$colon$tilde$colon().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o223.isEmpty__Z())) {
+      var p128 = ScalaJS.as.Lcom_repocad_web_lexing_Token(ScalaJS.as.T2(o223.get__O()).$$und1$f);
+      var tail$25 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(ScalaJS.as.T2(o223.get__O()).$$und2$f);
+      if (ScalaJS.is.Lcom_repocad_web_lexing_SymbolToken(p128)) {
+        var x129 = ScalaJS.as.Lcom_repocad_web_lexing_SymbolToken(p128);
+        var name$5 = x129.s$1;
+        return ScalaJS.as.s_util_Either(success.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_RefExpr().init___T__sc_Seq(name$5, new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([])), tail$25))
       }
     };
     return ScalaJS.as.s_util_Either(failure.apply__O__O(new ScalaJS.c.s_StringContext().init___sc_Seq(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array(["Unrecognised token pattern ", ""])).s__sc_Seq__T(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([x1]))))
@@ -8008,6 +8178,111 @@ ScalaJS.d.Lcom_repocad_web_parsing_SeqExpr = new ScalaJS.ClassTypeData({
   O: 1
 });
 ScalaJS.c.Lcom_repocad_web_parsing_SeqExpr.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_SeqExpr;
+/** @constructor */
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr = (function() {
+  ScalaJS.c.O.call(this);
+  this.centerX$1 = null;
+  this.centerY$1 = null;
+  this.width$1 = null;
+  this.size$1 = null;
+  this.t$1 = null
+});
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype = new ScalaJS.h.O();
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_parsing_TextBoxExpr = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_parsing_TextBoxExpr.prototype = ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype;
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.productPrefix__T = (function() {
+  return "TextBoxExpr"
+});
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.productArity__I = (function() {
+  return 5
+});
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else if (ScalaJS.is.Lcom_repocad_web_parsing_TextBoxExpr(x$1)) {
+    var TextBoxExpr$1 = ScalaJS.as.Lcom_repocad_web_parsing_TextBoxExpr(x$1);
+    return ((((ScalaJS.anyRefEqEq(this.centerX$1, TextBoxExpr$1.centerX$1) && ScalaJS.anyRefEqEq(this.centerY$1, TextBoxExpr$1.centerY$1)) && ScalaJS.anyRefEqEq(this.width$1, TextBoxExpr$1.width$1)) && ScalaJS.anyRefEqEq(this.size$1, TextBoxExpr$1.size$1)) && ScalaJS.anyRefEqEq(this.t$1, TextBoxExpr$1.t$1))
+  } else {
+    return false
+  }
+});
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.productElement__I__O = (function(x$1) {
+  switch (x$1) {
+    case 0:
+      {
+        return this.centerX$1;
+        break
+      };
+    case 1:
+      {
+        return this.centerY$1;
+        break
+      };
+    case 2:
+      {
+        return this.width$1;
+        break
+      };
+    case 3:
+      {
+        return this.size$1;
+        break
+      };
+    case 4:
+      {
+        return this.t$1;
+        break
+      };
+    default:
+      throw new ScalaJS.c.jl_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(x$1));
+  }
+});
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.toString__T = (function() {
+  return ScalaJS.m.sr_ScalaRunTime().$$undtoString__s_Product__T(this)
+});
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr = (function(centerX, centerY, width, size, t) {
+  this.centerX$1 = centerX;
+  this.centerY$1 = centerY;
+  this.width$1 = width;
+  this.size$1 = size;
+  this.t$1 = t;
+  return this
+});
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.hashCode__I = (function() {
+  var this$2 = ScalaJS.m.s_util_hashing_MurmurHash3();
+  return this$2.productHash__s_Product__I__I(this, (-889275714))
+});
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.productIterator__sc_Iterator = (function() {
+  return new ScalaJS.c.sr_ScalaRunTime$$anon$1().init___s_Product(this)
+});
+ScalaJS.is.Lcom_repocad_web_parsing_TextBoxExpr = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_TextBoxExpr)))
+});
+ScalaJS.as.Lcom_repocad_web_parsing_TextBoxExpr = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_parsing_TextBoxExpr(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.TextBoxExpr"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_parsing_TextBoxExpr = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_TextBoxExpr)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_parsing_TextBoxExpr = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_TextBoxExpr(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.TextBoxExpr;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_parsing_TextBoxExpr = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_parsing_TextBoxExpr: 0
+}, false, "com.repocad.web.parsing.TextBoxExpr", ScalaJS.d.O, {
+  Lcom_repocad_web_parsing_TextBoxExpr: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  s_Product: 1,
+  s_Equals: 1,
+  Lcom_repocad_web_parsing_Expr: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_TextBoxExpr;
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_parsing_TextExpr = (function() {
   ScalaJS.c.O.call(this);
@@ -17178,6 +17453,40 @@ ScalaJS.d.sr_AbstractFunction4 = new ScalaJS.ClassTypeData({
 });
 ScalaJS.c.sr_AbstractFunction4.prototype.$classData = ScalaJS.d.sr_AbstractFunction4;
 /** @constructor */
+ScalaJS.c.sr_AbstractFunction5 = (function() {
+  ScalaJS.c.O.call(this)
+});
+ScalaJS.c.sr_AbstractFunction5.prototype = new ScalaJS.h.O();
+ScalaJS.c.sr_AbstractFunction5.prototype.constructor = ScalaJS.c.sr_AbstractFunction5;
+/** @constructor */
+ScalaJS.h.sr_AbstractFunction5 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.sr_AbstractFunction5.prototype = ScalaJS.c.sr_AbstractFunction5.prototype;
+ScalaJS.c.sr_AbstractFunction5.prototype.toString__T = (function() {
+  return "<function5>"
+});
+ScalaJS.is.sr_AbstractFunction5 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sr_AbstractFunction5)))
+});
+ScalaJS.as.sr_AbstractFunction5 = (function(obj) {
+  return ((ScalaJS.is.sr_AbstractFunction5(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "scala.runtime.AbstractFunction5"))
+});
+ScalaJS.isArrayOf.sr_AbstractFunction5 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.sr_AbstractFunction5)))
+});
+ScalaJS.asArrayOf.sr_AbstractFunction5 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.sr_AbstractFunction5(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lscala.runtime.AbstractFunction5;", depth))
+});
+ScalaJS.d.sr_AbstractFunction5 = new ScalaJS.ClassTypeData({
+  sr_AbstractFunction5: 0
+}, false, "scala.runtime.AbstractFunction5", ScalaJS.d.O, {
+  sr_AbstractFunction5: 1,
+  F5: 1,
+  O: 1
+});
+ScalaJS.c.sr_AbstractFunction5.prototype.$classData = ScalaJS.d.sr_AbstractFunction5;
+/** @constructor */
 ScalaJS.c.sr_BooleanRef = (function() {
   ScalaJS.c.O.call(this);
   this.elem$1 = false
@@ -17728,63 +18037,6 @@ ScalaJS.m.sr_Statics = (function() {
   return ScalaJS.n.sr_Statics
 });
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4 = (function() {
-  ScalaJS.c.sr_AbstractFunction1.call(this);
-  this.$$outer$2 = null
-});
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.constructor = ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4;
-/** @constructor */
-ScalaJS.h.Lcom_repocad_web_Repocad$$anonfun$4 = (function() {
-  /*<skip>*/
-});
-ScalaJS.h.Lcom_repocad_web_Repocad$$anonfun$4.prototype = ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype;
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.apply__O__O = (function(v1) {
-  return (this.apply__Lorg_scalajs_dom_MouseEvent__V(v1), (void 0))
-});
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.apply__Lorg_scalajs_dom_MouseEvent__V = (function(e) {
-  ScalaJS.m.Lcom_repocad_web_package().mouseClient$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e["clientX"]), ScalaJS.uI(e["clientY"]));
-  ScalaJS.m.Lcom_repocad_web_package().mouseCanvas$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((ScalaJS.m.Lcom_repocad_web_package().mouseClient$1.x$1 - ScalaJS.m.Lcom_repocad_web_package().canvasCorner$1.x$1), ((-ScalaJS.m.Lcom_repocad_web_package().mouseClient$1.y$1) + ScalaJS.m.Lcom_repocad_web_package().canvasCorner$1.y$1));
-  if (this.$$outer$2.mouseDown$1) {
-    var newV = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uI(e["clientX"]), ScalaJS.uI(e["clientY"]));
-    var translation = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(this.$$outer$2.mousePosition$1).x$1, newV.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(this.$$outer$2.mousePosition$1).y$1);
-    this.$$outer$2.view$1.translate__D__D__V(translation.x$1, translation.y$1);
-    this.$$outer$2.mousePosition$1 = newV;
-    this.$$outer$2.eval__Lcom_repocad_web_parsing_Expr__V(this.$$outer$2.lastAst$1)
-  }
-});
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.init___Lcom_repocad_web_Repocad = (function($$outer) {
-  if (($$outer === null)) {
-    throw ScalaJS.unwrapJavaScriptException(null)
-  } else {
-    this.$$outer$2 = $$outer
-  };
-  return this
-});
-ScalaJS.is.Lcom_repocad_web_Repocad$$anonfun$4 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_Repocad$$anonfun$4)))
-});
-ScalaJS.as.Lcom_repocad_web_Repocad$$anonfun$4 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_Repocad$$anonfun$4(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.Repocad$$anonfun$4"))
-});
-ScalaJS.isArrayOf.Lcom_repocad_web_Repocad$$anonfun$4 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_Repocad$$anonfun$4)))
-});
-ScalaJS.asArrayOf.Lcom_repocad_web_Repocad$$anonfun$4 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_Repocad$$anonfun$4(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.Repocad$$anonfun$4;", depth))
-});
-ScalaJS.d.Lcom_repocad_web_Repocad$$anonfun$4 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_Repocad$$anonfun$4: 0
-}, false, "com.repocad.web.Repocad$$anonfun$4", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_Repocad$$anonfun$4: 1,
-  s_Serializable: 1,
-  Ljava_io_Serializable: 1,
-  sr_AbstractFunction1: 1,
-  F1: 1,
-  O: 1
-});
-ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$4.prototype.$classData = ScalaJS.d.Lcom_repocad_web_Repocad$$anonfun$4;
-/** @constructor */
 ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.$$outer$2 = null
@@ -17800,20 +18052,23 @@ ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5.prototype.apply__O__O = (function(
   return (this.apply__T__V(ScalaJS.as.T(v1)), (void 0))
 });
 ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5.prototype.apply__T__V = (function(hash) {
-  var x = ScalaJS.m.Lcom_repocad_web_Drawing().get__T__s_util_Either(hash);
-  if (ScalaJS.is.s_util_Left(x)) {
-    var x2 = ScalaJS.as.s_util_Left(x);
-    var a = x2.a$2;
-    var error = ScalaJS.as.T(a);
-    this.$$outer$2.displayError__T__V(error)
-  } else if (ScalaJS.is.s_util_Right(x)) {
-    var x3 = ScalaJS.as.s_util_Right(x);
-    var b = x3.b$2;
-    var drawing = ScalaJS.as.Lcom_repocad_web_Drawing(b);
-    this.$$outer$2.loadDrawing__Lcom_repocad_web_Drawing__V(drawing);
-    this.$$outer$2.displaySuccess__T__V(new ScalaJS.c.s_StringContext().init___sc_Seq(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array(["Loaded drawing ", ""])).s__sc_Seq__T(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([hash])))
-  } else {
-    throw new ScalaJS.c.s_MatchError().init___O(x)
+  if ((!ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z(hash))) {
+    var this$1 = ScalaJS.m.Lcom_repocad_web_Drawing().get__T__s_util_Either(hash);
+    if (ScalaJS.is.s_util_Left(this$1)) {
+      var x2 = ScalaJS.as.s_util_Left(this$1);
+      var a = x2.a$2;
+      var error = ScalaJS.as.T(a);
+      this.$$outer$2.displayError__T__V(error)
+    } else if (ScalaJS.is.s_util_Right(this$1)) {
+      var x3 = ScalaJS.as.s_util_Right(this$1);
+      var b = x3.b$2;
+      var drawing = ScalaJS.as.Lcom_repocad_web_Drawing(b);
+      this.$$outer$2.com$repocad$web$Repocad$$title$f["value"] = drawing.name$1;
+      this.$$outer$2.loadDrawing__Lcom_repocad_web_Drawing__V(drawing);
+      this.$$outer$2.displaySuccess__T__V(new ScalaJS.c.s_StringContext().init___sc_Seq(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array(["Loaded drawing ", ""])).s__sc_Seq__T(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([hash])))
+    } else {
+      throw new ScalaJS.c.s_MatchError().init___O(this$1)
+    }
   }
 });
 ScalaJS.c.Lcom_repocad_web_Repocad$$anonfun$5.prototype.init___Lcom_repocad_web_Repocad = (function($$outer) {
@@ -18084,8 +18339,8 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.env$1$f = null;
   this.printer$1$2 = null;
-  this.e2$3$2 = null;
-  this.op$2$f = null
+  this.e2$2$2 = null;
+  this.op$1$f = null
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype = new ScalaJS.h.sr_AbstractFunction1();
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10;
@@ -18094,17 +18349,103 @@ ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function() {
   /*<skip>*/
 });
 ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype.init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T = (function(env$1, printer$1, e2$3, op$2) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype.init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T = (function(env$1, printer$1, e2$2, op$1) {
   this.env$1$f = env$1;
   this.printer$1$2 = printer$1;
-  this.e2$3$2 = e2$3;
-  this.op$2$f = op$2;
+  this.e2$2$2 = e2$2;
+  this.op$1$f = op$1;
   return this
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype.apply__O__O = (function(v1) {
   return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype.apply__T2__s_util_Either = (function(v1) {
+  var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.e2$2$2, ScalaJS.as.sci_Map(v1.$$und1$f), this.printer$1$2);
+  if (ScalaJS.is.s_util_Left(this$1)) {
+    var x2 = ScalaJS.as.s_util_Left(this$1);
+    var a = x2.a$2;
+    var e = ScalaJS.as.T(a);
+    ScalaJS.m.s_package().Left$1;
+    var jsx$1 = new ScalaJS.c.s_util_Left().init___O(e)
+  } else if (ScalaJS.is.s_util_Right(this$1)) {
+    var x3 = ScalaJS.as.s_util_Right(this$1);
+    var b = x3.b$2;
+    var v2 = ScalaJS.as.T2(b);
+    var n1 = ScalaJS.uD(v1.$$und2$f);
+    var n2 = ScalaJS.uD(v2.$$und2$f);
+    var x1 = this.op$1$f;
+    if (ScalaJS.anyRefEqEq(">", x1)) {
+      ScalaJS.m.s_package().Right$1;
+      var $$this = this.env$1$f;
+      var y = (n1 > n2);
+      var b$1 = new ScalaJS.c.T2().init___O__O($$this, y);
+      var jsx$1 = new ScalaJS.c.s_util_Right().init___O(b$1)
+    } else if (ScalaJS.anyRefEqEq("<", x1)) {
+      ScalaJS.m.s_package().Right$1;
+      var $$this$1 = this.env$1$f;
+      var y$1 = (n1 < n2);
+      var b$2 = new ScalaJS.c.T2().init___O__O($$this$1, y$1);
+      var jsx$1 = new ScalaJS.c.s_util_Right().init___O(b$2)
+    } else {
+      ScalaJS.m.s_package().Left$1;
+      var a$1 = new ScalaJS.c.s_StringContext().init___sc_Seq(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array(["Unknown comparison operator ", ""])).s__sc_Seq__T(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([x1]));
+      var jsx$1 = new ScalaJS.c.s_util_Left().init___O(a$1)
+    }
+  } else {
+    var jsx$1;
+    throw new ScalaJS.c.s_MatchError().init___O(this$1)
+  };
+  return ScalaJS.as.s_util_Either(jsx$1)
+});
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10)))
+});
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$10"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$10;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$10", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  sr_AbstractFunction1: 1,
+  F1: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10;
+/** @constructor */
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11 = (function() {
+  ScalaJS.c.sr_AbstractFunction1.call(this);
+  this.env$1$f = null;
+  this.printer$1$2 = null;
+  this.e2$3$2 = null;
+  this.op$2$f = null
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype.init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T = (function(env$1, printer$1, e2$3, op$2) {
+  this.env$1$f = env$1;
+  this.printer$1$2 = printer$1;
+  this.e2$3$2 = e2$3;
+  this.op$2$f = op$2;
+  return this
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype.apply__O__O = (function(v1) {
+  return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype.apply__T2__s_util_Either = (function(v1) {
   var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.e2$3$2, ScalaJS.as.sci_Map(v1.$$und1$f), this.printer$1$2);
   var this$2 = new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
@@ -18152,74 +18493,6 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype.apply
     throw new ScalaJS.c.s_MatchError().init___O(x1)
   }
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10)))
-});
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$10"))
-});
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10)))
-});
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$10;", depth))
-});
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$10", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10: 1,
-  s_Serializable: 1,
-  Ljava_io_Serializable: 1,
-  sr_AbstractFunction1: 1,
-  F1: 1,
-  O: 1
-});
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$10;
-/** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11 = (function() {
-  ScalaJS.c.sr_AbstractFunction1.call(this);
-  this.env$1$f = null;
-  this.name$2$f = null;
-  this.toOption$1$2 = null
-});
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11;
-/** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11 = (function() {
-  /*<skip>*/
-});
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype.apply__O__O = (function(v1) {
-  return this.apply__D__s_util_Either(ScalaJS.uD(v1))
-});
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype.apply__D__s_util_Either = (function(fromValue) {
-  var this$1 = this.toOption$1$2;
-  var this$2 = new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1);
-  var x1 = this$2.e$1;
-  if (ScalaJS.is.s_util_Left(x1)) {
-    var x2 = ScalaJS.as.s_util_Left(x1);
-    var a = x2.a$2;
-    return new ScalaJS.c.s_util_Left().init___O(a)
-  } else if (ScalaJS.is.s_util_Right(x1)) {
-    var x3 = ScalaJS.as.s_util_Right(x1);
-    var b = x3.b$2;
-    var toValue = ScalaJS.uD(b);
-    ScalaJS.m.s_package().Right$1;
-    var $$this = this.name$2$f;
-    var $$this$1 = this.env$1$f.$$plus__T2__sci_Map(new ScalaJS.c.T2().init___O__O($$this, fromValue));
-    var y = (fromValue < toValue);
-    var b$1 = new ScalaJS.c.T2().init___O__O($$this$1, y);
-    return new ScalaJS.c.s_util_Right().init___O(b$1)
-  } else {
-    throw new ScalaJS.c.s_MatchError().init___O(x1)
-  }
-});
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype.init___sci_Map__T__s_util_Either = (function(env$1, name$2, toOption$1) {
-  this.env$1$f = env$1;
-  this.name$2$f = name$2;
-  this.toOption$1$2 = toOption$1;
-  return this
-});
 ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11)))
 });
@@ -18244,38 +18517,106 @@ ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11 = new ScalaJS.C
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$11;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13 = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12 = (function() {
+  ScalaJS.c.sr_AbstractFunction1.call(this);
+  this.env$1$f = null;
+  this.name$2$f = null;
+  this.toOption$1$2 = null
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12.prototype.apply__O__O = (function(v1) {
+  return this.apply__D__s_util_Either(ScalaJS.uD(v1))
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12.prototype.apply__D__s_util_Either = (function(fromValue) {
+  var this$1 = this.toOption$1$2;
+  var this$2 = new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1);
+  var x1 = this$2.e$1;
+  if (ScalaJS.is.s_util_Left(x1)) {
+    var x2 = ScalaJS.as.s_util_Left(x1);
+    var a = x2.a$2;
+    return new ScalaJS.c.s_util_Left().init___O(a)
+  } else if (ScalaJS.is.s_util_Right(x1)) {
+    var x3 = ScalaJS.as.s_util_Right(x1);
+    var b = x3.b$2;
+    var toValue = ScalaJS.uD(b);
+    ScalaJS.m.s_package().Right$1;
+    var $$this = this.name$2$f;
+    var $$this$1 = this.env$1$f.$$plus__T2__sci_Map(new ScalaJS.c.T2().init___O__O($$this, fromValue));
+    var y = (fromValue < toValue);
+    var b$1 = new ScalaJS.c.T2().init___O__O($$this$1, y);
+    return new ScalaJS.c.s_util_Right().init___O(b$1)
+  } else {
+    throw new ScalaJS.c.s_MatchError().init___O(x1)
+  }
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12.prototype.init___sci_Map__T__s_util_Either = (function(env$1, name$2, toOption$1) {
+  this.env$1$f = env$1;
+  this.name$2$f = name$2;
+  this.toOption$1$2 = toOption$1;
+  return this
+});
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12)))
+});
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$12"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$12;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$12", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  sr_AbstractFunction1: 1,
+  F1: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$12;
+/** @constructor */
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.env$1$2 = null;
   this.printer$1$f = null;
   this.params$2$f = null
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13 = (function() {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13.prototype.init___sci_Map__Lcom_repocad_web_Printer__sc_Seq = (function(env$1, printer$1, params$2) {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14.prototype.init___sci_Map__Lcom_repocad_web_Printer__sc_Seq = (function(env$1, printer$1, params$2) {
   this.env$1$2 = env$1;
   this.printer$1$f = printer$1;
   this.params$2$f = params$2;
   return this
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13.prototype.apply__O__O = (function(v1) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14.prototype.apply__O__O = (function(v1) {
   return this.apply__O__s_util_Either(v1)
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13.prototype.apply__O__s_util_Either = (function(x0$2) {
-  if (ScalaJS.is.F0(x0$2)) {
-    var x2 = ScalaJS.as.F0(x0$2);
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14.prototype.apply__O__s_util_Either = (function(x0$2) {
+  if (ScalaJS.is.F1(x0$2)) {
+    var x2 = ScalaJS.as.F1(x0$2);
     ScalaJS.m.s_package().Right$1;
     var $$this = this.env$1$2;
-    var y = x2.apply__O();
+    var y = x2.apply__O__O(this.printer$1$f);
     var b = new ScalaJS.c.T2().init___O__O($$this, y);
     return new ScalaJS.c.s_util_Right().init___O(b)
-  } else if (ScalaJS.is.F1(x0$2)) {
-    var x3 = ScalaJS.as.F1(x0$2);
+  } else if (ScalaJS.is.F2(x0$2)) {
+    var x3 = ScalaJS.as.F2(x0$2);
     var this$4 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
     var this$5 = new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$4);
     var x1 = this$5.e$1;
@@ -18289,70 +18630,70 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13.prototype.apply
       var a$1 = ScalaJS.as.T2(b$1);
       ScalaJS.m.s_package().Right$1;
       var $$this$1 = a$1.$$und1$f;
-      var y$1 = x3.apply__O__O(a$1.$$und2$f);
+      var y$1 = x3.apply__O__O__O(this.printer$1$f, a$1.$$und2$f);
       var b$2 = new ScalaJS.c.T2().init___O__O($$this$1, y$1);
       return new ScalaJS.c.s_util_Right().init___O(b$2)
     } else {
       throw new ScalaJS.c.s_MatchError().init___O(x1)
     }
-  } else if (ScalaJS.is.F2(x0$2)) {
-    var x4 = ScalaJS.as.F2(x0$2);
-    var this$9 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
-    return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$9).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13__F2(this, x4))
   } else if (ScalaJS.is.F3(x0$2)) {
-    var x5 = ScalaJS.as.F3(x0$2);
-    var this$10 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
-    return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$10).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13__F3(this, x5))
+    var x4 = ScalaJS.as.F3(x0$2);
+    var this$9 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$9).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14__F3(this, x4))
   } else if (ScalaJS.is.F4(x0$2)) {
-    var x6 = ScalaJS.as.F4(x0$2);
+    var x5 = ScalaJS.as.F4(x0$2);
+    var this$10 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$10).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14__F4(this, x5))
+  } else if (ScalaJS.is.F5(x0$2)) {
+    var x6 = ScalaJS.as.F5(x0$2);
     var this$11 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
-    return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$11).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13__F4(this, x6))
+    return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$11).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14__F5(this, x6))
   } else {
     ScalaJS.m.s_package().Left$1;
     var a$2 = ("Expected callable function, got " + x0$2);
     return new ScalaJS.c.s_util_Left().init___O(a$2)
   }
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13)))
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14)))
 });
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13"))
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14"))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13)))
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14)))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$13;", depth))
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$14;", depth))
 });
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13: 1,
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction1: 1,
   F1: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25 = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.$$outer$2 = null;
   this.x4$1$f = null
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25 = (function() {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25.prototype.apply__O__O = (function(v1) {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29.prototype.apply__O__O = (function(v1) {
   return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25.prototype.apply__T2__s_util_Either = (function(a) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29.prototype.apply__T2__s_util_Either = (function(a) {
   var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), ScalaJS.as.sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
   var this$2 = new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
@@ -18366,14 +18707,14 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$
     var b$1 = ScalaJS.as.T2(b);
     ScalaJS.m.s_package().Right$1;
     var $$this = b$1.$$und1$f;
-    var y = this.x4$1$f.apply__O__O__O(a.$$und2$f, b$1.$$und2$f);
+    var y = this.x4$1$f.apply__O__O__O__O(this.$$outer$2.printer$1$f, a.$$und2$f, b$1.$$und2$f);
     var b$2 = new ScalaJS.c.T2().init___O__O($$this, y);
     return new ScalaJS.c.s_util_Right().init___O(b$2)
   } else {
     throw new ScalaJS.c.s_MatchError().init___O(x1)
   }
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13__F2 = (function($$outer, x4$1) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14__F3 = (function($$outer, x4$1) {
   if (($$outer === null)) {
     throw ScalaJS.unwrapJavaScriptException(null)
   } else {
@@ -18382,46 +18723,46 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$
   this.x4$1$f = x4$1;
   return this
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25)))
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29)))
 });
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$25"))
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$29"))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25)))
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29)))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$25;", depth))
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$29;", depth))
 });
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$25", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25: 1,
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$29", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction1: 1,
   F1: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$25;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$29;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27 = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.$$outer$2 = null;
   this.x5$1$f = null
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27 = (function() {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27.prototype.apply__O__O = (function(v1) {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31.prototype.apply__O__O = (function(v1) {
   return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13__F3 = (function($$outer, x5$1) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14__F4 = (function($$outer, x5$1) {
   if (($$outer === null)) {
     throw ScalaJS.unwrapJavaScriptException(null)
   } else {
@@ -18430,50 +18771,59 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$
   this.x5$1$f = x5$1;
   return this
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27.prototype.apply__T2__s_util_Either = (function(a) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31.prototype.apply__T2__s_util_Either = (function(a) {
   var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), ScalaJS.as.sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
-  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27__T2(this, a))
+  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31__T2(this, a))
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27)))
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31)))
 });
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$27"))
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$31"))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27)))
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31)))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$27;", depth))
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$31;", depth))
 });
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$27", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27: 1,
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$31", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction1: 1,
   F1: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28 = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.$$outer$2 = null;
   this.a$2$f = null
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28 = (function() {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28.prototype.apply__O__O = (function(v1) {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32.prototype.apply__O__O = (function(v1) {
   return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28.prototype.apply__T2__s_util_Either = (function(b) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31__T2 = (function($$outer, a$2) {
+  if (($$outer === null)) {
+    throw ScalaJS.unwrapJavaScriptException(null)
+  } else {
+    this.$$outer$2 = $$outer
+  };
+  this.a$2$f = a$2;
+  return this
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32.prototype.apply__T2__s_util_Either = (function(b) {
   var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), ScalaJS.as.sci_Map(b.$$und1$f), this.$$outer$2.$$outer$2.printer$1$f);
   var this$2 = new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
@@ -18487,66 +18837,57 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$
     var c = ScalaJS.as.T2(b$1);
     ScalaJS.m.s_package().Right$1;
     var $$this = b.$$und1$f;
-    var y = this.$$outer$2.x5$1$f.apply__O__O__O__O(this.a$2$f.$$und2$f, b.$$und2$f, c.$$und2$f);
+    var y = this.$$outer$2.x5$1$f.apply__O__O__O__O__O(this.$$outer$2.$$outer$2.printer$1$f, this.a$2$f.$$und2$f, b.$$und2$f, c.$$und2$f);
     var b$2 = new ScalaJS.c.T2().init___O__O($$this, y);
     return new ScalaJS.c.s_util_Right().init___O(b$2)
   } else {
     throw new ScalaJS.c.s_MatchError().init___O(x1)
   }
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27__T2 = (function($$outer, a$2) {
-  if (($$outer === null)) {
-    throw ScalaJS.unwrapJavaScriptException(null)
-  } else {
-    this.$$outer$2 = $$outer
-  };
-  this.a$2$f = a$2;
-  return this
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32)))
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28)))
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32"))
 });
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28"))
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32)))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28)))
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32;", depth))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28;", depth))
-});
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28: 1,
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction1: 1,
   F1: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$27$$anonfun$apply$28;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$31$$anonfun$apply$32;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30 = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.$$outer$2 = null;
   this.x6$1$f = null
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30 = (function() {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30.prototype.apply__O__O = (function(v1) {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34.prototype.apply__O__O = (function(v1) {
   return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30.prototype.apply__T2__s_util_Either = (function(a) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34.prototype.apply__T2__s_util_Either = (function(a) {
   var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), ScalaJS.as.sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
-  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30__T2(this, a))
+  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34__T2(this, a))
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13__F4 = (function($$outer, x6$1) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14__F5 = (function($$outer, x6$1) {
   if (($$outer === null)) {
     throw ScalaJS.unwrapJavaScriptException(null)
   } else {
@@ -18555,43 +18896,50 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$
   this.x6$1$f = x6$1;
   return this
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30)))
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34)))
 });
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$30"))
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$34"))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30)))
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34)))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$30;", depth))
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$34;", depth))
 });
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$30", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30: 1,
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$34", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction1: 1,
   F1: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31 = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.$$outer$2 = null;
   this.a$3$f = null
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31 = (function() {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30__T2 = (function($$outer, a$3) {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35.prototype.apply__O__O = (function(v1) {
+  return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35.prototype.apply__T2__s_util_Either = (function(b) {
+  var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), ScalaJS.as.sci_Map(b.$$und1$f), this.$$outer$2.$$outer$2.printer$1$f);
+  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35__T2(this, b))
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34__T2 = (function($$outer, a$3) {
   if (($$outer === null)) {
     throw ScalaJS.unwrapJavaScriptException(null)
   } else {
@@ -18600,53 +18948,46 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$
   this.a$3$f = a$3;
   return this
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31.prototype.apply__O__O = (function(v1) {
-  return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35)))
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31.prototype.apply__T2__s_util_Either = (function(b) {
-  var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), ScalaJS.as.sci_Map(b.$$und1$f), this.$$outer$2.$$outer$2.printer$1$f);
-  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31__T2(this, b))
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35"))
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31)))
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35)))
 });
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31"))
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35;", depth))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31)))
-});
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31;", depth))
-});
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31: 1,
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction1: 1,
   F1: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32 = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.$$outer$2 = null;
   this.b$2$f = null
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32 = (function() {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32.prototype.apply__O__O = (function(v1) {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36.prototype.apply__O__O = (function(v1) {
   return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32.prototype.apply__T2__s_util_Either = (function(c) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36.prototype.apply__T2__s_util_Either = (function(c) {
   var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), ScalaJS.as.sci_Map(c.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
   var this$2 = new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
@@ -18660,14 +19001,14 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$
     var d = ScalaJS.as.T2(b);
     ScalaJS.m.s_package().Right$1;
     var $$this = c.$$und1$f;
-    var y = this.$$outer$2.$$outer$2.x6$1$f.apply__O__O__O__O__O(this.$$outer$2.a$3$f.$$und2$f, this.b$2$f.$$und2$f, c.$$und2$f, d.$$und2$f);
+    var y = this.$$outer$2.$$outer$2.x6$1$f.apply__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.printer$1$f, this.$$outer$2.a$3$f.$$und2$f, this.b$2$f.$$und2$f, c.$$und2$f, d.$$und2$f);
     var b$1 = new ScalaJS.c.T2().init___O__O($$this, y);
     return new ScalaJS.c.s_util_Right().init___O(b$1)
   } else {
     throw new ScalaJS.c.s_MatchError().init___O(x1)
   }
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31__T2 = (function($$outer, b$2) {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35__T2 = (function($$outer, b$2) {
   if (($$outer === null)) {
     throw ScalaJS.unwrapJavaScriptException(null)
   } else {
@@ -18676,29 +19017,29 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$
   this.b$2$f = b$2;
   return this
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32)))
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36)))
 });
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32"))
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36"))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32)))
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36)))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32;", depth))
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36;", depth))
 });
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32: 1,
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction1: 1,
   F1: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$13$$anonfun$apply$30$$anonfun$apply$31$$anonfun$apply$32;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$14$$anonfun$apply$34$$anonfun$apply$35$$anonfun$apply$36;
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$2 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
@@ -19096,26 +19437,26 @@ ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$2$$anonfun$apply$5
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$2$$anonfun$apply$5$$anonfun$apply$6$$anonfun$apply$7$$anonfun$apply$8$$anonfun$apply$9$$anonfun$apply$10.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$2$$anonfun$apply$5$$anonfun$apply$6$$anonfun$apply$7$$anonfun$apply$8$$anonfun$apply$9$$anonfun$apply$10;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21 = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22 = (function() {
   ScalaJS.c.sr_AbstractFunction0.call(this);
   this.env$1$f = null;
   this.loopEnv$1$2 = null;
   this.lastResult$1$2 = null
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21.prototype = new ScalaJS.h.sr_AbstractFunction0();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22.prototype = new ScalaJS.h.sr_AbstractFunction0();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21 = (function() {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21.prototype.init___sci_Map__sr_ObjectRef__sr_ObjectRef = (function(env$1, loopEnv$1, lastResult$1) {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22.prototype.init___sci_Map__sr_ObjectRef__sr_ObjectRef = (function(env$1, loopEnv$1, lastResult$1) {
   this.env$1$f = env$1;
   this.loopEnv$1$2 = loopEnv$1;
   this.lastResult$1$2 = lastResult$1;
   return this
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21.prototype.apply__s_util_Right = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22.prototype.apply__s_util_Right = (function() {
   ScalaJS.m.s_package().Right$1;
   var $$this = ScalaJS.as.sci_Map(this.loopEnv$1$2.elem$1).filter__F1__O(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
     return (function(t$2) {
@@ -19129,32 +19470,32 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21.prototype.apply
   var b = new ScalaJS.c.T2().init___O__O($$this, y);
   return new ScalaJS.c.s_util_Right().init___O(b)
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21.prototype.apply__O = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22.prototype.apply__O = (function() {
   return this.apply__s_util_Right()
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21)))
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22)))
 });
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$21"))
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$22"))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21)))
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22)))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$21;", depth))
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$22;", depth))
 });
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$21", ScalaJS.d.sr_AbstractFunction0, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21: 1,
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$22", ScalaJS.d.sr_AbstractFunction0, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction0: 1,
   F0: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$21;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$22;
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$3 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
@@ -19636,91 +19977,240 @@ ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$7$$anonfun$apply$1
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$7$$anonfun$apply$17$$anonfun$apply$18.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$7$$anonfun$apply$17$$anonfun$apply$18;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9 = (function() {
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = (function() {
   ScalaJS.c.sr_AbstractFunction1.call(this);
   this.env$1$f = null;
-  this.printer$1$2 = null;
-  this.e2$2$2 = null;
-  this.op$1$f = null
+  this.printer$1$f = null;
+  this.centerY$4$2 = null;
+  this.width$1$f = null;
+  this.height$2$f = null;
+  this.text$2$f = null
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9.prototype = new ScalaJS.h.sr_AbstractFunction1();
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9 = (function() {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9.prototype;
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9.prototype.init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T = (function(env$1, printer$1, e2$2, op$1) {
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr = (function(env$1, printer$1, centerY$4, width$1, height$2, text$2) {
   this.env$1$f = env$1;
-  this.printer$1$2 = printer$1;
-  this.e2$2$2 = e2$2;
-  this.op$1$f = op$1;
+  this.printer$1$f = printer$1;
+  this.centerY$4$2 = centerY$4;
+  this.width$1$f = width$1;
+  this.height$2$f = height$2;
+  this.text$2$f = text$2;
   return this
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9.prototype.apply__O__O = (function(v1) {
-  return this.apply__T2__s_util_Either(ScalaJS.as.T2(v1))
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.apply__O__O = (function(v1) {
+  return this.apply__D__s_util_Either(ScalaJS.uD(v1))
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9.prototype.apply__T2__s_util_Either = (function(v1) {
-  var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.e2$2$2, ScalaJS.as.sci_Map(v1.$$und1$f), this.printer$1$2);
-  if (ScalaJS.is.s_util_Left(this$1)) {
-    var x2 = ScalaJS.as.s_util_Left(this$1);
-    var a = x2.a$2;
-    var e = ScalaJS.as.T(a);
-    ScalaJS.m.s_package().Left$1;
-    var jsx$1 = new ScalaJS.c.s_util_Left().init___O(e)
-  } else if (ScalaJS.is.s_util_Right(this$1)) {
-    var x3 = ScalaJS.as.s_util_Right(this$1);
-    var b = x3.b$2;
-    var v2 = ScalaJS.as.T2(b);
-    var n1 = ScalaJS.uD(v1.$$und2$f);
-    var n2 = ScalaJS.uD(v2.$$und2$f);
-    var x1 = this.op$1$f;
-    if (ScalaJS.anyRefEqEq(">", x1)) {
-      ScalaJS.m.s_package().Right$1;
-      var $$this = this.env$1$f;
-      var y = (n1 > n2);
-      var b$1 = new ScalaJS.c.T2().init___O__O($$this, y);
-      var jsx$1 = new ScalaJS.c.s_util_Right().init___O(b$1)
-    } else if (ScalaJS.anyRefEqEq("<", x1)) {
-      ScalaJS.m.s_package().Right$1;
-      var $$this$1 = this.env$1$f;
-      var y$1 = (n1 < n2);
-      var b$2 = new ScalaJS.c.T2().init___O__O($$this$1, y$1);
-      var jsx$1 = new ScalaJS.c.s_util_Right().init___O(b$2)
-    } else {
-      ScalaJS.m.s_package().Left$1;
-      var a$1 = new ScalaJS.c.s_StringContext().init___sc_Seq(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array(["Unknown comparison operator ", ""])).s__sc_Seq__T(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([x1]));
-      var jsx$1 = new ScalaJS.c.s_util_Left().init___O(a$1)
-    }
-  } else {
-    var jsx$1;
-    throw new ScalaJS.c.s_MatchError().init___O(this$1)
-  };
-  return ScalaJS.as.s_util_Either(jsx$1)
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.apply__D__s_util_Either = (function(x) {
+  var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.centerY$4$2, this.env$1$f, this.printer$1$f);
+  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__D(this, x))
 });
-ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9)))
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8)))
 });
-ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$9"))
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$8"))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9)))
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8)))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$9;", depth))
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$8;", depth))
 });
-ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$9", ScalaJS.d.sr_AbstractFunction1, {
-  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9: 1,
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$8", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction1: 1,
   F1: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$9;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8;
+/** @constructor */
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20 = (function() {
+  ScalaJS.c.sr_AbstractFunction1.call(this);
+  this.$$outer$2 = null;
+  this.x$6$f = 0.0
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20.prototype.apply__O__O = (function(v1) {
+  return this.apply__D__s_util_Either(ScalaJS.uD(v1))
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__D = (function($$outer, x$6) {
+  if (($$outer === null)) {
+    throw ScalaJS.unwrapJavaScriptException(null)
+  } else {
+    this.$$outer$2 = $$outer
+  };
+  this.x$6$f = x$6;
+  return this
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20.prototype.apply__D__s_util_Either = (function(y) {
+  var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.$$outer$2.width$1$f, this.$$outer$2.env$1$f, this.$$outer$2.printer$1$f);
+  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20__D(this, y))
+});
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20)))
+});
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$8$$anonfun$apply$20"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$8$$anonfun$apply$20;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$8$$anonfun$apply$20", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  sr_AbstractFunction1: 1,
+  F1: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20;
+/** @constructor */
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21 = (function() {
+  ScalaJS.c.sr_AbstractFunction1.call(this);
+  this.$$outer$2 = null;
+  this.y$4$f = 0.0
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21.prototype.apply__O__O = (function(v1) {
+  return this.apply__D__s_util_Either(ScalaJS.uD(v1))
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21.prototype.apply__D__s_util_Either = (function(w) {
+  var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.$$outer$2.$$outer$2.height$2$f, this.$$outer$2.$$outer$2.env$1$f, this.$$outer$2.$$outer$2.printer$1$f);
+  return new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21__D(this, w))
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20__D = (function($$outer, y$4) {
+  if (($$outer === null)) {
+    throw ScalaJS.unwrapJavaScriptException(null)
+  } else {
+    this.$$outer$2 = $$outer
+  };
+  this.y$4$f = y$4;
+  return this
+});
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21)))
+});
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  sr_AbstractFunction1: 1,
+  F1: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21;
+/** @constructor */
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function() {
+  ScalaJS.c.sr_AbstractFunction1.call(this);
+  this.$$outer$2 = null;
+  this.w$1$f = 0.0
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype = new ScalaJS.h.sr_AbstractFunction1();
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.constructor = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype = ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype;
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.apply__O__O = (function(v1) {
+  return this.apply__D__s_util_Either(ScalaJS.uD(v1))
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21__D = (function($$outer, w$1) {
+  if (($$outer === null)) {
+    throw ScalaJS.unwrapJavaScriptException(null)
+  } else {
+    this.$$outer$2 = $$outer
+  };
+  this.w$1$f = w$1;
+  return this
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.apply__D__s_util_Either = (function(heightValue) {
+  var this$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.$$outer$2.$$outer$2.$$outer$2.text$2$f, this.$$outer$2.$$outer$2.$$outer$2.env$1$f, this.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$2 = new ScalaJS.c.s_util_Either$RightProjection().init___s_util_Either(this$1);
+  var x1 = this$2.e$1;
+  if (ScalaJS.is.s_util_Left(x1)) {
+    var x2 = ScalaJS.as.s_util_Left(x1);
+    var a = x2.a$2;
+    return new ScalaJS.c.s_util_Left().init___O(a)
+  } else if (ScalaJS.is.s_util_Right(x1)) {
+    var x3 = ScalaJS.as.s_util_Right(x1);
+    var b = x3.b$2;
+    var length = ((ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(ScalaJS.objectToString(b)) * 0.3) * heightValue);
+    var jsx$2 = ScalaJS.m.Lcom_repocad_web_package();
+    var jsx$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator();
+    var $$this = this.w$1$f;
+    jsx$2.drawingCenter$1 = jsx$1.updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((this.$$outer$2.$$outer$2.x$6$f + (length / (length / this.w$1$f))), (this.$$outer$2.y$4$f - ((heightValue * length) / ScalaJS.uD(ScalaJS.g["Math"]["ceil"]($$this)))));
+    ScalaJS.m.Lcom_repocad_web_package().drawingCenter$1 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(this.$$outer$2.$$outer$2.x$6$f, (this.$$outer$2.y$4$f + heightValue));
+    this.$$outer$2.$$outer$2.$$outer$2.printer$1$f.textBox__D__D__D__D__O__V(this.$$outer$2.$$outer$2.x$6$f, this.$$outer$2.y$4$f, this.w$1$f, heightValue, b);
+    ScalaJS.m.s_package().Right$1;
+    var $$this$1 = this.$$outer$2.$$outer$2.$$outer$2.env$1$f;
+    var y = ScalaJS.m.s_Unit();
+    var b$1 = new ScalaJS.c.T2().init___O__O($$this$1, y);
+    return new ScalaJS.c.s_util_Right().init___O(b$1)
+  } else {
+    throw new ScalaJS.c.s_MatchError().init___O(x1)
+  }
+});
+ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22)))
+});
+ScalaJS.as.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.evaluating.Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22: 0
+}, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22", ScalaJS.d.sr_AbstractFunction1, {
+  Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  sr_AbstractFunction1: 1,
+  F1: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.$classData = ScalaJS.d.Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22;
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_lexing_AnyChar$ = (function() {
   ScalaJS.c.Lcom_repocad_web_lexing_RegularLanguage.call(this)
@@ -20984,29 +21474,29 @@ ScalaJS.d.Lcom_repocad_web_lexing_Union = new ScalaJS.ClassTypeData({
 });
 ScalaJS.c.Lcom_repocad_web_lexing_Union.prototype.$classData = ScalaJS.d.Lcom_repocad_web_lexing_Union;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10 = (function() {
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
   this.success$1$f = null;
   this.failure$1$2 = null;
   this.name$2$f = null
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype = new ScalaJS.h.sr_AbstractFunction2();
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11.prototype = new ScalaJS.h.sr_AbstractFunction2();
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10 = (function() {
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype;
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype.init___F2__F1__T = (function(success$1, failure$1, name$2) {
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11.prototype;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11.prototype.init___F2__F1__T = (function(success$1, failure$1, name$2) {
   this.success$1$f = success$1;
   this.failure$1$2 = failure$1;
   this.name$2$f = name$2;
   return this
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype.apply__O__O__O = (function(v1, v2) {
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11.prototype.apply__O__O__O = (function(v1, v2) {
   return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(from, stream) {
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(from, stream) {
   return (ScalaJS.anyRefEqEq(stream.head__O(), new ScalaJS.c.Lcom_repocad_web_lexing_SymbolToken().init___T("to")) ? ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(stream.tail__Lcom_repocad_web_lexing_LiveStream(), new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(arg$outer, from$1) {
     return (function(to$2, toTail$2) {
       var to = ScalaJS.as.Lcom_repocad_web_parsing_Expr(to$2);
@@ -21015,53 +21505,53 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype.apply__Lco
     })
   })(this, from)), this.failure$1$2) : ScalaJS.as.s_util_Either(this.failure$1$2.apply__O__O(("Expected 'to', found " + stream.head__O()))))
 });
-ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10)))
+ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11)))
 });
-ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$10"))
+ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$11"))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10)))
+ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11)))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$10;", depth))
+ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$11;", depth))
 });
-ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$10: 0
-}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$10", ScalaJS.d.sr_AbstractFunction2, {
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$10: 1,
+ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$11: 0
+}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$11", ScalaJS.d.sr_AbstractFunction2, {
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$11: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction2: 1,
   F2: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$10;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$11;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17 = (function() {
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
   this.success$1$f = null;
   this.failure$1$2 = null;
   this.name$3$f = null
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17.prototype = new ScalaJS.h.sr_AbstractFunction2();
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18.prototype = new ScalaJS.h.sr_AbstractFunction2();
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17 = (function() {
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17.prototype;
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17.prototype.init___F2__F1__T = (function(success$1, failure$1, name$3) {
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18.prototype;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18.prototype.init___F2__F1__T = (function(success$1, failure$1, name$3) {
   this.success$1$f = success$1;
   this.failure$1$2 = failure$1;
   this.name$3$f = name$3;
   return this
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17.prototype.apply__O__O__O = (function(v1, v2) {
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18.prototype.apply__O__O__O = (function(v1, v2) {
   return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(params, paramsTail) {
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(params, paramsTail) {
   if (ScalaJS.is.Lcom_repocad_web_parsing_SeqExpr(params)) {
     var x2 = ScalaJS.as.Lcom_repocad_web_parsing_SeqExpr(params);
     var xs = x2.expr$1;
@@ -21069,48 +21559,59 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17.prototype.apply__Lco
       var x$1 = ScalaJS.as.Lcom_repocad_web_parsing_Expr(x$1$2);
       return (!ScalaJS.is.Lcom_repocad_web_parsing_RefExpr(x$1))
     }))))) {
-      return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(paramsTail, new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24().init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$17__sc_Seq(this, xs), this.failure$1$2)
+      return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(paramsTail, new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28().init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$18__sc_Seq(this, xs), this.failure$1$2)
     }
   };
   return ScalaJS.as.s_util_Either(this.failure$1$2.apply__O__O(("Expected parameter list, got " + params)))
 });
-ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17)))
+ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18)))
 });
-ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$17"))
+ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$18"))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17)))
+ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18)))
 });
-ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$17;", depth))
+ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$18;", depth))
 });
-ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$17: 0
-}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$17", ScalaJS.d.sr_AbstractFunction2, {
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$17: 1,
+ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$18: 0
+}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$18", ScalaJS.d.sr_AbstractFunction2, {
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$18: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction2: 1,
   F2: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18;
 /** @constructor */
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24 = (function() {
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
   this.$$outer$2 = null;
   this.xs$1$2 = null
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24.prototype = new ScalaJS.h.sr_AbstractFunction2();
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28.prototype = new ScalaJS.h.sr_AbstractFunction2();
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28;
 /** @constructor */
-ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24 = (function() {
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28 = (function() {
   /*<skip>*/
 });
-ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24.prototype;
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24.prototype.init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$17__sc_Seq = (function($$outer, xs$1) {
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28.prototype;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28.prototype.apply__O__O__O = (function(v1, v2) {
+  return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(body, bodyTail) {
+  var jsx$1 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$2$2) {
+    var x$2 = ScalaJS.as.Lcom_repocad_web_parsing_RefExpr(x$2$2);
+    return x$2.name$1
+  }));
+  var this$1 = ScalaJS.m.sc_Seq();
+  return ScalaJS.as.s_util_Either(this.$$outer$2.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_FunctionExpr().init___T__sc_Seq__Lcom_repocad_web_parsing_Expr(this.$$outer$2.name$3$f, ScalaJS.as.sc_Seq(this.xs$1$2.map__F1__scg_CanBuildFrom__O(jsx$1, this$1.ReusableCBFInstance$2)), body), bodyTail))
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28.prototype.init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$18__sc_Seq = (function($$outer, xs$1) {
   if (($$outer === null)) {
     throw ScalaJS.unwrapJavaScriptException(null)
   } else {
@@ -21119,40 +21620,29 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24.pr
   this.xs$1$2 = xs$1;
   return this
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24.prototype.apply__O__O__O = (function(v1, v2) {
-  return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
+ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28)))
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(body, bodyTail) {
-  var jsx$1 = new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(x$2$2) {
-    var x$2 = ScalaJS.as.Lcom_repocad_web_parsing_RefExpr(x$2$2);
-    return x$2.name$1
-  }));
-  var this$1 = ScalaJS.m.sc_Seq();
-  return ScalaJS.as.s_util_Either(this.$$outer$2.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_FunctionExpr().init___T__sc_Seq__Lcom_repocad_web_parsing_Expr(this.$$outer$2.name$3$f, ScalaJS.as.sc_Seq(this.xs$1$2.map__F1__scg_CanBuildFrom__O(jsx$1, this$1.ReusableCBFInstance$2)), body), bodyTail))
+ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$18$$anonfun$apply$28"))
 });
-ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24 = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24)))
+ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28)))
 });
-ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24 = (function(obj) {
-  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$17$$anonfun$apply$24"))
+ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$18$$anonfun$apply$28;", depth))
 });
-ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24 = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24)))
-});
-ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24 = (function(obj, depth) {
-  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$17$$anonfun$apply$24;", depth))
-});
-ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24 = new ScalaJS.ClassTypeData({
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24: 0
-}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$17$$anonfun$apply$24", ScalaJS.d.sr_AbstractFunction2, {
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24: 1,
+ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28: 0
+}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$18$$anonfun$apply$28", ScalaJS.d.sr_AbstractFunction2, {
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1,
   sr_AbstractFunction2: 1,
   F2: 1,
   O: 1
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$17$$anonfun$apply$24;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$18$$anonfun$apply$28;
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$2 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
@@ -22136,7 +22626,7 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$6$$anonfun$apply$17$$an
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
   this.success$1$f = null;
-  this.failure$1$2 = null
+  this.failure$1$f = null
 });
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7.prototype = new ScalaJS.h.sr_AbstractFunction2();
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7;
@@ -22147,20 +22637,14 @@ ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7 = (function() {
 ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7.prototype;
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7.prototype.init___F2__F1 = (function(success$1, failure$1) {
   this.success$1$f = success$1;
-  this.failure$1$2 = failure$1;
+  this.failure$1$f = failure$1;
   return this
 });
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7.prototype.apply__O__O__O = (function(v1, v2) {
   return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(condition, blockTail) {
-  return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(blockTail, new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(arg$outer, condition$1) {
-    return (function(body$2, bodyTail$2) {
-      var body = ScalaJS.as.Lcom_repocad_web_parsing_Expr(body$2);
-      var bodyTail = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(bodyTail$2);
-      return ScalaJS.as.s_util_Either(arg$outer.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_LoopExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(condition$1, body), bodyTail))
-    })
-  })(this, condition)), this.failure$1$2)
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(centerX, t1) {
+  return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(t1, new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20().init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$7__Lcom_repocad_web_parsing_Expr(this, centerX), this.failure$1$f)
 });
 ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7)))
@@ -22186,6 +22670,165 @@ ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7 = new ScalaJS.ClassTy
 });
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7;
 /** @constructor */
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20 = (function() {
+  ScalaJS.c.sr_AbstractFunction2.call(this);
+  this.$$outer$2 = null;
+  this.centerX$4$f = null
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20.prototype = new ScalaJS.h.sr_AbstractFunction2();
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20.prototype;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20.prototype.apply__O__O__O = (function(v1, v2) {
+  return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(centerY, t2) {
+  return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(t2, new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21().init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20__Lcom_repocad_web_parsing_Expr(this, centerY), this.$$outer$2.failure$1$f)
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20.prototype.init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$7__Lcom_repocad_web_parsing_Expr = (function($$outer, centerX$4) {
+  if (($$outer === null)) {
+    throw ScalaJS.unwrapJavaScriptException(null)
+  } else {
+    this.$$outer$2 = $$outer
+  };
+  this.centerX$4$f = centerX$4;
+  return this
+});
+ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20)))
+});
+ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$7$$anonfun$apply$20"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$7$$anonfun$apply$20;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20: 0
+}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$7$$anonfun$apply$20", ScalaJS.d.sr_AbstractFunction2, {
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  sr_AbstractFunction2: 1,
+  F2: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20;
+/** @constructor */
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21 = (function() {
+  ScalaJS.c.sr_AbstractFunction2.call(this);
+  this.$$outer$2 = null;
+  this.centerY$4$f = null
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21.prototype = new ScalaJS.h.sr_AbstractFunction2();
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21.prototype;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21.prototype.init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20__Lcom_repocad_web_parsing_Expr = (function($$outer, centerY$4) {
+  if (($$outer === null)) {
+    throw ScalaJS.unwrapJavaScriptException(null)
+  } else {
+    this.$$outer$2 = $$outer
+  };
+  this.centerY$4$f = centerY$4;
+  return this
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21.prototype.apply__O__O__O = (function(v1, v2) {
+  return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(width, t3) {
+  return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(t3, new ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22().init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21__Lcom_repocad_web_parsing_Expr(this, width), this.$$outer$2.$$outer$2.failure$1$f)
+});
+ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21)))
+});
+ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21: 0
+}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21", ScalaJS.d.sr_AbstractFunction2, {
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  sr_AbstractFunction2: 1,
+  F2: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21;
+/** @constructor */
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function() {
+  ScalaJS.c.sr_AbstractFunction2.call(this);
+  this.$$outer$2 = null;
+  this.width$1$f = null
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype = new ScalaJS.h.sr_AbstractFunction2();
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21__Lcom_repocad_web_parsing_Expr = (function($$outer, width$1) {
+  if (($$outer === null)) {
+    throw ScalaJS.unwrapJavaScriptException(null)
+  } else {
+    this.$$outer$2 = $$outer
+  };
+  this.width$1$f = width$1;
+  return this
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.apply__O__O__O = (function(v1, v2) {
+  return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(height, t4) {
+  return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(t4, new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(arg$outer, height$2) {
+    return (function(text$2, t5$2) {
+      var text = ScalaJS.as.Lcom_repocad_web_parsing_Expr(text$2);
+      var t5 = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(t5$2);
+      return ScalaJS.as.s_util_Either(arg$outer.$$outer$2.$$outer$2.$$outer$2.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_TextBoxExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(arg$outer.$$outer$2.$$outer$2.centerX$4$f, arg$outer.$$outer$2.centerY$4$f, arg$outer.width$1$f, height$2, text), t5))
+    })
+  })(this, height)), this.$$outer$2.$$outer$2.$$outer$2.failure$1$f)
+});
+ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22)))
+});
+ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22: 0
+}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22", ScalaJS.d.sr_AbstractFunction2, {
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  sr_AbstractFunction2: 1,
+  F2: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$7$$anonfun$apply$20$$anonfun$apply$21$$anonfun$apply$22;
+/** @constructor */
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
   this.success$1$f = null;
@@ -22206,14 +22849,14 @@ ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8.prototype.init___F2__
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8.prototype.apply__O__O__O = (function(v1, v2) {
   return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
 });
-ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(assignment, blockTail) {
-  return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(blockTail, new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(arg$outer, assignment$1) {
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(condition, blockTail) {
+  return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(blockTail, new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(arg$outer, condition$1) {
     return (function(body$2, bodyTail$2) {
       var body = ScalaJS.as.Lcom_repocad_web_parsing_Expr(body$2);
       var bodyTail = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(bodyTail$2);
-      return ScalaJS.as.s_util_Either(arg$outer.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_LoopExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(assignment$1, body), bodyTail))
+      return ScalaJS.as.s_util_Either(arg$outer.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_LoopExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(condition$1, body), bodyTail))
     })
-  })(this, assignment)), this.failure$1$2)
+  })(this, condition)), this.failure$1$2)
 });
 ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8 = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8)))
@@ -22238,6 +22881,59 @@ ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8 = new ScalaJS.ClassTy
   O: 1
 });
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$8;
+/** @constructor */
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9 = (function() {
+  ScalaJS.c.sr_AbstractFunction2.call(this);
+  this.success$1$f = null;
+  this.failure$1$2 = null
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9.prototype = new ScalaJS.h.sr_AbstractFunction2();
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9.prototype.constructor = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9.prototype = ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9.prototype;
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9.prototype.init___F2__F1 = (function(success$1, failure$1) {
+  this.success$1$f = success$1;
+  this.failure$1$2 = failure$1;
+  return this
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9.prototype.apply__O__O__O = (function(v1, v2) {
+  return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either(ScalaJS.as.Lcom_repocad_web_parsing_Expr(v1), ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(v2))
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(assignment, blockTail) {
+  return ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(blockTail, new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(arg$outer, assignment$1) {
+    return (function(body$2, bodyTail$2) {
+      var body = ScalaJS.as.Lcom_repocad_web_parsing_Expr(body$2);
+      var bodyTail = ScalaJS.as.Lcom_repocad_web_lexing_LiveStream(bodyTail$2);
+      return ScalaJS.as.s_util_Either(arg$outer.success$1$f.apply__O__O__O(new ScalaJS.c.Lcom_repocad_web_parsing_LoopExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(assignment$1, body), bodyTail))
+    })
+  })(this, assignment)), this.failure$1$2)
+});
+ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9)))
+});
+ScalaJS.as.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9 = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.parsing.Parser$$anonfun$parse$9"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.parsing.Parser$$anonfun$parse$9;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9 = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$9: 0
+}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$9", ScalaJS.d.sr_AbstractFunction2, {
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$9: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1,
+  sr_AbstractFunction2: 1,
+  F2: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9.prototype.$classData = ScalaJS.d.Lcom_repocad_web_parsing_Parser$$anonfun$parse$9;
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_parsing_Parser$$anonfun$parseTripleOp$1 = (function() {
   ScalaJS.c.sr_AbstractFunction2.call(this);
@@ -26472,6 +27168,46 @@ ScalaJS.d.sjsr_AnonFunction4 = new ScalaJS.ClassTypeData({
 });
 ScalaJS.c.sjsr_AnonFunction4.prototype.$classData = ScalaJS.d.sjsr_AnonFunction4;
 /** @constructor */
+ScalaJS.c.sjsr_AnonFunction5 = (function() {
+  ScalaJS.c.sr_AbstractFunction5.call(this);
+  this.f$2 = null
+});
+ScalaJS.c.sjsr_AnonFunction5.prototype = new ScalaJS.h.sr_AbstractFunction5();
+ScalaJS.c.sjsr_AnonFunction5.prototype.constructor = ScalaJS.c.sjsr_AnonFunction5;
+/** @constructor */
+ScalaJS.h.sjsr_AnonFunction5 = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.sjsr_AnonFunction5.prototype = ScalaJS.c.sjsr_AnonFunction5.prototype;
+ScalaJS.c.sjsr_AnonFunction5.prototype.init___sjs_js_Function5 = (function(f) {
+  this.f$2 = f;
+  return this
+});
+ScalaJS.c.sjsr_AnonFunction5.prototype.apply__O__O__O__O__O__O = (function(arg1, arg2, arg3, arg4, arg5) {
+  return (0, this.f$2)(arg1, arg2, arg3, arg4, arg5)
+});
+ScalaJS.is.sjsr_AnonFunction5 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sjsr_AnonFunction5)))
+});
+ScalaJS.as.sjsr_AnonFunction5 = (function(obj) {
+  return ((ScalaJS.is.sjsr_AnonFunction5(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "scala.scalajs.runtime.AnonFunction5"))
+});
+ScalaJS.isArrayOf.sjsr_AnonFunction5 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.sjsr_AnonFunction5)))
+});
+ScalaJS.asArrayOf.sjsr_AnonFunction5 = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.sjsr_AnonFunction5(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lscala.scalajs.runtime.AnonFunction5;", depth))
+});
+ScalaJS.d.sjsr_AnonFunction5 = new ScalaJS.ClassTypeData({
+  sjsr_AnonFunction5: 0
+}, false, "scala.scalajs.runtime.AnonFunction5", ScalaJS.d.sr_AbstractFunction5, {
+  sjsr_AnonFunction5: 1,
+  sr_AbstractFunction5: 1,
+  F5: 1,
+  O: 1
+});
+ScalaJS.c.sjsr_AnonFunction5.prototype.$classData = ScalaJS.d.sjsr_AnonFunction5;
+/** @constructor */
 ScalaJS.c.sjsr_RuntimeLong = (function() {
   ScalaJS.c.jl_Number.call(this);
   this.l$2 = 0;
@@ -29259,6 +29995,9 @@ ScalaJS.h.sci_List.prototype = ScalaJS.c.sci_List.prototype;
 ScalaJS.c.sci_List.prototype.seq__sc_TraversableOnce = (function() {
   return this
 });
+ScalaJS.c.sci_List.prototype.takeRight__I__sci_List = (function(n) {
+  return this.loop$2__p4__sci_List__sci_List__sci_List(this.drop__I__sci_List(n), this)
+});
 ScalaJS.c.sci_List.prototype.init___ = (function() {
   return this
 });
@@ -29281,11 +30020,53 @@ ScalaJS.c.sci_List.prototype.exists__F1__Z = (function(p) {
 ScalaJS.c.sci_List.prototype.toList__sci_List = (function() {
   return this
 });
+ScalaJS.c.sci_List.prototype.loop$2__p4__sci_List__sci_List__sci_List = (function(lead, lag) {
+  _loop: while (true) {
+    var x1 = lead;
+    if (ScalaJS.anyRefEqEq(ScalaJS.m.sci_Nil(), x1)) {
+      return lag
+    } else if (ScalaJS.is.sci_$colon$colon(x1)) {
+      var x2 = ScalaJS.as.sci_$colon$colon(x1);
+      var tail = x2.tl$5;
+      var temp$lag = ScalaJS.as.sci_List(lag.tail__O());
+      lead = tail;
+      lag = temp$lag;
+      continue _loop
+    } else {
+      throw new ScalaJS.c.s_MatchError().init___O(x1)
+    }
+  }
+});
 ScalaJS.c.sci_List.prototype.thisCollection__sc_Traversable = (function() {
   return this
 });
 ScalaJS.c.sci_List.prototype.drop__I__sc_LinearSeqOptimized = (function(n) {
   return this.drop__I__sci_List(n)
+});
+ScalaJS.c.sci_List.prototype.take__I__sci_List = (function(n) {
+  if ((this.isEmpty__Z() || (n <= 0))) {
+    return ScalaJS.m.sci_Nil()
+  } else {
+    var h = new ScalaJS.c.sci_$colon$colon().init___O__sci_List(this.head__O(), ScalaJS.m.sci_Nil());
+    var t = h;
+    var rest = ScalaJS.as.sci_List(this.tail__O());
+    var i = 1;
+    while (true) {
+      if (rest.isEmpty__Z()) {
+        return this
+      };
+      if ((i < n)) {
+        i = ((i + 1) | 0);
+        var nx = new ScalaJS.c.sci_$colon$colon().init___O__sci_List(rest.head__O(), ScalaJS.m.sci_Nil());
+        t.tl$5 = nx;
+        t = nx;
+        rest = ScalaJS.as.sci_List(rest.tail__O())
+      } else {
+        break
+      }
+    };
+    return h
+  }
 });
 ScalaJS.c.sci_List.prototype.companion__scg_GenericCompanion = (function() {
   return ScalaJS.m.sci_List()

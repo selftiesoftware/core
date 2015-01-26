@@ -1,12 +1,10 @@
 package com.repocad.web
 
 import com.repocad.web.evaluating.Evaluator
-import com.repocad.web.lexing.{Lexer}
-import com.repocad.web.parsing.{UnitExpr, Expr, Parser}
-import org.scalajs.dom
+import com.repocad.web.lexing.Lexer
+import com.repocad.web.parsing.{Expr, Parser, UnitExpr}
 import org.scalajs.dom._
 
-import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
 
 /**
@@ -16,7 +14,8 @@ import scala.scalajs.js.annotation.JSExport
  * @param debug A debug field to be used for (error) messages
  */
 @JSExport("Repocad")
-class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement) {
+class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement, title : HTMLInputElement,
+              searchDrawing : HTMLButtonElement, newDrawing : HTMLButtonElement) {
 
   val view = new CanvasView(canvas)
 
@@ -56,25 +55,19 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   }
 
   canvas.onmousemove = (e : MouseEvent) => {
-
-    //get the current zoom level
-    def zoomFactor = {
-      if (zoomLevel < 0) 1/zoomLevel.abs else if(zoomLevel == 0) 1 else zoomLevel
-    }
-      //calculate the paper center in canvas coordinates
-        mouseClient = Vector2D(e.clientX,e.clientY)
-
-    mouseCanvas = Vector2D(mouseClient.x - canvasCorner.x,-mouseClient.y + canvasCorner.y)
-
-    //TODO: Papirets center i relation til canvas TL corner mangler.
-
     if (mouseDown) {
 
+
+      val zoomFactor = zoomLevel.toDouble.abs
+      val newZ1 = math.pow(zoomFactor,1.1)
+      val newZ2 = math.pow(zoomFactor,0.5)
+
       val newV = Vector2D(e.clientX, e.clientY)
-      val translation = Vector2D((newV - mousePosition).x, (newV - mousePosition).y)
-
-      view.translate(translation.x,translation.y)
-
+      if(zoomLevel < 0) { //zooming out
+        view.translate((newV - mousePosition).x * newZ1, (newV - mousePosition).y * newZ1)
+      } else if(zoomLevel > 0){//zooming in
+        view.translate((newV - mousePosition).x / newZ2, (newV - mousePosition).y / newZ2)
+      } else view.translate((newV - mousePosition).x, (newV - mousePosition).y)
       mousePosition = newV
       eval(lastAst)
     }
@@ -90,16 +83,40 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
     view.init()
 
     val listener = (hash : String) => {
-      val x = Drawing.get(hash)
-        x.fold(displayError, drawing => {
-        loadDrawing(drawing)
-        displaySuccess(s"Loaded drawing $hash")
-      })
+      if (!hash.isEmpty) {
+        Drawing.get(hash).fold(displayError, drawing => {
+          title.value = drawing.name
+          loadDrawing(drawing)
+          displaySuccess(s"Loaded drawing $hash")
+        })
+      }
     }
     // Call and set listener
     val d = loadDrawing(drawing)
+    title.value = drawing.name
+
     Drawing.setHashListener(listener)
 
+    val loadListener =
+    title.onkeydown = (e : KeyboardEvent) => {
+      if (e.keyCode == 13) {
+        listener(title.value)
+        window.location.hash = title.value
+      }
+    }
+
+    searchDrawing.onclick = (e : MouseEvent) => {
+      listener(title.value)
+      window.location.hash = title.value
+    }
+
+    newDrawing.onclick = (e : MouseEvent) => {
+      val title = scala.scalajs.js.Dynamic.global.prompt("Name the new drawing").toString
+      if (title != null && !title.isEmpty) {
+        listener(title)
+        window.location.hash = title
+      }
+    }
   }
 
   def loadDrawing(drawing : Drawing) : Unit = {
