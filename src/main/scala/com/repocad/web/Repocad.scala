@@ -12,6 +12,11 @@ import scala.scalajs.js.annotation.JSExport
  * @param canvas The canvas on which to draw
  * @param input The input field containing the textual code
  * @param debug A debug field to be used for (error) messages
+ *
+ *
+ *              TODO: Version numbers for AST!
+ *              TODO: Import versioned compilers on request
+ *              TODO: Use optimised JS
  */
 @JSExport("Repocad")
 class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement, title : HTMLInputElement,

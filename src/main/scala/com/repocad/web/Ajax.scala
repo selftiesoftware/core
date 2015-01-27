@@ -16,13 +16,11 @@ object Response {
 object Ajax {
 
   def get(url : String) : Response = {
-    //ajax("GET", url, "", Map())
-    Response(0, 0, "")
+    ajax("GET", url, "", Map())
   }
 
   def post(url : String, data : String) : Response = {
-    //ajax("POST", url, data, Map("Content-length" -> data.length.toString))
-    Response(0, 0, "")
+    ajax("POST", url, data, Map("Content-length" -> data.length.toString))
   }
 
   private def ajax(method : String, url : String, data : String, headers : Map[String, String]) : Response = {
