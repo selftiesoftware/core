@@ -125,9 +125,10 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   }
 
   def loadDrawing(drawing : Drawing) : Unit = {
-    this.drawing = drawing
+    Evaluator.resetBoundingBox()//reset paper
     Paper.scaleAndRotation()//adapt paper
-    view.drawPaper() //draw the paper
+    view.drawPaper() //draw paper
+    this.drawing = drawing
     input.value = drawing.content
     window.location.hash = drawing.name
     run()
