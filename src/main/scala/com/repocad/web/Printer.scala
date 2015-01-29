@@ -79,5 +79,4 @@ trait Printer {
       "textBox" -> ((p : Printer, x : Double, y : Double, w: Double, h : Double, t : Any) => textBox(x, y, w, h, t))
     )
   }
-
 }

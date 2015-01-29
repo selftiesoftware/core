@@ -140,7 +140,6 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
         right => {
           //println("AST: " + right)
           val x = eval(right)
-          //println("Eval: " + x)
           x
         })
     //update the paper scale and position
@@ -154,7 +153,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   def eval(expr : Expr) : Unit = {
     lastAst = expr
-    view.clear()
+    view.clear() //redraw the canvas
     Evaluator.resetBoundingBox() //set the default paper scale
     Evaluator.eval(expr, view)
       .fold(

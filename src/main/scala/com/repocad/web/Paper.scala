@@ -33,7 +33,8 @@ object Paper {
     var shortSide = paperSize(0)
     var longSide = paperSize(1)
 
-    val center = drawingCenter
+    //val center = drawingCenter
+    drawingCenter = Vector2D(xMax - (xMax-xMin)/2,yMax - (yMax-yMin)/2)
 
     //calculate the scale automatically. Results in 1:1, 1:2,1:5,1:10,1:20 etc.
     if (autoScale) {

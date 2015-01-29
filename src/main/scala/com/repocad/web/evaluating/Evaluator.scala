@@ -15,6 +15,11 @@ object Evaluator {
   var minY : Option[Double] = None
   var maxY : Option[Double] = None
 
+  println(minX)
+  println(maxX)
+  println(minY)
+  println(maxY)
+
   /*
   update the bounding box each time the drawing is evaluated.
    */
