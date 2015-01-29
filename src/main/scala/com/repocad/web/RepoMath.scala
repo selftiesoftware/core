@@ -8,7 +8,7 @@ import com.repocad.web.evaluating.Evaluator
 object RepoMath {
 
   val toEnv : Evaluator.Env = Map(
-    "cos" -> ???
+    "cos" -> ((degrees : Double) => math.cos(degrees))
   )
 
 }
