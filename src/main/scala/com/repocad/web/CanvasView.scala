@@ -41,8 +41,10 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     }
 
     //annotation
-    val txt : String = "p a p e r : A 4   i n    s c a l e:   1 :  " + paperScale.toString
+    val txt : String = "p a p e r : A 4       s c a l e:   1 :  " + paperScale.toString
+    val version : String = "v e r.   0 . 1 5 "
     screenText(5,10,70,txt)
+    screenText(370,10,70,version)
 
     //DEBUGGING
 
@@ -179,7 +181,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     Evaluator.updateBoundingBox(x + length/(length/w), y - h*length/w.ceil)
     Evaluator.updateBoundingBox(x,y + h)
 
-    for (i <- 1 to lines.toInt + 1) {
+    for (i <- 1 to lines.toInt + 2) {
       val myFont = correctedH.toString() + "px Arial"
       val str = string.take(charsPerLine) //make the string from the first elements
       string = string.takeRight(chars - charsPerLine * i) //pass the last elements to a new list
@@ -209,7 +211,7 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
   def zoom(delta : Double, pointX : Double, pointY : Double) {
 
     val increment = 0.15
-    //TODO: put .1767 on a formula..
+    //TODO: rewrite this completely. Needs to use a TransformationMatrix and take into account the zoom level.
     val zoomScale = if(delta == -1) 1 + (delta * increment) else 1 + (delta * 0.1767) //zoom in needs to be bigger
     val mousePoint = Vector2D(pointX - windowCenter.x, pointY - windowCenter.y)
     context.translate(mousePoint.x, mousePoint.y)
@@ -225,8 +227,5 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     //zoom = math.max(View.width, View.height) / math.max(drawing.boundary.width, drawing.boundary.height) * 0.5 // 20% margin
     //val translateX = centerX * zoom
     //val translateY = centerY * zoom
-
-
   }
-
 }
