@@ -4354,8 +4354,8 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.com$repocad$web$evalu
   if (ScalaJS.is.Lcom_repocad_web_parsing_ValExpr(expr)) {
     var x10 = ScalaJS.as.Lcom_repocad_web_parsing_ValExpr(expr);
     var name$6 = x10.name$1;
-    var value$2 = x10.value$1;
-    var this$61 = this.com$repocad$web$evaluating$Evaluator$$eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(value$2, env, printer);
+    var valExpr = x10.value$1;
+    var this$61 = this.com$repocad$web$evaluating$Evaluator$$eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(valExpr, env, printer);
     if (ScalaJS.is.s_util_Left(this$61)) {
       var x2$4 = ScalaJS.as.s_util_Left(this$61);
       var a$7 = x2$4.a$2;

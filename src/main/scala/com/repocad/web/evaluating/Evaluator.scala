@@ -247,8 +247,8 @@ object Evaluator {
 
       case UnitExpr => Right(env -> Unit)
 
-      case ValExpr(name, value) =>
-        eval(value, env, printer).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
+      case ValExpr(name, valExpr) =>
+        eval(valExpr, env, printer).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
 
       case LoopExpr(condition: Expr, body: Expr) =>
         /* Note to self: Too much recursion error when looping recursively */
