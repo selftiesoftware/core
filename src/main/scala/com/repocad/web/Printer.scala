@@ -14,9 +14,7 @@ trait Printer {
    * @param r Radius
    * @param sAngle start angle (3'o clock)
    * @param eAngle end angle
-   *
    */
-
   def arc(x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double)
 
   /**
@@ -29,7 +27,6 @@ trait Printer {
    * @param y3 control point2 y
    * @param x4 end x
    * @param y4 start y
-   *
    */
   def bezierCurve(x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double)
 
