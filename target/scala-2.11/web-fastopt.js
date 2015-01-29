@@ -4091,22 +4091,6 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.init___ = (function()
   this.maxX$1 = ScalaJS.m.s_None();
   this.minY$1 = ScalaJS.m.s_None();
   this.maxY$1 = ScalaJS.m.s_None();
-  var x = this.minX$1;
-  var this$2 = ScalaJS.m.s_Console();
-  var this$3 = this$2.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
-  var x$1 = this.maxX$1;
-  var this$5 = ScalaJS.m.s_Console();
-  var this$6 = this$5.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$6.tl$1.get__O()).println__O__V(x$1);
-  var x$2 = this.minY$1;
-  var this$8 = ScalaJS.m.s_Console();
-  var this$9 = this$8.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$9.tl$1.get__O()).println__O__V(x$2);
-  var x$3 = this.maxY$1;
-  var this$11 = ScalaJS.m.s_Console();
-  var this$12 = this$11.outVar$2;
-  ScalaJS.as.Ljava_io_PrintStream(this$12.tl$1.get__O()).println__O__V(x$3);
   this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = ScalaJS.as.sci_Map(ScalaJS.m.s_Predef().Map$2.apply__sc_Seq__sc_GenMap(ScalaJS.m.sci_Nil()));
   return this
 });
