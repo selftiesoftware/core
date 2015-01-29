@@ -3449,6 +3449,55 @@ ScalaJS.d.Lcom_repocad_web_Printer = new ScalaJS.ClassTypeData({
   O: 1
 });
 /** @constructor */
+ScalaJS.c.Lcom_repocad_web_RepoMath$ = (function() {
+  ScalaJS.c.O.call(this);
+  this.toEnv$1 = null
+});
+ScalaJS.c.Lcom_repocad_web_RepoMath$.prototype = new ScalaJS.h.O();
+ScalaJS.c.Lcom_repocad_web_RepoMath$.prototype.constructor = ScalaJS.c.Lcom_repocad_web_RepoMath$;
+/** @constructor */
+ScalaJS.h.Lcom_repocad_web_RepoMath$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.Lcom_repocad_web_RepoMath$.prototype = ScalaJS.c.Lcom_repocad_web_RepoMath$.prototype;
+ScalaJS.c.Lcom_repocad_web_RepoMath$.prototype.init___ = (function() {
+  ScalaJS.n.Lcom_repocad_web_RepoMath = this;
+  var jsx$1 = ScalaJS.m.s_Predef().Map$2;
+  var y = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2, degrees$2) {
+    ScalaJS.as.Lcom_repocad_web_Printer(p$2);
+    var degrees = ScalaJS.uD(degrees$2);
+    return ScalaJS.uD(ScalaJS.g["Math"]["cos"](degrees))
+  }));
+  this.toEnv$1 = ScalaJS.as.sci_Map(jsx$1.apply__sc_Seq__sc_GenMap(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([new ScalaJS.c.T2().init___O__O("cos", y)])));
+  return this
+});
+ScalaJS.is.Lcom_repocad_web_RepoMath$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_RepoMath$)))
+});
+ScalaJS.as.Lcom_repocad_web_RepoMath$ = (function(obj) {
+  return ((ScalaJS.is.Lcom_repocad_web_RepoMath$(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "com.repocad.web.RepoMath$"))
+});
+ScalaJS.isArrayOf.Lcom_repocad_web_RepoMath$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_RepoMath$)))
+});
+ScalaJS.asArrayOf.Lcom_repocad_web_RepoMath$ = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.Lcom_repocad_web_RepoMath$(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lcom.repocad.web.RepoMath$;", depth))
+});
+ScalaJS.d.Lcom_repocad_web_RepoMath$ = new ScalaJS.ClassTypeData({
+  Lcom_repocad_web_RepoMath$: 0
+}, false, "com.repocad.web.RepoMath$", ScalaJS.d.O, {
+  Lcom_repocad_web_RepoMath$: 1,
+  O: 1
+});
+ScalaJS.c.Lcom_repocad_web_RepoMath$.prototype.$classData = ScalaJS.d.Lcom_repocad_web_RepoMath$;
+ScalaJS.n.Lcom_repocad_web_RepoMath = (void 0);
+ScalaJS.m.Lcom_repocad_web_RepoMath = (function() {
+  if ((!ScalaJS.n.Lcom_repocad_web_RepoMath)) {
+    ScalaJS.n.Lcom_repocad_web_RepoMath = new ScalaJS.c.Lcom_repocad_web_RepoMath$().init___()
+  };
+  return ScalaJS.n.Lcom_repocad_web_RepoMath
+});
+/** @constructor */
 ScalaJS.c.Lcom_repocad_web_Repocad = (function() {
   ScalaJS.c.O.call(this);
   this.com$repocad$web$Repocad$$input$f = null;
@@ -4509,7 +4558,7 @@ ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.getValue__Lcom_repoca
 });
 ScalaJS.c.Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either = (function(expr, printer) {
   try {
-    return this.com$repocad$web$evaluating$Evaluator$$eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(expr, printer.toEnv__sci_Map(), printer)
+    return this.com$repocad$web$evaluating$Evaluator$$eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(expr, printer.toEnv__sci_Map().$$plus$plus__sc_GenTraversableOnce__sci_Map(ScalaJS.m.Lcom_repocad_web_RepoMath().toEnv$1), printer)
   } catch (ex) {
     ex = ScalaJS.wrapJavaScriptException(ex);
     if (ScalaJS.is.jl_Exception(ex)) {

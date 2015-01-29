@@ -58,7 +58,7 @@ object Evaluator {
 
   def eval(expr : Expr, printer : Printer) : Value = {
     try {
-      eval(expr, printer.toEnv, printer)
+      eval(expr, printer.toEnv ++ RepoMath.toEnv, printer)
     } catch {
       case e : Exception => Left(s"Failure when evaluating script: ${e.getLocalizedMessage}")
     }
