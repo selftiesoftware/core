@@ -3638,6 +3638,7 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$printPdf__T__O =
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.loadDrawing__Lcom_repocad_web_Drawing__V = (function(drawing) {
   this.drawing$1 = drawing;
   ScalaJS.m.Lcom_repocad_web_Paper().scaleAndRotation__Z();
+  this.view$1.drawPaper__V();
   this.com$repocad$web$Repocad$$input$f["value"] = drawing.content$1;
   ScalaJS.g["window"]["location"]["hash"] = drawing.name$1;
   this.run__V()
