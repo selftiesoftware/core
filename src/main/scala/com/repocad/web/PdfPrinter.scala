@@ -18,6 +18,9 @@ class PdfPrinter() extends Printer {
   //Transform by moving (0, 0) to center of paper NOTE: Y is flipped.
   var scaledCenter = Vector2D(drawingCenter.x / paperScale ,-drawingCenter.y / paperScale)
 
+  //set standard line weight
+  document.setLineWidth(0.1)
+
   /**
    * create an arc.
    * @param x The x-coordinate of the center of the arc
@@ -89,7 +92,7 @@ class PdfPrinter() extends Printer {
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : Unit = {
     val v1 = transform(Vector2D(x1 / paperScale, y1 / paperScale))
     val v2 = transform(Vector2D(x2 / paperScale, y2 / paperScale))
-    document.setLineWidth(0.02)
+    document.setLineWidth(0.1)
     document.line(v1.x, v1.y, v2.x, v2.y)
   }
 
