@@ -12,7 +12,8 @@ object RepoMath {
     "degrees" -> ((p : Printer, degrees : Double) => math.toDegrees(degrees)),
     "sin" -> ((p : Printer, degrees : Double) => math.sin(degrees)),
     "radians" -> ((p : Printer, degrees : Double) => math.toRadians(degrees)),
-    "tan" -> ((p : Printer, degrees : Double) => math.tan(degrees))
+    "tan" -> ((p : Printer, degrees : Double) => math.tan(degrees)),
+    "toInt" -> ((p : Printer, double : Double) => double.toInt)
   )
 
 }

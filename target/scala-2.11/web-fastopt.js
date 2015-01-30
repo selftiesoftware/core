@@ -3463,37 +3463,43 @@ ScalaJS.h.Lcom_repocad_web_RepoMath$ = (function() {
 ScalaJS.h.Lcom_repocad_web_RepoMath$.prototype = ScalaJS.c.Lcom_repocad_web_RepoMath$.prototype;
 ScalaJS.c.Lcom_repocad_web_RepoMath$.prototype.init___ = (function() {
   ScalaJS.n.Lcom_repocad_web_RepoMath = this;
-  var jsx$5 = ScalaJS.m.s_Predef().Map$2;
+  var jsx$6 = ScalaJS.m.s_Predef().Map$2;
   var y = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2, degrees$2) {
     ScalaJS.as.Lcom_repocad_web_Printer(p$2);
     var degrees = ScalaJS.uD(degrees$2);
     return ScalaJS.uD(ScalaJS.g["Math"]["cos"](degrees))
   }));
-  var jsx$4 = new ScalaJS.c.T2().init___O__O("cos", y);
+  var jsx$5 = new ScalaJS.c.T2().init___O__O("cos", y);
   var y$1 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$1, degrees$2$1) {
     ScalaJS.as.Lcom_repocad_web_Printer(p$2$1);
     var degrees$1 = ScalaJS.uD(degrees$2$1);
     return ((degrees$1 * 180.0) / 3.141592653589793)
   }));
-  var jsx$3 = new ScalaJS.c.T2().init___O__O("degrees", y$1);
+  var jsx$4 = new ScalaJS.c.T2().init___O__O("degrees", y$1);
   var y$2 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$2, degrees$2$2) {
     ScalaJS.as.Lcom_repocad_web_Printer(p$2$2);
     var degrees$3 = ScalaJS.uD(degrees$2$2);
     return ScalaJS.uD(ScalaJS.g["Math"]["sin"](degrees$3))
   }));
-  var jsx$2 = new ScalaJS.c.T2().init___O__O("sin", y$2);
+  var jsx$3 = new ScalaJS.c.T2().init___O__O("sin", y$2);
   var y$3 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$3, degrees$2$3) {
     ScalaJS.as.Lcom_repocad_web_Printer(p$2$3);
     var degrees$4 = ScalaJS.uD(degrees$2$3);
     return ((degrees$4 / 180.0) * 3.141592653589793)
   }));
-  var jsx$1 = new ScalaJS.c.T2().init___O__O("radians", y$3);
+  var jsx$2 = new ScalaJS.c.T2().init___O__O("radians", y$3);
   var y$4 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$4, degrees$2$4) {
     ScalaJS.as.Lcom_repocad_web_Printer(p$2$4);
     var degrees$5 = ScalaJS.uD(degrees$2$4);
     return ScalaJS.uD(ScalaJS.g["Math"]["tan"](degrees$5))
   }));
-  this.toEnv$1 = ScalaJS.as.sci_Map(jsx$5.apply__sc_Seq__sc_GenMap(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([jsx$4, jsx$3, jsx$2, jsx$1, new ScalaJS.c.T2().init___O__O("tan", y$4)])));
+  var jsx$1 = new ScalaJS.c.T2().init___O__O("tan", y$4);
+  var y$5 = new ScalaJS.c.sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$5, double$3) {
+    ScalaJS.as.Lcom_repocad_web_Printer(p$2$5);
+    var double$2 = ScalaJS.uD(double$3);
+    return (double$2 | 0)
+  }));
+  this.toEnv$1 = ScalaJS.as.sci_Map(jsx$6.apply__sc_Seq__sc_GenMap(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([jsx$5, jsx$4, jsx$3, jsx$2, jsx$1, new ScalaJS.c.T2().init___O__O("toInt", y$5)])));
   return this
 });
 ScalaJS.is.Lcom_repocad_web_RepoMath$ = (function(obj) {
