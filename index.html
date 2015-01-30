@@ -31,7 +31,7 @@
 
 <div class="container" id="container">
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 30px">
         <div class="one columns">
             <a href="http://www.repocad.com"><img src="images/repoCad_logo_NB.png" alt="repoCad logo" align="top" style="width:35px;height:35px;margin-left: 16px">
             </a>
@@ -47,25 +47,12 @@
         </a>
     </div>
 
-    <div class="row">
-        <!--<div class="one column"><br><!--<i id="titleIcon" class="fa fa-lg fa-search"></i></div>-->
-        <button class="one column button-primary" style="width:65px" id="drawingNewButton">New</button>
-        <input type="text" id="drawingTitle" class="four columns" style="margin-left: 18px;background-color: #F0F8FF"/>
-        <button class="one column" id="drawingSearchButton" style="width:82px;margin-left: 2px"><i class="fa fa-lg fa-search"></i></button>
-
-
-        <button id="save" class="two columns">
-            <i class="fa fa-save fa-lg"></i> Save
-        </button>
-        <button id="toPdf" class="two columns">
-            <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
-        </button>
-
-
-    </div>
 
     <div class="row">
         <div class="one column">
+
+            <button class="button-primary" style="width:65px" id="drawingNewButton">New</button>
+
             <!-- git based scripts / drawings library goes here... -->
             <span class="dropt" title="Title for the pop-up">
             <span style="width:150px;">manifesto</span>
@@ -96,6 +83,11 @@
         </div>
 
         <div class="five columns">
+            <div class="row" style="margin-bottom: 0px">
+                <input type="text" id="drawingTitle" class="ten columns" style="background-color: #F0F8FF"/>
+                <button class="one column" id="drawingSearchButton" style="width:63px;margin-left: 2px"><i class="fa fa-lg fa-search"></i></button>
+            </div>
+
             <div class="row">
                 <textarea id="input" class="twelve columns"></textarea>
             </div>
@@ -108,6 +100,14 @@
         <div class="five columns">
             <canvas id="canvas"></canvas>
         </div>
+
+        <button id="save" class="two columns">
+            <i class="fa fa-save fa-lg"></i> Save
+        </button>
+        <button id="toPdf" class="two columns">
+            <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
+        </button>
+
     </div>
 
     <footer class="row">
