@@ -97,6 +97,8 @@
 
         </div>
 
+        <!--- THE REPOCAD CANVAS --->
+
         <div class="five columns">
             <canvas id="canvas"></canvas>
         </div>
@@ -106,6 +108,9 @@
         </button>
         <button id="toPdf" class="two columns">
             <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
+        </button>
+        <button id="toggleMax" class="two columns">
+            maximize
         </button>
 
     </div>
@@ -126,6 +131,7 @@
     var container = document.getElementById("container");
     var debug  = document.getElementById("debug");
     var input  = document.getElementById("input");
+    var toggleMax = document.getElementById("toggleMax");
     var toggleRun = document.getElementById("toggleRun");
     var toPdf = document.getElementById("toPdf");
     var save = document.getElementById("save");
