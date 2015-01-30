@@ -32,19 +32,11 @@
 <div class="container" id="container">
 
     <div class="row">
-      <div class="one columns">
-        <a href="http://www.repocad.com"><h2><img src="images/repoCad_logo.png" alt="repoCad logo" align="top" style="width:50px;height:50px">
-	  </h2></a>
-	  </div>
-	  <div class="three columns">
-		<h2>repoCad</h2>
-	  </div>
-      <div class="six columns">
-        <h5>- showcasing the internet of Digital Design</h5>
-      </div>
-    </div>
-    <div class="row">
-        <a class="button five columns" href="http://www.repocad.com/#manifesto">
+        <div class="one columns">
+            <a href="http://www.repocad.com"><img src="images/repoCad_logo_NB.png" alt="repoCad logo" align="top" style="width:35px;height:35px;margin-left: 16px">
+            </a>
+        </div>
+        <a class="button four columns" href="http://www.repocad.com/#manifesto">
             <i class="fa fa-lg fa-chevron-circle-right"></i> About <i>'repoCad'</i>
         </a>
         <a class="button three columns" href="https://twitter.com/repocad">
@@ -56,15 +48,25 @@
     </div>
 
     <div class="row">
-        <div class="one column"><br><!--<i id="titleIcon" class="fa fa-lg fa-search"></i>--></div>
-        <button class="two columns" id="drawingNewButton"><i class="fa fa-lg fa-edit"></i> New</button>
-        <input type="text" id="drawingTitle" style="margin-top: 0; display: inline; padding: 0 10px 0 10px;" class="seven columns" />
-        <button class="two columns" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i> Search</button>
+        <!--<div class="one column"><br><!--<i id="titleIcon" class="fa fa-lg fa-search"></i></div>-->
+        <button class="one column button-primary" style="width:65px" id="drawingNewButton">New</button>
+        <input type="text" id="drawingTitle" class="four columns" style="margin-left: 18px;background-color: #F0F8FF"/>
+        <button class="one column" id="drawingSearchButton" style="width:82px;margin-left: 2px"><i class="fa fa-lg fa-search"></i></button>
+
+
+        <button id="save" class="two columns">
+            <i class="fa fa-save fa-lg"></i> Save
+        </button>
+        <button id="toPdf" class="two columns">
+            <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
+        </button>
+
+
     </div>
 
     <div class="row">
         <div class="one column">
-            <!-- git based script- and drawings library goes here... -->
+            <!-- git based scripts / drawings library goes here... -->
             <span class="dropt" title="Title for the pop-up">
             <span style="width:150px;">manifesto</span>
             <a href="#manifesto"><img src=images/manifesto.png alt="manifesto" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
@@ -94,16 +96,13 @@
         </div>
 
         <div class="five columns">
-            <textarea id="input" class="twelve columns"></textarea>
             <div class="row">
-                <button id="save" class="six columns">
-                    <i class="fa fa-save fa-lg"></i> Save
-                </button>
-                <button id="toPdf" class="six columns">
-                    <i class="fa fa-file-pdf-o fa-lg"></i> Print to PDF
-                </button>
+                <textarea id="input" class="twelve columns"></textarea>
             </div>
-            <div id="debug"></div>
+            <div class="row">
+                <div id="debug" style="background-color: #ffe0d7"></div>
+            </div>
+
         </div>
 
         <div class="five columns">
@@ -140,7 +139,7 @@
     //}
 
     // Use JQuery
-    // Ole: jQuery er et JS bibliotek, der skal importeres før det kan bruges
+    // Ole: jQuery er et JS bibliotek, der skal importeres før det kan bruges -> OK.
     //
     //$('#test').click(function() {
     //    copyToClipboard(href)

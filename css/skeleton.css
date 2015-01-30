@@ -44,14 +44,15 @@ span.dropt:hover span {margin: 2px 0 0 170px; background: #ffffff; z-index:6;}
   width: 80%; 
   max-width: 960px; 
   margin: 0 auto; 
-  padding: 0; }
+  margin-top: 10px;
+  padding: 1; }
 .container .column,        
 .container .columns { 
   float: left; 
   width: 100%; 
   box-sizing: border-box; }
 .row { 
-  margin-bottom: 2rem; }
+  margin-bottom: 1rem; }
 .row .column:first-child,        
 .row .columns:first-child { 
   margin-left: 0; }
@@ -171,7 +172,7 @@ input[type="button"] {
   border: 1px solid #bbb;
   height: 38px;
   line-height: 38px;
-  padding: 0 30px;
+  padding: 0 17px;
   letter-spacing: .1rem;
   text-transform: uppercase; 
   white-space: nowrap;
@@ -194,9 +195,10 @@ button.button-primary,
 input[type="submit"].button-primary,
 input[type="reset"].button-primary,
 input[type="button"].button-primary {
+  text-align: left;
   color: #FFF;
-  border-color: #33C3F0;
-  background-color: #33C3F0; }
+  border-color: #0061b8;
+  background-color: #078aff; }
 .button.button-primary:hover,
 button.button-primary:hover,
 input[type="submit"].button-primary:hover,
@@ -207,8 +209,8 @@ button.button-primary:focus,
 input[type="submit"].button-primary:focus,
 input[type="reset"].button-primary:focus,
 input[type="button"].button-primary:focus {
-  background-color: #1EAEDB;
-  border-color: #1EAEDB;
+  background-color: #0061b8;
+  border-color: #0061b8;
   color: #FFF; }
 
 
