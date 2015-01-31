@@ -103,15 +103,15 @@
             <canvas id="canvas"></canvas>
         </div>
 
-        <button id="save" class="two columns">
+        <button id="save" class="three columns">
             <i class="fa fa-save fa-lg"></i> Save
         </button>
-        <button id="toPdf" class="two columns">
+        <button id="toPdf" class="three columns">
             <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
         </button>
-        <button id="toggleMax" class="two columns">
+        <!--<button id="toggleMax" class="two columns" disabled="disabled">
             clone (N/A)
-        </button>
+        </button>-->
 
     </div>
 
@@ -139,17 +139,6 @@
     var newDrawing = document.getElementById("drawingNewButton");
     var searchDrawing = document.getElementById("drawingSearchButton");
     var repocad = new Repocad(canvas, input, debug, title, searchDrawing, newDrawing);
-
-    //function copyToClipboard(text) {
-    //    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-    //}
-
-    // Use JQuery
-    // Ole: jQuery er et JS bibliotek, der skal importeres før det kan bruges -> OK.
-    //
-    //$('#test').click(function() {
-    //    copyToClipboard(href)
-    //});
 
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
 
