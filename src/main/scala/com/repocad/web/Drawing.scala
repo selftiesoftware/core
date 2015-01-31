@@ -22,7 +22,7 @@ object Drawing {
       getDefault
     } else {
       Drawing.get(hash)
-    }).left.map(_ => Drawing(js.Math.random().toString.substring(7), "line 0 0 100 100")).merge
+    }).left.map(_ => Drawing(js.Math.random().toString.substring(7), "")).merge
   }
 
   private var listener : () => js.Any = () => ()
