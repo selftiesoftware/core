@@ -2453,11 +2453,19 @@ ScalaJS.i.sjsr_RuntimeString$class__charAt__sjsr_RuntimeString__I__C = (function
 ScalaJS.i.sjsr_RuntimeString$class__toUpperCase__sjsr_RuntimeString__T = (function($$this) {
   return ScalaJS.as.T($$this["toUpperCase"]())
 });
+ScalaJS.i.sjsr_RuntimeString$class__split__sjsr_RuntimeString__T__I__AT = (function($$this, regex, limit) {
+  var pat = (ScalaJS.m.ju_regex_Pattern(), new ScalaJS.c.ju_regex_Pattern().init___T__I(regex, 0));
+  return pat.split__jl_CharSequence__I__AT(ScalaJS.as.T($$this), limit)
+});
 ScalaJS.i.sjsr_RuntimeString$class__lastIndexOf__sjsr_RuntimeString__I__I = (function($$this, ch) {
   return ScalaJS.i.sjsr_RuntimeString$class__lastIndexOf__sjsr_RuntimeString__T__I(ScalaJS.as.T($$this), ScalaJS.m.sjsr_RuntimeString().scala$scalajs$runtime$RuntimeString$$fromCodePoint__I__T(ch))
 });
 ScalaJS.i.sjsr_RuntimeString$class__indexOf__sjsr_RuntimeString__I__I = (function($$this, ch) {
   return ScalaJS.i.sjsr_RuntimeString$class__indexOf__sjsr_RuntimeString__T__I(ScalaJS.as.T($$this), ScalaJS.m.sjsr_RuntimeString().scala$scalajs$runtime$RuntimeString$$fromCodePoint__I__T(ch))
+});
+ScalaJS.i.sjsr_RuntimeString$class__endsWith__sjsr_RuntimeString__T__Z = (function($$this, suffix) {
+  var thisjs = $$this;
+  return (suffix === thisjs["substring"]((thisjs["length"] - ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(suffix))))
 });
 ScalaJS.i.sjsr_RuntimeString$class__toCharArray__sjsr_RuntimeString__AC = (function($$this) {
   var length = (ScalaJS.uD($$this["length"]) | 0);
@@ -3015,7 +3023,9 @@ ScalaJS.c.Lcom_repocad_web_Drawing.prototype.$classData = ScalaJS.d.Lcom_repocad
 /** @constructor */
 ScalaJS.c.Lcom_repocad_web_Drawing$ = (function() {
   ScalaJS.c.O.call(this);
-  this.com$repocad$web$Drawing$$listener$1 = null
+  this.drawings$1 = null;
+  this.com$repocad$web$Drawing$$listener$1 = null;
+  this.bitmap$0$1 = false
 });
 ScalaJS.c.Lcom_repocad_web_Drawing$.prototype = new ScalaJS.h.O();
 ScalaJS.c.Lcom_repocad_web_Drawing$.prototype.constructor = ScalaJS.c.Lcom_repocad_web_Drawing$;
@@ -3033,6 +3043,36 @@ ScalaJS.c.Lcom_repocad_web_Drawing$.prototype.init___ = (function() {
     return ScalaJS.m.Lcom_repocad_web_Drawing().com$repocad$web$Drawing$$listener$1.apply__O()
   }), 100);
   return this
+});
+ScalaJS.c.Lcom_repocad_web_Drawing$.prototype.drawings$lzycompute__p1__sc_Seq = (function() {
+  if ((!this.bitmap$0$1)) {
+    var x1 = ScalaJS.m.Lcom_repocad_web_Ajax().get__T__Lcom_repocad_web_Response("http://repocad.com:20004/list/");
+    if ((x1 !== null)) {
+      var text = x1.response$1;
+      var $$this = text;
+      var xs = ScalaJS.asArrayOf.O(ScalaJS.i.sjsr_RuntimeString$class__split__sjsr_RuntimeString__T__I__AT(ScalaJS.as.T($$this), "\n", 0), 1);
+      var b = ScalaJS.m.scm_ArrayOps$ofRef().newBuilder$extension__AO__scm_ArrayBuilder$ofRef(xs);
+      var i = 0;
+      var len = xs.u["length"];
+      while ((i < len)) {
+        var index = i;
+        var x$2 = xs.u[index];
+        var x$2$1 = ScalaJS.as.T(x$2);
+        if ((!ScalaJS.i.sjsr_RuntimeString$class__endsWith__sjsr_RuntimeString__T__Z(x$2$1, "/"))) {
+          b.$$plus$eq__O__scm_ArrayBuilder$ofRef(x$2)
+        };
+        i = ((i + 1) | 0)
+      };
+      var xs$1 = b.result__AO();
+      var jsx$1 = new ScalaJS.c.scm_WrappedArray$ofRef().init___AO(xs$1)
+    } else {
+      var jsx$1;
+      throw new ScalaJS.c.s_MatchError().init___O(x1)
+    };
+    this.drawings$1 = jsx$1;
+    this.bitmap$0$1 = true
+  };
+  return this.drawings$1
 });
 ScalaJS.c.Lcom_repocad_web_Drawing$.prototype.setHashListener__F1__V = (function(fn) {
   var elem = ScalaJS.as.T(ScalaJS.g["window"]["location"]["hash"]);
@@ -3087,6 +3127,9 @@ ScalaJS.c.Lcom_repocad_web_Drawing$.prototype.apply__Lcom_repocad_web_Drawing = 
     throw new ScalaJS.c.s_MatchError().init___O(x1)
   };
   return ScalaJS.as.Lcom_repocad_web_Drawing(jsx$2.merge$extension__s_util_Either__O(jsx$1))
+});
+ScalaJS.c.Lcom_repocad_web_Drawing$.prototype.drawings__sc_Seq = (function() {
+  return ((!this.bitmap$0$1) ? this.drawings$lzycompute__p1__sc_Seq() : this.drawings$1)
 });
 ScalaJS.is.Lcom_repocad_web_Drawing$ = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_Drawing$)))
@@ -3658,6 +3701,17 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.init___Lorg_scalajs_dom_HTMLCanvasE
   })(this.mouseExit$1);
   return this
 });
+ScalaJS.c.Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$getDrawings__O = (function() {
+  var $$this = ScalaJS.m.Lcom_repocad_web_Drawing().drawings__sc_Seq();
+  var this$2 = ScalaJS.m.sjsr_package();
+  var result = [];
+  $$this.foreach__F1__V(new ScalaJS.c.sjsr_AnonFunction1().init___sjs_js_Function1((function(this$2$1, result$1) {
+    return (function(x$2) {
+      return ScalaJS.uI(result$1["push"](x$2))
+    })
+  })(this$2, result)));
+  return result
+});
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.run__V = (function() {
   var tokens = ScalaJS.m.Lcom_repocad_web_lexing_Lexer().lex__T__Lcom_repocad_web_lexing_LiveStream(this.drawing$1.content$1);
   var this$1 = ScalaJS.m.Lcom_repocad_web_parsing_Parser().parse__Lcom_repocad_web_lexing_LiveStream__s_util_Either(tokens);
@@ -3750,6 +3804,9 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype["zoom"] = (function(arg$1, arg$2) {
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype["init"] = (function() {
   return this.$$js$exported$meth$init__O()
+});
+ScalaJS.c.Lcom_repocad_web_Repocad.prototype["getDrawings"] = (function() {
+  return this.$$js$exported$meth$getDrawings__O()
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype["run"] = (function() {
   return this.$$js$exported$meth$run__O()
@@ -8618,6 +8675,9 @@ ScalaJS.c.jl_StringBuilder.prototype.init___I = (function(initialCapacity) {
 ScalaJS.c.jl_StringBuilder.prototype.append__jl_CharSequence__I__I__jl_StringBuilder = (function(csq, start, end) {
   return ((csq === null) ? this.append__jl_CharSequence__I__I__jl_StringBuilder("null", start, end) : this.append__T__jl_StringBuilder(ScalaJS.objectToString(ScalaJS.charSequenceSubSequence(csq, start, end))))
 });
+ScalaJS.c.jl_StringBuilder.prototype.length__I = (function() {
+  return ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(this.content$1)
+});
 ScalaJS.c.jl_StringBuilder.prototype.append__C__jl_StringBuilder = (function(c) {
   return this.append__T__jl_StringBuilder(ScalaJS.objectToString(ScalaJS.bC(c)))
 });
@@ -9451,6 +9511,458 @@ ScalaJS.d.ju_Formatter$RegExpExtractor = new ScalaJS.ClassTypeData({
   O: 1
 });
 ScalaJS.c.ju_Formatter$RegExpExtractor.prototype.$classData = ScalaJS.d.ju_Formatter$RegExpExtractor;
+/** @constructor */
+ScalaJS.c.ju_regex_Matcher = (function() {
+  ScalaJS.c.O.call(this);
+  this.pattern0$1 = null;
+  this.input0$1 = null;
+  this.regionStart0$1 = 0;
+  this.regionEnd0$1 = 0;
+  this.regexp$1 = null;
+  this.inputstr$1 = null;
+  this.lastMatch$1 = null;
+  this.lastMatchIsValid$1 = false;
+  this.canStillFind$1 = false;
+  this.appendPos$1 = 0
+});
+ScalaJS.c.ju_regex_Matcher.prototype = new ScalaJS.h.O();
+ScalaJS.c.ju_regex_Matcher.prototype.constructor = ScalaJS.c.ju_regex_Matcher;
+/** @constructor */
+ScalaJS.h.ju_regex_Matcher = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.ju_regex_Matcher.prototype = ScalaJS.c.ju_regex_Matcher.prototype;
+ScalaJS.c.ju_regex_Matcher.prototype.find__Z = (function() {
+  if (this.canStillFind$1) {
+    this.lastMatchIsValid$1 = true;
+    this.lastMatch$1 = this.regexp$1["exec"](this.inputstr$1);
+    if ((this.lastMatch$1 !== null)) {
+      var $$this = this.lastMatch$1[0];
+      if (($$this === (void 0))) {
+        var jsx$1;
+        throw new ScalaJS.c.ju_NoSuchElementException().init___T("undefined.get")
+      } else {
+        var jsx$1 = $$this
+      };
+      if (ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z(ScalaJS.as.T(jsx$1))) {
+        var ev$1 = this.regexp$1;
+        ev$1["lastIndex"] = ((ScalaJS.uI(ev$1["lastIndex"]) + 1) | 0)
+      }
+    } else {
+      this.canStillFind$1 = false
+    };
+    return (this.lastMatch$1 !== null)
+  } else {
+    return false
+  }
+});
+ScalaJS.c.ju_regex_Matcher.prototype.ensureLastMatch__p1__sjs_js_RegExp$ExecResult = (function() {
+  if ((this.lastMatch$1 === null)) {
+    throw new ScalaJS.c.jl_IllegalStateException().init___T("No match available")
+  };
+  return this.lastMatch$1
+});
+ScalaJS.c.ju_regex_Matcher.prototype.end__I = (function() {
+  return ((this.start__I() + ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(this.group__T())) | 0)
+});
+ScalaJS.c.ju_regex_Matcher.prototype.init___ju_regex_Pattern__jl_CharSequence__I__I = (function(pattern0, input0, regionStart0, regionEnd0) {
+  this.pattern0$1 = pattern0;
+  this.input0$1 = input0;
+  this.regionStart0$1 = regionStart0;
+  this.regionEnd0$1 = regionEnd0;
+  this.regexp$1 = new ScalaJS.g["RegExp"](this.pattern0$1.jspattern$1, this.pattern0$1.jsflags$1);
+  this.inputstr$1 = ScalaJS.objectToString(ScalaJS.charSequenceSubSequence(this.input0$1, this.regionStart0$1, this.regionEnd0$1));
+  this.lastMatch$1 = null;
+  this.lastMatchIsValid$1 = false;
+  this.canStillFind$1 = true;
+  this.appendPos$1 = 0;
+  return this
+});
+ScalaJS.c.ju_regex_Matcher.prototype.group__T = (function() {
+  var $$this = this.ensureLastMatch__p1__sjs_js_RegExp$ExecResult()[0];
+  if (($$this === (void 0))) {
+    var jsx$1;
+    throw new ScalaJS.c.ju_NoSuchElementException().init___T("undefined.get")
+  } else {
+    var jsx$1 = $$this
+  };
+  return ScalaJS.as.T(jsx$1)
+});
+ScalaJS.c.ju_regex_Matcher.prototype.start__I = (function() {
+  return ScalaJS.uI(this.ensureLastMatch__p1__sjs_js_RegExp$ExecResult()["index"])
+});
+ScalaJS.is.ju_regex_Matcher = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.ju_regex_Matcher)))
+});
+ScalaJS.as.ju_regex_Matcher = (function(obj) {
+  return ((ScalaJS.is.ju_regex_Matcher(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "java.util.regex.Matcher"))
+});
+ScalaJS.isArrayOf.ju_regex_Matcher = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.ju_regex_Matcher)))
+});
+ScalaJS.asArrayOf.ju_regex_Matcher = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.ju_regex_Matcher(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Ljava.util.regex.Matcher;", depth))
+});
+ScalaJS.d.ju_regex_Matcher = new ScalaJS.ClassTypeData({
+  ju_regex_Matcher: 0
+}, false, "java.util.regex.Matcher", ScalaJS.d.O, {
+  ju_regex_Matcher: 1,
+  O: 1
+});
+ScalaJS.c.ju_regex_Matcher.prototype.$classData = ScalaJS.d.ju_regex_Matcher;
+/** @constructor */
+ScalaJS.c.ju_regex_Pattern = (function() {
+  ScalaJS.c.O.call(this);
+  this.pattern0$1 = null;
+  this.flags0$1 = 0;
+  this.x$1$1 = null;
+  this.jspattern$1 = null;
+  this.flags1$1 = 0;
+  this.jsflags$1 = null
+});
+ScalaJS.c.ju_regex_Pattern.prototype = new ScalaJS.h.O();
+ScalaJS.c.ju_regex_Pattern.prototype.constructor = ScalaJS.c.ju_regex_Pattern;
+/** @constructor */
+ScalaJS.h.ju_regex_Pattern = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.ju_regex_Pattern.prototype = ScalaJS.c.ju_regex_Pattern.prototype;
+ScalaJS.c.ju_regex_Pattern.prototype.matcher__jl_CharSequence__ju_regex_Matcher = (function(input) {
+  return new ScalaJS.c.ju_regex_Matcher().init___ju_regex_Pattern__jl_CharSequence__I__I(this, input, 0, ScalaJS.charSequenceLength(input))
+});
+ScalaJS.c.ju_regex_Pattern.prototype.toString__T = (function() {
+  return this.pattern0$1
+});
+ScalaJS.c.ju_regex_Pattern.prototype.split__jl_CharSequence__I__AT = (function(input, limit) {
+  var lim = ((limit > 0) ? limit : 2147483647);
+  var result = [];
+  var inputStr = ScalaJS.objectToString(input);
+  var matcher = this.matcher__jl_CharSequence__ju_regex_Matcher(inputStr);
+  var prevEnd = 0;
+  while (((ScalaJS.uI(result["length"]) < ((lim - 1) | 0)) && matcher.find__Z())) {
+    result["push"](ScalaJS.i.sjsr_RuntimeString$class__substring__sjsr_RuntimeString__I__I__T(inputStr, prevEnd, matcher.start__I()));
+    prevEnd = matcher.end__I()
+  };
+  result["push"](ScalaJS.i.sjsr_RuntimeString$class__substring__sjsr_RuntimeString__I__T(inputStr, prevEnd));
+  if ((((prevEnd === 0) && (ScalaJS.uI(result["length"]) === 2)) && ((lim > 2) || (!matcher.find__Z())))) {
+    return ScalaJS.asArrayOf.T(ScalaJS.m.s_Array().apply__sc_Seq__s_reflect_ClassTag__O(new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([inputStr]), ScalaJS.m.s_reflect_ClassTag().apply__jl_Class__s_reflect_ClassTag(ScalaJS.d.T.getClassOf())), 1)
+  } else {
+    var len = ScalaJS.uI(result["length"]);
+    if ((limit === 0)) {
+      while (((len > 1) && ScalaJS.i.sjsr_RuntimeString$class__isEmpty__sjsr_RuntimeString__Z(ScalaJS.as.T(result[((len - 1) | 0)])))) {
+        len = ((len - 1) | 0)
+      }
+    };
+    var actualResult = ScalaJS.newArrayObject(ScalaJS.d.T.getArrayOf(), [len]);
+    var len$1 = ScalaJS.m.sr_ScalaRunTime().array$undlength__O__I(actualResult);
+    var i = 0;
+    var j = 0;
+    var $$this = ScalaJS.uI(result["length"]);
+    var $$this$1 = (($$this < len$1) ? $$this : len$1);
+    var that = ScalaJS.m.sr_ScalaRunTime().array$undlength__O__I(actualResult);
+    var end = (($$this$1 < that) ? $$this$1 : that);
+    while ((i < end)) {
+      var jsx$2 = ScalaJS.m.sr_ScalaRunTime();
+      var jsx$1 = j;
+      var index = i;
+      jsx$2.array$undupdate__O__I__O__V(actualResult, jsx$1, result[index]);
+      i = ((i + 1) | 0);
+      j = ((j + 1) | 0)
+    };
+    return actualResult
+  }
+});
+ScalaJS.c.ju_regex_Pattern.prototype.init___T__I = (function(pattern0, flags0) {
+  this.pattern0$1 = pattern0;
+  this.flags0$1 = flags0;
+  if (((flags0 & 16) !== 0)) {
+    var x1 = new ScalaJS.c.T2().init___O__O(ScalaJS.m.ju_regex_Pattern().quote__T__T(pattern0), flags0)
+  } else {
+    var this$1 = ScalaJS.m.ju_regex_Pattern();
+    var m = this$1.java$util$regex$Pattern$$splitHackPat$1["exec"](pattern0);
+    if ((m !== null)) {
+      var $$this = m[1];
+      if (($$this === (void 0))) {
+        var jsx$2;
+        throw new ScalaJS.c.ju_NoSuchElementException().init___T("undefined.get")
+      } else {
+        var jsx$2 = $$this
+      };
+      var this$4 = new ScalaJS.c.s_Some().init___O(new ScalaJS.c.T2().init___O__O(this$1.quote__T__T(ScalaJS.as.T(jsx$2)), flags0))
+    } else {
+      var this$4 = ScalaJS.m.s_None()
+    };
+    if (this$4.isEmpty__Z()) {
+      var this$5 = ScalaJS.m.ju_regex_Pattern();
+      var pat = this.pattern0$1;
+      var flags0$1 = this.flags0$1;
+      var m$1 = this$5.java$util$regex$Pattern$$flagHackPat$1["exec"](pat);
+      if ((m$1 !== null)) {
+        var $$this$1 = m$1[0];
+        if (($$this$1 === (void 0))) {
+          var jsx$3;
+          throw new ScalaJS.c.ju_NoSuchElementException().init___T("undefined.get")
+        } else {
+          var jsx$3 = $$this$1
+        };
+        var newPat = ScalaJS.i.sjsr_RuntimeString$class__substring__sjsr_RuntimeString__I__T(pat, ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(ScalaJS.as.T(jsx$3)));
+        var $$this$2 = m$1[1];
+        if (($$this$2 === (void 0))) {
+          var flags1 = flags0$1
+        } else {
+          var chars = ScalaJS.as.T($$this$2);
+          var this$11 = new ScalaJS.c.sci_StringOps().init___T(chars);
+          var start = 0;
+          var $$this$3 = this$11.repr$1;
+          var end = ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I($$this$3);
+          var z = flags0$1;
+          x: {
+            var jsx$4;
+            _foldl: while (true) {
+              if ((start === end)) {
+                var jsx$4 = z;
+                break x
+              } else {
+                var temp$start = ((start + 1) | 0);
+                var f$2 = z;
+                var idx = start;
+                var $$this$4 = this$11.repr$1;
+                var c$2 = ScalaJS.bC(ScalaJS.i.sjsr_RuntimeString$class__charAt__sjsr_RuntimeString__I__C($$this$4, idx));
+                var f = ScalaJS.uI(f$2);
+                var c = ScalaJS.uC(c$2);
+                var temp$z = (f | this$5.java$util$regex$Pattern$$charToFlag__C__I(c));
+                start = temp$start;
+                z = temp$z;
+                continue _foldl
+              }
+            }
+          };
+          var flags1 = ScalaJS.uI(jsx$4)
+        };
+        var $$this$5 = m$1[2];
+        if (($$this$5 === (void 0))) {
+          var flags2 = flags1
+        } else {
+          var chars$3 = ScalaJS.as.T($$this$5);
+          var this$17 = new ScalaJS.c.sci_StringOps().init___T(chars$3);
+          var start$1 = 0;
+          var $$this$6 = this$17.repr$1;
+          var end$1 = ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I($$this$6);
+          var z$1 = flags1;
+          x$1: {
+            var jsx$5;
+            _foldl$1: while (true) {
+              if ((start$1 === end$1)) {
+                var jsx$5 = z$1;
+                break x$1
+              } else {
+                var temp$start$1 = ((start$1 + 1) | 0);
+                var f$2$1 = z$1;
+                var idx$1 = start$1;
+                var $$this$7 = this$17.repr$1;
+                var c$2$1 = ScalaJS.bC(ScalaJS.i.sjsr_RuntimeString$class__charAt__sjsr_RuntimeString__I__C($$this$7, idx$1));
+                var f$1 = ScalaJS.uI(f$2$1);
+                var c$1 = ScalaJS.uC(c$2$1);
+                var temp$z$1 = (f$1 & (~this$5.java$util$regex$Pattern$$charToFlag__C__I(c$1)));
+                start$1 = temp$start$1;
+                z$1 = temp$z$1;
+                continue _foldl$1
+              }
+            }
+          };
+          var flags2 = ScalaJS.uI(jsx$5)
+        };
+        var this$20 = new ScalaJS.c.s_Some().init___O(new ScalaJS.c.T2().init___O__O(newPat, flags2))
+      } else {
+        var this$20 = ScalaJS.m.s_None()
+      }
+    } else {
+      var this$20 = this$4
+    };
+    var x1 = ScalaJS.as.T2((this$20.isEmpty__Z() ? new ScalaJS.c.T2().init___O__O(this.pattern0$1, this.flags0$1) : this$20.get__O()))
+  };
+  if ((x1 !== null)) {
+    var jspattern = ScalaJS.as.T(x1.$$und1$f);
+    var flags1$1 = ScalaJS.uI(x1.$$und2$f);
+    var jsx$1 = new ScalaJS.c.T2().init___O__O(jspattern, flags1$1)
+  } else {
+    var jsx$1;
+    throw new ScalaJS.c.s_MatchError().init___O(x1)
+  };
+  this.x$1$1 = jsx$1;
+  this.jspattern$1 = ScalaJS.as.T(this.x$1$1.$$und1$f);
+  var this$21 = this.x$1$1;
+  this.flags1$1 = ScalaJS.uI(this$21.$$und2$f);
+  var f$3 = "g";
+  if (((this.flags1$1 & 2) !== 0)) {
+    f$3 = (f$3 + "i")
+  };
+  if (((this.flags1$1 & 8) !== 0)) {
+    f$3 = (f$3 + "m")
+  };
+  this.jsflags$1 = f$3;
+  return this
+});
+ScalaJS.is.ju_regex_Pattern = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.ju_regex_Pattern)))
+});
+ScalaJS.as.ju_regex_Pattern = (function(obj) {
+  return ((ScalaJS.is.ju_regex_Pattern(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "java.util.regex.Pattern"))
+});
+ScalaJS.isArrayOf.ju_regex_Pattern = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.ju_regex_Pattern)))
+});
+ScalaJS.asArrayOf.ju_regex_Pattern = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.ju_regex_Pattern(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Ljava.util.regex.Pattern;", depth))
+});
+ScalaJS.d.ju_regex_Pattern = new ScalaJS.ClassTypeData({
+  ju_regex_Pattern: 0
+}, false, "java.util.regex.Pattern", ScalaJS.d.O, {
+  ju_regex_Pattern: 1,
+  O: 1
+});
+ScalaJS.c.ju_regex_Pattern.prototype.$classData = ScalaJS.d.ju_regex_Pattern;
+/** @constructor */
+ScalaJS.c.ju_regex_Pattern$ = (function() {
+  ScalaJS.c.O.call(this);
+  this.UNIX$undLINES$1 = 0;
+  this.CASE$undINSENSITIVE$1 = 0;
+  this.COMMENTS$1 = 0;
+  this.MULTILINE$1 = 0;
+  this.LITERAL$1 = 0;
+  this.DOTALL$1 = 0;
+  this.UNICODE$undCASE$1 = 0;
+  this.CANON$undEQ$1 = 0;
+  this.UNICODE$undCHARACTER$undCLASS$1 = 0;
+  this.java$util$regex$Pattern$$splitHackPat$1 = null;
+  this.java$util$regex$Pattern$$flagHackPat$1 = null
+});
+ScalaJS.c.ju_regex_Pattern$.prototype = new ScalaJS.h.O();
+ScalaJS.c.ju_regex_Pattern$.prototype.constructor = ScalaJS.c.ju_regex_Pattern$;
+/** @constructor */
+ScalaJS.h.ju_regex_Pattern$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.ju_regex_Pattern$.prototype = ScalaJS.c.ju_regex_Pattern$.prototype;
+ScalaJS.c.ju_regex_Pattern$.prototype.init___ = (function() {
+  ScalaJS.n.ju_regex_Pattern = this;
+  this.java$util$regex$Pattern$$splitHackPat$1 = new ScalaJS.g["RegExp"]("^\\\\Q(.|\\n|\\r)\\\\E$");
+  this.java$util$regex$Pattern$$flagHackPat$1 = new ScalaJS.g["RegExp"]("^\\(\\?([idmsuxU]*)(?:-([idmsuxU]*))?\\)");
+  return this
+});
+ScalaJS.c.ju_regex_Pattern$.prototype.quote__T__T = (function(s) {
+  var result = "";
+  var i = 0;
+  while ((i < ScalaJS.i.sjsr_RuntimeString$class__length__sjsr_RuntimeString__I(s))) {
+    var c = ScalaJS.i.sjsr_RuntimeString$class__charAt__sjsr_RuntimeString__I__C(s, i);
+    var jsx$2 = result;
+    switch (c) {
+      case 92:
+        /*<skip>*/;
+      case 46:
+        /*<skip>*/;
+      case 40:
+        /*<skip>*/;
+      case 41:
+        /*<skip>*/;
+      case 91:
+        /*<skip>*/;
+      case 93:
+        /*<skip>*/;
+      case 123:
+        /*<skip>*/;
+      case 125:
+        /*<skip>*/;
+      case 124:
+        /*<skip>*/;
+      case 63:
+        /*<skip>*/;
+      case 42:
+        /*<skip>*/;
+      case 43:
+        /*<skip>*/;
+      case 94:
+        /*<skip>*/;
+      case 36:
+        {
+          var jsx$1 = ("\\" + ScalaJS.bC(c));
+          break
+        };
+      default:
+        var jsx$1 = ScalaJS.bC(c);
+    };
+    result = (("" + jsx$2) + jsx$1);
+    i = ((i + 1) | 0)
+  };
+  return result
+});
+ScalaJS.c.ju_regex_Pattern$.prototype.java$util$regex$Pattern$$charToFlag__C__I = (function(c) {
+  switch (c) {
+    case 105:
+      {
+        return 2;
+        break
+      };
+    case 100:
+      {
+        return 1;
+        break
+      };
+    case 109:
+      {
+        return 8;
+        break
+      };
+    case 115:
+      {
+        return 32;
+        break
+      };
+    case 117:
+      {
+        return 64;
+        break
+      };
+    case 120:
+      {
+        return 4;
+        break
+      };
+    case 85:
+      {
+        return 256;
+        break
+      };
+    default:
+      ScalaJS.m.s_sys_package().error__T__sr_Nothing$("bad in-pattern flag");
+  }
+});
+ScalaJS.is.ju_regex_Pattern$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.ju_regex_Pattern$)))
+});
+ScalaJS.as.ju_regex_Pattern$ = (function(obj) {
+  return ((ScalaJS.is.ju_regex_Pattern$(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "java.util.regex.Pattern$"))
+});
+ScalaJS.isArrayOf.ju_regex_Pattern$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.ju_regex_Pattern$)))
+});
+ScalaJS.asArrayOf.ju_regex_Pattern$ = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.ju_regex_Pattern$(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Ljava.util.regex.Pattern$;", depth))
+});
+ScalaJS.d.ju_regex_Pattern$ = new ScalaJS.ClassTypeData({
+  ju_regex_Pattern$: 0
+}, false, "java.util.regex.Pattern$", ScalaJS.d.O, {
+  ju_regex_Pattern$: 1,
+  O: 1
+});
+ScalaJS.c.ju_regex_Pattern$.prototype.$classData = ScalaJS.d.ju_regex_Pattern$;
+ScalaJS.n.ju_regex_Pattern = (void 0);
+ScalaJS.m.ju_regex_Pattern = (function() {
+  if ((!ScalaJS.n.ju_regex_Pattern)) {
+    ScalaJS.n.ju_regex_Pattern = new ScalaJS.c.ju_regex_Pattern$().init___()
+  };
+  return ScalaJS.n.ju_regex_Pattern
+});
 /** @constructor */
 ScalaJS.c.s_DeprecatedConsole = (function() {
   ScalaJS.c.O.call(this)
@@ -10966,6 +11478,46 @@ ScalaJS.m.s_reflect_package = (function() {
     ScalaJS.n.s_reflect_package = new ScalaJS.c.s_reflect_package$().init___()
   };
   return ScalaJS.n.s_reflect_package
+});
+/** @constructor */
+ScalaJS.c.s_sys_package$ = (function() {
+  ScalaJS.c.O.call(this)
+});
+ScalaJS.c.s_sys_package$.prototype = new ScalaJS.h.O();
+ScalaJS.c.s_sys_package$.prototype.constructor = ScalaJS.c.s_sys_package$;
+/** @constructor */
+ScalaJS.h.s_sys_package$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.s_sys_package$.prototype = ScalaJS.c.s_sys_package$.prototype;
+ScalaJS.c.s_sys_package$.prototype.error__T__sr_Nothing$ = (function(message) {
+  throw ScalaJS.unwrapJavaScriptException(new ScalaJS.c.jl_RuntimeException().init___T(message))
+});
+ScalaJS.is.s_sys_package$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.s_sys_package$)))
+});
+ScalaJS.as.s_sys_package$ = (function(obj) {
+  return ((ScalaJS.is.s_sys_package$(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "scala.sys.package$"))
+});
+ScalaJS.isArrayOf.s_sys_package$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.s_sys_package$)))
+});
+ScalaJS.asArrayOf.s_sys_package$ = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.s_sys_package$(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lscala.sys.package$;", depth))
+});
+ScalaJS.d.s_sys_package$ = new ScalaJS.ClassTypeData({
+  s_sys_package$: 0
+}, false, "scala.sys.package$", ScalaJS.d.O, {
+  s_sys_package$: 1,
+  O: 1
+});
+ScalaJS.c.s_sys_package$.prototype.$classData = ScalaJS.d.s_sys_package$;
+ScalaJS.n.s_sys_package = (void 0);
+ScalaJS.m.s_sys_package = (function() {
+  if ((!ScalaJS.n.s_sys_package)) {
+    ScalaJS.n.s_sys_package = new ScalaJS.c.s_sys_package$().init___()
+  };
+  return ScalaJS.n.s_sys_package
 });
 /** @constructor */
 ScalaJS.c.s_util_DynamicVariable = (function() {
@@ -16733,6 +17285,43 @@ ScalaJS.m.sjsr_StackTrace = (function() {
     ScalaJS.n.sjsr_StackTrace = new ScalaJS.c.sjsr_StackTrace$().init___()
   };
   return ScalaJS.n.sjsr_StackTrace
+});
+/** @constructor */
+ScalaJS.c.sjsr_package$ = (function() {
+  ScalaJS.c.O.call(this)
+});
+ScalaJS.c.sjsr_package$.prototype = new ScalaJS.h.O();
+ScalaJS.c.sjsr_package$.prototype.constructor = ScalaJS.c.sjsr_package$;
+/** @constructor */
+ScalaJS.h.sjsr_package$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.h.sjsr_package$.prototype = ScalaJS.c.sjsr_package$.prototype;
+ScalaJS.is.sjsr_package$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sjsr_package$)))
+});
+ScalaJS.as.sjsr_package$ = (function(obj) {
+  return ((ScalaJS.is.sjsr_package$(obj) || (obj === null)) ? obj : ScalaJS.throwClassCastException(obj, "scala.scalajs.runtime.package$"))
+});
+ScalaJS.isArrayOf.sjsr_package$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.sjsr_package$)))
+});
+ScalaJS.asArrayOf.sjsr_package$ = (function(obj, depth) {
+  return ((ScalaJS.isArrayOf.sjsr_package$(obj, depth) || (obj === null)) ? obj : ScalaJS.throwArrayCastException(obj, "Lscala.scalajs.runtime.package$;", depth))
+});
+ScalaJS.d.sjsr_package$ = new ScalaJS.ClassTypeData({
+  sjsr_package$: 0
+}, false, "scala.scalajs.runtime.package$", ScalaJS.d.O, {
+  sjsr_package$: 1,
+  O: 1
+});
+ScalaJS.c.sjsr_package$.prototype.$classData = ScalaJS.d.sjsr_package$;
+ScalaJS.n.sjsr_package = (void 0);
+ScalaJS.m.sjsr_package = (function() {
+  if ((!ScalaJS.n.sjsr_package)) {
+    ScalaJS.n.sjsr_package = new ScalaJS.c.sjsr_package$().init___()
+  };
+  return ScalaJS.n.sjsr_package
 });
 /** @constructor */
 ScalaJS.c.sr_AbstractFunction0 = (function() {

@@ -5,6 +5,8 @@ import com.repocad.web.lexing.Lexer
 import com.repocad.web.parsing.{Expr, Parser, UnitExpr}
 import org.scalajs.dom._
 
+import scala.scalajs.js
+import scala.scalajs.js.JSConverters.JSRichGenTraversableOnce
 import scala.scalajs.js.annotation.JSExport
 
 /**
@@ -133,6 +135,9 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
     window.location.hash = drawing.name
     run()
   }
+
+  @JSExport
+  def getDrawings() : js.Array[String] = new JSRichGenTraversableOnce[String](Drawing.drawings).toJSArray2
 
   @JSExport
   def run() : Unit = {

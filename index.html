@@ -94,7 +94,8 @@
 
         <div class="five columns">
             <div class="row" style="margin-bottom: 0px">
-                <input type="text" id="drawingTitle" class="ten columns" style="background-color: #F0F8FF"/>
+                <input type="text" id="drawingTitle" class="ten columns" list="drawingTitles" style="background-color: #F0F8FF"/>
+                <datalist id="drawingTitles" name="drawingTitles"></datalist>
                 <button class="one column" id="drawingSearchButton" style="width:63px;margin-left: 2px"><i class="fa fa-lg fa-search"></i></button>
             </div>
 
@@ -140,6 +141,7 @@
     var canvas = document.getElementById("canvas");
     var container = document.getElementById("container");
     var debug  = document.getElementById("debug");
+    var drawingTitles = document.getElementById("drawingTitles");
     var input  = document.getElementById("input");
     var toggleMax = document.getElementById("toggleMax");
     var toggleRun = document.getElementById("toggleRun");
@@ -177,6 +179,15 @@
 
     window.onload = function (e) {
         repocad.init();
+
+        var drawings = repocad.getDrawings();
+
+        for (var i in drawings) {
+            var e = new Option();
+            e.name = drawings[i];
+            e.value = drawings[i];
+            drawingTitles.appendChild(e);
+        }
 
         toPdf.onclick = function (e) {
             repocad.printPdf("IOD_2d_print.pdf");
