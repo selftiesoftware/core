@@ -109,6 +109,23 @@ object Evaluator {
           }
         }))
 
+      case IfExpr(condition, ifBody, elseBody) => {
+        eval(condition, env, printer) match {
+          case Left(thisIsBad) => Left(thisIsBad)
+          case Right((conditionEnvironment, true)) => {
+            eval(ifBody, conditionEnvironment, printer)
+          }
+          case Right((conditionEnvironment, false)) => {
+            elseBody match {
+              case Some(body) /* Somebody, somebody, somebody put something in my drink */ =>
+                eval(body, conditionEnvironment, printer)
+              case None => Right(env -> Unit)
+            }
+          }
+          case Right((newEnvironment, value)) => Left("Expected boolean, got " + value)
+        }
+      }
+
       case OpExpr(e1, e2, op) =>
         eval(e1, env, printer).right.flatMap(v1 => eval(e2, v1._1, printer).right.flatMap(v2 => {
           val n1 = v1._2.asInstanceOf[Double]

@@ -49,6 +49,22 @@ object Parser {
         success(ImportExpr(script), tail)
       }
 
+      case SymbolToken("if") :~: tail => {
+        parse(tail, (condition, conditionTail) =>
+          parse(conditionTail, (ifBody, ifBodyTail) => {
+            ifBodyTail match {
+              case SymbolToken("else") :~: elseIfTail => {
+                parse(elseIfTail, (elseBody, elseBodyTail) => {
+                  success(IfExpr(condition, ifBody, Some(elseBody)), elseBodyTail)
+                }, failure)
+              }
+
+              case _ => success(IfExpr(condition, ifBody, None), ifBodyTail)
+            }
+          }, failure),
+          failure)
+      }
+
       // Loops
       case SymbolToken("while") :~: tail =>
         parse(tail, (condition, blockTail) =>

@@ -137,7 +137,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   }
 
   @JSExport
-  def getDrawings() : js.Array[String] = new JSRichGenTraversableOnce[String](Drawing.drawings).toJSArray2
+  def getDrawings() : js.Array[String] = new JSRichGenTraversableOnce[String](Drawing.drawings).toJSArray
 
   @JSExport
   def run() : Unit = {
@@ -145,7 +145,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
     Parser.parse(tokens)
       .fold(left => displayError("Error while compiling code: " + left),
         right => {
-          //println("AST: " + right)
+          println("AST: " + right)
           val x = eval(right)
           x
         })

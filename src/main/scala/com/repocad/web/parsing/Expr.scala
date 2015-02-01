@@ -13,6 +13,7 @@ case class CompExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
 case class OpExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
 
 case class FunctionExpr(name : String, params : Seq[String], body : Expr) extends Expr
+case class IfExpr(condition : Expr, ifBody : Expr, elseExpr : Option[Expr]) extends Expr
 case class LoopExpr(condition : Expr, body : Expr) extends Expr
 
 case class SeqExpr(expr: Seq[Expr]) extends Expr
