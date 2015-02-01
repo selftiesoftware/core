@@ -31,61 +31,103 @@
 
 <div class="container" id="container">
 
-    <div class="row">
-      <div class="one columns">
-        <h2><img src="images/repoCad_logo.png" alt="repoCad logo" align="top" style="width:50px;height:50px">
-	  </h2>
-	  </div>
-	  <div class="two columns">
-		<h2>repoCad</h2>
-	  </div>
-      <div class="five columns">
-        <h5>- the internet of Digital Design</h5>
-      </div>
-    </div>
-    <div class="row">
-        <a class="button five columns" href="https://github.com/siigna/web/blob/master/IOD_manifest.pdf?raw=true">
+    <div class="row" style="margin-bottom: 30px">
+        <div class="one columns">
+            <a href="http://www.repocad.com"><img src="images/repoCad_logo_NB.png" alt="repoCad logo" align="top" style="width:35px;height:35px;margin-left: 16px">
+            </a>
+        </div>
+        <a class="button four columns" href="http://www.repocad.com/#manifesto">
             <i class="fa fa-lg fa-chevron-circle-right"></i> About <i>'repoCad'</i>
         </a>
-        <a class="button three columns" href="https://twitter.com/siigna_com">
-            <i class="fa fa-lg fa-twitter"></i> Follow on twitter
+        <a class="button three columns" href="https://twitter.com/repocad">
+            <i class="fa fa-lg fa-twitter"></i> Follow (twitter)
         </a>
-        <a class="button four columns" href= "https://github.com/siigna/">
+        <a class="button four columns" href= "https://github.com/repocad/">
             <i class="fa fa-lg fa-github"></i> See the source code
         </a>
     </div>
 
-    <div class="row">
-        <div class="one columns">
-            <br/>
-            <!-- git based script- and drawings library goes here...
 
-            link to minute paper script
-            link to manifesto
-            link to default script
-            link to geometry script
-            -->
-            </div>
-        <div class="five columns">
-            <textarea id="input" class="twelve columns"></textarea>
-            <div class="row">
-                <button id="save" class="six columns">
-                    <i class="fa fa-save fa-lg"></i> Save
-                </button>
-                <button id="toPdf" class="six columns">
-                    <i class="fa fa-file-pdf-o fa-lg"></i> Print to PDF
-                </button>
-            </div>
-            <div id="debug"></div>
+    <div class="row">
+        <div class="one column">
+
+            <button class="button-primary" style="width:65px" id="drawingNewButton">New</button>
+
+            <span class="dropt" title="the idea behind RepoCad">
+            <span style="width:150px;">manifesto</span>
+            <a href="#manifesto"><img src=images/manifesto.png alt="manifesto" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            </span></span>
+
+			<!--
+            <span class="dropt" title="example">
+            <span style="width:150px;">default</span>
+            <a href="#default"><img src=images/default.png alt="default" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            </span></span> -->
+			
+            <span class="dropt" title="squares">
+            <span style="width:150px;">transformed squares</span>
+            <a href="#squares"><img src=images/squares.png alt="squares" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            </span></span>
+
+            <span class="dropt" title="amphi-theater">
+            <span style="width:150px;">theater</span>
+            <a href="#amphiTheater"><img src=images/theater.png alt="amphiTheater" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            </span></span>
+		   
+		   <span class="dropt" title="manipulated hexagonal geometry">
+			<span style="width:150px;">patternForGuzman2</span>
+			<a href="#patternForGuzman2"><img src=images/patternForGuzman2.png alt="patternForGuzman2" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+		   </span></span>
+
+            <span class="dropt" title="VFR flight planner">
+            <span style="width:150px;">flightplanner</span>
+            <a href="#flightplan"><img src=images/flightplan.png alt="flight planner" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+           </span></span>		   
+		   
+            <span class="dropt" title="Title for the pop-up">
+            <span style="width:150px;">geometry2d</span>
+            <a href="#geometry2d"><img src=images/geometry2d.png alt="geometry2d" align="left" style="width:68px;height:97px;margin-bottom:7px"></a>
+            </span></span>
+            <!--<a href="http://www.repocad.com/library">more drawings... / library page? or you tube style (scroll down..) </a> -->
+
         </div>
+
+        <div class="five columns">
+            <div class="row" style="margin-bottom: 0px">
+                <input type="text" id="drawingTitle" class="ten columns" list="drawingTitles" style="background-color: #F0F8FF"/>
+                <datalist id="drawingTitles" name="drawingTitles"></datalist>
+                <button class="one column" id="drawingSearchButton" style="width:63px;margin-left: 2px"><i class="fa fa-lg fa-search"></i></button>
+            </div>
+
+            <div class="row">
+                <textarea id="input" class="twelve columns"></textarea>
+            </div>
+            <div class="row">
+                <div id="debug" style="background-color: #ffe0d7"></div>
+            </div>
+
+        </div>
+
+        <!--- THE REPOCAD CANVAS --->
 
         <div class="five columns">
             <canvas id="canvas"></canvas>
         </div>
+
+        <button id="save" class="three columns">
+            <i class="fa fa-save fa-lg"></i> Save
+        </button>
+        <button id="toPdf" class="three columns">
+            <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
+        </button>
+        <!--<button id="toggleMax" class="two columns" disabled="disabled">
+            clone (N/A)
+        </button>-->
+
     </div>
 
-    <footer class="row">
-        Copyright (c) Selftie Software, licensed under the open-source license <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a>.
+    <footer class="row" style="text-align: center">
+        Copyright (c) Selftie Software, licensed under the open-source license <a href="https://github.com/repocad/web/blob/master/repocad_license_agreement.pdf?raw=true">GPL</a>.
     </footer>
 </div>
 
@@ -95,16 +137,23 @@
 
 <!-- Run tutorial.webapp.TutorialApp -->
 <script type="text/javascript">
+
     var canvas = document.getElementById("canvas");
     var container = document.getElementById("container");
     var debug  = document.getElementById("debug");
+    var drawingTitles = document.getElementById("drawingTitles");
     var input  = document.getElementById("input");
+    var toggleMax = document.getElementById("toggleMax");
     var toggleRun = document.getElementById("toggleRun");
     var toPdf = document.getElementById("toPdf");
     var save = document.getElementById("save");
-    var siigna = new Siigna(canvas, input, debug);
+    var title = document.getElementById("drawingTitle");
+    var newDrawing = document.getElementById("drawingNewButton");
+    var searchDrawing = document.getElementById("drawingSearchButton");
+    var repocad = new Repocad(canvas, input, debug, title, searchDrawing, newDrawing);
 
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
+
     canvas.width = container.offsetWidth / 2 - 20;
     canvas.height = window.innerHeight * 0.7;
 
@@ -113,7 +162,7 @@
         // cross-browser wheel delta
         var e = window.event || e; // old IE support
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        siigna.zoom(delta, e);
+        repocad.zoom(delta, e);
 
         // Stop scroll from happening
         if (e.preventDefault)
@@ -129,13 +178,22 @@
     }
 
     window.onload = function (e) {
-        siigna.init();
+        repocad.init();
+
+        var drawings = repocad.getDrawings();
+
+        for (var i in drawings) {
+            var e = new Option();
+            e.name = drawings[i];
+            e.value = drawings[i];
+            drawingTitles.appendChild(e);
+        }
 
         toPdf.onclick = function (e) {
-            siigna.printPdf("IOD_2d_print.pdf");
+            repocad.printPdf("IOD_2d_print.pdf");
         }
         save.onclick = function(e) {
-            siigna.save();
+            repocad.save();
         }
     };
 </script>
