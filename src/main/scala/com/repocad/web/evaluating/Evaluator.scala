@@ -64,7 +64,7 @@ object Evaluator {
     }
   }
 
-  private def eval(expr: Expr, env : Env, printer : Printer) : Value = {
+  protected[evaluating] def eval(expr: Expr, env : Env, printer : Printer) : Value = {
     expr match {
 
       case ImportExpr(name) =>
@@ -85,13 +85,13 @@ object Evaluator {
 
       case FunctionExpr(name, params, body) =>
         val function = params.size match {
-          case 0 => (p : Printer) => eval(body, env, p)
+          case 0 => (p : Printer) => eval(body, env, p).fold(l => l, r => r._2)
           case 1 => (p : Printer, a: Any) => {
-            eval(body, env.+(params(0) -> a), p)
+            eval(body, env.+(params(0) -> a), p).fold(l => l, r => r._2)
           }
-          case 2 => (p : Printer, a: Any, b: Any) => eval(body, env.+(params(0) -> a, params(1) -> b), p)
-          case 3 => (p : Printer, a: Any, b: Any, c: Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c), p)
-          case 4 => (p : Printer, a: Any, b: Any, c: Any, d: Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d), p)
+          case 2 => (p : Printer, a: Any, b: Any) => eval(body, env.+(params(0) -> a, params(1) -> b), p).fold(l => l, r => r._2)
+          case 3 => (p : Printer, a: Any, b: Any, c: Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c), p).fold(l => l, r => r._2)
+          case 4 => (p : Printer, a: Any, b: Any, c: Any, d: Any) => eval(body, env.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d), p).fold(l => l, r => r._2)
           case x => Left("Unsupported number of arguments: " + x)
         }
         Right(env.+(name -> function) -> function)
@@ -108,6 +108,23 @@ object Evaluator {
             case x => Left(s"Unknown comparison operator $x")
           }
         }))
+
+      case IfExpr(condition, ifBody, elseBody) => {
+        eval(condition, env, printer) match {
+          case Left(thisIsBad) => Left(thisIsBad)
+          case Right((conditionEnvironment, true)) => {
+            eval(ifBody, conditionEnvironment, printer)
+          }
+          case Right((conditionEnvironment, false)) => {
+            elseBody match {
+              case Some(body) /* Somebody, somebody, somebody put something in my drink */ =>
+                eval(body, conditionEnvironment, printer)
+              case None => Right(env -> Unit)
+            }
+          }
+          case Right((newEnvironment, value)) => Left("Expected boolean, got " + value)
+        }
+      }
 
       case OpExpr(e1, e2, op) =>
         eval(e1, env, printer).right.flatMap(v1 => eval(e2, v1._1, printer).right.flatMap(v2 => {
@@ -157,9 +174,9 @@ object Evaluator {
             eval(params(0), env, printer).right.flatMap(a =>
               eval(params(1), a._1, printer).right.flatMap(b =>
                 eval(params(2), b._1, printer).right.flatMap(c =>
-                  eval(params(3), c._1, printer).right.flatMap(d =>
+                  eval(params(3), c._1, printer).right.flatMap(d => {
                     Right(d._1 -> f.apply(printer, a._2, b._2, c._2, d._2))
-                  )
+                  })
                 )
               )
             )

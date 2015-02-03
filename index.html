@@ -103,7 +103,8 @@
 
         <div class="five columns">
             <div class="row" style="margin-bottom: 0px">
-                <input type="text" id="drawingTitle" class="ten columns" style="background-color: #F0F8FF"/>
+                <input type="text" id="drawingTitle" class="ten columns" list="drawingTitles" style="background-color: #F0F8FF"/>
+                <datalist id="drawingTitles" name="drawingTitles"></datalist>
                 <button class="one column" id="drawingSearchButton" style="width:63px;margin-left: 2px"><i class="fa fa-lg fa-search"></i></button>
             </div>
 
@@ -122,15 +123,15 @@
             <canvas id="canvas"></canvas>
         </div>
 
-        <button id="save" class="two columns">
+        <button id="save" class="three columns">
             <i class="fa fa-save fa-lg"></i> Save
         </button>
-        <button id="toPdf" class="two columns">
+        <button id="toPdf" class="three columns">
             <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
         </button>
-        <button id="toggleMax" class="two columns">
+        <!--<button id="toggleMax" class="two columns" disabled="disabled">
             clone (N/A)
-        </button>
+        </button>-->
 
     </div>
 
@@ -149,6 +150,7 @@
     var canvas = document.getElementById("canvas");
     var container = document.getElementById("container");
     var debug  = document.getElementById("debug");
+    var drawingTitles = document.getElementById("drawingTitles");
     var input  = document.getElementById("input");
     var toggleMax = document.getElementById("toggleMax");
     var toggleRun = document.getElementById("toggleRun");
@@ -158,17 +160,6 @@
     var newDrawing = document.getElementById("drawingNewButton");
     var searchDrawing = document.getElementById("drawingSearchButton");
     var repocad = new Repocad(canvas, input, debug, title, searchDrawing, newDrawing);
-
-    //function copyToClipboard(text) {
-    //    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
-    //}
-
-    // Use JQuery
-    // Ole: jQuery er et JS bibliotek, der skal importeres før det kan bruges -> OK.
-    //
-    //$('#test').click(function() {
-    //    copyToClipboard(href)
-    //});
 
     input.style.height = window.innerHeight * 0.7 - 52 + "px";
 
@@ -197,6 +188,15 @@
 
     window.onload = function (e) {
         repocad.init();
+
+        var drawings = repocad.getDrawings();
+
+        for (var i in drawings) {
+            var e = new Option();
+            e.name = drawings[i];
+            e.value = drawings[i];
+            drawingTitles.appendChild(e);
+        }
 
         toPdf.onclick = function (e) {
             repocad.printPdf("IOD_2d_print.pdf");

@@ -22,7 +22,11 @@ object Drawing {
       getDefault
     } else {
       Drawing.get(hash)
-    }).left.map(_ => Drawing(js.Math.random().toString.substring(7), "line 0 0 100 100")).merge
+    }).left.map(_ => Drawing(js.Math.random().toString.substring(7), "")).merge
+  }
+
+  lazy val drawings = Ajax.get("http://repocad.com:20004/list/") match {
+    case Response(_, _, text) => text.split("\n").filter(!_.endsWith("/")).toSeq
   }
 
   private var listener : () => js.Any = () => ()
