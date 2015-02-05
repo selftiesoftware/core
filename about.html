@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Internet Of Digital Design</title>
+    <meta name="description" content="Language for CAD">
+    <meta name="author" content="Selftie Software">
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+</head>
+<body>
+
+<style>
+    #canvas {
+        border: 1px solid #777;
+    }
+    #input {
+        font-family: monospace;
+        padding: 10px 7px;
+    }
+    #parse, #clear {
+        height: 3em;
+    }
+</style>
+
+<div class="container" id="container">
+
+    <div class="row" style="margin-bottom: 30px">
+        <div class="one columns">
+            <a href="http://www.repocad.com"><img src="images/repoCad_logo_NB.png" alt="repoCad logo" align="top" style="width:35px;height:35px;margin-left: 16px">
+
+            </a>
+        </div>
+        <div class="five columns">
+            <h3>repocad.com</h3>
+        </div>
+          <a class="two columns" href="http://www.repocad.com/#manifesto"><h4>about</h4></a>
+          <a class="two columns" href="https://twitter.com/repocad"><h4>news</h4></a>
+          <a class="two columns" href="https://github.com/repocad/"><h4>code</h4></a>
+        <!--
+        <a class="button four columns" href="http://www.repocad.com/#manifesto">
+            <i class="fa fa-lg fa-chevron-circle-right"></i> About <i>'repoCad'</i>
+        </a>
+        <a class="button three columns" href="https://twitter.com/repocad">
+            <i class="fa fa-lg fa-twitter"></i> Follow (twitter)
+        </a>
+        <a class="button four columns" href= "https://github.com/repocad/">
+            <i class="fa fa-lg fa-github"></i> See the source code
+        </a>
+        -->
+    </div>
+
+
+  
+
+	<div class="five columns">
+	   Extended abstract submission for the 2015 eCAAD3 conference:
+
+Introducing RepoCad.com - A prototype of the Internet of Digital Design
+
+Cand. Arch. Ph.d Ole Egholm Pedersen, Aarhus School of Architecture
+Ba. IT Jens Egholm Pedersen, CERN
+
+Since the 1990’s computer scientists, architects and researchers have worked on expanding CAD drawing beyond the pure mimicking of analogue drawing, and utilise the techniques of computation as well as the possibilities for collaboration over the internet (Shelden et. al 1995,  Koutsabasis et. al. 2012).
+
+This paper introduces the experimental design platform www.repocad.com, further developing web-based digital design technologies and proposing an Internet of Digital Design. RepoCad consists of three elements: a multi-purpose and simplified scripting language, an online library and a drawing interface. The result is an online platform on which tools, design processes and design results are accessible and editable. 
+
+The tools that are available at present offer only some of these features. Autodesk? has developed AutoCad 360? which is directed towards engineering and late stage building design. Using the drawing tools is both free and collaborative, but the core is closed and users cannot add or modify drawing tools. The platform does not encourage sharing of drawings, and scripting is not possible. SketchUp? allows scripting using a Ruby-script plugin. SketchUp is also closed source, and generally not set up for web-based development and sharing of scripts. An exception is the project WikiHouse (Galilee 2012), which gives an idea of the potential of sharing design knowledge online.
+Rhino with Grasshopper or Python Script is widely used in architectural research and practice. However the scripts and drawings developed are scarcely available for other researchers or architects who want to learn from the findings. The same critique may be raised against Revit? with Dynamo, and ArchiCAD? with GDL. Java-based language and rendering engine Processing is widely used for interaction design and computation, but it is mainly developed and used for interactive and graphic design. Internet based and open-source apps include paperjs.org, wed-cad, and openJSCad, none of which are developed specifically for design or architecture. 
+The introduced platform draws inspiration from the above mentioned software packages, proposing a synthesis of their features. “Repo” is short for repository, signifying the online storage and accessibility of computer code, but with a pun on “repossession”: the reclaiming of tools used for creating designs.
+A scripting language: Reposcript
+The core of RepoCad is a scripting language, named Reposcript. This language aims to enable users to construct and maintain customized tools, that can aid the design process, with a minimum of programming experience.
+Reposcript works by interpreting user text (code) into an abstract syntax tree AST (Jones 2003)which can be applied on any graphical end-point such as (PDF) files or images. The code for the first prototype 0.1.5 was completed in January 2015 and is available at https://github.com/repocad, where HTML5 is used to visualise the scripts. By default the resulting drawing is fitted to an A4 format that automatically scales based on the drawing size. This format may be printed to PDF - either to 1:1 (fabrication) or to scale (for blueprints). 
+A drawings library: Git
+Reposcript paves the way for a new, hierarchical way of creating designs: Each user-written code-file - a so called script - can be seen as a set of tools available to the community of users, that can be imported by other scripts. Similarly to articles on Wikipedia, scripts are given an URL and stored using a versioning system called git (Chacon and Straub 2014). Combined with the modularity of the scripts, this versioning provides a framework for synchronising and merging multiple versions of Reposcript - a necessary tool for online collaboration.
+A drawing interface: RepoCad
+Goals for version 1.0 of the proposed design platform includes the refinement of the user interface and the improvement of Reposcript to make it more accessible for users without programming knowledge. Concerning the interface, icons will be put in place for adding or running functions in a script. Clicking an icon will put the relevant code into the script as well as display the corresponding artwork on the canvas. This will provide the classic ‘manual’ CAD style creations, transformation, and editions of drawings, but in a setup where artwork is entirely parametric and code-based. Concerning the language, helper tools such as auto completion and type safety will make it easier for users to write scripts and connect to the functionality of modules, written by other users.
+
+Conclusion
+RepoCad combines web-based technologies, online versioning, and a custom scripting language, creating the novel possibility not only for architects to define and share both, drawing tools and designs to setup/establish an Internet of Digital Design.. Future development will focus on improving usability and the migration to 3D - which is required for design output into digital fabrication (Menges 2012, Pedersen 2010).
+
+REFERENCES
+Chacon, Scott and Straub, Ben. Pro git. Apress, second edition, 2014. Retrieved January 29th from: http://git-scm.com/book/en/v2 
+
+Egholm Pedersen, Ole. Material Evidence In A Digital Context Context 2010 / 2011. red. / Anette Svaneklink. Vol. 1 Aarhus, 2012. s. 14-15 (Aarhus Documents; Nr. 2, Vol. 1)
+
+Galilee, B. Open-source housing, Domus 2012 (juni) Nr.959 Side 72-75
+
+Jones, Joel. Abstract Syntax Tree Implementation Idioms. Department of computer science, University of Alabama 2003. Retrieved January 29th from: http://www.hillside.net/plop/plop2003/Papers/Jones-ImplementingASTs.pdf
+
+Koutsabasis, P., Vosinakis, S.,  Malisova, K., Paparounas, N. On the value of Virtual Worlds for collaborative design. Design Studies 2012 (July) Nr.4 pp. 357-390. 
+
+Menges, A. Material computation: higher integration in morphogenetic design Architectural Design, AD 2012-2 pp. 6-143
+
+Shelden, D. R., Bharwani, S., Mitchell, William J. ((William John),) [1944-2010.], & Williams, J. (1995). Requirements for virtual design review. Arq : Architectural Research Quarterly, 1(2), 80-89.
+
+
+	</div>
+
+    <footer class="row" style="text-align: center">
+        Copyright (c) Selftie Software, licensed under the open-source license <a href="https://github.com/repocad/web/blob/master/repocad_license_agreement.pdf?raw=true">GPL</a>.
+    </footer>
+</div>
+
+</body>
+</html>
