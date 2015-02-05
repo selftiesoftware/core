@@ -1,9 +1,9 @@
 package com.repocad.web
 
 import com.repocad.web.evaluating.Evaluator
-import com.repocad.web.lexing.Lexer
-import com.repocad.web.parsing.{Expr, Parser, UnitExpr}
+import com.repocad.web.html.Editor
 import org.scalajs.dom._
+import org.scalajs.dom.raw.{HTMLButtonElement, HTMLDivElement, HTMLInputElement, HTMLCanvasElement}
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters.JSRichGenTraversableOnce
@@ -12,24 +12,20 @@ import scala.scalajs.js.annotation.JSExport
 /**
  * The entry point for compiling and evaluating repocad code
  * @param canvas The canvas on which to draw
- * @param input The input field containing the textual code
- * @param debug A debug field to be used for (error) messages
- *
  *
  *              TODO: Version numbers for AST!
  *              TODO: Import versioned compilers on request
  *              TODO: Use optimised JS
  */
 @JSExport("Repocad")
-class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : HTMLDivElement, title : HTMLInputElement,
+class Repocad(canvas : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HTMLInputElement,
               searchDrawing : HTMLButtonElement, newDrawing : HTMLButtonElement) {
 
   val view = new CanvasView(canvas)
+  val editor = new Editor(editorDiv, view)
 
-  var drawing : Drawing = Drawing()
   var mousePosition = Vector2D(0, 0)
   var mouseDown = false
-  var lastAst : Expr = UnitExpr
   var lastValue : String = ""
 
   var landscape = view.landscape
@@ -45,15 +41,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   def zoom(delta : Double, e : MouseEvent) = {
     view.zoom(delta, e.clientX, e.clientY)
     zoomLevel = zoomLevel + delta.toInt //update the zoom level
-
-    eval(lastAst)
-  }
-
-  input.onkeyup = (e : Event) => {
-    if (drawing.content != input.value) {
-      drawing = drawing.copy(content = input.value)
-      run()
-    }
+    run()
   }
 
   canvas.onmousedown = (e : MouseEvent) => {
@@ -63,8 +51,6 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   canvas.onmousemove = (e : MouseEvent) => {
     if (mouseDown) {
-
-
       val zoomFactor = zoomLevel.toDouble.abs
       val newZ1 = math.pow(zoomFactor,1.1)
       val newZ2 = math.pow(zoomFactor,0.5)
@@ -76,7 +62,8 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
         view.translate((newV - mousePosition).x / newZ2, (newV - mousePosition).y / newZ2)
       } else view.translate((newV - mousePosition).x, (newV - mousePosition).y)
       mousePosition = newV
-      eval(lastAst)
+
+      run()
     }
   }
 
@@ -85,23 +72,21 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def init() : Unit = {
-    run()//run the Evaluator to get drawing boundary (needed to draw the paper)
-    eval(lastAst)
+    run() //run the Evaluator to get drawing boundary (needed to draw the paper)
+    editor.evaluate(view, useCache = false)
     view.init()
 
     val listener = (hash : String) => {
       if (!hash.isEmpty) {
-        Drawing.get(hash).fold(displayError, drawing => {
+        Drawing.get(hash).fold(editor.displayError, drawing => {
           title.value = drawing.name
           loadDrawing(drawing)
-          displaySuccess(s"Loaded drawing $hash")
+          editor.displaySuccess(s"Loaded drawing $hash")
         })
       }
     }
-    // Call and set listener
-    val d = loadDrawing(drawing)
-    title.value = drawing.name
 
+    listener(window.location.hash.substring(1))
     Drawing.setHashListener(listener)
 
     val loadListener =
@@ -127,11 +112,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   }
 
   def loadDrawing(drawing : Drawing) : Unit = {
-    Evaluator.resetBoundingBox()//reset paper
-    Paper.scaleAndRotation()//adapt paper
-    view.drawPaper() //draw paper
-    this.drawing = drawing
-    input.value = drawing.content
+    editor.setDrawing(drawing)
     window.location.hash = drawing.name
     run()
   }
@@ -141,47 +122,21 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
 
   @JSExport
   def run() : Unit = {
-    val tokens = Lexer.lex(drawing.content)
-    Parser.parse(tokens)
-      .fold(left => displayError("Error while compiling code: " + left),
-        right => {
-          println("AST: " + right)
-          val x = eval(right)
-          x
-        })
-    //update the paper scale and position
-    Paper.scaleAndRotation()//
+    view.clear() //redraw the canvas
+    Evaluator.resetBoundingBox() //set the default paper scale
+    Paper.scaleAndRotation()//adapt paper
+    editor.evaluate(view)
   }
 
   @JSExport
   def save() : Unit = {
-    displaySuccess(drawing.save().toString)
-  }
-
-  def eval(expr : Expr) : Unit = {
-    lastAst = expr
-    view.clear() //redraw the canvas
-    Evaluator.resetBoundingBox() //set the default paper scale
-    Evaluator.eval(expr, view)
-      .fold(
-        error => displayError(s"Failure during evaluation: $error"),
-        success => {
-          displaySuccess()
-        })
-  }
-
-  def displayError(error : String): Unit = {
-    debug.innerHTML = error
-  }
-
-  def displaySuccess(success : String = ""): Unit = {
-    debug.innerHTML = success
+    editor.displaySuccess(editor.module().save().toString)
   }
 
   @JSExport
   def printPdf(name : String) : Unit = {
     val printer = new PdfPrinter()
-    Evaluator.eval(lastAst, printer)
+    editor.evaluate(printer, useCache = true)
     printer.save(name)
   }
 

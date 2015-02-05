@@ -66,6 +66,11 @@ trait Printer {
    */
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double)
 
+  /**
+   * Prepares the printer for drawing
+   */
+  def prepare()
+
   lazy val toEnv : Evaluator.Env = {
     Map(
       "arc"  -> ((p : Printer, x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) => arc(x, y, r, sAngle, eAngle)),

@@ -24,9 +24,6 @@
         font-family: monospace;
         padding: 10px 7px;
     }
-    #parse, #clear {
-        height: 3em;
-    }
 </style>
 
 <div class="container" id="container">
@@ -97,12 +94,7 @@
                 <button class="one column" id="drawingSearchButton" style="width:63px;margin-left: 2px"><i class="fa fa-lg fa-search"></i></button>
             </div>
 
-            <div class="row">
-                <textarea id="input" class="twelve columns"></textarea>
-            </div>
-            <div class="row">
-                <div id="debug" style="background-color: #ffe0d7"></div>
-            </div>
+            <div class="row" id="editor"></div>
 
         </div>
 
@@ -138,9 +130,8 @@
 
     var canvas = document.getElementById("canvas");
     var container = document.getElementById("container");
-    var debug  = document.getElementById("debug");
     var drawingTitles = document.getElementById("drawingTitles");
-    var input  = document.getElementById("input");
+    var editor = document.getElementById("editor");
     var toggleMax = document.getElementById("toggleMax");
     var toggleRun = document.getElementById("toggleRun");
     var toPdf = document.getElementById("toPdf");
@@ -148,9 +139,9 @@
     var title = document.getElementById("drawingTitle");
     var newDrawing = document.getElementById("drawingNewButton");
     var searchDrawing = document.getElementById("drawingSearchButton");
-    var repocad = new Repocad(canvas, input, debug, title, searchDrawing, newDrawing);
+    var repocad = new Repocad(canvas, editor, title, searchDrawing, newDrawing);
 
-    input.style.height = window.innerHeight * 0.7 - 52 + "px";
+    editor.style.height = window.innerHeight * 0.7 - 52 + "px";
 
     canvas.width = container.offsetWidth / 2 - 20;
     canvas.height = window.innerHeight * 0.7;

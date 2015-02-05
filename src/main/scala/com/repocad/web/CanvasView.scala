@@ -2,7 +2,8 @@ package com.repocad.web
 
 import com.repocad.web.Paper._
 import com.repocad.web.evaluating.Evaluator
-import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
+import org.scalajs.dom.raw.HTMLCanvasElement
+import org.scalajs.dom.CanvasRenderingContext2D
 
 /**
  * A view that renders to a HTML5 canvas
@@ -134,6 +135,10 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
     context.closePath()
   }
 
+  def prepare(): Unit = {
+    clear()
+  }
+
   def screenText (x: Double, y: Double, size: Double, t: Any): Unit = {
     context.font = size.toString + " pt Arial"
     context.fillStyle = "black"
@@ -221,7 +226,6 @@ class CanvasView(canvas : HTMLCanvasElement) extends Printer {
 
   /**
    * Sets the pan and zoom level to include the entire paper. Useful when a large import has occurred or similar.
-   * @param boundary  The drawing boundary to use.
    */
   def zoomExtends(centerX : Double, centerY : Double) {
     //zoom = math.max(View.width, View.height) / math.max(drawing.boundary.width, drawing.boundary.height) * 0.5 // 20% margin
