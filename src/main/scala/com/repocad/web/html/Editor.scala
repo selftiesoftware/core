@@ -28,13 +28,14 @@ class Editor(container : HTMLDivElement, defaultPrinter : Printer) {
   textarea.onkeyup = (e : Event) => {
     if (module().content != textarea.value) {
       module() = module().copy(content = textarea.value)
-      evaluate(defaultPrinter, false)
+      evaluate(defaultPrinter, useCache = false)
     }
   }
 
   def setDrawing(drawing : Drawing): Unit = {
     module() = drawing
     textarea.value = drawing.content
+    evaluate(defaultPrinter, useCache = false)
   }
 
   /**

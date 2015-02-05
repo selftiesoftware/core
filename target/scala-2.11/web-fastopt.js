@@ -2451,7 +2451,8 @@ ScalaJS.c.Lcom_repocad_web_html_Editor.prototype.setDrawing__Lcom_repocad_web_Dr
   };
   jsx$2.value$1 = jsx$1;
   ScalaJS.s.Lrx_core_Rx$class__propagate__Lrx_core_Rx__Lrx_core_Propagator__O(this$1, evidence$4);
-  this.textarea$1["value"] = drawing.content$1
+  this.textarea$1["value"] = drawing.content$1;
+  this.evaluate__Lcom_repocad_web_Printer__Z__V(this.com$repocad$web$html$Editor$$defaultPrinter$f, false)
 });
 ScalaJS.c.Lcom_repocad_web_html_Editor.prototype.evaluate__Lcom_repocad_web_Printer__Z__V = (function(printer, useCache) {
   printer.prepare__V();
