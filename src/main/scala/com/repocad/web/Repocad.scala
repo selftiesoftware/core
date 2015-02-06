@@ -26,7 +26,6 @@ class Repocad(canvas : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HT
 
   var mousePosition = Vector2D(0, 0)
   var mouseDown = false
-  var lastValue : String = ""
 
   var landscape = view.landscape
   var center : Vector2D = view.windowCenter
@@ -73,7 +72,6 @@ class Repocad(canvas : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HT
   @JSExport
   def init() : Unit = {
     run() //run the Evaluator to get drawing boundary (needed to draw the paper)
-    editor.evaluate(view, useCache = false)
     view.init()
 
     val listener = (hash : String) => {
@@ -86,7 +84,17 @@ class Repocad(canvas : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HT
       }
     }
 
-    listener(window.location.hash.substring(1))
+    val drawing = window.location.hash match {
+      case name : String if name.size > 1 => Drawing.get(name.substring(1))
+      case _ => Drawing.get("default")
+    }
+    drawing match {
+      case Right(x) => {
+        title.value = x.name
+        editor.setDrawing(x)
+      }
+      case Left(error) => editor.displayError("Failed to load drawig: " + error)
+    }
     Drawing.setHashListener(listener)
 
     val loadListener =
@@ -109,6 +117,7 @@ class Repocad(canvas : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HT
         window.location.hash = title
       }
     }
+    editor.evaluate(view, useCache = false)
   }
 
   def loadDrawing(drawing : Drawing) : Unit = {
