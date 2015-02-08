@@ -65,9 +65,9 @@
 		<h3>Internet of Digital </br></br></br>Design</h3>
 		<p>
 		</br>
-		Since the 1990s computer scientists, architects and researchers have worked on expanding CAD drawing beyond the pure mimicking of analogue drawing, and utilise the techniques of computation as well as the possibilities for collaboration over the internet (Shelden et. al 1995,  Koutsabasis et. al. 2012).
-		repocad aims to further develop web-based digital design technologies and proposes an Internet of Digital Design.
-		epoCad consists of three elements: a multi-purpose and simplified scripting language, an online library and a drawing interface. 
+		Since the 1990s computer scientists, architects and researchers have worked on expanding CAD drawing beyond the pure mimicking of analogue drawing, and utilise the techniques of computation as well as the possibilities for collaboration over the internet.
+		RepoCad aims to further develop web-based digital design technologies and proposes an Internet of Digital Design.
+		RepoCad consists of three elements: a multi-purpose and simplified scripting language, an online library and a drawing interface. 
 		The result is an online platform on which tools, design processes and design results are accessible and editable. 
 	</div>
 	<div class="four columns">		
@@ -75,7 +75,7 @@
 		</br></br>
 		<p>
 		The core of RepoCad is a scripting language, named Reposcript. This language aims to enable users to construct and maintain customized tools, that can aid the design process, with a minimum of programming experience.
-		Reposcript works by interpreting user text (code) into an abstract syntax tree AST (Jones 2003)which can be applied on any graphical end-point such as (PDF) files or images. By default the resulting drawing is fitted to an A4 format that automatically scales based on the drawing size. This format may be printed to PDF - either to 1:1 (fabrication) or to scale (for blueprints). 
+		Reposcript works by interpreting user text (code) into an abstract syntax tree AST which can be applied on any graphical end-point such as PDF files, machine code or images. By default the resulting drawing is fitted to an A4 format that automatically scales based on the drawing size. This format may be printed to PDF - either to 1:1 (fabrication) or to scale (for blueprints). 
 		</p>
 	</div>	
 	    <div class="three columns">
@@ -97,8 +97,8 @@
 		<h3>Current tools</h3>
 		</br>
 		<p>
-		The tools available at present offer only some of these features. Autodesk has developed AutoCad 360 which is directed towards engineering and late stage building design. Using the drawing tools is both free and collaborative, but the core is closed and users cannot add or modify drawing tools. The platform does not encourage sharing of drawings, and scripting is not possible. SketchUp? allows scripting using a Ruby-script plugin. SketchUp is also closed source, and generally not set up for web-based development and sharing of scripts. An exception is the project WikiHouse (Galilee 2012), which gives an idea of the potential of sharing design knowledge online.
-		Rhino with Grasshopper or Python Script is widely used in architectural research and practice. However the scripts and drawings developed are scarcely available for other researchers or architects who want to learn from the findings. The same critique may be raised against Revit with Dynamo, and ArchiCAD with GDL. Java-based language and rendering engine Processing is widely used for interaction design and computation, but it is mainly developed and used for interactive and graphic design. Internet based and open-source apps include paperjs.org, wed-cad, and openJSCad, none of which are developed specifically for design or architecture. 
+		The tools available at present offer only some of these features. Autodesk has developed AutoCad 360 (R) which mimicks an analogue way of drawing. AutoCad is generally directed towards engineering and late stage building design. Using the drawing tools is both free and collaborative, but the core is closed and users cannot add or modify drawing tools. The platform does not encourage sharing of drawings, and scripting is not possible. SketchUp(R) allows scripting using a Ruby-script plugin. SketchUp is also closed source, and generally not set up for web-based development and sharing of scripts. An exception is the project WikiHouse, which gives an idea of the potential of sharing design knowledge online.</br>
+		Rhino with Grasshopper or Python Script is widely used in architectural research and practice. However the scripts and drawings developed are scarcely available for other researchers or architects who want to learn from the findings. The same critique may be raised against Revit with Dynamo, and ArchiCAD with GDL. Java-based language and rendering engine Processing is widely used for interaction design and computation, but it is mainly developed and used for interactive and graphic design. Internet based and open-source apps include paperjs.org, wed-cad, and openJSCad, none of which are developed specifically for design or architecture.</br> 
 		The introduced platform draws inspiration from the above mentioned software packages, proposing a synthesis of their features. 'Repo' is short for repository, signifying the online storage and accessibility of computer code, but with a pun on 'repossession': the reclaiming of tools used for creating designs.
 		</p>
 	</div>
@@ -106,8 +106,10 @@
 		<h3>scripts Repo</h3>
 		</br>
 		<p>
-		Reposcript paves the way for a new, hierarchical way of creating designs: Each user-written code-file - a so called script - can be seen as a set of tools available to the community of users, that can be imported by other scripts. Similarly to articles on Wikipedia, scripts are given an URL and stored using a versioning system called git (Chacon and Straub 2014). Combined with the modularity of the scripts, this versioning provides a framework for synchronising and merging multiple versions of Reposcript - a necessary tool for online collaboration.
-		A drawing interface: RepoCad
+		Reposcript paves the way for a new, hierarchical way of creating designs: Each user-written code-file - a so called script - can be seen as a set of tools available to the community of users, that can be imported by other scripts. Similarly to articles on Wikipedia, scripts are given an URL and stored using a versioning system called git. Combined with the modularity of the scripts, this versioning provides a framework for synchronising and merging multiple versions of Reposcript - a necessary tool for online collaboration.
+		<h3>A drawing interface: RepoCad</h3>
+		</br>
+		<p>
 		Goals for version 1.0 of the proposed design platform includes the refinement of the user interface and the improvement of Reposcript to make it more accessible for users without programming knowledge. Concerning the interface, icons will be put in place for adding or running functions in a script. Clicking an icon will put the relevant code into the script as well as display the corresponding artwork on the canvas. This will provide the classic 'manual' CAD style creations, transformation, and editions of drawings, but in a setup where artwork is entirely parametric and code-based. Concerning the language, helper tools such as auto completion and type safety will make it easier for users to write scripts and connect to the functionality of modules, written by other users.
 		</p>
 	</div>
