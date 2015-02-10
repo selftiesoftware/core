@@ -4099,7 +4099,7 @@ ScalaJS.c.Lcom_repocad_web_rendering_Omnibox.prototype.init___Lorg_scalajs_dom_r
   } else {
     throw new ScalaJS.c.s_MatchError().init___O(x1$2)
   };
-  inputField["onkeydown"] = (function(arg$outer) {
+  inputField["onkeyup"] = (function(arg$outer) {
     return (function(e$2) {
       if ((ScalaJS.uI(e$2["keyCode"]) === 13)) {
         arg$outer.loadDrawing__T__V(ScalaJS.as.T(arg$outer.com$repocad$web$rendering$Omnibox$$inputField$f["value"]))

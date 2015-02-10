@@ -19,7 +19,7 @@ class Omnibox(inputField : HTMLInputElement, editor : Editor, canvas : Canvas) {
     case Left(error) => println("Failed to load drawing: " + error)
   }
 
-  inputField.onkeydown = (e : KeyboardEvent) => {
+  inputField.onkeyup = (e : KeyboardEvent) => {
     if (e.keyCode == 13) {
       loadDrawing(inputField.value)
     }
