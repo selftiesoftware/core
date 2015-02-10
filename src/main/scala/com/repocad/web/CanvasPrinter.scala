@@ -9,7 +9,7 @@ import org.scalajs.dom.CanvasRenderingContext2D
  * A view that renders to a HTML5 canvas
  * @param canvas  The HTML canvas element
  */
-class CanvasView(canvas : HTMLCanvasElement) extends Printer {
+class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
 
   val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
 

@@ -36,7 +36,7 @@ trait Printer {
    * @param y Second coordinate
    * @param r Radius
    */
-  def circle(x : Double, y : Double, r : Double)
+  def circle(x : Double, y : Double, r : Double) : Unit
 
   /**
    * Renders a text string
@@ -69,7 +69,7 @@ trait Printer {
   /**
    * Prepares the printer for drawing
    */
-  def prepare()
+  def prepare() : Unit
 
   lazy val toEnv : Evaluator.Env = {
     Map(
