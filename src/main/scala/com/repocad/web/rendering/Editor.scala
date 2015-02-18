@@ -26,6 +26,7 @@ class Editor(container : HTMLDivElement, view : Printer) {
   textarea.onkeyup = (e : Event) => {
     if (module().content != textarea.value) {
       module() = module().copy(content = textarea.value)
+      parse(false)
       updateView()
     }
   }

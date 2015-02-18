@@ -1556,13 +1556,13 @@ ScalaJS.c.Lcom_repocad_web_Repocad.prototype.render__V = (function() {
   var this$2 = this$1.com$repocad$web$rendering$Editor$$ast$1;
   jsx$1.render__Lcom_repocad_web_parsing_Expr__V(ScalaJS.as.Lcom_repocad_web_parsing_Expr(ScalaJS.s.Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$2)))
 });
+ScalaJS.c.Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$printPdf__T__O = (function(name) {
+  this.printPdf__T__V(name)
+});
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.save__V = (function() {
   var this$1 = this.editor$1.module$1;
   var this$2 = ScalaJS.as.Lcom_repocad_web_Drawing(ScalaJS.s.Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$1)).save__Lcom_repocad_web_Response();
   ScalaJS.m.sr_ScalaRunTime$().$$undtoString__s_Product__T(this$2)
-});
-ScalaJS.c.Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$printPdf__T__O = (function(name) {
-  this.printPdf__T__V(name)
 });
 ScalaJS.c.Lcom_repocad_web_Repocad.prototype.printPdf__T__V = (function(name) {
   var printer = new ScalaJS.c.Lcom_repocad_web_PdfPrinter().init___();
@@ -3870,18 +3870,18 @@ ScalaJS.c.Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_ra
   })(this);
   return this
 });
+ScalaJS.c.Lcom_repocad_web_rendering_Canvas.prototype.render__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__V = (function(ast, printer) {
+  printer.prepare__V();
+  ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator$().resetBoundingBox__V();
+  ScalaJS.m.Lcom_repocad_web_Paper$().scaleAndRotation__Z();
+  ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer)
+});
 ScalaJS.c.Lcom_repocad_web_rendering_Canvas.prototype.zoom__D__Lorg_scalajs_dom_raw_MouseEvent__V = (function(delta, e) {
   this.com$repocad$web$rendering$Canvas$$printer$f.zoom__D__D__D__V(delta, ScalaJS.uD(e["clientX"]), ScalaJS.uD(e["clientY"]));
   this.zoomLevel$1 = ((this.zoomLevel$1 + (delta | 0)) | 0);
   var this$1 = this.com$repocad$web$rendering$Canvas$$editor$f;
   var this$2 = this$1.com$repocad$web$rendering$Editor$$ast$1;
   this.render__Lcom_repocad_web_parsing_Expr__V(ScalaJS.as.Lcom_repocad_web_parsing_Expr(ScalaJS.s.Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$2)))
-});
-ScalaJS.c.Lcom_repocad_web_rendering_Canvas.prototype.render__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__V = (function(ast, printer) {
-  printer.prepare__V();
-  ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator$().resetBoundingBox__V();
-  ScalaJS.m.Lcom_repocad_web_Paper$().scaleAndRotation__Z();
-  ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer)
 });
 ScalaJS.c.Lcom_repocad_web_rendering_Canvas.prototype.render__Lcom_repocad_web_parsing_Expr__V = (function(ast) {
   this.render__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__V(ast, this.com$repocad$web$rendering$Canvas$$printer$f)
@@ -20145,6 +20145,7 @@ ScalaJS.c.Lcom_repocad_web_rendering_Editor$$anonfun$3.prototype.apply__Lorg_sca
     };
     jsx$2.value$1 = jsx$1;
     ScalaJS.s.Lrx_core_Rx$class__propagate__Lrx_core_Rx__Lrx_core_Propagator__O(this$2, evidence$4);
+    this.$$outer$2.parse__Z__s_util_Either(false);
     this.$$outer$2.updateView__V()
   }
 });
