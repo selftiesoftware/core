@@ -54,7 +54,67 @@ object Evaluator {
 
   type Value = Either[String, (Env, Any)]
 
-  private var scriptEnv : Map[String, Env] = Map()
+  private var scriptEnv : Map[String, Expr] = Map()
+
+  val dummyPrinter = new Printer {/**
+   * Renders a text string
+   * @param x First coordinate
+   * @param y Second coordinate
+   * @param h Height
+   * @param t Text
+   */
+  override def text(x: Double, y: Double, h: Double, t: Any): Unit = Unit
+
+    /**
+     * Draws a circle
+     * @param x First coordinate
+     * @param y Second coordinate
+     * @param r Radius
+     */
+    override def circle(x: Double, y: Double, r: Double): Unit = Unit
+
+    /**
+     * Draws an arc
+     * @param x First coordinate
+     * @param y Second coordinate
+     * @param r Radius
+     * @param sAngle start angle (3'o clock)
+     * @param eAngle end angle
+     */
+    override def arc(x: Double, y: Double, r: Double, sAngle: Double, eAngle: Double): Unit = Unit
+
+    /**
+     * Draws a line
+     * @param x1 First coordinate
+     * @param y1 Second coordinate
+     * @param x2 Third coordinate
+     * @param y2 Fourth coordinate
+     */
+    override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = Unit
+
+    /**
+     * Renders a text box
+     * @param x First coordinate
+     * @param y Second coordinate
+     * @param w Width
+     * @param h Line height
+     * @param t Text
+     */
+    override def textBox(x: Double, y: Double, w: Double, h: Double, t: Any): Unit = Unit
+
+    /**
+     * Draws a bezier curve
+     * @param x1 start x
+     * @param y1 start y
+     * @param x2 control point1 x
+     * @param y2 control point1 y
+     * @param x3 control point2 x
+     * @param y3 control point2 y
+     * @param x4 end x
+     * @param y4 start y
+     */
+    override def bezierCurve(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double, x4: Double, y4: Double): Unit = Unit
+  }
 
   def eval(expr : Expr, printer : Printer) : Value = {
     try {
@@ -69,15 +129,13 @@ object Evaluator {
 
       case ImportExpr(name) =>
         if (scriptEnv.contains(name)) {
-          Right(env ++ scriptEnv(name) -> Unit)
+          eval(scriptEnv(name), env, printer).right.map(v => (env ++ v._1) -> Unit)
         } else {
           Ajax.get("http://siigna.com:20004/get/" + name) match {
             case Response(_, 4, text) =>
-              Parser.parse(Lexer.lex(text)).right.flatMap(expr => {
-                eval(expr, env, printer)
-              }).right.flatMap(v => {
-                scriptEnv += name -> v._1
-                Right((env ++ v._1) -> Unit)
+              Parser.parse(Lexer.lex(text)).right.flatMap(v => {
+                scriptEnv += name -> v
+                eval(scriptEnv(name), env, printer).right.map(v => (env ++ v._1) -> Unit)
               })
             case xs => Left(s"Script $name failed to load with error: $xs")
           }

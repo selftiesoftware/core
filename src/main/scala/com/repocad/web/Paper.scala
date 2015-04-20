@@ -1,7 +1,6 @@
 package com.repocad.web
 
 import com.repocad.web.evaluating.Evaluator
-import org.scalajs.dom.{CanvasRenderingContext2D, HTMLCanvasElement}
 
 
 /**

@@ -3,7 +3,11 @@ package com.repocad.web
 import com.repocad.web.evaluating.Evaluator
 import com.repocad.web.lexing.Lexer
 import com.repocad.web.parsing.{Expr, Parser, UnitExpr}
+import org.scalajs.dom.Event
+import org.scalajs.dom.KeyboardEvent
+import org.scalajs.dom.MouseEvent
 import org.scalajs.dom._
+import org.scalajs.dom.raw._
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters.JSRichGenTraversableOnce
@@ -137,7 +141,7 @@ class Repocad(canvas : HTMLCanvasElement, input : HTMLTextAreaElement, debug : H
   }
 
   @JSExport
-  def getDrawings() : js.Array[String] = new JSRichGenTraversableOnce[String](Drawing.drawings).toJSArray2
+  def getDrawings() : js.Array[String] = new JSRichGenTraversableOnce[String](Drawing.drawings).toJSArray
 
   @JSExport
   def run() : Unit = {
