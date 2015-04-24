@@ -8,6 +8,7 @@ import com.repocad.web.{Printer, Vector2D, _}
  * An evaluator to evaluate a list of [[Expr]]
  */
 object Evaluator {
+
   //vars needed to update the drawing bounding box
   //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
   var minX : Option[Double] = None
@@ -113,7 +114,8 @@ object Evaluator {
      * @param x4 end x
      * @param y4 start y
      */
-    override def bezierCurve(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double, x4: Double, y4: Double): Unit = Unit
+   override def bezierCurve(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double, x4: Double, y4: Double): Unit = Unit
+    def prepare() :Unit = Unit
   }
 
   def eval(expr : Expr, printer : Printer) : Value = {
@@ -166,6 +168,23 @@ object Evaluator {
             case x => Left(s"Unknown comparison operator $x")
           }
         }))
+
+      case IfExpr(condition, ifBody, elseBody) => {
+        eval(condition, env, printer) match {
+          case Left(thisIsBad) => Left(thisIsBad)
+          case Right((conditionEnvironment, true)) => {
+            eval(ifBody, conditionEnvironment, printer)
+          }
+          case Right((conditionEnvironment, false)) => {
+            elseBody match {
+              case Some(body) /* Somebody, somebody, somebody put something in my drink */ =>
+                eval(body, conditionEnvironment, printer)
+              case None => Right(env -> Unit)
+            }
+          }
+          case Right((newEnvironment, value)) => Left("Expected boolean, got " + value)
+        }
+      }
 
       case OpExpr(e1, e2, op) =>
         eval(e1, env, printer).right.flatMap(v1 => eval(e2, v1._1, printer).right.flatMap(v2 => {

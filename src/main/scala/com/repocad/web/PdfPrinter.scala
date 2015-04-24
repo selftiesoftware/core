@@ -131,4 +131,10 @@ class PdfPrinter() extends Printer {
     document.save(name)
   }
 
+  /**
+   * Prepares the printer for drawing
+   */
+  override def prepare(): Unit = {
+    /* Do nothing*/
+  }
 }
