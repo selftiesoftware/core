@@ -135,7 +135,7 @@ object Evaluator {
             case Response(_, 4, text) =>
               Parser.parse(Lexer.lex(text)).right.flatMap(v => {
                 scriptEnv += name -> v
-                eval(scriptEnv(name), env, printer).right.map(v => (env ++ v._1) -> Unit)
+                eval(scriptEnv(name), env, dummyPrinter).right.map(v => (env ++ v._1) -> Unit)
               })
             case xs => Left(s"Script $name failed to load with error: $xs")
           }
