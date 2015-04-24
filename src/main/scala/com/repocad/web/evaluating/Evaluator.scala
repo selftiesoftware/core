@@ -8,7 +8,7 @@ import com.repocad.web.{Printer, Vector2D, _}
  * An evaluator to evaluate a list of [[Expr]]
  */
 object Evaluator {
-
+  
   //vars needed to update the drawing bounding box
   //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
   var minX : Option[Double] = None
