@@ -64,6 +64,8 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     printer.prepare() //redraw the canvas
     //Evaluator.resetBoundingBox() //set the default paper scale
     Evaluator.eval(ast, printer)
+    printer.clear()
+    Evaluator.eval(ast, printer)
   }
 
 }

@@ -11,7 +11,7 @@ import rx.core.Var
 /**
  * An editor for Reposcript
  */
-class Editor(container : HTMLDivElement, view : Printer) {
+class Editor(container : HTMLDivElement, printer : Printer) {
 
   val module = Var(Drawing())
   
@@ -59,8 +59,11 @@ class Editor(container : HTMLDivElement, view : Printer) {
   }
 
   def updateView(): Unit = {
-    view.prepare()
-    Evaluator.eval(ast(), view)
+    printer.prepare() //redraw the canvas
+    //Evaluator.resetBoundingBox() //set the default paper scale
+    Evaluator.eval(ast(), printer)
+    printer.clear()
+    Evaluator.eval(ast(), printer)
   }
 
 }

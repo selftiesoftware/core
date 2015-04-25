@@ -1219,27 +1219,6 @@ var $m_Lcom_repocad_web_Printer$ = (function() {
 var $s_Lcom_repocad_web_Printer$class__$$init$__Lcom_repocad_web_Printer__V = (function($$this) {
   $$this.com$repocad$web$Printer$$undsetter$und$paper$und$eq__Lcom_repocad_web_Paper__V(new $c_Lcom_repocad_web_Paper().init___D__D__D__D((-105.0), 105.0, (-147.0), 147.0))
 });
-var $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D = (function($$this, x, y) {
-  if ((x >= $$this.paper__Lcom_repocad_web_Paper().maxX$1)) {
-    $$this.paper__Lcom_repocad_web_Paper().maxX$1 = x
-  };
-  if ((x <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
-    $$this.paper__Lcom_repocad_web_Paper().minX$1 = x
-  };
-  if ((y >= $$this.paper__Lcom_repocad_web_Paper().maxY$1)) {
-    $$this.paper__Lcom_repocad_web_Paper().maxY$1 = y
-  };
-  if ((y <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
-    $$this.paper__Lcom_repocad_web_Paper().minY$1 = y
-  };
-  var x$1 = ("MAX X;" + $$this.paper__Lcom_repocad_web_Paper().maxX$1);
-  var this$2 = $m_s_Console$();
-  var this$3 = this$2.outVar$2;
-  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x$1);
-  var cX = ($$this.paper__Lcom_repocad_web_Paper().minX$1 + (($$this.paper__Lcom_repocad_web_Paper().maxX$1 - $$this.paper__Lcom_repocad_web_Paper().minX$1) / 2));
-  var cY = ($$this.paper__Lcom_repocad_web_Paper().minY$1 + (($$this.paper__Lcom_repocad_web_Paper().maxY$1 - $$this.paper__Lcom_repocad_web_Paper().minY$1) / 2));
-  return new $c_Lcom_repocad_web_Vector2D().init___D__D(cX, cY)
-});
 var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map = (function($$this) {
   var y$1 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(arg$outer) {
     return (function(env$2, x$2, y$2, r$2, sAngle$2, eAngle$2) {
@@ -1323,6 +1302,27 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
     break matchEnd4
   };
   return $as_sci_Map(this$14.elems$1)
+});
+var $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D = (function($$this, x, y) {
+  if ((x >= $$this.paper__Lcom_repocad_web_Paper().maxX$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().maxX$1 = x
+  };
+  if ((x <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().minX$1 = x
+  };
+  if ((y >= $$this.paper__Lcom_repocad_web_Paper().maxY$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().maxY$1 = y
+  };
+  if ((y <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().minY$1 = y
+  };
+  var x$1 = ("MAX X;" + $$this.paper__Lcom_repocad_web_Paper().maxX$1);
+  var this$2 = $m_s_Console$();
+  var this$3 = this$2.outVar$2;
+  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x$1);
+  var cX = ($$this.paper__Lcom_repocad_web_Paper().minX$1 + (($$this.paper__Lcom_repocad_web_Paper().maxX$1 - $$this.paper__Lcom_repocad_web_Paper().minX$1) / 2));
+  var cY = ($$this.paper__Lcom_repocad_web_Paper().minY$1 + (($$this.paper__Lcom_repocad_web_Paper().maxY$1 - $$this.paper__Lcom_repocad_web_Paper().minY$1) / 2));
+  return new $c_Lcom_repocad_web_Vector2D().init___D__D(cX, cY)
 });
 /** @constructor */
 var $c_Lcom_repocad_web_RepoMath$ = (function() {
@@ -1676,6 +1676,11 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$ = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$.prototype;
+$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.init___ = (function() {
+  $n_Lcom_repocad_web_evaluating_Evaluator$ = this;
+  this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = $as_sci_Map($m_s_Predef$().Map$2.apply__sc_Seq__sc_GenMap($m_sci_Nil$()));
+  return this
+});
 $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__s_util_Either = (function(it, foldEnv) {
   var this$1 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(it.next__O()), foldEnv);
   if ($is_s_util_Left(this$1)) {
@@ -1702,11 +1707,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.com$repocad$web$evaluating$E
     throw new $c_s_MatchError().init___O(this$1)
   };
   return $as_s_util_Either(jsx$1)
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.init___ = (function() {
-  $n_Lcom_repocad_web_evaluating_Evaluator$ = this;
-  this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = $as_sci_Map($m_s_Predef$().Map$2.apply__sc_Seq__sc_GenMap($m_sci_Nil$()));
-  return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either = (function(expr, env) {
   _eval: while (true) {
@@ -3633,7 +3633,9 @@ $c_Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_raw_HTMLC
   return this
 });
 $c_Lcom_repocad_web_rendering_Canvas.prototype.render__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__V = (function(ast, printer) {
-  printer.prepare__V();
+  printer.paper__Lcom_repocad_web_Paper().resetBoundingBox__V();
+  $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer);
+  printer.clear__V();
   $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer)
 });
 $c_Lcom_repocad_web_rendering_Canvas.prototype.zoom__D__Lorg_scalajs_dom_raw_MouseEvent__V = (function(delta, e) {
@@ -3656,7 +3658,7 @@ $c_Lcom_repocad_web_rendering_Canvas.prototype.$classData = $d_Lcom_repocad_web_
 /** @constructor */
 var $c_Lcom_repocad_web_rendering_Editor = (function() {
   $c_O.call(this);
-  this.view$1 = null;
+  this.printer$1 = null;
   this.module$1 = null;
   this.com$repocad$web$rendering$Editor$$ast$1 = null;
   this.textarea$1 = null
@@ -3669,13 +3671,18 @@ var $h_Lcom_repocad_web_rendering_Editor = (function() {
 });
 $h_Lcom_repocad_web_rendering_Editor.prototype = $c_Lcom_repocad_web_rendering_Editor.prototype;
 $c_Lcom_repocad_web_rendering_Editor.prototype.updateView__V = (function() {
-  this.view$1.prepare__V();
+  var this$1 = this.printer$1;
+  this$1.paper__Lcom_repocad_web_Paper().resetBoundingBox__V();
   var jsx$1 = $m_Lcom_repocad_web_evaluating_Evaluator$();
-  var this$1 = this.com$repocad$web$rendering$Editor$$ast$1;
-  jsx$1.eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$1)), this.view$1)
+  var this$2 = this.com$repocad$web$rendering$Editor$$ast$1;
+  jsx$1.eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$2)), this.printer$1);
+  this.printer$1.clear__V();
+  var jsx$2 = $m_Lcom_repocad_web_evaluating_Evaluator$();
+  var this$3 = this.com$repocad$web$rendering$Editor$$ast$1;
+  jsx$2.eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$3)), this.printer$1)
 });
-$c_Lcom_repocad_web_rendering_Editor.prototype.init___Lorg_scalajs_dom_raw_HTMLDivElement__Lcom_repocad_web_Printer = (function(container, view) {
-  this.view$1 = view;
+$c_Lcom_repocad_web_rendering_Editor.prototype.init___Lorg_scalajs_dom_raw_HTMLDivElement__Lcom_repocad_web_Printer = (function(container, printer) {
+  this.printer$1 = printer;
   var value = new $c_sjsr_AnonFunction0().init___sjs_js_Function0((function() {
     return $m_Lcom_repocad_web_Drawing$().apply__Lcom_repocad_web_Drawing()
   }));
@@ -8658,13 +8665,6 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.init___Lorg_scalajs_dom_raw_HTMLCanv
   this.landscape$1 = false;
   return this
 });
-$c_Lcom_repocad_web_CanvasPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
-  return this.paper$1
-});
-$c_Lcom_repocad_web_CanvasPrinter.prototype.init__V = (function() {
-  this.context$1["translate"]((($uI(this.canvas$1["width"]) / 2) | 0), (($uI(this.canvas$1["height"]) / 2) | 0));
-  this.drawPaper__V()
-});
 $c_Lcom_repocad_web_CanvasPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
   $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x1, y1);
   $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x2, y2);
@@ -8674,6 +8674,13 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.line__D__D__D__D__V = (function(x1, 
   this.context$1["stroke"]();
   this.context$1["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1);
   this.context$1["closePath"]()
+});
+$c_Lcom_repocad_web_CanvasPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
+  return this.paper$1
+});
+$c_Lcom_repocad_web_CanvasPrinter.prototype.init__V = (function() {
+  this.context$1["translate"]((($uI(this.canvas$1["width"]) / 2) | 0), (($uI(this.canvas$1["height"]) / 2) | 0));
+  this.drawPaper__V()
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.textBox__D__D__D__D__O__V = (function(x, y, w, h, t) {
   var text = $objectToString(t);
@@ -8851,10 +8858,6 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.zoom__D__D__D__V = (function(delta, 
   this.context$1["scale"](zoomScale, zoomScale);
   this.context$1["translate"]((-mousePoint.x$1), (-mousePoint.y$1))
 });
-$c_Lcom_repocad_web_CanvasPrinter.prototype.prepare__V = (function() {
-  this.paper$1.resetBoundingBox__V();
-  this.clear__V()
-});
 var $d_Lcom_repocad_web_CanvasPrinter = new $ClassTypeData({
   Lcom_repocad_web_CanvasPrinter: 0
 }, false, "com.repocad.web.CanvasPrinter", {
@@ -8883,9 +8886,6 @@ var $h_Lcom_repocad_web_PdfPrinter = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_PdfPrinter.prototype = $c_Lcom_repocad_web_PdfPrinter.prototype;
-$c_Lcom_repocad_web_PdfPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
-  return this.paper$1
-});
 $c_Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
   $s_Lcom_repocad_web_Printer$class__$$init$__Lcom_repocad_web_Printer__V(this);
   this.landscape$1 = this.paper$1.scaleAndRotation__Z();
@@ -8901,6 +8901,9 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
   this.scaledCenter$1 = new $c_Lcom_repocad_web_Vector2D().init___D__D(($m_Lcom_repocad_web_package$().drawingCenter$1.x$1 / $m_Lcom_repocad_web_package$().paperScale$1), ((-$m_Lcom_repocad_web_package$().drawingCenter$1.y$1) / $m_Lcom_repocad_web_package$().paperScale$1));
   this.document$1["setLineWidth"](0.1);
   return this
+});
+$c_Lcom_repocad_web_PdfPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
+  return this.paper$1
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
   var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D((x1 / $m_Lcom_repocad_web_package$().paperScale$1), (y1 / $m_Lcom_repocad_web_package$().paperScale$1)));
@@ -8929,13 +8932,6 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$transform__
     var b = jsx$4.$$plus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D((jsx$3 / 2), ($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$4, 0)) / 2)));
     return b
   }
-});
-$c_Lcom_repocad_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
-  var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D(x, y));
-  var jsx$1 = this.document$1;
-  var value = v.x$1;
-  var value$1 = v.y$1;
-  jsx$1["circle"](value, value$1, r)
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.textBox__D__D__D__D__O__V = (function(x, y, w, h, t) {
   var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D(x, y));
@@ -8970,8 +8966,26 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.textBox__D__D__D__D__O__V = (function(x
     i = ((1 + i) | 0)
   }
 });
+$c_Lcom_repocad_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
+  var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D(x, y));
+  var jsx$1 = this.document$1;
+  var value = v.x$1;
+  var value$1 = v.y$1;
+  jsx$1["circle"](value, value$1, r)
+});
 $c_Lcom_repocad_web_PdfPrinter.prototype.save__T__V = (function(name) {
   this.document$1["save"](name)
+});
+$c_Lcom_repocad_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
+  var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D(x, y));
+  var jsx$1 = this.document$1;
+  var value = (1.8 * h);
+  jsx$1["setFontSize"](value);
+  var jsx$2 = this.document$1;
+  var value$1 = (v.x$1 / $m_Lcom_repocad_web_package$().paperScale$1);
+  var value$2 = (v.y$1 / $m_Lcom_repocad_web_package$().paperScale$1);
+  var s = $objectToString(t);
+  jsx$2["text"](value$1, value$2, s)
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   var this$1 = $m_Lcom_repocad_web_SplineToArc2D$();
@@ -9065,17 +9079,6 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y,
     these = this$13.tail__sci_List()
   }
 });
-$c_Lcom_repocad_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
-  var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D(x, y));
-  var jsx$1 = this.document$1;
-  var value = (1.8 * h);
-  jsx$1["setFontSize"](value);
-  var jsx$2 = this.document$1;
-  var value$1 = (v.x$1 / $m_Lcom_repocad_web_package$().paperScale$1);
-  var value$2 = (v.y$1 / $m_Lcom_repocad_web_package$().paperScale$1);
-  var s = $objectToString(t);
-  jsx$2["text"](value$1, value$2, s)
-});
 $c_Lcom_repocad_web_PdfPrinter.prototype.toEnv__sci_Map = (function() {
   return ((!this.bitmap$0$1) ? this.toEnv$lzycompute__p1__sci_Map() : this.toEnv$1)
 });
@@ -9158,7 +9161,7 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V 
   var value$1 = v1.y$1;
   jsx$2["lines"](jsx$1, value, value$1, scaleCurve)
 });
-$c_Lcom_repocad_web_PdfPrinter.prototype.prepare__V = (function() {
+$c_Lcom_repocad_web_PdfPrinter.prototype.clear__V = (function() {
   /*<skip>*/
 });
 var $d_Lcom_repocad_web_PdfPrinter = new $ClassTypeData({
@@ -14611,6 +14614,11 @@ var $h_Lcom_repocad_web_Drawing = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_Drawing.prototype = $c_Lcom_repocad_web_Drawing.prototype;
+$c_Lcom_repocad_web_Drawing.prototype.init___T__T = (function(name, content) {
+  this.name$1 = name;
+  this.content$1 = content;
+  return this
+});
 $c_Lcom_repocad_web_Drawing.prototype.save__Lcom_repocad_web_Response = (function() {
   var s = this.name$1;
   var urlName = $g["encodeURI"](s);
@@ -14618,11 +14626,6 @@ $c_Lcom_repocad_web_Drawing.prototype.save__Lcom_repocad_web_Response = (functio
 });
 $c_Lcom_repocad_web_Drawing.prototype.productPrefix__T = (function() {
   return "Drawing"
-});
-$c_Lcom_repocad_web_Drawing.prototype.init___T__T = (function(name, content) {
-  this.name$1 = name;
-  this.content$1 = content;
-  return this
 });
 $c_Lcom_repocad_web_Drawing.prototype.productArity__I = (function() {
   return 2

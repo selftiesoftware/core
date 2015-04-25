@@ -9,7 +9,7 @@ trait Printer {
 
     //vars needed to update the drawing bounding box
     //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
-    val paper = new Paper()
+    protected val paper = new Paper()
 
   /*
   update the bounding box each time the drawing is evaluated.
@@ -60,6 +60,8 @@ trait Printer {
    * @param r Radius
    */
   def circle(x : Double, y : Double, r : Double) : Unit
+
+  def clear() : Unit
 
   /**
    * Renders a text string

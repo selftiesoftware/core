@@ -6,7 +6,7 @@ import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.CanvasRenderingContext2D
 
 /**
- * A view that renders to a HTML5 canvas
+ * A printer that renders to a HTML5 canvas
  * @param canvas  The HTML canvas element
  */
 class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
@@ -134,12 +134,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
     context.stroke()
     context.closePath()
   }
-
-  override def prepare(): Unit = {
-    super.prepare()
-    clear()
-  }
-
   def screenText (x: Double, y: Double, size: Double, t: Any): Unit = {
     context.font = size.toString + " pt Arial"
     context.fillStyle = "black"
@@ -204,7 +198,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
 
   /**
    * Carries out a zoom action by zooming with the given delta and then panning
-   * the view relative to the current zoom-factor.
+   * the printer relative to the current zoom-factor.
    * The zoom-function are disabled if the zoom level are below 0.00001 or above 50
    * Also, if the delta is cropped at (+/-)10, to avoid touch-pad bugs with huge deltas etc.
    * The zoom is logarithmic (base 2) since linear zooming gives some very brutal zoom-steps.
