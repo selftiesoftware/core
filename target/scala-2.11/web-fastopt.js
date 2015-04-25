@@ -1174,10 +1174,116 @@ var $m_Lcom_repocad_web_Paper$ = (function() {
   };
   return $n_Lcom_repocad_web_Paper$
 });
+/** @constructor */
+var $c_Lcom_repocad_web_Printer$ = (function() {
+  $c_O.call(this);
+  this.dummyEnv$1 = null;
+  this.bitmap$0$1 = false
+});
+$c_Lcom_repocad_web_Printer$.prototype = new $h_O();
+$c_Lcom_repocad_web_Printer$.prototype.constructor = $c_Lcom_repocad_web_Printer$;
+/** @constructor */
+var $h_Lcom_repocad_web_Printer$ = (function() {
+  /*<skip>*/
+});
+$h_Lcom_repocad_web_Printer$.prototype = $c_Lcom_repocad_web_Printer$.prototype;
+$c_Lcom_repocad_web_Printer$.prototype.dummyEnv$lzycompute__p1__sci_Map = (function() {
+  if ((!this.bitmap$0$1)) {
+    var y$1 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(env$2, x$2, y$2, r$2, sAngle$2, eAngle$2) {
+      $as_sci_Map(env$2);
+      $uD(x$2);
+      $uD(y$2);
+      $uD(r$2);
+      $uD(sAngle$2);
+      $uD(eAngle$2);
+      return $m_s_Unit$()
+    }));
+    var jsx$5 = new $c_T2().init___O__O("arc", y$1);
+    var y$3 = new $c_sjsr_AnonFunction9().init___sjs_js_Function9((function(env$2$1, x1$2, y1$2, x2$2, y2$2, x3$2, y3$2, x4$2, y4$2) {
+      $as_sci_Map(env$2$1);
+      $uD(x1$2);
+      $uD(y1$2);
+      $uD(x2$2);
+      $uD(y2$2);
+      $uD(x3$2);
+      $uD(y3$2);
+      $uD(x4$2);
+      $uD(y4$2);
+      return $m_s_Unit$()
+    }));
+    var jsx$4 = new $c_T2().init___O__O("bezierCurve", y$3);
+    var y$5 = new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(env$2$2, x$2$1, y$2$1, r$2$1) {
+      $as_sci_Map(env$2$2);
+      $uD(x$2$1);
+      $uD(y$2$1);
+      $uD(r$2$1);
+      return $m_s_Unit$()
+    }));
+    var jsx$3 = new $c_T2().init___O__O("circle", y$5);
+    var y$6 = new $c_sjsr_AnonFunction5().init___sjs_js_Function5((function(env$2$3, x1$2$1, y1$2$1, x2$2$1, y2$2$1) {
+      $as_sci_Map(env$2$3);
+      $uD(x1$2$1);
+      $uD(y1$2$1);
+      $uD(x2$2$1);
+      $uD(y2$2$1);
+      return $m_s_Unit$()
+    }));
+    var jsx$2 = new $c_T2().init___O__O("line", y$6);
+    var y$8 = new $c_sjsr_AnonFunction5().init___sjs_js_Function5((function(env$2$4, x$2$2, y$2$2, h$2, t$2) {
+      $as_sci_Map(env$2$4);
+      $uD(x$2$2);
+      $uD(y$2$2);
+      $uD(h$2);
+      return $m_s_Unit$()
+    }));
+    var jsx$1 = new $c_T2().init___O__O("text", y$8);
+    var y$10 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(env$2$5, x$2$3, y$2$3, w$2, h$2$1, t$2$1) {
+      $as_sci_Map(env$2$5);
+      $uD(x$2$3);
+      $uD(y$2$3);
+      $uD(w$2);
+      $uD(h$2$1);
+      return $m_s_Unit$()
+    }));
+    var array = [jsx$5, jsx$4, jsx$3, jsx$2, jsx$1, new $c_T2().init___O__O("textBox", y$10)];
+    var this$14 = new $c_scm_MapBuilder().init___sc_GenMap($m_sci_Map$EmptyMap$());
+    matchEnd4: {
+      var i = 0;
+      var len = $uI(array["length"]);
+      while ((i < len)) {
+        var index = i;
+        var arg1 = array[index];
+        this$14.$$plus$eq__T2__scm_MapBuilder($as_T2(arg1));
+        i = ((1 + i) | 0)
+      };
+      break matchEnd4
+    };
+    this.dummyEnv$1 = $as_sci_Map(this$14.elems$1);
+    this.bitmap$0$1 = true
+  };
+  return this.dummyEnv$1
+});
+$c_Lcom_repocad_web_Printer$.prototype.dummyEnv__sci_Map = (function() {
+  return ((!this.bitmap$0$1) ? this.dummyEnv$lzycompute__p1__sci_Map() : this.dummyEnv$1)
+});
+var $d_Lcom_repocad_web_Printer$ = new $ClassTypeData({
+  Lcom_repocad_web_Printer$: 0
+}, false, "com.repocad.web.Printer$", {
+  Lcom_repocad_web_Printer$: 1,
+  O: 1
+});
+$c_Lcom_repocad_web_Printer$.prototype.$classData = $d_Lcom_repocad_web_Printer$;
+var $n_Lcom_repocad_web_Printer$ = (void 0);
+var $m_Lcom_repocad_web_Printer$ = (function() {
+  if ((!$n_Lcom_repocad_web_Printer$)) {
+    $n_Lcom_repocad_web_Printer$ = new $c_Lcom_repocad_web_Printer$().init___()
+  };
+  return $n_Lcom_repocad_web_Printer$
+});
 var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map = (function($$this) {
   var y$1 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(arg$outer) {
-    return (function(p$2, x$2, y$2, r$2, sAngle$2, eAngle$2) {
-      $as_Lcom_repocad_web_Printer(p$2);
+    return (function(env$2, x$2, y$2, r$2, sAngle$2, eAngle$2) {
+      $as_sci_Map(env$2);
       var x = $uD(x$2);
       var y = $uD(y$2);
       var r = $uD(r$2);
@@ -1188,8 +1294,8 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
   })($$this));
   var jsx$5 = new $c_T2().init___O__O("arc", y$1);
   var y$3 = new $c_sjsr_AnonFunction9().init___sjs_js_Function9((function(arg$outer$1) {
-    return (function(p$2$1, x1$2, y1$2, x2$2, y2$2, x3$2, y3$2, x4$2, y4$2) {
-      $as_Lcom_repocad_web_Printer(p$2$1);
+    return (function(env$2$1, x1$2, y1$2, x2$2, y2$2, x3$2, y3$2, x4$2, y4$2) {
+      $as_sci_Map(env$2$1);
       var x1 = $uD(x1$2);
       var y1 = $uD(y1$2);
       var x2 = $uD(x2$2);
@@ -1203,8 +1309,8 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
   })($$this));
   var jsx$4 = new $c_T2().init___O__O("bezierCurve", y$3);
   var y$5 = new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(arg$outer$2) {
-    return (function(p$2$2, x$2$1, y$2$1, r$2$1) {
-      $as_Lcom_repocad_web_Printer(p$2$2);
+    return (function(env$2$2, x$2$1, y$2$1, r$2$1) {
+      $as_sci_Map(env$2$2);
       var x$1 = $uD(x$2$1);
       var y$4 = $uD(y$2$1);
       var r$1 = $uD(r$2$1);
@@ -1213,8 +1319,8 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
   })($$this));
   var jsx$3 = new $c_T2().init___O__O("circle", y$5);
   var y$6 = new $c_sjsr_AnonFunction5().init___sjs_js_Function5((function(arg$outer$3) {
-    return (function(p$2$3, x1$2$1, y1$2$1, x2$2$1, y2$2$1) {
-      $as_Lcom_repocad_web_Printer(p$2$3);
+    return (function(env$2$3, x1$2$1, y1$2$1, x2$2$1, y2$2$1) {
+      $as_sci_Map(env$2$3);
       var x1$1 = $uD(x1$2$1);
       var y1$1 = $uD(y1$2$1);
       var x2$1 = $uD(x2$2$1);
@@ -1224,8 +1330,8 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
   })($$this));
   var jsx$2 = new $c_T2().init___O__O("line", y$6);
   var y$8 = new $c_sjsr_AnonFunction5().init___sjs_js_Function5((function(arg$outer$4) {
-    return (function(p$2$4, x$2$2, y$2$2, h$2, t$2) {
-      $as_Lcom_repocad_web_Printer(p$2$4);
+    return (function(env$2$4, x$2$2, y$2$2, h$2, t$2) {
+      $as_sci_Map(env$2$4);
       var x$3 = $uD(x$2$2);
       var y$7 = $uD(y$2$2);
       var h = $uD(h$2);
@@ -1234,8 +1340,8 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
   })($$this));
   var jsx$1 = new $c_T2().init___O__O("text", y$8);
   var y$10 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(arg$outer$5) {
-    return (function(p$2$5, x$2$3, y$2$3, w$2, h$2$1, t$2$1) {
-      $as_Lcom_repocad_web_Printer(p$2$5);
+    return (function(env$2$5, x$2$3, y$2$3, w$2, h$2$1, t$2$1) {
+      $as_sci_Map(env$2$5);
       var x$4 = $uD(x$2$3);
       var y$9 = $uD(y$2$3);
       var w = $uD(w$2);
@@ -1605,8 +1711,7 @@ var $c_Lcom_repocad_web_evaluating_Evaluator$ = (function() {
   this.maxX$1 = null;
   this.minY$1 = null;
   this.maxY$1 = null;
-  this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = null;
-  this.dummyPrinter$1 = null
+  this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = null
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$.prototype = new $h_O();
 $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.constructor = $c_Lcom_repocad_web_evaluating_Evaluator$;
@@ -1622,11 +1727,10 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.init___ = (function() {
   this.minY$1 = $m_s_None$();
   this.maxY$1 = $m_s_None$();
   this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = $as_sci_Map($m_s_Predef$().Map$2.apply__sc_Seq__sc_GenMap($m_sci_Nil$()));
-  this.dummyPrinter$1 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1().init___();
   return this
 });
-$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__Lcom_repocad_web_Printer__s_util_Either = (function(it, foldEnv, printer$1) {
-  var this$1 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(it.next__O()), foldEnv, printer$1);
+$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__s_util_Either = (function(it, foldEnv) {
+  var this$1 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(it.next__O()), foldEnv);
   if ($is_s_util_Left(this$1)) {
     var x2 = $as_s_util_Left(this$1);
     var a = x2.a$2;
@@ -1638,7 +1742,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.com$repocad$web$evaluating$E
     var b = x3.b$2;
     var t = $as_T2(b);
     if (it.hasNext__Z()) {
-      var jsx$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__Lcom_repocad_web_Printer__s_util_Either(it, $as_sci_Map(t.$$und1$f), printer$1)
+      var jsx$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__s_util_Either(it, $as_sci_Map(t.$$und1$f))
     } else {
       $m_s_package$().Right$1;
       var $$this = t.$$und1$f;
@@ -1652,7 +1756,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.com$repocad$web$evaluating$E
   };
   return $as_s_util_Either(jsx$1)
 });
-$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either = (function(expr, env, printer) {
+$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either = (function(expr, env) {
   _eval: while (true) {
     var rc18 = false;
     var x9 = null;
@@ -1661,107 +1765,97 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsi
       var x2 = $as_Lcom_repocad_web_parsing_ImportExpr(x1);
       var name = x2.name$1;
       if (this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1.contains__O__Z(name)) {
-        var this$1 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1.apply__O__O(name)), env, printer);
-        var this$2 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$1);
-        var env$1 = env;
-        var x1$1 = this$2.e$1;
-        if ($is_s_util_Left(x1$1)) {
-          var x2$1 = $as_s_util_Left(x1$1);
-          var a = x2$1.a$2;
-          return new $c_s_util_Left().init___O(a)
-        } else if ($is_s_util_Right(x1$1)) {
-          var x3 = $as_s_util_Right(x1$1);
-          var b = x3.b$2;
-          var v = $as_T2(b);
-          var $$this = env$1.$$plus$plus__sc_GenTraversableOnce__sci_Map($as_sc_GenTraversableOnce(v.$$und1$f));
-          var y = $m_s_Unit$();
-          return new $c_s_util_Right().init___O(new $c_T2().init___O__O($$this, y))
-        } else {
-          throw new $c_s_MatchError().init___O(x1$1)
-        }
+        $m_s_package$().Right$1;
+        var $$this = $as_sci_MapLike(this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1.apply__O__O(name)).$$plus$plus__sc_GenTraversableOnce__sci_Map(env);
+        var y = $m_s_Unit$();
+        var b = new $c_T2().init___O__O($$this, y);
+        return new $c_s_util_Right().init___O(b)
       } else {
         var x1$2 = $m_Lcom_repocad_web_Ajax$().get__T__Lcom_repocad_web_Response(("http://siigna.com:20004/get/" + name));
         if ((x1$2 !== null)) {
           var p3 = x1$2.state$1;
           var text = x1$2.response$1;
           if ((p3 === 4)) {
-            var this$5 = $m_Lcom_repocad_web_parsing_Parser$().parse__Lcom_repocad_web_lexing_LiveStream__s_util_Either($m_Lcom_repocad_web_lexing_Lexer$().lex__T__Lcom_repocad_web_lexing_LiveStream(text));
-            var this$6 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$5);
-            var env$1$1 = env;
-            var x1$3 = this$6.e$1;
-            if ($is_s_util_Left(x1$3)) {
-              var x2$2 = $as_s_util_Left(x1$3);
-              var a$1 = x2$2.a$2;
-              return new $c_s_util_Left().init___O(a$1)
-            } else if ($is_s_util_Right(x1$3)) {
-              var x3$1 = $as_s_util_Right(x1$3);
-              var b$1 = x3$1.b$2;
-              var v$1 = $as_Lcom_repocad_web_parsing_Expr(b$1);
-              $m_Lcom_repocad_web_evaluating_Evaluator$().com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().com$repocad$web$evaluating$Evaluator$$scriptEnv$1.$$plus__T2__sci_Map(new $c_T2().init___O__O(name, v$1));
-              var this$9 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr($m_Lcom_repocad_web_evaluating_Evaluator$().com$repocad$web$evaluating$Evaluator$$scriptEnv$1.apply__O__O(name)), env$1$1, $m_Lcom_repocad_web_evaluating_Evaluator$().dummyPrinter$1);
-              var this$10 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$9);
-              var x1$4 = this$10.e$1;
-              if ($is_s_util_Left(x1$4)) {
-                var x2$3 = $as_s_util_Left(x1$4);
-                var a$2 = x2$3.a$2;
-                return new $c_s_util_Left().init___O(a$2)
-              } else if ($is_s_util_Right(x1$4)) {
-                var x3$2 = $as_s_util_Right(x1$4);
-                var b$2 = x3$2.b$2;
-                var v$2 = $as_T2(b$2);
-                var $$this$1 = env$1$1.$$plus$plus__sc_GenTraversableOnce__sci_Map($as_sc_GenTraversableOnce(v$2.$$und1$f));
-                var y$1 = $m_s_Unit$();
-                return new $c_s_util_Right().init___O(new $c_T2().init___O__O($$this$1, y$1))
+            var this$4 = $m_Lcom_repocad_web_parsing_Parser$().parse__Lcom_repocad_web_lexing_LiveStream__s_util_Either($m_Lcom_repocad_web_lexing_Lexer$().lex__T__Lcom_repocad_web_lexing_LiveStream(text));
+            var this$5 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$4);
+            var env$1 = env;
+            var x1$1 = this$5.e$1;
+            if ($is_s_util_Left(x1$1)) {
+              var x2$1 = $as_s_util_Left(x1$1);
+              var a = x2$1.a$2;
+              return new $c_s_util_Left().init___O(a)
+            } else if ($is_s_util_Right(x1$1)) {
+              var x3 = $as_s_util_Right(x1$1);
+              var b$1 = x3.b$2;
+              var expr$1 = $as_Lcom_repocad_web_parsing_Expr(b$1);
+              var this$6 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(expr$1, $m_Lcom_repocad_web_Printer$().dummyEnv__sci_Map());
+              var this$7 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$6);
+              var x1$3 = this$7.e$1;
+              if ($is_s_util_Left(x1$3)) {
+                var x2$2 = $as_s_util_Left(x1$3);
+                var a$1 = x2$2.a$2;
+                return new $c_s_util_Left().init___O(a$1)
+              } else if ($is_s_util_Right(x1$3)) {
+                var x3$1 = $as_s_util_Right(x1$3);
+                var b$2 = x3$1.b$2;
+                var v = $as_T2(b$2);
+                var jsx$2 = $m_Lcom_repocad_web_evaluating_Evaluator$();
+                var jsx$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().com$repocad$web$evaluating$Evaluator$$scriptEnv$1;
+                var y$1 = v.$$und1$f;
+                jsx$2.com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = jsx$1.$$plus__T2__sci_Map(new $c_T2().init___O__O(name, y$1));
+                var $$this$1 = $as_sci_MapLike(v.$$und1$f).$$plus$plus__sc_GenTraversableOnce__sci_Map(env$1);
+                var y$2 = $m_s_Unit$();
+                return new $c_s_util_Right().init___O(new $c_T2().init___O__O($$this$1, y$2))
               } else {
-                throw new $c_s_MatchError().init___O(x1$4)
+                throw new $c_s_MatchError().init___O(x1$3)
               }
             } else {
-              throw new $c_s_MatchError().init___O(x1$3)
+              throw new $c_s_MatchError().init___O(x1$1)
             }
           }
         };
         $m_s_package$().Left$1;
-        var a$3 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Script ", " failed to load with error: ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name, x1$2]));
-        return new $c_s_util_Left().init___O(a$3)
+        var a$2 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Script ", " failed to load with error: ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name, x1$2]));
+        return new $c_s_util_Left().init___O(a$2)
       }
     };
     if ($is_Lcom_repocad_web_parsing_FunctionExpr(x1)) {
-      var x3$3 = $as_Lcom_repocad_web_parsing_FunctionExpr(x1);
-      var name$2 = x3$3.name$1;
-      var params = x3$3.params$1;
-      var body = x3$3.body$1;
+      var x3$2 = $as_Lcom_repocad_web_parsing_FunctionExpr(x1);
+      var name$2 = x3$2.name$1;
+      var params = x3$2.params$1;
+      var body = x3$2.body$1;
       var x1$3$1 = params.size__I();
       switch (x1$3$1) {
         case 0:
           {
-            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1().init___sci_Map__Lcom_repocad_web_parsing_Expr(env, body);
+            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1().init___Lcom_repocad_web_parsing_Expr(body);
             break
           };
         case 1:
           {
-            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2().init___sci_Map__sc_Seq__Lcom_repocad_web_parsing_Expr(env, params, body);
+            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2().init___sc_Seq__Lcom_repocad_web_parsing_Expr(params, body);
             break
           };
         case 2:
           {
-            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3().init___sci_Map__sc_Seq__Lcom_repocad_web_parsing_Expr(env, params, body);
+            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3().init___sc_Seq__Lcom_repocad_web_parsing_Expr(params, body);
             break
           };
         case 3:
           {
-            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4().init___sci_Map__sc_Seq__Lcom_repocad_web_parsing_Expr(env, params, body);
+            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4().init___sc_Seq__Lcom_repocad_web_parsing_Expr(params, body);
             break
           };
         case 4:
           {
-            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5().init___sci_Map__sc_Seq__Lcom_repocad_web_parsing_Expr(env, params, body);
+            var function$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5().init___sc_Seq__Lcom_repocad_web_parsing_Expr(params, body);
             break
           };
         default:
           {
             $m_s_package$().Left$1;
-            var a$4 = ("Unsupported number of arguments: " + x1$3$1);
-            var function$2 = new $c_s_util_Left().init___O(a$4)
+            var a$3 = ("Unsupported number of arguments: " + x1$3$1);
+            var function$2 = new $c_s_util_Left().init___O(a$3)
           };
       };
       $m_s_package$().Right$1;
@@ -1782,23 +1876,23 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsi
       var e1 = x5.e1$1;
       var e2 = x5.e2$1;
       var op = x5.op$1;
-      var this$23 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(e1, env, printer);
-      var fb = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4().init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T(env, printer, e2, op);
-      if ($is_s_util_Left(this$23)) {
-        var x2$4 = $as_s_util_Left(this$23);
-        var a$5 = x2$4.a$2;
-        var e = $as_T(a$5);
+      var this$22 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(e1, env);
+      var fb = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4().init___sci_Map__Lcom_repocad_web_parsing_Expr__T(env, e2, op);
+      if ($is_s_util_Left(this$22)) {
+        var x2$3 = $as_s_util_Left(this$22);
+        var a$4 = x2$3.a$2;
+        var e = $as_T(a$4);
         $m_s_package$().Left$1;
-        var jsx$1 = new $c_s_util_Left().init___O(e)
-      } else if ($is_s_util_Right(this$23)) {
-        var x3$4 = $as_s_util_Right(this$23);
-        var b$5 = x3$4.b$2;
-        var jsx$1 = fb.apply__T2__s_util_Either($as_T2(b$5))
+        var jsx$3 = new $c_s_util_Left().init___O(e)
+      } else if ($is_s_util_Right(this$22)) {
+        var x3$3 = $as_s_util_Right(this$22);
+        var b$5 = x3$3.b$2;
+        var jsx$3 = fb.apply__T2__s_util_Either($as_T2(b$5))
       } else {
-        var jsx$1;
-        throw new $c_s_MatchError().init___O(this$23)
+        var jsx$3;
+        throw new $c_s_MatchError().init___O(this$22)
       };
-      return $as_s_util_Either(jsx$1)
+      return $as_s_util_Either(jsx$3)
     };
     if ($is_Lcom_repocad_web_parsing_IfExpr(x1)) {
       var x6 = $as_Lcom_repocad_web_parsing_IfExpr(x1);
@@ -1807,16 +1901,16 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsi
       var elseBody = x6.elseExpr$1;
       var rc14 = false;
       var x3$2$1 = null;
-      var x1$4$1 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(condition, env, printer);
-      if ($is_s_util_Left(x1$4$1)) {
-        var x2$2$1 = $as_s_util_Left(x1$4$1);
+      var x1$4 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(condition, env);
+      if ($is_s_util_Left(x1$4)) {
+        var x2$2$1 = $as_s_util_Left(x1$4);
         var thisIsBad = $as_T(x2$2$1.a$2);
         $m_s_package$().Left$1;
         return new $c_s_util_Left().init___O(thisIsBad)
       };
-      if ($is_s_util_Right(x1$4$1)) {
+      if ($is_s_util_Right(x1$4)) {
         rc14 = true;
-        x3$2$1 = $as_s_util_Right(x1$4$1);
+        x3$2$1 = $as_s_util_Right(x1$4);
         var p4 = $as_T2(x3$2$1.b$2);
         if ((p4 !== null)) {
           var conditionEnvironment = $as_sci_Map(p4.$$und1$f);
@@ -1845,8 +1939,8 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsi
               if ((x$2 === elseBody)) {
                 $m_s_package$().Right$1;
                 var $$this$4 = env;
-                var y$2 = $m_s_Unit$();
-                var b$6 = new $c_T2().init___O__O($$this$4, y$2);
+                var y$3 = $m_s_Unit$();
+                var b$6 = new $c_T2().init___O__O($$this$4, y$3);
                 return new $c_s_util_Right().init___O(b$6)
               } else {
                 throw new $c_s_MatchError().init___O(elseBody)
@@ -1860,50 +1954,50 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsi
         if ((p10 !== null)) {
           var value$2 = p10.$$und2$f;
           $m_s_package$().Left$1;
-          var a$6 = ("Expected boolean, got " + value$2);
-          return new $c_s_util_Left().init___O(a$6)
+          var a$5 = ("Expected boolean, got " + value$2);
+          return new $c_s_util_Left().init___O(a$5)
         }
       };
-      throw new $c_s_MatchError().init___O(x1$4$1)
+      throw new $c_s_MatchError().init___O(x1$4)
     };
     if ($is_Lcom_repocad_web_parsing_OpExpr(x1)) {
       var x7 = $as_Lcom_repocad_web_parsing_OpExpr(x1);
       var e1$2 = x7.e1$1;
       var e2$2 = x7.e2$1;
       var op$2 = x7.op$1;
-      var this$30 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(e1$2, env, printer);
-      return new $c_s_util_Either$RightProjection().init___s_util_Either(this$30).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5().init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T(env, printer, e2$2, op$2))
+      var this$29 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(e1$2, env);
+      return new $c_s_util_Either$RightProjection().init___s_util_Either(this$29).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5().init___sci_Map__Lcom_repocad_web_parsing_Expr__T(env, e2$2, op$2))
     };
     if ($is_Lcom_repocad_web_parsing_RangeExpr(x1)) {
       var x8 = $as_Lcom_repocad_web_parsing_RangeExpr(x1);
       var name$3 = x8.name$1;
       var from = x8.from$1;
       var to = x8.to$1;
-      var this$31 = env.get__O__s_Option(name$3);
-      if (this$31.isEmpty__Z()) {
-        var this$35 = $m_s_None$()
+      var this$30 = env.get__O__s_Option(name$3);
+      if (this$30.isEmpty__Z()) {
+        var this$34 = $m_s_None$()
       } else {
-        var arg1 = this$31.get__O();
+        var arg1 = this$30.get__O();
         if ($isInt(arg1)) {
-          var x2$5 = $uI(arg1);
+          var x2$4 = $uI(arg1);
           $m_s_package$().Right$1;
-          var b$7 = (1.0 + x2$5);
-          var jsx$2 = new $c_s_util_Right().init___O(b$7)
+          var b$7 = (1.0 + x2$4);
+          var jsx$4 = new $c_s_util_Right().init___O(b$7)
         } else if (((typeof arg1) === "number")) {
-          var x3$5 = $uD(arg1);
+          var x3$4 = $uD(arg1);
           $m_s_package$().Right$1;
-          var b$8 = (1 + x3$5);
-          var jsx$2 = new $c_s_util_Right().init___O(b$8)
+          var b$8 = (1 + x3$4);
+          var jsx$4 = new $c_s_util_Right().init___O(b$8)
         } else {
           $m_s_package$().Left$1;
-          var a$7 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Cannot parse ", " to int"])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([arg1]));
-          var jsx$2 = new $c_s_util_Left().init___O(a$7)
+          var a$6 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Cannot parse ", " to int"])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([arg1]));
+          var jsx$4 = new $c_s_util_Left().init___O(a$6)
         };
-        var this$35 = new $c_s_Some().init___O(jsx$2)
+        var this$34 = new $c_s_Some().init___O(jsx$4)
       };
-      var env$1$2 = env;
-      var fromOption = $as_s_util_Either((this$35.isEmpty__Z() ? $m_Lcom_repocad_web_evaluating_Evaluator$().getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(from, env$1$2, printer) : this$35.get__O()));
-      var toOption = this.getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(to, env, printer);
+      var env$1$1 = env;
+      var fromOption = $as_s_util_Either((this$34.isEmpty__Z() ? $m_Lcom_repocad_web_evaluating_Evaluator$().getValue__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(from, env$1$1) : this$34.get__O()));
+      var toOption = this.getValue__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(to, env);
       return new $c_s_util_Either$RightProjection().init___s_util_Either(fromOption).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$6().init___sci_Map__T__s_util_Either(env, name$3, toOption))
     };
     if ($is_Lcom_repocad_web_parsing_RefExpr(x1)) {
@@ -1912,76 +2006,76 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsi
       if (((x9.params$1 !== null) && (x9.params$1.lengthCompare__I__I(1) === 0))) {
         var name$4 = x9.name$1;
         var params$2 = $as_sc_Seq(x9.params$1.apply__I__O(0));
-        var this$36 = env.get__O__s_Option(name$4);
-        var f = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8().init___sci_Map__Lcom_repocad_web_Printer__sc_Seq(env, printer, params$2);
-        if (this$36.isEmpty__Z()) {
+        var this$35 = env.get__O__s_Option(name$4);
+        var f = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8().init___sci_Map__sc_Seq(env, params$2);
+        if (this$35.isEmpty__Z()) {
           $m_s_package$().Left$1;
-          var a$8 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Failed to find function '", "'. Please check if it has been declared."])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$4]));
-          var jsx$3 = new $c_s_util_Left().init___O(a$8)
+          var a$7 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Failed to find function '", "'. Please check if it has been declared."])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$4]));
+          var jsx$5 = new $c_s_util_Left().init___O(a$7)
         } else {
-          var v1 = this$36.get__O();
-          var jsx$3 = f.apply__O__s_util_Either(v1)
+          var v1 = this$35.get__O();
+          var jsx$5 = f.apply__O__s_util_Either(v1)
         };
-        return $as_s_util_Either(jsx$3)
+        return $as_s_util_Either(jsx$5)
       }
     };
     if (rc18) {
       if (((x9.params$1 !== null) && (x9.params$1.lengthCompare__I__I(0) === 0))) {
         var name$5 = x9.name$1;
-        var this$38 = env.get__O__s_Option(name$5);
-        var env$1$3 = env;
-        if (this$38.isEmpty__Z()) {
+        var this$37 = env.get__O__s_Option(name$5);
+        var env$1$2 = env;
+        if (this$37.isEmpty__Z()) {
           $m_s_package$().Left$1;
-          var a$9 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Failed to find function '", "'. Please check if it has been declared."])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$5]));
-          var jsx$4 = new $c_s_util_Left().init___O(a$9)
+          var a$8 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Failed to find function '", "'. Please check if it has been declared."])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$5]));
+          var jsx$6 = new $c_s_util_Left().init___O(a$8)
         } else {
-          var arg1$1 = this$38.get__O();
+          var arg1$1 = this$37.get__O();
           $m_s_package$().Right$1;
-          var b$9 = new $c_T2().init___O__O(env$1$3, arg1$1);
-          var jsx$4 = new $c_s_util_Right().init___O(b$9)
+          var b$9 = new $c_T2().init___O__O(env$1$2, arg1$1);
+          var jsx$6 = new $c_s_util_Right().init___O(b$9)
         };
-        return $as_s_util_Either(jsx$4)
+        return $as_s_util_Either(jsx$6)
       }
     };
     if ($is_Lcom_repocad_web_parsing_SeqExpr(x1)) {
       var x13 = $as_Lcom_repocad_web_parsing_SeqExpr(x1);
-      return this.com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__Lcom_repocad_web_Printer__s_util_Either(x13.expr$1.iterator__sc_Iterator(), env, printer)
+      return this.com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__s_util_Either(x13.expr$1.iterator__sc_Iterator(), env)
     };
     var x$4 = $m_Lcom_repocad_web_parsing_UnitExpr$();
     if ((x$4 === x1)) {
       $m_s_package$().Right$1;
       var $$this$5 = env;
-      var y$3 = $m_s_Unit$();
-      var b$10 = new $c_T2().init___O__O($$this$5, y$3);
+      var y$4 = $m_s_Unit$();
+      var b$10 = new $c_T2().init___O__O($$this$5, y$4);
       return new $c_s_util_Right().init___O(b$10)
     };
     if ($is_Lcom_repocad_web_parsing_ValExpr(x1)) {
       var x11 = $as_Lcom_repocad_web_parsing_ValExpr(x1);
       var name$6 = x11.name$1;
       var valExpr = x11.value$1;
-      var this$46 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(valExpr, env, printer);
-      var env$1$4 = env;
-      if ($is_s_util_Left(this$46)) {
-        var x2$6 = $as_s_util_Left(this$46);
-        var a$10 = x2$6.a$2;
-        var x$1 = $as_T(a$10);
+      var this$45 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(valExpr, env);
+      var env$1$3 = env;
+      if ($is_s_util_Left(this$45)) {
+        var x2$5 = $as_s_util_Left(this$45);
+        var a$9 = x2$5.a$2;
+        var x$1 = $as_T(a$9);
         $m_s_package$().Left$1;
-        var jsx$5 = new $c_s_util_Left().init___O(x$1)
-      } else if ($is_s_util_Right(this$46)) {
-        var x3$6 = $as_s_util_Right(this$46);
-        var b$11 = x3$6.b$2;
+        var jsx$7 = new $c_s_util_Left().init___O(x$1)
+      } else if ($is_s_util_Right(this$45)) {
+        var x3$5 = $as_s_util_Right(this$45);
+        var b$11 = x3$5.b$2;
         var value$1 = $as_T2(b$11);
         $m_s_package$().Right$1;
-        var y$4 = value$1.$$und2$f;
-        var $$this$6 = env$1$4.$$plus__T2__sci_Map(new $c_T2().init___O__O(name$6, y$4));
         var y$5 = value$1.$$und2$f;
-        var b$12 = new $c_T2().init___O__O($$this$6, y$5);
-        var jsx$5 = new $c_s_util_Right().init___O(b$12)
+        var $$this$6 = env$1$3.$$plus__T2__sci_Map(new $c_T2().init___O__O(name$6, y$5));
+        var y$6 = value$1.$$und2$f;
+        var b$12 = new $c_T2().init___O__O($$this$6, y$6);
+        var jsx$7 = new $c_s_util_Right().init___O(b$12)
       } else {
-        var jsx$5;
-        throw new $c_s_MatchError().init___O(this$46)
+        var jsx$7;
+        throw new $c_s_MatchError().init___O(this$45)
       };
-      return $as_s_util_Either(jsx$5)
+      return $as_s_util_Either(jsx$7)
     };
     if ($is_Lcom_repocad_web_parsing_LoopExpr(x1)) {
       var x12 = $as_Lcom_repocad_web_parsing_LoopExpr(x1);
@@ -1998,108 +2092,95 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsi
           elem$1$1 = elem$2;
           while (true) {
             if ($as_s_Option(elem$1$1).isEmpty__Z()) {
-              var this$56 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(condition$2, $as_sci_Map(loopEnv.elem$1), printer);
+              var this$55 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(condition$2, $as_sci_Map(loopEnv.elem$1));
+              if ($is_s_util_Left(this$55)) {
+                var x2$6 = $as_s_util_Left(this$55);
+                var a$10 = x2$6.a$2;
+                var error = $as_T(a$10);
+                elem$1$1 = new $c_s_Some().init___O(error);
+                var jsx$8 = false
+              } else if ($is_s_util_Right(this$55)) {
+                var x3$6 = $as_s_util_Right(this$55);
+                var b$13 = x3$6.b$2;
+                var v$1 = $as_T2(b$13);
+                loopEnv.elem$1 = $as_sci_Map(v$1.$$und1$f);
+                var jsx$8 = $uZ(v$1.$$und2$f)
+              } else {
+                var jsx$8;
+                throw new $c_s_MatchError().init___O(this$55)
+              }
+            } else {
+              var jsx$8 = false
+            };
+            if (jsx$8) {
+              var this$56 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(body$3, $as_sci_Map(loopEnv.elem$1));
               if ($is_s_util_Left(this$56)) {
                 var x2$7 = $as_s_util_Left(this$56);
                 var a$11 = x2$7.a$2;
-                var error = $as_T(a$11);
-                elem$1$1 = new $c_s_Some().init___O(error);
-                var jsx$6 = false
+                var s = $as_T(a$11);
+                elem$1$1 = new $c_s_Some().init___O(s)
               } else if ($is_s_util_Right(this$56)) {
                 var x3$7 = $as_s_util_Right(this$56);
-                var b$13 = x3$7.b$2;
-                var v$3 = $as_T2(b$13);
-                loopEnv.elem$1 = $as_sci_Map(v$3.$$und1$f);
-                var jsx$6 = $uZ(v$3.$$und2$f)
-              } else {
-                var jsx$6;
-                throw new $c_s_MatchError().init___O(this$56)
-              }
-            } else {
-              var jsx$6 = false
-            };
-            if (jsx$6) {
-              var this$57 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(body$3, $as_sci_Map(loopEnv.elem$1), printer);
-              if ($is_s_util_Left(this$57)) {
-                var x2$8 = $as_s_util_Left(this$57);
-                var a$12 = x2$8.a$2;
-                var s = $as_T(a$12);
-                elem$1$1 = new $c_s_Some().init___O(s)
-              } else if ($is_s_util_Right(this$57)) {
-                var x3$8 = $as_s_util_Right(this$57);
-                var b$14 = x3$8.b$2;
+                var b$14 = x3$7.b$2;
                 var x = $as_T2(b$14);
                 lastResult.elem$1 = x.$$und2$f;
                 loopEnv.elem$1 = $as_sci_Map(x.$$und1$f)
               } else {
-                throw new $c_s_MatchError().init___O(this$57)
+                throw new $c_s_MatchError().init___O(this$56)
               }
             } else {
               break
             }
           };
-          var this$58 = $as_s_Option(elem$1$1);
-          if (this$58.isEmpty__Z()) {
-            var this$60 = $m_s_None$()
+          var this$57 = $as_s_Option(elem$1$1);
+          if (this$57.isEmpty__Z()) {
+            var this$59 = $m_s_None$()
           } else {
-            var arg1$2 = this$58.get__O();
+            var arg1$2 = this$57.get__O();
             var x$2$1 = $as_T(arg1$2);
             $m_s_package$().Left$1;
-            var this$60 = new $c_s_Some().init___O(new $c_s_util_Left().init___O(x$2$1))
+            var this$59 = new $c_s_Some().init___O(new $c_s_util_Left().init___O(x$2$1))
           };
           var default$2 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$16().init___sci_Map__sr_ObjectRef__sr_ObjectRef(env, loopEnv, lastResult);
-          return $as_s_util_Either((this$60.isEmpty__Z() ? default$2.apply__s_util_Right() : this$60.get__O()))
+          return $as_s_util_Either((this$59.isEmpty__Z() ? default$2.apply__s_util_Right() : this$59.get__O()))
         }
       }
     };
     $m_s_package$().Left$1;
-    var a$13 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Unknown expression ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([x1]));
-    return new $c_s_util_Left().init___O(a$13)
+    var a$12 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Unknown expression ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([x1]));
+    return new $c_s_util_Left().init___O(a$12)
   }
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.getValue__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either = (function(expr, env, printer) {
-  var rc10 = false;
-  var x2 = null;
-  var x1 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(expr, env, printer);
-  if ($is_s_util_Right(x1)) {
-    rc10 = true;
-    x2 = $as_s_util_Right(x1);
-    var p3 = $as_T2(x2.b$2);
-    if ((p3 !== null)) {
-      var t = p3.$$und2$f;
-      if ($isInt(t)) {
-        $m_s_package$().Right$1;
-        var b = $uI(t);
-        return new $c_s_util_Right().init___O(b)
-      }
-    }
-  };
-  if (rc10) {
-    var p6 = $as_T2(x2.b$2);
-    if ((p6 !== null)) {
-      var t$2 = p6.$$und2$f;
-      if ((t$2 !== null)) {
-        $m_s_package$().Right$1;
-        return new $c_s_util_Right().init___O(t$2)
-      }
-    }
-  };
-  $m_s_package$().Left$1;
-  var a = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Failed to read value from ", ", failed with: ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([expr, x1]));
-  return new $c_s_util_Left().init___O(a)
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either = (function(expr, printer) {
   try {
-    return this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(expr, printer.toEnv__sci_Map().$$plus$plus__sc_GenTraversableOnce__sci_Map($m_Lcom_repocad_web_RepoMath$().toEnv$1), printer)
-  } catch (e) {
-    var e$2 = $m_sjsr_package$().wrapJavaScriptException__O__jl_Throwable(e);
+    var this$1 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(expr, printer.toEnv__sci_Map().$$plus$plus__sc_GenTraversableOnce__sci_Map($m_Lcom_repocad_web_RepoMath$().toEnv$1));
+    var this$2 = new $c_s_util_Either$LeftProjection().init___s_util_Either(this$1);
+    var x1 = this$2.e$1;
+    if ($is_s_util_Left(x1)) {
+      var x2 = $as_s_util_Left(x1);
+      var a = x2.a$2;
+      var e = $as_T(a);
+      var x = ("Error when evaluating: " + e);
+      var this$4 = $m_s_Console$();
+      var this$5 = this$4.outVar$2;
+      $as_Ljava_io_PrintStream(this$5.tl$1.get__O()).println__O__V(x);
+      return new $c_s_util_Left().init___O(e)
+    } else if ($is_s_util_Right(x1)) {
+      var x3 = $as_s_util_Right(x1);
+      var b = x3.b$2;
+      return new $c_s_util_Right().init___O(b)
+    } else {
+      throw new $c_s_MatchError().init___O(x1)
+    }
+  } catch (e$1) {
+    var e$2 = $m_sjsr_package$().wrapJavaScriptException__O__jl_Throwable(e$1);
     if ($is_jl_Exception(e$2)) {
       var e$3 = $as_jl_Exception(e$2);
       $m_s_package$().Left$1;
-      var a = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Failure when evaluating script: ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([e$3.getMessage__T()]));
-      return new $c_s_util_Left().init___O(a)
+      var a$1 = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Failure when evaluating script: ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([e$3.getMessage__T()]));
+      return new $c_s_util_Left().init___O(a$1)
     } else {
-      throw e
+      throw e$1
     }
   }
 });
@@ -2132,6 +2213,37 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.updateBoundingBox__D__D__Lco
   var cX = ($uD(this.minX$1.get__O()) + (($uD(this.maxX$1.get__O()) - $uD(this.minX$1.get__O())) / 2));
   var cY = ($uD(this.minY$1.get__O()) + (($uD(this.maxY$1.get__O()) - $uD(this.minY$1.get__O())) / 2));
   return new $c_Lcom_repocad_web_Vector2D().init___D__D(cX, cY)
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.getValue__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either = (function(expr, env) {
+  var rc10 = false;
+  var x2 = null;
+  var x1 = this.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(expr, env);
+  if ($is_s_util_Right(x1)) {
+    rc10 = true;
+    x2 = $as_s_util_Right(x1);
+    var p3 = $as_T2(x2.b$2);
+    if ((p3 !== null)) {
+      var t = p3.$$und2$f;
+      if ($isInt(t)) {
+        $m_s_package$().Right$1;
+        var b = $uI(t);
+        return new $c_s_util_Right().init___O(b)
+      }
+    }
+  };
+  if (rc10) {
+    var p6 = $as_T2(x2.b$2);
+    if ((p6 !== null)) {
+      var t$2 = p6.$$und2$f;
+      if ((t$2 !== null)) {
+        $m_s_package$().Right$1;
+        return new $c_s_util_Right().init___O(t$2)
+      }
+    }
+  };
+  $m_s_package$().Left$1;
+  var a = new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Failed to read value from ", ", failed with: ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([expr, x1]));
+  return new $c_s_util_Left().init___O(a)
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$ = new $ClassTypeData({
   Lcom_repocad_web_evaluating_Evaluator$: 0
@@ -9103,61 +9215,6 @@ var $d_Lcom_repocad_web_PdfPrinter = new $ClassTypeData({
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.$classData = $d_Lcom_repocad_web_PdfPrinter;
 /** @constructor */
-var $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1 = (function() {
-  $c_O.call(this);
-  this.toEnv$1 = null;
-  this.bitmap$0$1 = false
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype = new $h_O();
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.constructor = $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1;
-/** @constructor */
-var $h_Lcom_repocad_web_evaluating_Evaluator$$anon$1 = (function() {
-  /*<skip>*/
-});
-$h_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype;
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.init___ = (function() {
-  return this
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
-  /*<skip>*/
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.textBox__D__D__D__D__O__V = (function(x, y, w, h, t) {
-  /*<skip>*/
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.circle__D__D__D__V = (function(x, y, r) {
-  /*<skip>*/
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
-  /*<skip>*/
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
-  /*<skip>*/
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.toEnv__sci_Map = (function() {
-  return ((!this.bitmap$0$1) ? this.toEnv$lzycompute__p1__sci_Map() : this.toEnv$1)
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.toEnv$lzycompute__p1__sci_Map = (function() {
-  if ((!this.bitmap$0$1)) {
-    this.toEnv$1 = $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map(this);
-    this.bitmap$0$1 = true
-  };
-  return this.toEnv$1
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
-  /*<skip>*/
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.prepare__V = (function() {
-  /*<skip>*/
-});
-var $d_Lcom_repocad_web_evaluating_Evaluator$$anon$1 = new $ClassTypeData({
-  Lcom_repocad_web_evaluating_Evaluator$$anon$1: 0
-}, false, "com.repocad.web.evaluating.Evaluator$$anon$1", {
-  Lcom_repocad_web_evaluating_Evaluator$$anon$1: 1,
-  O: 1,
-  Lcom_repocad_web_Printer: 1
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.$classData = $d_Lcom_repocad_web_evaluating_Evaluator$$anon$1;
-/** @constructor */
 var $c_Lcom_repocad_web_lexing_Lexer = (function() {
   $c_Lcom_repocad_web_lexing_NonblockingLexer.call(this);
   this.ch$2 = null;
@@ -14765,7 +14822,6 @@ $c_Lcom_repocad_web_Response.prototype.$classData = $d_Lcom_repocad_web_Response
 /** @constructor */
 var $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1 = (function() {
   $c_sr_AbstractFunction1.call(this);
-  this.env$1$2 = null;
   this.body$1$2 = null
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype = new $h_sr_AbstractFunction1();
@@ -14775,8 +14831,15 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype;
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype.apply__Lcom_repocad_web_Printer__O = (function(p) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.body$1$2, this.env$1$2, p);
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype.init___Lcom_repocad_web_parsing_Expr = (function(body$1) {
+  this.body$1$2 = body$1;
+  return this
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype.apply__O__O = (function(v1) {
+  return this.apply__sci_Map__O($as_sci_Map(v1))
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype.apply__sci_Map__O = (function(funEnv) {
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(this.body$1$2, funEnv);
   if ($is_s_util_Left(this$1)) {
     var x2 = $as_s_util_Left(this$1);
     var a = x2.a$2;
@@ -14790,14 +14853,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype.apply__Lcom_repoca
   } else {
     throw new $c_s_MatchError().init___O(this$1)
   }
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype.init___sci_Map__Lcom_repocad_web_parsing_Expr = (function(env$1, body$1) {
-  this.env$1$2 = env$1;
-  this.body$1$2 = body$1;
-  return this
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype.apply__O__O = (function(v1) {
-  return this.apply__Lcom_repocad_web_Printer__O($as_Lcom_repocad_web_Printer(v1))
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1 = new $ClassTypeData({
   Lcom_repocad_web_evaluating_Evaluator$$anonfun$1: 0
@@ -14813,7 +14868,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$1.prototype.$classData = $d_Lc
 /** @constructor */
 var $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2 = (function() {
   $c_sr_AbstractFunction2.call(this);
-  this.env$1$2 = null;
   this.params$1$2 = null;
   this.body$1$2 = null
 });
@@ -14824,21 +14878,11 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype;
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype.init___sci_Map__sc_Seq__Lcom_repocad_web_parsing_Expr = (function(env$1, params$1, body$1) {
-  this.env$1$2 = env$1;
-  this.params$1$2 = params$1;
-  this.body$1$2 = body$1;
-  return this
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype.apply__O__O__O = (function(v1, v2) {
-  return this.apply__Lcom_repocad_web_Printer__O__O($as_Lcom_repocad_web_Printer(v1), v2)
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype.apply__Lcom_repocad_web_Printer__O__O = (function(p, a) {
-  var jsx$3 = $m_Lcom_repocad_web_evaluating_Evaluator$();
-  var jsx$2 = this.body$1$2;
-  var jsx$1 = this.env$1$2;
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype.apply__sci_Map__O__O = (function(funEnv, a) {
+  var jsx$2 = $m_Lcom_repocad_web_evaluating_Evaluator$();
+  var jsx$1 = this.body$1$2;
   var $$this = this.params$1$2.apply__I__O(0);
-  var this$3 = jsx$3.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(jsx$2, jsx$1.$$plus__T2__sci_Map(new $c_T2().init___O__O($$this, a)), p);
+  var this$3 = jsx$2.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(jsx$1, funEnv.$$plus__T2__sci_Map(new $c_T2().init___O__O($$this, a)));
   if ($is_s_util_Left(this$3)) {
     var x2 = $as_s_util_Left(this$3);
     var a$1 = x2.a$2;
@@ -14852,6 +14896,14 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype.apply__Lcom_repoca
   } else {
     throw new $c_s_MatchError().init___O(this$3)
   }
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype.init___sc_Seq__Lcom_repocad_web_parsing_Expr = (function(params$1, body$1) {
+  this.params$1$2 = params$1;
+  this.body$1$2 = body$1;
+  return this
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype.apply__O__O__O = (function(v1, v2) {
+  return this.apply__sci_Map__O__O($as_sci_Map(v1), v2)
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2 = new $ClassTypeData({
   Lcom_repocad_web_evaluating_Evaluator$$anonfun$2: 0
@@ -14867,7 +14919,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$2.prototype.$classData = $d_Lc
 /** @constructor */
 var $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3 = (function() {
   $c_sr_AbstractFunction3.call(this);
-  this.env$1$2 = null;
   this.params$1$2 = null;
   this.body$1$2 = null
 });
@@ -14878,20 +14929,18 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3.prototype;
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3.prototype.init___sci_Map__sc_Seq__Lcom_repocad_web_parsing_Expr = (function(env$1, params$1, body$1) {
-  this.env$1$2 = env$1;
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3.prototype.init___sc_Seq__Lcom_repocad_web_parsing_Expr = (function(params$1, body$1) {
   this.params$1$2 = params$1;
   this.body$1$2 = body$1;
   return this
 });
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3.prototype.apply__Lcom_repocad_web_Printer__O__O__O = (function(p, a, b) {
-  var jsx$4 = $m_Lcom_repocad_web_evaluating_Evaluator$();
-  var jsx$3 = this.body$1$2;
-  var jsx$2 = this.env$1$2;
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3.prototype.apply__sci_Map__O__O__O = (function(funEnv, a, b) {
+  var jsx$3 = $m_Lcom_repocad_web_evaluating_Evaluator$();
+  var jsx$2 = this.body$1$2;
   var $$this = this.params$1$2.apply__I__O(0);
   var jsx$1 = new $c_T2().init___O__O($$this, a);
   var $$this$1 = this.params$1$2.apply__I__O(1);
-  var this$5 = jsx$4.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(jsx$3, jsx$2.$$plus__T2__T2__sc_Seq__sci_Map(jsx$1, new $c_T2().init___O__O($$this$1, b), new $c_sjs_js_WrappedArray().init___sjs_js_Array([])), p);
+  var this$5 = jsx$3.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(jsx$2, funEnv.$$plus__T2__T2__sc_Seq__sci_Map(jsx$1, new $c_T2().init___O__O($$this$1, b), new $c_sjs_js_WrappedArray().init___sjs_js_Array([])));
   if ($is_s_util_Left(this$5)) {
     var x2 = $as_s_util_Left(this$5);
     var a$1 = x2.a$2;
@@ -14920,7 +14969,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$3.prototype.$classData = $d_Lc
 /** @constructor */
 var $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4 = (function() {
   $c_sr_AbstractFunction4.call(this);
-  this.env$1$2 = null;
   this.params$1$2 = null;
   this.body$1$2 = null
 });
@@ -14931,19 +14979,15 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype;
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype.apply__O__O__O__O__O = (function(v1, v2, v3, v4) {
-  return this.apply__Lcom_repocad_web_Printer__O__O__O__O($as_Lcom_repocad_web_Printer(v1), v2, v3, v4)
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype.apply__Lcom_repocad_web_Printer__O__O__O__O = (function(p, a, b, c) {
-  var jsx$5 = $m_Lcom_repocad_web_evaluating_Evaluator$();
-  var jsx$4 = this.body$1$2;
-  var jsx$3 = this.env$1$2;
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype.apply__sci_Map__O__O__O__O = (function(funEnv, a, b, c) {
+  var jsx$4 = $m_Lcom_repocad_web_evaluating_Evaluator$();
+  var jsx$3 = this.body$1$2;
   var $$this = this.params$1$2.apply__I__O(0);
   var jsx$2 = new $c_T2().init___O__O($$this, a);
   var $$this$1 = this.params$1$2.apply__I__O(1);
   var jsx$1 = new $c_T2().init___O__O($$this$1, b);
   var $$this$2 = this.params$1$2.apply__I__O(2);
-  var this$7 = jsx$5.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(jsx$4, jsx$3.$$plus__T2__T2__sc_Seq__sci_Map(jsx$2, jsx$1, new $c_sjs_js_WrappedArray().init___sjs_js_Array([new $c_T2().init___O__O($$this$2, c)])), p);
+  var this$7 = jsx$4.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(jsx$3, funEnv.$$plus__T2__T2__sc_Seq__sci_Map(jsx$2, jsx$1, new $c_sjs_js_WrappedArray().init___sjs_js_Array([new $c_T2().init___O__O($$this$2, c)])));
   if ($is_s_util_Left(this$7)) {
     var x2 = $as_s_util_Left(this$7);
     var a$1 = x2.a$2;
@@ -14958,8 +15002,10 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype.apply__Lcom_repoca
     throw new $c_s_MatchError().init___O(this$7)
   }
 });
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype.init___sci_Map__sc_Seq__Lcom_repocad_web_parsing_Expr = (function(env$1, params$1, body$1) {
-  this.env$1$2 = env$1;
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype.apply__O__O__O__O__O = (function(v1, v2, v3, v4) {
+  return this.apply__sci_Map__O__O__O__O($as_sci_Map(v1), v2, v3, v4)
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype.init___sc_Seq__Lcom_repocad_web_parsing_Expr = (function(params$1, body$1) {
   this.params$1$2 = params$1;
   this.body$1$2 = body$1;
   return this
@@ -14978,7 +15024,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$4.prototype.$classData = $d_Lc
 /** @constructor */
 var $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5 = (function() {
   $c_sr_AbstractFunction5.call(this);
-  this.env$1$2 = null;
   this.params$1$2 = null;
   this.body$1$2 = null
 });
@@ -14989,10 +15034,17 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype;
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype.apply__Lcom_repocad_web_Printer__O__O__O__O__O = (function(p, a, b, c, d) {
-  var jsx$6 = $m_Lcom_repocad_web_evaluating_Evaluator$();
-  var jsx$5 = this.body$1$2;
-  var jsx$4 = this.env$1$2;
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype.init___sc_Seq__Lcom_repocad_web_parsing_Expr = (function(params$1, body$1) {
+  this.params$1$2 = params$1;
+  this.body$1$2 = body$1;
+  return this
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype.apply__O__O__O__O__O__O = (function(v1, v2, v3, v4, v5) {
+  return this.apply__sci_Map__O__O__O__O__O($as_sci_Map(v1), v2, v3, v4, v5)
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype.apply__sci_Map__O__O__O__O__O = (function(funEnv, a, b, c, d) {
+  var jsx$5 = $m_Lcom_repocad_web_evaluating_Evaluator$();
+  var jsx$4 = this.body$1$2;
   var $$this = this.params$1$2.apply__I__O(0);
   var jsx$3 = new $c_T2().init___O__O($$this, a);
   var $$this$1 = this.params$1$2.apply__I__O(1);
@@ -15000,7 +15052,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype.apply__Lcom_repoca
   var $$this$2 = this.params$1$2.apply__I__O(2);
   var jsx$1 = new $c_T2().init___O__O($$this$2, c);
   var $$this$3 = this.params$1$2.apply__I__O(3);
-  var this$9 = jsx$6.eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(jsx$5, jsx$4.$$plus__T2__T2__sc_Seq__sci_Map(jsx$3, jsx$2, new $c_sjs_js_WrappedArray().init___sjs_js_Array([jsx$1, new $c_T2().init___O__O($$this$3, d)])), p);
+  var this$9 = jsx$5.eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(jsx$4, funEnv.$$plus__T2__T2__sc_Seq__sci_Map(jsx$3, jsx$2, new $c_sjs_js_WrappedArray().init___sjs_js_Array([jsx$1, new $c_T2().init___O__O($$this$3, d)])));
   if ($is_s_util_Left(this$9)) {
     var x2 = $as_s_util_Left(this$9);
     var a$1 = x2.a$2;
@@ -15014,15 +15066,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype.apply__Lcom_repoca
   } else {
     throw new $c_s_MatchError().init___O(this$9)
   }
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype.apply__O__O__O__O__O__O = (function(v1, v2, v3, v4, v5) {
-  return this.apply__Lcom_repocad_web_Printer__O__O__O__O__O($as_Lcom_repocad_web_Printer(v1), v2, v3, v4, v5)
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5.prototype.init___sci_Map__sc_Seq__Lcom_repocad_web_parsing_Expr = (function(env$1, params$1, body$1) {
-  this.env$1$2 = env$1;
-  this.params$1$2 = params$1;
-  this.body$1$2 = body$1;
-  return this
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$5 = new $ClassTypeData({
   Lcom_repocad_web_evaluating_Evaluator$$anonfun$5: 0
@@ -15085,7 +15128,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$16.prototype.$classData =
 var $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4 = (function() {
   $c_sr_AbstractFunction1.call(this);
   this.env$1$f = null;
-  this.printer$1$2 = null;
   this.e2$1$2 = null;
   this.op$1$f = null
 });
@@ -15096,18 +15138,11 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4.prototype;
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4.prototype.init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T = (function(env$1, printer$1, e2$1, op$1) {
-  this.env$1$f = env$1;
-  this.printer$1$2 = printer$1;
-  this.e2$1$2 = e2$1;
-  this.op$1$f = op$1;
-  return this
-});
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4.prototype.apply__O__O = (function(v1) {
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4.prototype.apply__T2__s_util_Either = (function(v1) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.e2$1$2, $as_sci_Map(v1.$$und1$f), this.printer$1$2);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(this.e2$1$2, $as_sci_Map(v1.$$und1$f));
   if ($is_s_util_Left(this$1)) {
     var x2 = $as_s_util_Left(this$1);
     var a = x2.a$2;
@@ -15144,6 +15179,12 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4.prototype.apply__T2__s_
   };
   return $as_s_util_Either(jsx$1)
 });
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4.prototype.init___sci_Map__Lcom_repocad_web_parsing_Expr__T = (function(env$1, e2$1, op$1) {
+  this.env$1$f = env$1;
+  this.e2$1$2 = e2$1;
+  this.op$1$f = op$1;
+  return this
+});
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4 = new $ClassTypeData({
   Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4: 0
 }, false, "com.repocad.web.evaluating.Evaluator$$anonfun$eval$4", {
@@ -15159,7 +15200,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$4.prototype.$classData = 
 var $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5 = (function() {
   $c_sr_AbstractFunction1.call(this);
   this.env$1$f = null;
-  this.printer$1$2 = null;
   this.e2$2$2 = null;
   this.op$2$f = null
 });
@@ -15170,18 +15210,11 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5.prototype;
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5.prototype.init___sci_Map__Lcom_repocad_web_Printer__Lcom_repocad_web_parsing_Expr__T = (function(env$1, printer$1, e2$2, op$2) {
-  this.env$1$f = env$1;
-  this.printer$1$2 = printer$1;
-  this.e2$2$2 = e2$2;
-  this.op$2$f = op$2;
-  return this
-});
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5.prototype.apply__O__O = (function(v1) {
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5.prototype.apply__T2__s_util_Either = (function(v1) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either(this.e2$2$2, $as_sci_Map(v1.$$und1$f), this.printer$1$2);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either(this.e2$2$2, $as_sci_Map(v1.$$und1$f));
   var this$2 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
   if ($is_s_util_Left(x1)) {
@@ -15227,6 +15260,12 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5.prototype.apply__T2__s_
   } else {
     throw new $c_s_MatchError().init___O(x1)
   }
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5.prototype.init___sci_Map__Lcom_repocad_web_parsing_Expr__T = (function(env$1, e2$2, op$2) {
+  this.env$1$f = env$1;
+  this.e2$2$2 = e2$2;
+  this.op$2$f = op$2;
+  return this
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5 = new $ClassTypeData({
   Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$5: 0
@@ -15299,8 +15338,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$6.prototype.$classData = 
 /** @constructor */
 var $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = (function() {
   $c_sr_AbstractFunction1.call(this);
-  this.env$1$2 = null;
-  this.printer$1$f = null;
+  this.env$1$f = null;
   this.params$2$f = null
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype = new $h_sr_AbstractFunction1();
@@ -15310,12 +15348,6 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype;
-$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.init___sci_Map__Lcom_repocad_web_Printer__sc_Seq = (function(env$1, printer$1, params$2) {
-  this.env$1$2 = env$1;
-  this.printer$1$f = printer$1;
-  this.params$2$f = params$2;
-  return this
-});
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.apply__O__O = (function(v1) {
   return this.apply__O__s_util_Either(v1)
 });
@@ -15323,13 +15355,13 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.apply__O__s_u
   if ($is_F1(x0$2)) {
     var x2 = $as_F1(x0$2);
     $m_s_package$().Right$1;
-    var $$this = this.env$1$2;
-    var y = x2.apply__O__O(this.printer$1$f);
+    var $$this = this.env$1$f;
+    var y = x2.apply__O__O(this.env$1$f);
     var b = new $c_T2().init___O__O($$this, y);
     return new $c_s_util_Right().init___O(b)
   } else if ($is_F2(x0$2)) {
     var x3 = $as_F2(x0$2);
-    var this$4 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    var this$4 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$f);
     var this$5 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$4);
     var x1 = this$5.e$1;
     if ($is_s_util_Left(x1)) {
@@ -15342,7 +15374,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.apply__O__s_u
       var a$1 = $as_T2(b$1);
       $m_s_package$().Right$1;
       var $$this$1 = a$1.$$und1$f;
-      var y$1 = x3.apply__O__O__O(this.printer$1$f, a$1.$$und2$f);
+      var y$1 = x3.apply__O__O__O(this.env$1$f, a$1.$$und2$f);
       var b$2 = new $c_T2().init___O__O($$this$1, y$1);
       return new $c_s_util_Right().init___O(b$2)
     } else {
@@ -15350,37 +15382,42 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.apply__O__s_u
     }
   } else if ($is_F3(x0$2)) {
     var x4 = $as_F3(x0$2);
-    var this$9 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    var this$9 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$f);
     return new $c_s_util_Either$RightProjection().init___s_util_Either(this$9).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$17().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__F3(this, x4))
   } else if ($is_F4(x0$2)) {
     var x5 = $as_F4(x0$2);
-    var this$10 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    var this$10 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$f);
     return new $c_s_util_Either$RightProjection().init___s_util_Either(this$10).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$19().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__F4(this, x5))
   } else if ($is_F5(x0$2)) {
     var x6 = $as_F5(x0$2);
-    var this$11 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    var this$11 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$f);
     return new $c_s_util_Either$RightProjection().init___s_util_Either(this$11).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__F5(this, x6))
   } else if ($is_F6(x0$2)) {
     var x7 = $as_F6(x0$2);
-    var this$12 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    var this$12 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$f);
     return new $c_s_util_Either$RightProjection().init___s_util_Either(this$12).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__F6(this, x7))
   } else if ($is_F7(x0$2)) {
     var x8 = $as_F7(x0$2);
-    var this$13 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    var this$13 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$f);
     return new $c_s_util_Either$RightProjection().init___s_util_Either(this$13).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__F7(this, x8))
   } else if ($is_F8(x0$2)) {
     var x9 = $as_F8(x0$2);
-    var this$14 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    var this$14 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$f);
     return new $c_s_util_Either$RightProjection().init___s_util_Either(this$14).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__F8(this, x9))
   } else if ($is_F9(x0$2)) {
     var x10 = $as_F9(x0$2);
-    var this$15 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$2, this.printer$1$f);
+    var this$15 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.params$2$f.apply__I__O(0)), this.env$1$f);
     return new $c_s_util_Either$RightProjection().init___s_util_Either(this$15).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__F9(this, x10))
   } else {
     $m_s_package$().Left$1;
     var a$2 = ("Expected callable function, got " + x0$2);
     return new $c_s_util_Left().init___O(a$2)
   }
+});
+$c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8.prototype.init___sci_Map__sc_Seq = (function(env$1, params$2) {
+  this.env$1$f = env$1;
+  this.params$2$f = params$2;
+  return this
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8 = new $ClassTypeData({
   Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8: 0
@@ -15419,7 +15456,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$17.proto
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$17.prototype.apply__T2__s_util_Either = (function(a) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f));
   var this$2 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
   if ($is_s_util_Left(x1)) {
@@ -15433,10 +15470,10 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$17.proto
     $m_s_package$().Right$1;
     var $$this = b$1.$$und1$f;
     var this$4 = this.x4$1$f;
-    var v1 = this.$$outer$2.printer$1$f;
+    var v1 = this.$$outer$2.env$1$f;
     var v2 = a.$$und2$f;
     var v3 = b$1.$$und2$f;
-    var y = this$4.apply__Lcom_repocad_web_Printer__O__O__O(v1, v2, v3);
+    var y = this$4.apply__sci_Map__O__O__O(v1, v2, v3);
     var b$2 = new $c_T2().init___O__O($$this, y);
     return new $c_s_util_Right().init___O(b$2)
   } else {
@@ -15480,7 +15517,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$19.proto
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$19.prototype.apply__T2__s_util_Either = (function(a) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$19$$anonfun$apply$20().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$19__T2(this, a))
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$19 = new $ClassTypeData({
@@ -15520,7 +15557,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$19$$anon
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$19$$anonfun$apply$20.prototype.apply__T2__s_util_Either = (function(b) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f), this.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f));
   var this$2 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
   if ($is_s_util_Left(x1)) {
@@ -15533,7 +15570,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$19$$anon
     var c = $as_T2(b$1);
     $m_s_package$().Right$1;
     var $$this = c.$$und1$f;
-    var y = this.$$outer$2.x5$1$f.apply__O__O__O__O__O(this.$$outer$2.$$outer$2.printer$1$f, this.a$2$f.$$und2$f, b.$$und2$f, c.$$und2$f);
+    var y = this.$$outer$2.x5$1$f.apply__O__O__O__O__O(this.$$outer$2.$$outer$2.env$1$f, this.a$2$f.$$und2$f, b.$$und2$f, c.$$und2$f);
     var b$2 = new $c_T2().init___O__O($$this, y);
     return new $c_s_util_Right().init___O(b$2)
   } else {
@@ -15568,7 +15605,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22.proto
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22.prototype.apply__T2__s_util_Either = (function(a) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22$$anonfun$apply$23().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22__T2(this, a))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__F5 = (function($$outer, x6$1) {
@@ -15608,7 +15645,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22$$anonfun$apply$23.prototype.apply__T2__s_util_Either = (function(b) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f), this.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22$$anonfun$apply$23$$anonfun$apply$24().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22$$anonfun$apply$23__T2(this, b))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22$$anonfun$apply$23.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22__T2 = (function($$outer, a$3) {
@@ -15657,7 +15694,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22$$anon
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22$$anonfun$apply$23$$anonfun$apply$24.prototype.apply__T2__s_util_Either = (function(c) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f));
   var this$2 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
   if ($is_s_util_Left(x1)) {
@@ -15670,7 +15707,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$22$$anon
     var d = $as_T2(b);
     $m_s_package$().Right$1;
     var $$this = d.$$und1$f;
-    var y = this.$$outer$2.$$outer$2.x6$1$f.apply__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.printer$1$f, this.$$outer$2.a$3$f.$$und2$f, this.b$2$f.$$und2$f, c.$$und2$f, d.$$und2$f);
+    var y = this.$$outer$2.$$outer$2.x6$1$f.apply__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.env$1$f, this.$$outer$2.a$3$f.$$und2$f, this.b$2$f.$$und2$f, c.$$und2$f, d.$$und2$f);
     var b$1 = new $c_T2().init___O__O($$this, y);
     return new $c_s_util_Right().init___O(b$1)
   } else {
@@ -15714,7 +15751,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26.proto
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26.prototype.apply__T2__s_util_Either = (function(a) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26__T2(this, a))
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26 = new $ClassTypeData({
@@ -15745,7 +15782,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27.prototype.apply__T2__s_util_Either = (function(b) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f), this.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27$$anonfun$apply$28().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27__T2(this, b))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26__T2 = (function($$outer, a$4) {
@@ -15794,7 +15831,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27$$anonfun$apply$28.prototype.apply__T2__s_util_Either = (function(c) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27$$anonfun$apply$28$$anonfun$apply$29().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27$$anonfun$apply$28__T2(this, c))
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27$$anonfun$apply$28 = new $ClassTypeData({
@@ -15834,7 +15871,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anon
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anonfun$apply$27$$anonfun$apply$28$$anonfun$apply$29.prototype.apply__T2__s_util_Either = (function(d) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(4)), $as_sci_Map(d.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(4)), $as_sci_Map(d.$$und1$f));
   var this$2 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
   if ($is_s_util_Left(x1)) {
@@ -15847,7 +15884,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$26$$anon
     var e = $as_T2(b);
     $m_s_package$().Right$1;
     var $$this = e.$$und1$f;
-    var y = this.$$outer$2.$$outer$2.$$outer$2.x7$1$f.apply__O__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f, this.$$outer$2.$$outer$2.a$4$f.$$und2$f, this.$$outer$2.b$3$f.$$und2$f, this.c$2$f.$$und2$f, d.$$und2$f, e.$$und2$f);
+    var y = this.$$outer$2.$$outer$2.$$outer$2.x7$1$f.apply__O__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.env$1$f, this.$$outer$2.$$outer$2.a$4$f.$$und2$f, this.$$outer$2.b$3$f.$$und2$f, this.c$2$f.$$und2$f, d.$$und2$f, e.$$und2$f);
     var b$1 = new $c_T2().init___O__O($$this, y);
     return new $c_s_util_Right().init___O(b$1)
   } else {
@@ -15891,7 +15928,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31.proto
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31.prototype.apply__T2__s_util_Either = (function(a) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31__T2(this, a))
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31 = new $ClassTypeData({
@@ -15922,7 +15959,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32.prototype.apply__T2__s_util_Either = (function(b) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f), this.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32__T2(this, b))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31__T2 = (function($$outer, a$5) {
@@ -15962,7 +15999,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33.prototype.apply__T2__s_util_Either = (function(c) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33$$anonfun$apply$34().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33__T2(this, c))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32__T2 = (function($$outer, b$4) {
@@ -16002,7 +16039,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33$$anonfun$apply$34.prototype.apply__T2__s_util_Either = (function(d) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(4)), $as_sci_Map(d.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(4)), $as_sci_Map(d.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33$$anonfun$apply$34$$anonfun$apply$35().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33$$anonfun$apply$34__T2(this, d))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33$$anonfun$apply$34.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33__T2 = (function($$outer, c$3) {
@@ -16051,7 +16088,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anon
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anonfun$apply$32$$anonfun$apply$33$$anonfun$apply$34$$anonfun$apply$35.prototype.apply__T2__s_util_Either = (function(e) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(5)), $as_sci_Map(e.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(5)), $as_sci_Map(e.$$und1$f));
   var this$2 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
   if ($is_s_util_Left(x1)) {
@@ -16064,7 +16101,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$31$$anon
     var g = $as_T2(b);
     $m_s_package$().Right$1;
     var $$this = g.$$und1$f;
-    var y = this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.x8$1$f.apply__O__O__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f, this.$$outer$2.$$outer$2.$$outer$2.a$5$f.$$und2$f, this.$$outer$2.$$outer$2.b$4$f.$$und2$f, this.$$outer$2.c$3$f.$$und2$f, this.d$2$f.$$und2$f, e.$$und2$f, g.$$und2$f);
+    var y = this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.x8$1$f.apply__O__O__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.env$1$f, this.$$outer$2.$$outer$2.$$outer$2.a$5$f.$$und2$f, this.$$outer$2.$$outer$2.b$4$f.$$und2$f, this.$$outer$2.c$3$f.$$und2$f, this.d$2$f.$$und2$f, e.$$und2$f, g.$$und2$f);
     var b$1 = new $c_T2().init___O__O($$this, y);
     return new $c_s_util_Right().init___O(b$1)
   } else {
@@ -16099,7 +16136,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37.proto
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37.prototype.apply__T2__s_util_Either = (function(a) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37__T2(this, a))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8__F8 = (function($$outer, x9$1) {
@@ -16148,7 +16185,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anon
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38.prototype.apply__T2__s_util_Either = (function(b) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f), this.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38__T2(this, b))
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38 = new $ClassTypeData({
@@ -16179,7 +16216,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39.prototype.apply__T2__s_util_Either = (function(c) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39__T2(this, c))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38__T2 = (function($$outer, b$5) {
@@ -16219,7 +16256,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40.prototype.apply__T2__s_util_Either = (function(d) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(4)), $as_sci_Map(d.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(4)), $as_sci_Map(d.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40$$anonfun$apply$41().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40__T2(this, d))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39__T2 = (function($$outer, c$4) {
@@ -16259,7 +16296,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40$$anonfun$apply$41.prototype.apply__T2__s_util_Either = (function(e) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(5)), $as_sci_Map(e.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(5)), $as_sci_Map(e.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40$$anonfun$apply$41$$anonfun$apply$42().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40$$anonfun$apply$41__T2(this, e))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40$$anonfun$apply$41.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40__T2 = (function($$outer, d$3) {
@@ -16308,7 +16345,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anon
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anonfun$apply$38$$anonfun$apply$39$$anonfun$apply$40$$anonfun$apply$41$$anonfun$apply$42.prototype.apply__T2__s_util_Either = (function(g) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(6)), $as_sci_Map(g.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(6)), $as_sci_Map(g.$$und1$f));
   var this$2 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
   if ($is_s_util_Left(x1)) {
@@ -16321,7 +16358,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$37$$anon
     var h = $as_T2(b);
     $m_s_package$().Right$1;
     var $$this = h.$$und1$f;
-    var y = this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.x9$1$f.apply__O__O__O__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f, this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.a$6$f.$$und2$f, this.$$outer$2.$$outer$2.$$outer$2.b$5$f.$$und2$f, this.$$outer$2.$$outer$2.c$4$f.$$und2$f, this.$$outer$2.d$3$f.$$und2$f, this.e$2$f.$$und2$f, g.$$und2$f, h.$$und2$f);
+    var y = this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.x9$1$f.apply__O__O__O__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.env$1$f, this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.a$6$f.$$und2$f, this.$$outer$2.$$outer$2.$$outer$2.b$5$f.$$und2$f, this.$$outer$2.$$outer$2.c$4$f.$$und2$f, this.$$outer$2.d$3$f.$$und2$f, this.e$2$f.$$und2$f, g.$$und2$f, h.$$und2$f);
     var b$1 = new $c_T2().init___O__O($$this, y);
     return new $c_s_util_Right().init___O(b$1)
   } else {
@@ -16365,7 +16402,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44.proto
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44.prototype.apply__T2__s_util_Either = (function(a) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f), this.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.params$2$f.apply__I__O(1)), $as_sci_Map(a.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44__T2(this, a))
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44 = new $ClassTypeData({
@@ -16396,7 +16433,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45.prototype.apply__T2__s_util_Either = (function(b) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f), this.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.params$2$f.apply__I__O(2)), $as_sci_Map(b.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45__T2(this, b))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44__T2 = (function($$outer, a$7) {
@@ -16436,7 +16473,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46.prototype.apply__T2__s_util_Either = (function(c) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(3)), $as_sci_Map(c.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46__T2(this, c))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45__T2 = (function($$outer, b$6) {
@@ -16485,7 +16522,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anon
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47.prototype.apply__T2__s_util_Either = (function(d) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(4)), $as_sci_Map(d.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(4)), $as_sci_Map(d.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47__T2(this, d))
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47 = new $ClassTypeData({
@@ -16516,7 +16553,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48.prototype.apply__T2__s_util_Either = (function(e) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(5)), $as_sci_Map(e.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(5)), $as_sci_Map(e.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48$$anonfun$apply$49().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48__T2(this, e))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48.prototype.init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47__T2 = (function($$outer, d$4) {
@@ -16565,7 +16602,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48$$anonfun$apply$49.prototype.apply__T2__s_util_Either = (function(g) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(6)), $as_sci_Map(g.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(6)), $as_sci_Map(g.$$und1$f));
   return new $c_s_util_Either$RightProjection().init___s_util_Either(this$1).flatMap__F1__s_util_Either(new $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48$$anonfun$apply$49$$anonfun$apply$50().init___Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48$$anonfun$apply$49__T2(this, g))
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48$$anonfun$apply$49 = new $ClassTypeData({
@@ -16605,7 +16642,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anon
   return this.apply__T2__s_util_Either($as_T2(v1))
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anonfun$apply$45$$anonfun$apply$46$$anonfun$apply$47$$anonfun$apply$48$$anonfun$apply$49$$anonfun$apply$50.prototype.apply__T2__s_util_Either = (function(h) {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(7)), $as_sci_Map(h.$$und1$f), this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f);
+  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__sci_Map__s_util_Either($as_Lcom_repocad_web_parsing_Expr(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.params$2$f.apply__I__O(7)), $as_sci_Map(h.$$und1$f));
   var this$2 = new $c_s_util_Either$RightProjection().init___s_util_Either(this$1);
   var x1 = this$2.e$1;
   if ($is_s_util_Left(x1)) {
@@ -16618,7 +16655,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$8$$anonfun$apply$44$$anon
     var i = $as_T2(b);
     $m_s_package$().Right$1;
     var $$this = i.$$und1$f;
-    var y = this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.x10$1$f.apply__O__O__O__O__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.printer$1$f, this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.a$7$f.$$und2$f, this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.b$6$f.$$und2$f, this.$$outer$2.$$outer$2.$$outer$2.c$5$f.$$und2$f, this.$$outer$2.$$outer$2.d$4$f.$$und2$f, this.$$outer$2.e$3$f.$$und2$f, this.g$2$f.$$und2$f, h.$$und2$f, i.$$und2$f);
+    var y = this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.x10$1$f.apply__O__O__O__O__O__O__O__O__O__O(this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.env$1$f, this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.$$outer$2.a$7$f.$$und2$f, this.$$outer$2.$$outer$2.$$outer$2.$$outer$2.b$6$f.$$und2$f, this.$$outer$2.$$outer$2.$$outer$2.c$5$f.$$und2$f, this.$$outer$2.$$outer$2.d$4$f.$$und2$f, this.$$outer$2.e$3$f.$$und2$f, this.g$2$f.$$und2$f, h.$$und2$f, i.$$und2$f);
     var b$1 = new $c_T2().init___O__O($$this, y);
     return new $c_s_util_Right().init___O(b$1)
   } else {
@@ -25950,6 +25987,18 @@ var $isArrayOf_sc_Iterable = (function(obj, depth) {
 });
 var $asArrayOf_sc_Iterable = (function(obj, depth) {
   return (($isArrayOf_sc_Iterable(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.Iterable;", depth))
+});
+var $is_sci_MapLike = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sci_MapLike)))
+});
+var $as_sci_MapLike = (function(obj) {
+  return (($is_sci_MapLike(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "scala.collection.immutable.MapLike"))
+});
+var $isArrayOf_sci_MapLike = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.sci_MapLike)))
+});
+var $asArrayOf_sci_MapLike = (function(obj, depth) {
+  return (($isArrayOf_sci_MapLike(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.immutable.MapLike;", depth))
 });
 var $is_scm_LinkedListLike = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.scm_LinkedListLike)))

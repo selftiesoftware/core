@@ -73,12 +73,27 @@ trait Printer {
 
   lazy val toEnv : Evaluator.Env = {
     Map(
-      "arc"  -> ((p : Printer, x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) => arc(x, y, r, sAngle, eAngle)),
-      "bezierCurve" -> ((p : Printer, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)),
-      "circle" -> ((p : Printer, x : Double, y : Double, r : Double) => circle(x, y, r)),
-      "line" -> ((p : Printer, x1 : Double, y1 : Double, x2 : Double, y2 : Double) => line(x1, y1, x2, y2)),
-      "text" -> ((p : Printer, x : Double, y : Double, h : Double, t : Any) => text(x, y, h, t)),
-      "textBox" -> ((p : Printer, x : Double, y : Double, w: Double, h : Double, t : Any) => textBox(x, y, w, h, t))
+      "arc"  -> ((env : Evaluator.Env, x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) => arc(x, y, r, sAngle, eAngle)),
+      "bezierCurve" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)),
+      "circle" -> ((env : Evaluator.Env, x : Double, y : Double, r : Double) => circle(x, y, r)),
+      "line" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double) => line(x1, y1, x2, y2)),
+      "text" -> ((env : Evaluator.Env, x : Double, y : Double, h : Double, t : Any) => text(x, y, h, t)),
+      "textBox" -> ((env : Evaluator.Env, x : Double, y : Double, w: Double, h : Double, t : Any) => textBox(x, y, w, h, t))
+    )
+  }
+
+}
+
+object Printer {
+
+  lazy val dummyEnv : Evaluator.Env = {
+    Map(
+      "arc"  -> ((env : Evaluator.Env, x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) => Unit),
+      "bezierCurve" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => Unit),
+      "circle" -> ((env : Evaluator.Env, x : Double, y : Double, r : Double) => Unit),
+      "line" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double) => Unit),
+      "text" -> ((env : Evaluator.Env, x : Double, y : Double, h : Double, t : Any) => Unit),
+      "textBox" -> ((env : Evaluator.Env, x : Double, y : Double, w: Double, h : Double, t : Any) => Unit)
     )
   }
 }
