@@ -1,6 +1,6 @@
 package com.repocad.web.rendering
 
-import com.repocad.web.Drawing
+import com.repocad.web.{Paper, Drawing}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLInputElement
 
@@ -28,10 +28,14 @@ class Omnibox(inputField : HTMLInputElement, editor : Editor, canvas : Canvas) {
   Drawing.setHashListener(loadDrawing)
 
   def loadDrawing(drawing : Drawing) : Unit = {
+    com.repocad.web.evaluating.Evaluator.resetBoundingBox //reset the paper
     window.location.hash = drawing.name
     inputField.value = drawing.name
     editor.setDrawing(drawing)
     canvas.render(editor.getAst)
+    println("set paper")
+    //Paper.scaleAndRotation()
+
   }
 
   def loadDrawing(name : String) : Unit = {
@@ -42,5 +46,4 @@ class Omnibox(inputField : HTMLInputElement, editor : Editor, canvas : Canvas) {
       })
     }
   }
-
 }

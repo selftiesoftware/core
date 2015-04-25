@@ -1,7 +1,7 @@
 package com.repocad.web.rendering
 
 import com.repocad.web.evaluating.Evaluator
-import com.repocad.web.{Printer, Drawing}
+import com.repocad.web.{Paper, Printer, Drawing}
 import com.repocad.web.lexing.Lexer
 import com.repocad.web.parsing.{Expr, Parser, UnitExpr}
 import org.scalajs.dom._

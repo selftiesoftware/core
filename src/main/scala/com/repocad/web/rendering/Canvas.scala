@@ -61,10 +61,11 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
 
 
   def render(ast : Expr, printer : Printer): Unit = {
+    println("rendering")
     printer.prepare() //redraw the canvas
-    Evaluator.resetBoundingBox() //set the default paper scale
-    Paper.scaleAndRotation() //adapt paper
+    //Evaluator.resetBoundingBox() //set the default paper scale
     Evaluator.eval(ast, printer)
+    Paper.scaleAndRotation() //adapt paper
   }
 
 }

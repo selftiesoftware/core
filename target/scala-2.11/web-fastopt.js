@@ -1217,15 +1217,25 @@ ScalaJS.c.Lcom_repocad_web_Paper$.prototype.scaleAndRotation__Z = (function() {
   var yMin = ScalaJS.uD((this$3.isEmpty__Z() ? (-147.0) : this$3.get__O()));
   var this$4 = ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator$().maxY$1;
   var yMax = ScalaJS.uD((this$4.isEmpty__Z() ? 147.0 : this$4.get__O()));
+  var height = (xMax - xMin);
+  var width = (yMax - yMin);
+  var x = ("X: " + height);
+  var this$6 = ScalaJS.m.s_Console$();
+  var this$7 = this$6.outVar$2;
+  ScalaJS.as.Ljava_io_PrintStream(this$7.tl$1.get__O()).println__O__V(x);
+  var x$1 = ("Y: " + width);
+  var this$9 = ScalaJS.m.s_Console$();
+  var this$10 = this$9.outVar$2;
+  ScalaJS.as.Ljava_io_PrintStream(this$10.tl$1.get__O()).println__O__V(x$1);
   var landscape = false;
   var scale = ScalaJS.m.Lcom_repocad_web_package$().paperScale$1;
   var bottomRight = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(xMax, yMin);
   var topLeft = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(xMin, yMax);
   var size = bottomRight.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(topLeft).abs__Lcom_repocad_web_Vector2D();
-  var this$5 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-  ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$5, 0));
-  var this$6 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-  ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$6, 1));
+  var this$11 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
+  ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$11, 0));
+  var this$12 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
+  ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$12, 1));
   ScalaJS.m.Lcom_repocad_web_package$().drawingCenter$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D((xMax - ((xMax - xMin) / 2)), (yMax - ((yMax - yMin) / 2)));
   ScalaJS.m.Lcom_repocad_web_package$().paperScale$1 = 1.0;
   scale = 1.0;
@@ -1233,21 +1243,21 @@ ScalaJS.c.Lcom_repocad_web_Paper$.prototype.scaleAndRotation__Z = (function() {
   var longSide$2 = 297.0;
   ScalaJS.m.sci_List$();
   var xs = new ScalaJS.c.sjs_js_WrappedArray().init___sjs_js_Array([2.0, 2.5, 2.0]);
-  var this$8 = ScalaJS.m.sci_List$();
-  var cbf = this$8.ReusableCBFInstance$2;
+  var this$14 = ScalaJS.m.sci_List$();
+  var cbf = this$14.ReusableCBFInstance$2;
   var list = ScalaJS.as.sci_List(ScalaJS.s.sc_TraversableLike$class__to__sc_TraversableLike__scg_CanBuildFrom__O(xs, cbf));
   var take = 0;
   while (true) {
     var jsx$2 = shortSide$2;
-    var x = size.x$1;
+    var x$2 = size.x$1;
     var y = size.y$1;
-    if ((jsx$2 < ((x < y) ? x : y))) {
+    if ((jsx$2 < ((x$2 < y) ? x$2 : y))) {
       var jsx$1 = true
     } else {
       var jsx$3 = longSide$2;
-      var x$1 = size.x$1;
+      var x$3 = size.x$1;
       var y$1 = size.y$1;
-      var jsx$1 = (jsx$3 < ((x$1 > y$1) ? x$1 : y$1))
+      var jsx$1 = (jsx$3 < ((x$3 > y$1) ? x$3 : y$1))
     };
     if (jsx$1) {
       var n = take;
@@ -3871,10 +3881,12 @@ ScalaJS.c.Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_ra
   return this
 });
 ScalaJS.c.Lcom_repocad_web_rendering_Canvas.prototype.render__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__V = (function(ast, printer) {
+  var this$2 = ScalaJS.m.s_Console$();
+  var this$3 = this$2.outVar$2;
+  ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V("rendering");
   printer.prepare__V();
-  ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator$().resetBoundingBox__V();
-  ScalaJS.m.Lcom_repocad_web_Paper$().scaleAndRotation__Z();
-  ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer)
+  ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer);
+  ScalaJS.m.Lcom_repocad_web_Paper$().scaleAndRotation__Z()
 });
 ScalaJS.c.Lcom_repocad_web_rendering_Canvas.prototype.zoom__D__Lorg_scalajs_dom_raw_MouseEvent__V = (function(delta, e) {
   this.com$repocad$web$rendering$Canvas$$printer$f.zoom__D__D__D__V(delta, ScalaJS.uD(e["clientX"]), ScalaJS.uD(e["clientY"]));
@@ -4141,13 +4153,17 @@ ScalaJS.c.Lcom_repocad_web_rendering_Omnibox.prototype.loadDrawing__T__V = (func
   }
 });
 ScalaJS.c.Lcom_repocad_web_rendering_Omnibox.prototype.loadDrawing__Lcom_repocad_web_Drawing__V = (function(drawing) {
+  ScalaJS.m.Lcom_repocad_web_evaluating_Evaluator$().resetBoundingBox__V();
   ScalaJS.g["window"]["location"]["hash"] = drawing.name$1;
   this.com$repocad$web$rendering$Omnibox$$inputField$f["value"] = drawing.name$1;
   this.editor$1.setDrawing__Lcom_repocad_web_Drawing__V(drawing);
   var jsx$1 = this.canvas$1;
   var this$1 = this.editor$1;
   var this$2 = this$1.com$repocad$web$rendering$Editor$$ast$1;
-  jsx$1.render__Lcom_repocad_web_parsing_Expr__V(ScalaJS.as.Lcom_repocad_web_parsing_Expr(ScalaJS.s.Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$2)))
+  jsx$1.render__Lcom_repocad_web_parsing_Expr__V(ScalaJS.as.Lcom_repocad_web_parsing_Expr(ScalaJS.s.Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$2)));
+  var this$4 = ScalaJS.m.s_Console$();
+  var this$5 = this$4.outVar$2;
+  ScalaJS.as.Ljava_io_PrintStream(this$5.tl$1.get__O()).println__O__V("set paper")
 });
 ScalaJS.is.Lcom_repocad_web_rendering_Omnibox = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_rendering_Omnibox)))
@@ -9875,38 +9891,41 @@ ScalaJS.c.Lcom_repocad_web_CanvasPrinter.prototype.arc__D__D__D__D__D__V = (func
   this.context$1["closePath"]()
 });
 ScalaJS.c.Lcom_repocad_web_CanvasPrinter.prototype.drawPaper__V = (function() {
+  var this$2 = ScalaJS.m.s_Console$();
+  var this$3 = this$2.outVar$2;
+  ScalaJS.as.Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V("drawing the specified paper");
   ScalaJS.m.Lcom_repocad_web_package$().canvasCorner$1 = new ScalaJS.c.Lcom_repocad_web_Vector2D().init___D__D(ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["left"]), ScalaJS.uD(this.canvas$1["getBoundingClientRect"]()["top"]));
   this.context$1["fillStyle"] = "white";
   this.landscape$1 = ScalaJS.m.Lcom_repocad_web_Paper$().scaleAndRotation__Z();
   if (this.landscape$1) {
     var jsx$1 = ScalaJS.m.Lcom_repocad_web_package$().drawingCenter$1.x$1;
-    var this$2 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-    var x = (jsx$1 - ((ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$2, 1)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1) / 2));
-    var jsx$2 = ScalaJS.m.Lcom_repocad_web_package$().drawingCenter$1.y$1;
-    var this$3 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-    var y = ((-jsx$2) - ((ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$3, 0)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1) / 2));
-    var jsx$5 = this.context$1;
-    var this$4 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-    var jsx$4 = ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$4, 1));
-    var jsx$3 = ScalaJS.m.Lcom_repocad_web_package$().paperScale$1;
     var this$5 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-    jsx$5["fillRect"](x, y, (jsx$4 * jsx$3), (ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$5, 0)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1))
+    var x = (jsx$1 - ((ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$5, 1)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1) / 2));
+    var jsx$2 = ScalaJS.m.Lcom_repocad_web_package$().drawingCenter$1.y$1;
+    var this$6 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
+    var y = ((-jsx$2) - ((ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$6, 0)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1) / 2));
+    var jsx$5 = this.context$1;
+    var this$7 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
+    var jsx$4 = ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$7, 1));
+    var jsx$3 = ScalaJS.m.Lcom_repocad_web_package$().paperScale$1;
+    var this$8 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
+    jsx$5["fillRect"](x, y, (jsx$4 * jsx$3), (ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 0)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1))
   } else {
     var jsx$6 = ScalaJS.m.Lcom_repocad_web_package$().drawingCenter$1.x$1;
-    var this$6 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-    var x$2 = (jsx$6 - ((ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$6, 0)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1) / 2));
-    var jsx$7 = ScalaJS.m.Lcom_repocad_web_package$().drawingCenter$1.y$1;
-    var this$7 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-    var y$2 = ((-jsx$7) - ((ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$7, 1)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1) / 2));
-    var jsx$10 = this.context$1;
-    var this$8 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-    var jsx$9 = ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 0));
-    var jsx$8 = ScalaJS.m.Lcom_repocad_web_package$().paperScale$1;
     var this$9 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
-    jsx$10["fillRect"](x$2, y$2, (jsx$9 * jsx$8), (ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$9, 1)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1))
+    var x$2 = (jsx$6 - ((ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$9, 0)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1) / 2));
+    var jsx$7 = ScalaJS.m.Lcom_repocad_web_package$().drawingCenter$1.y$1;
+    var this$10 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
+    var y$2 = ((-jsx$7) - ((ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$10, 1)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1) / 2));
+    var jsx$10 = this.context$1;
+    var this$11 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
+    var jsx$9 = ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$11, 0));
+    var jsx$8 = ScalaJS.m.Lcom_repocad_web_package$().paperScale$1;
+    var this$12 = ScalaJS.m.Lcom_repocad_web_package$().paperSize$1;
+    jsx$10["fillRect"](x$2, y$2, (jsx$9 * jsx$8), (ScalaJS.uD(ScalaJS.s.sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$12, 1)) * ScalaJS.m.Lcom_repocad_web_package$().paperScale$1))
   };
-  var this$10 = ScalaJS.m.Lcom_repocad_web_package$().paperScale$1;
-  var txt = ("p a p e r : A 4       s c a l e:   1 :  " + ("" + this$10));
+  var this$13 = ScalaJS.m.Lcom_repocad_web_package$().paperScale$1;
+  var txt = ("p a p e r : A 4       s c a l e:   1 :  " + ("" + this$13));
   this.screenText__D__D__D__O__V(5.0, 10.0, 70.0, txt);
   this.screenText__D__D__D__O__V(370.0, 10.0, 70.0, "v e r.   0 . 1 5 ")
 });

@@ -3,7 +3,6 @@ package com.repocad.web
 import com.repocad.web.evaluating.Evaluator
 import org.scalajs.dom.CanvasRenderingContext2D
 
-
 /**
  * an object containing methods to draw the paper with the correct scale and orientation
  */
@@ -19,8 +18,14 @@ object Paper {
     val yMin = Evaluator.minY.getOrElse(-147.0)
     val yMax = Evaluator.maxY.getOrElse(147.0)
 
-    var landscape = false
+    val height = xMax - xMin
+    val width = yMax - yMin
 
+    println("X: "+height)
+    println("Y: "+width)
+
+    //var landscape = if(height > width) false else true
+    var landscape = false
     var scale : Double = paperScale
 
     //val size = (newBoundary.bottomRight - newBoundary.topLeft).abs

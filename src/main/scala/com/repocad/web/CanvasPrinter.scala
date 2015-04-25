@@ -25,7 +25,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
    * Draw a white rectangle representing the drawing if it is printed
    */
   def drawPaper() = {
-
+    println("drawing the specified paper")
     canvasCorner = Vector2D(canvas.getBoundingClientRect().left,canvas.getBoundingClientRect().top)
 
     context.fillStyle = "white"
@@ -67,6 +67,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
     drawPaper() //draw the paper
   }
 
+  //First run...
   def init(): Unit = {
     context.translate(canvas.width / 2, canvas.height / 2)
     drawPaper() //redraw the paper

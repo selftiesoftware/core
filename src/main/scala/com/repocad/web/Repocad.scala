@@ -26,7 +26,6 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
 
   @JSExport
   def init() : Unit = {
-
     searchDrawing.onclick = (e : MouseEvent) => {
       omnibox.loadDrawing(title.value)
     }
