@@ -7,19 +7,24 @@ import org.scalajs.dom.CanvasRenderingContext2D
  * an object containing methods to draw the paper with the correct scale and orientation
  */
 
-object Paper {
+case class Paper ( var minX : Double = -105.0, var maxX : Double = 105.0, var minY : Double = -147.0, var maxY : Double = 147.0) {
+
+  /* run once before the evaluation loop to ensure the paper is scaled down again
+   if the drawing extends are smaller after user editing of the drawing.
+*/
+  def resetBoundingBox() = {
+    maxX = 210/2
+    minX = -210/2
+    maxY = 297/2
+    minY = -297/2
+  }
 
   def scaleAndRotation(): Boolean = {
 
     val autoScale = true
 
-    val xMin = Evaluator.minX.getOrElse(-105.0)
-    val xMax = Evaluator.maxX.getOrElse(105.0)
-    val yMin = Evaluator.minY.getOrElse(-147.0)
-    val yMax = Evaluator.maxY.getOrElse(147.0)
-
-    val height = xMax - xMin
-    val width = yMax - yMin
+    val height = maxX - minX
+    val width = maxY - minY
 
     println("X: "+height)
     println("Y: "+width)
@@ -29,8 +34,8 @@ object Paper {
     var scale : Double = paperScale
 
     //val size = (newBoundary.bottomRight - newBoundary.topLeft).abs
-    val bottomRight = Vector2D(xMax, yMin)
-    val topLeft = Vector2D(xMin, yMax)
+    val bottomRight = Vector2D(maxX, minY)
+    val topLeft = Vector2D(minX, maxY)
     val size = (bottomRight - topLeft).abs
 
     // Fetches the values for the format
@@ -39,7 +44,7 @@ object Paper {
     var longSide = paperSize(1)
 
     //val center = drawingCenter
-    drawingCenter = Vector2D(xMax - (xMax-xMin)/2,yMax - (yMax-yMin)/2)
+    drawingCenter = Vector2D(maxX - (maxX-minX)/2,maxY - (maxY-minY)/2)
 
     //calculate the scale automatically. Results in 1:1, 1:2,1:5,1:10,1:20 etc.
     if (autoScale) {

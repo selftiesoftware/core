@@ -28,7 +28,6 @@ class Omnibox(inputField : HTMLInputElement, editor : Editor, canvas : Canvas) {
   Drawing.setHashListener(loadDrawing)
 
   def loadDrawing(drawing : Drawing) : Unit = {
-    com.repocad.web.evaluating.Evaluator.resetBoundingBox //reset the paper
     window.location.hash = drawing.name
     inputField.value = drawing.name
     editor.setDrawing(drawing)

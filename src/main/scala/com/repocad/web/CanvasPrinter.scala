@@ -25,11 +25,10 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
    * Draw a white rectangle representing the drawing if it is printed
    */
   def drawPaper() = {
-    println("drawing the specified paper")
     canvasCorner = Vector2D(canvas.getBoundingClientRect().left,canvas.getBoundingClientRect().top)
 
     context.fillStyle = "white"
-    landscape = scaleAndRotation() //run the scale and rotation evaluation
+    landscape = paper.scaleAndRotation() //run the scale and rotation evaluation
 
     if(landscape) {
       val x = drawingCenter.x - (paperSize(1) * paperScale) /2
@@ -94,8 +93,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
-    Evaluator.updateBoundingBox(x + r, y + r)
-    Evaluator.updateBoundingBox(x - r, y - r)
+    updateBoundingBox(x + r, y + r)
+    updateBoundingBox(x - r, y - r)
     context.beginPath()
     context.arc(x, -y, r, sAngle, eAngle)
     context.stroke()
@@ -104,10 +103,10 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
   }
 
   override def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
-    Evaluator.updateBoundingBox(x1, y1)
-    Evaluator.updateBoundingBox(x2, y2)
-    Evaluator.updateBoundingBox(x3, y3)
-    Evaluator.updateBoundingBox(x4, y4)
+    updateBoundingBox(x1, y1)
+    updateBoundingBox(x2, y2)
+    updateBoundingBox(x3, y3)
+    updateBoundingBox(x4, y4)
     context.beginPath()
     context.moveTo(x1, -y1)
     context.bezierCurveTo(x2, -y2, x3, -y3, x4, -y4)
@@ -116,8 +115,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
   }
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
-    Evaluator.updateBoundingBox(x1,y1)
-    Evaluator.updateBoundingBox(x2,y2)
+    updateBoundingBox(x1,y1)
+    updateBoundingBox(x2,y2)
     context.beginPath()
     context.moveTo(x1, -y1)
     context.lineTo(x2, -y2)
@@ -127,8 +126,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
   }
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
-    Evaluator.updateBoundingBox(x + r, y + r)
-    Evaluator.updateBoundingBox(x - r, y - r)
+    updateBoundingBox(x + r, y + r)
+    updateBoundingBox(x - r, y - r)
     context.beginPath()
     context.arc(x, -y, r, 0, 2 * Math.PI)
     context.lineWidth = 0.2 * paperScale
@@ -136,7 +135,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
     context.closePath()
   }
 
-  def prepare(): Unit = {
+  override def prepare(): Unit = {
+    super.prepare()
     clear()
   }
 
@@ -163,8 +163,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
     //context.textBaseline("bottom")
     context.fillText(t.toString(), x, -y)
     context.restore()
-    Evaluator.updateBoundingBox(x-10, y-10)
-    Evaluator.updateBoundingBox(x + length, y + h+10)
+    updateBoundingBox(x-10, y-10)
+    updateBoundingBox(x + length, y + h+10)
   }
 
   /**
@@ -184,8 +184,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
     var string = text.toList
     val chars = text.length
     val charsPerLine = (chars / lines).toInt
-    Evaluator.updateBoundingBox(x + length/(length/w), y - h*length/w.ceil)
-    Evaluator.updateBoundingBox(x,y + h)
+    updateBoundingBox(x + length/(length/w), y - h*length/w.ceil)
+    updateBoundingBox(x,y + h)
 
     for (i <- 1 to lines.toInt + 2) {
       val myFont = correctedH.toString() + "px Arial"

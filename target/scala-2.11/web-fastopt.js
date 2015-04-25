@@ -1092,97 +1092,29 @@ var $m_Lcom_repocad_web_Ajax$ = (function() {
   };
   return $n_Lcom_repocad_web_Ajax$
 });
-/** @constructor */
-var $c_Lcom_repocad_web_Paper$ = (function() {
-  $c_O.call(this)
+var $s_Lcom_repocad_web_Printer$class__$$init$__Lcom_repocad_web_Printer__V = (function($$this) {
+  $$this.com$repocad$web$Printer$$undsetter$und$paper$und$eq__Lcom_repocad_web_Paper__V(new $c_Lcom_repocad_web_Paper().init___D__D__D__D((-105.0), 105.0, (-147.0), 147.0))
 });
-$c_Lcom_repocad_web_Paper$.prototype = new $h_O();
-$c_Lcom_repocad_web_Paper$.prototype.constructor = $c_Lcom_repocad_web_Paper$;
-/** @constructor */
-var $h_Lcom_repocad_web_Paper$ = (function() {
-  /*<skip>*/
-});
-$h_Lcom_repocad_web_Paper$.prototype = $c_Lcom_repocad_web_Paper$.prototype;
-$c_Lcom_repocad_web_Paper$.prototype.scaleAndRotation__Z = (function() {
-  var this$1 = $m_Lcom_repocad_web_evaluating_Evaluator$().minX$1;
-  var xMin = $uD((this$1.isEmpty__Z() ? (-105.0) : this$1.get__O()));
-  var this$2 = $m_Lcom_repocad_web_evaluating_Evaluator$().maxX$1;
-  var xMax = $uD((this$2.isEmpty__Z() ? 105.0 : this$2.get__O()));
-  var this$3 = $m_Lcom_repocad_web_evaluating_Evaluator$().minY$1;
-  var yMin = $uD((this$3.isEmpty__Z() ? (-147.0) : this$3.get__O()));
-  var this$4 = $m_Lcom_repocad_web_evaluating_Evaluator$().maxY$1;
-  var yMax = $uD((this$4.isEmpty__Z() ? 147.0 : this$4.get__O()));
-  var height = (xMax - xMin);
-  var width = (yMax - yMin);
-  var x = ("X: " + height);
-  var this$6 = $m_s_Console$();
-  var this$7 = this$6.outVar$2;
-  $as_Ljava_io_PrintStream(this$7.tl$1.get__O()).println__O__V(x);
-  var x$1 = ("Y: " + width);
-  var this$9 = $m_s_Console$();
-  var this$10 = this$9.outVar$2;
-  $as_Ljava_io_PrintStream(this$10.tl$1.get__O()).println__O__V(x$1);
-  var landscape = false;
-  var scale = $m_Lcom_repocad_web_package$().paperScale$1;
-  var bottomRight = new $c_Lcom_repocad_web_Vector2D().init___D__D(xMax, yMin);
-  var topLeft = new $c_Lcom_repocad_web_Vector2D().init___D__D(xMin, yMax);
-  var size = bottomRight.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(topLeft).abs__Lcom_repocad_web_Vector2D();
-  var this$11 = $m_Lcom_repocad_web_package$().paperSize$1;
-  $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$11, 0));
-  var this$12 = $m_Lcom_repocad_web_package$().paperSize$1;
-  $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$12, 1));
-  $m_Lcom_repocad_web_package$().drawingCenter$1 = new $c_Lcom_repocad_web_Vector2D().init___D__D((xMax - ((xMax - xMin) / 2)), (yMax - ((yMax - yMin) / 2)));
-  $m_Lcom_repocad_web_package$().paperScale$1 = 1.0;
-  scale = 1.0;
-  var shortSide$2 = 210.0;
-  var longSide$2 = 297.0;
-  $m_sci_List$();
-  var xs = new $c_sjs_js_WrappedArray().init___sjs_js_Array([2.0, 2.5, 2.0]);
-  var this$14 = $m_sci_List$();
-  var cbf = this$14.ReusableCBFInstance$2;
-  var list = $as_sci_List($s_sc_TraversableLike$class__to__sc_TraversableLike__scg_CanBuildFrom__O(xs, cbf));
-  var take = 0;
-  while (true) {
-    var jsx$2 = shortSide$2;
-    var x$2 = size.x$1;
-    var y = size.y$1;
-    if ((jsx$2 < ((x$2 < y) ? x$2 : y))) {
-      var jsx$1 = true
-    } else {
-      var jsx$3 = longSide$2;
-      var x$3 = size.x$1;
-      var y$1 = size.y$1;
-      var jsx$1 = (jsx$3 < ((x$3 > y$1) ? x$3 : y$1))
-    };
-    if (jsx$1) {
-      var n = take;
-      var factor = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(list, n));
-      shortSide$2 = (shortSide$2 * factor);
-      longSide$2 = (longSide$2 * factor);
-      take = ((take < 2) ? ((1 + take) | 0) : 0);
-      $m_Lcom_repocad_web_package$().paperScale$1 = ($m_Lcom_repocad_web_package$().paperScale$1 * factor)
-    } else {
-      break
-    }
+var $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D = (function($$this, x, y) {
+  if ((x >= $$this.paper__Lcom_repocad_web_Paper().maxX$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().maxX$1 = x
   };
-  if ((size.x$1 >= size.y$1)) {
-    landscape = true
+  if ((x <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().minX$1 = x
   };
-  return landscape
-});
-var $d_Lcom_repocad_web_Paper$ = new $ClassTypeData({
-  Lcom_repocad_web_Paper$: 0
-}, false, "com.repocad.web.Paper$", {
-  Lcom_repocad_web_Paper$: 1,
-  O: 1
-});
-$c_Lcom_repocad_web_Paper$.prototype.$classData = $d_Lcom_repocad_web_Paper$;
-var $n_Lcom_repocad_web_Paper$ = (void 0);
-var $m_Lcom_repocad_web_Paper$ = (function() {
-  if ((!$n_Lcom_repocad_web_Paper$)) {
-    $n_Lcom_repocad_web_Paper$ = new $c_Lcom_repocad_web_Paper$().init___()
+  if ((y >= $$this.paper__Lcom_repocad_web_Paper().maxY$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().maxY$1 = y
   };
-  return $n_Lcom_repocad_web_Paper$
+  if ((y <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().minY$1 = y
+  };
+  var x$1 = ("MAX X;" + $$this.paper__Lcom_repocad_web_Paper().maxX$1);
+  var this$2 = $m_s_Console$();
+  var this$3 = this$2.outVar$2;
+  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x$1);
+  var cX = ($$this.paper__Lcom_repocad_web_Paper().minX$1 + (($$this.paper__Lcom_repocad_web_Paper().maxX$1 - $$this.paper__Lcom_repocad_web_Paper().minX$1) / 2));
+  var cY = ($$this.paper__Lcom_repocad_web_Paper().minY$1 + (($$this.paper__Lcom_repocad_web_Paper().maxY$1 - $$this.paper__Lcom_repocad_web_Paper().minY$1) / 2));
+  return new $c_Lcom_repocad_web_Vector2D().init___D__D(cX, cY)
 });
 var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map = (function($$this) {
   var y$1 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(arg$outer) {
@@ -1611,10 +1543,6 @@ var $m_Lcom_repocad_web_SplineToArc2D$ = (function() {
 /** @constructor */
 var $c_Lcom_repocad_web_evaluating_Evaluator$ = (function() {
   $c_O.call(this);
-  this.minX$1 = null;
-  this.maxX$1 = null;
-  this.minY$1 = null;
-  this.maxY$1 = null;
   this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = null;
   this.dummyPrinter$1 = null
 });
@@ -1627,10 +1555,6 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$ = (function() {
 $h_Lcom_repocad_web_evaluating_Evaluator$.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$.prototype;
 $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.init___ = (function() {
   $n_Lcom_repocad_web_evaluating_Evaluator$ = this;
-  this.minX$1 = $m_s_None$();
-  this.maxX$1 = $m_s_None$();
-  this.minY$1 = $m_s_None$();
-  this.maxY$1 = $m_s_None$();
   this.com$repocad$web$evaluating$Evaluator$$scriptEnv$1 = $as_sci_Map($m_s_Predef$().Map$2.apply__sc_Seq__sc_GenMap($m_sci_Nil$()));
   this.dummyPrinter$1 = new $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1().init___();
   return this
@@ -2112,36 +2036,6 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsi
       throw e
     }
   }
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.resetBoundingBox__V = (function() {
-  this.maxX$1 = $m_s_None$();
-  this.minX$1 = $m_s_None$();
-  this.maxY$1 = $m_s_None$();
-  this.minY$1 = $m_s_None$()
-});
-$c_Lcom_repocad_web_evaluating_Evaluator$.prototype.updateBoundingBox__D__D__Lcom_repocad_web_Vector2D = (function(x, y) {
-  if ((((this.minX$1.isDefined__Z() && this.maxX$1.isDefined__Z()) && this.minY$1.isDefined__Z()) && this.maxY$1.isDefined__Z())) {
-    if ((x >= $uD(this.maxX$1.get__O()))) {
-      this.maxX$1 = new $c_s_Some().init___O(x)
-    };
-    if ((x <= $uD(this.minX$1.get__O()))) {
-      this.minX$1 = new $c_s_Some().init___O(x)
-    };
-    if ((y >= $uD(this.maxY$1.get__O()))) {
-      this.maxY$1 = new $c_s_Some().init___O(y)
-    };
-    if ((y <= $uD(this.minY$1.get__O()))) {
-      this.minY$1 = new $c_s_Some().init___O(y)
-    }
-  } else {
-    this.maxX$1 = new $c_s_Some().init___O((1 + x));
-    this.minX$1 = new $c_s_Some().init___O(((-1.0) + x));
-    this.maxY$1 = new $c_s_Some().init___O((1 + y));
-    this.minY$1 = new $c_s_Some().init___O(((-1.0) + y))
-  };
-  var cX = ($uD(this.minX$1.get__O()) + (($uD(this.maxX$1.get__O()) - $uD(this.minX$1.get__O())) / 2));
-  var cY = ($uD(this.minY$1.get__O()) + (($uD(this.maxY$1.get__O()) - $uD(this.minY$1.get__O())) / 2));
-  return new $c_Lcom_repocad_web_Vector2D().init___D__D(cX, cY)
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$ = new $ClassTypeData({
   Lcom_repocad_web_evaluating_Evaluator$: 0
@@ -3609,12 +3503,8 @@ $c_Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_raw_HTMLC
   return this
 });
 $c_Lcom_repocad_web_rendering_Canvas.prototype.render__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__V = (function(ast, printer) {
-  var this$2 = $m_s_Console$();
-  var this$3 = this$2.outVar$2;
-  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V("rendering");
   printer.prepare__V();
-  $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer);
-  $m_Lcom_repocad_web_Paper$().scaleAndRotation__Z()
+  $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer)
 });
 $c_Lcom_repocad_web_rendering_Canvas.prototype.zoom__D__Lorg_scalajs_dom_raw_MouseEvent__V = (function(delta, e) {
   this.com$repocad$web$rendering$Canvas$$printer$f.zoom__D__D__D__V(delta, $uD(e["clientX"]), $uD(e["clientY"]));
@@ -3856,7 +3746,6 @@ $c_Lcom_repocad_web_rendering_Omnibox.prototype.loadDrawing__T__V = (function(na
   }
 });
 $c_Lcom_repocad_web_rendering_Omnibox.prototype.loadDrawing__Lcom_repocad_web_Drawing__V = (function(drawing) {
-  $m_Lcom_repocad_web_evaluating_Evaluator$().resetBoundingBox__V();
   $g["window"]["location"]["hash"] = drawing.name$1;
   this.com$repocad$web$rendering$Omnibox$$inputField$f["value"] = drawing.name$1;
   this.editor$1.setDrawing__Lcom_repocad_web_Drawing__V(drawing);
@@ -8621,6 +8510,7 @@ var $c_Lcom_repocad_web_CanvasPrinter = (function() {
   this.canvas$1 = null;
   this.context$1 = null;
   this.landscape$1 = false;
+  this.paper$1 = null;
   this.toEnv$1 = null;
   this.bitmap$0$1 = false
 });
@@ -8633,17 +8523,21 @@ var $h_Lcom_repocad_web_CanvasPrinter = (function() {
 $h_Lcom_repocad_web_CanvasPrinter.prototype = $c_Lcom_repocad_web_CanvasPrinter.prototype;
 $c_Lcom_repocad_web_CanvasPrinter.prototype.init___Lorg_scalajs_dom_raw_HTMLCanvasElement = (function(canvas) {
   this.canvas$1 = canvas;
+  $s_Lcom_repocad_web_Printer$class__$$init$__Lcom_repocad_web_Printer__V(this);
   this.context$1 = canvas["getContext"]("2d");
   this.landscape$1 = false;
   return this
+});
+$c_Lcom_repocad_web_CanvasPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
+  return this.paper$1
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.init__V = (function() {
   this.context$1["translate"]((($uI(this.canvas$1["width"]) / 2) | 0), (($uI(this.canvas$1["height"]) / 2) | 0));
   this.drawPaper__V()
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(x1, y1);
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(x2, y2);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x1, y1);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x2, y2);
   this.context$1["beginPath"]();
   this.context$1["moveTo"](x1, (-y1));
   this.context$1["lineTo"](x2, (-y2));
@@ -8667,8 +8561,11 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.textBox__D__D__D__D__O__V = (functio
   elem$1$1 = elem;
   var chars = $uI(text["length"]);
   var charsPerLine = ((chars / lines) | 0);
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((x + (length / (length / w))), (y - ((h * length) / $uD($g["Math"]["ceil"](w)))));
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(x, (y + h));
+  var x$1 = (x + (length / (length / w)));
+  var y$1 = (y - ((h * length) / $uD($g["Math"]["ceil"](w))));
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$1, y$1);
+  var y$2 = (y + h);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x, y$2);
   var end = ((2 + (lines | 0)) | 0);
   var isEmpty$4 = (end < 1);
   var numRangeElements$4 = (isEmpty$4 ? 0 : end);
@@ -8693,8 +8590,12 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.textBox__D__D__D__D__O__V = (functio
   }
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((x + r), (y + r));
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((x - r), (y - r));
+  var x$1 = (x + r);
+  var y$1 = (y + r);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$1, y$1);
+  var x$2 = (x - r);
+  var y$2 = (y - r);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$2, y$2);
   this.context$1["beginPath"]();
   this.context$1["arc"](x, (-y), r, 0.0, 6.283185307179586);
   this.context$1["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1);
@@ -8711,8 +8612,12 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.text__D__D__D__O__V = (function(x, y
   this.context$1["fillStyle"] = "black";
   this.context$1["fillText"]($objectToString(t), x, (-y));
   this.context$1["restore"]();
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(((-10.0) + x), ((-10.0) + y));
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((x + length), (10 + (y + h)))
+  var x$1 = ((-10.0) + x);
+  var y$1 = ((-10.0) + y);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$1, y$1);
+  var x$2 = (x + length);
+  var y$2 = (10 + (y + h));
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$2, y$2)
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.screenText__D__D__D__O__V = (function(x, y, size, t) {
   this.context$1["font"] = (("" + size) + " pt Arial");
@@ -8723,8 +8628,12 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.screenText__D__D__D__O__V = (functio
   this.context$1["restore"]()
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((x + r), (y + r));
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D((x - r), (y - r));
+  var x$1 = (x + r);
+  var y$1 = (y + r);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$1, y$1);
+  var x$2 = (x - r);
+  var y$2 = (y - r);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$2, y$2);
   this.context$1["beginPath"]();
   this.context$1["arc"](x, (-y), r, sAngle, eAngle);
   this.context$1["stroke"]();
@@ -8732,46 +8641,46 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.arc__D__D__D__D__D__V = (function(x,
   this.context$1["closePath"]()
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.drawPaper__V = (function() {
-  var this$2 = $m_s_Console$();
-  var this$3 = this$2.outVar$2;
-  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V("drawing the specified paper");
   $m_Lcom_repocad_web_package$().canvasCorner$1 = new $c_Lcom_repocad_web_Vector2D().init___D__D($uD(this.canvas$1["getBoundingClientRect"]()["left"]), $uD(this.canvas$1["getBoundingClientRect"]()["top"]));
   this.context$1["fillStyle"] = "white";
-  this.landscape$1 = $m_Lcom_repocad_web_Paper$().scaleAndRotation__Z();
+  this.landscape$1 = this.paper$1.scaleAndRotation__Z();
   if (this.landscape$1) {
     var jsx$1 = $m_Lcom_repocad_web_package$().drawingCenter$1.x$1;
-    var this$5 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var x = (jsx$1 - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$5, 1)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
+    var this$2 = $m_Lcom_repocad_web_package$().paperSize$1;
+    var x = (jsx$1 - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$2, 1)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
     var jsx$2 = $m_Lcom_repocad_web_package$().drawingCenter$1.y$1;
-    var this$6 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var y = ((-jsx$2) - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$6, 0)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
+    var this$3 = $m_Lcom_repocad_web_package$().paperSize$1;
+    var y = ((-jsx$2) - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$3, 0)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
     var jsx$5 = this.context$1;
-    var this$7 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var jsx$4 = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$7, 1));
+    var this$4 = $m_Lcom_repocad_web_package$().paperSize$1;
+    var jsx$4 = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$4, 1));
     var jsx$3 = $m_Lcom_repocad_web_package$().paperScale$1;
-    var this$8 = $m_Lcom_repocad_web_package$().paperSize$1;
-    jsx$5["fillRect"](x, y, (jsx$4 * jsx$3), ($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 0)) * $m_Lcom_repocad_web_package$().paperScale$1))
+    var this$5 = $m_Lcom_repocad_web_package$().paperSize$1;
+    jsx$5["fillRect"](x, y, (jsx$4 * jsx$3), ($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$5, 0)) * $m_Lcom_repocad_web_package$().paperScale$1))
   } else {
     var jsx$6 = $m_Lcom_repocad_web_package$().drawingCenter$1.x$1;
-    var this$9 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var x$2 = (jsx$6 - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$9, 0)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
+    var this$6 = $m_Lcom_repocad_web_package$().paperSize$1;
+    var x$2 = (jsx$6 - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$6, 0)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
     var jsx$7 = $m_Lcom_repocad_web_package$().drawingCenter$1.y$1;
-    var this$10 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var y$2 = ((-jsx$7) - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$10, 1)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
+    var this$7 = $m_Lcom_repocad_web_package$().paperSize$1;
+    var y$2 = ((-jsx$7) - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$7, 1)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
     var jsx$10 = this.context$1;
-    var this$11 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var jsx$9 = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$11, 0));
+    var this$8 = $m_Lcom_repocad_web_package$().paperSize$1;
+    var jsx$9 = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 0));
     var jsx$8 = $m_Lcom_repocad_web_package$().paperScale$1;
-    var this$12 = $m_Lcom_repocad_web_package$().paperSize$1;
-    jsx$10["fillRect"](x$2, y$2, (jsx$9 * jsx$8), ($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$12, 1)) * $m_Lcom_repocad_web_package$().paperScale$1))
+    var this$9 = $m_Lcom_repocad_web_package$().paperSize$1;
+    jsx$10["fillRect"](x$2, y$2, (jsx$9 * jsx$8), ($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$9, 1)) * $m_Lcom_repocad_web_package$().paperScale$1))
   };
-  var this$13 = $m_Lcom_repocad_web_package$().paperScale$1;
-  var txt = ("p a p e r : A 4       s c a l e:   1 :  " + ("" + this$13));
+  var this$10 = $m_Lcom_repocad_web_package$().paperScale$1;
+  var txt = ("p a p e r : A 4       s c a l e:   1 :  " + ("" + this$10));
   this.screenText__D__D__D__O__V(5.0, 10.0, 70.0, txt);
   this.screenText__D__D__D__O__V(370.0, 10.0, 70.0, "v e r.   0 . 1 5 ")
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.toEnv__sci_Map = (function() {
   return ((!this.bitmap$0$1) ? this.toEnv$lzycompute__p1__sci_Map() : this.toEnv$1)
+});
+$c_Lcom_repocad_web_CanvasPrinter.prototype.com$repocad$web$Printer$$undsetter$und$paper$und$eq__Lcom_repocad_web_Paper__V = (function(x$1) {
+  this.paper$1 = x$1
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.toEnv$lzycompute__p1__sci_Map = (function() {
   if ((!this.bitmap$0$1)) {
@@ -8784,10 +8693,10 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.windowCenter__Lcom_repocad_web_Vecto
   return new $c_Lcom_repocad_web_Vector2D().init___D__D((0.5 * ($uD(this.canvas$1["getBoundingClientRect"]()["right"]) + $uD(this.canvas$1["getBoundingClientRect"]()["left"]))), (0.5 * ($uD(this.canvas$1["getBoundingClientRect"]()["bottom"]) + $uD(this.canvas$1["getBoundingClientRect"]()["top"]))))
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(x1, y1);
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(x2, y2);
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(x3, y3);
-  $m_Lcom_repocad_web_evaluating_Evaluator$().updateBoundingBox__D__D__Lcom_repocad_web_Vector2D(x4, y4);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x1, y1);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x2, y2);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x3, y3);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x4, y4);
   this.context$1["beginPath"]();
   this.context$1["moveTo"](x1, (-y1));
   this.context$1["bezierCurveTo"](x2, (-y2), x3, (-y3), x4, (-y4));
@@ -8813,6 +8722,7 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.zoom__D__D__D__V = (function(delta, 
   this.context$1["translate"]((-mousePoint.x$1), (-mousePoint.y$1))
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.prepare__V = (function() {
+  this.paper$1.resetBoundingBox__V();
   this.clear__V()
 });
 var $d_Lcom_repocad_web_CanvasPrinter = new $ClassTypeData({
@@ -8832,6 +8742,7 @@ var $c_Lcom_repocad_web_PdfPrinter = (function() {
   this.offsetX$1 = 0.0;
   this.offsetY$1 = 0.0;
   this.scaledCenter$1 = null;
+  this.paper$1 = null;
   this.toEnv$1 = null;
   this.bitmap$0$1 = false
 });
@@ -8842,8 +8753,12 @@ var $h_Lcom_repocad_web_PdfPrinter = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_PdfPrinter.prototype = $c_Lcom_repocad_web_PdfPrinter.prototype;
+$c_Lcom_repocad_web_PdfPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
+  return this.paper$1
+});
 $c_Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
-  this.landscape$1 = $m_Lcom_repocad_web_Paper$().scaleAndRotation__Z();
+  $s_Lcom_repocad_web_Printer$class__$$init$__Lcom_repocad_web_Printer__V(this);
+  this.landscape$1 = this.paper$1.scaleAndRotation__Z();
   this.orientation$1 = "landscape";
   if ((!this.landscape$1)) {
     this.orientation$1 = "portrait"
@@ -9034,6 +8949,9 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(x, y, h
 $c_Lcom_repocad_web_PdfPrinter.prototype.toEnv__sci_Map = (function() {
   return ((!this.bitmap$0$1) ? this.toEnv$lzycompute__p1__sci_Map() : this.toEnv$1)
 });
+$c_Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$Printer$$undsetter$und$paper$und$eq__Lcom_repocad_web_Paper__V = (function(x$1) {
+  this.paper$1 = x$1
+});
 $c_Lcom_repocad_web_PdfPrinter.prototype.toEnv$lzycompute__p1__sci_Map = (function() {
   if ((!this.bitmap$0$1)) {
     this.toEnv$1 = $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map(this);
@@ -9124,6 +9042,7 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.$classData = $d_Lcom_repocad_web_PdfPri
 /** @constructor */
 var $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1 = (function() {
   $c_O.call(this);
+  this.paper$1 = null;
   this.toEnv$1 = null;
   this.bitmap$0$1 = false
 });
@@ -9134,7 +9053,11 @@ var $h_Lcom_repocad_web_evaluating_Evaluator$$anon$1 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype = $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype;
+$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.paper__Lcom_repocad_web_Paper = (function() {
+  return this.paper$1
+});
 $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.init___ = (function() {
+  $s_Lcom_repocad_web_Printer$class__$$init$__Lcom_repocad_web_Printer__V(this);
   return this
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
@@ -9155,6 +9078,9 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.text__D__D__D__O__V =
 $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.toEnv__sci_Map = (function() {
   return ((!this.bitmap$0$1) ? this.toEnv$lzycompute__p1__sci_Map() : this.toEnv$1)
 });
+$c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.com$repocad$web$Printer$$undsetter$und$paper$und$eq__Lcom_repocad_web_Paper__V = (function(x$1) {
+  this.paper$1 = x$1
+});
 $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.toEnv$lzycompute__p1__sci_Map = (function() {
   if ((!this.bitmap$0$1)) {
     this.toEnv$1 = $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map(this);
@@ -9166,7 +9092,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.bezierCurve__D__D__D_
   /*<skip>*/
 });
 $c_Lcom_repocad_web_evaluating_Evaluator$$anon$1.prototype.prepare__V = (function() {
-  /*<skip>*/
+  this.paper$1.resetBoundingBox__V()
 });
 var $d_Lcom_repocad_web_evaluating_Evaluator$$anon$1 = new $ClassTypeData({
   Lcom_repocad_web_evaluating_Evaluator$$anon$1: 0
@@ -14688,6 +14614,172 @@ var $d_Lcom_repocad_web_Drawing = new $ClassTypeData({
   Ljava_io_Serializable: 1
 });
 $c_Lcom_repocad_web_Drawing.prototype.$classData = $d_Lcom_repocad_web_Drawing;
+/** @constructor */
+var $c_Lcom_repocad_web_Paper = (function() {
+  $c_O.call(this);
+  this.minX$1 = 0.0;
+  this.maxX$1 = 0.0;
+  this.minY$1 = 0.0;
+  this.maxY$1 = 0.0
+});
+$c_Lcom_repocad_web_Paper.prototype = new $h_O();
+$c_Lcom_repocad_web_Paper.prototype.constructor = $c_Lcom_repocad_web_Paper;
+/** @constructor */
+var $h_Lcom_repocad_web_Paper = (function() {
+  /*<skip>*/
+});
+$h_Lcom_repocad_web_Paper.prototype = $c_Lcom_repocad_web_Paper.prototype;
+$c_Lcom_repocad_web_Paper.prototype.init___D__D__D__D = (function(minX, maxX, minY, maxY) {
+  this.minX$1 = minX;
+  this.maxX$1 = maxX;
+  this.minY$1 = minY;
+  this.maxY$1 = maxY;
+  return this
+});
+$c_Lcom_repocad_web_Paper.prototype.productPrefix__T = (function() {
+  return "Paper"
+});
+$c_Lcom_repocad_web_Paper.prototype.productArity__I = (function() {
+  return 4
+});
+$c_Lcom_repocad_web_Paper.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else if ($is_Lcom_repocad_web_Paper(x$1)) {
+    var Paper$1 = $as_Lcom_repocad_web_Paper(x$1);
+    return ((((this.minX$1 === Paper$1.minX$1) && (this.maxX$1 === Paper$1.maxX$1)) && (this.minY$1 === Paper$1.minY$1)) && (this.maxY$1 === Paper$1.maxY$1))
+  } else {
+    return false
+  }
+});
+$c_Lcom_repocad_web_Paper.prototype.productElement__I__O = (function(x$1) {
+  switch (x$1) {
+    case 0:
+      {
+        return this.minX$1;
+        break
+      };
+    case 1:
+      {
+        return this.maxX$1;
+        break
+      };
+    case 2:
+      {
+        return this.minY$1;
+        break
+      };
+    case 3:
+      {
+        return this.maxY$1;
+        break
+      };
+    default:
+      throw new $c_jl_IndexOutOfBoundsException().init___T(("" + x$1));
+  }
+});
+$c_Lcom_repocad_web_Paper.prototype.toString__T = (function() {
+  return $m_sr_ScalaRunTime$().$$undtoString__s_Product__T(this)
+});
+$c_Lcom_repocad_web_Paper.prototype.scaleAndRotation__Z = (function() {
+  var height = (this.maxX$1 - this.minX$1);
+  var width = (this.maxY$1 - this.minY$1);
+  var x = ("X: " + height);
+  var this$2 = $m_s_Console$();
+  var this$3 = this$2.outVar$2;
+  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
+  var x$1 = ("Y: " + width);
+  var this$5 = $m_s_Console$();
+  var this$6 = this$5.outVar$2;
+  $as_Ljava_io_PrintStream(this$6.tl$1.get__O()).println__O__V(x$1);
+  var landscape = false;
+  var scale = $m_Lcom_repocad_web_package$().paperScale$1;
+  var bottomRight = new $c_Lcom_repocad_web_Vector2D().init___D__D(this.maxX$1, this.minY$1);
+  var topLeft = new $c_Lcom_repocad_web_Vector2D().init___D__D(this.minX$1, this.maxY$1);
+  var size = bottomRight.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(topLeft).abs__Lcom_repocad_web_Vector2D();
+  var this$7 = $m_Lcom_repocad_web_package$().paperSize$1;
+  $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$7, 0));
+  var this$8 = $m_Lcom_repocad_web_package$().paperSize$1;
+  $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 1));
+  $m_Lcom_repocad_web_package$().drawingCenter$1 = new $c_Lcom_repocad_web_Vector2D().init___D__D((this.maxX$1 - ((this.maxX$1 - this.minX$1) / 2)), (this.maxY$1 - ((this.maxY$1 - this.minY$1) / 2)));
+  $m_Lcom_repocad_web_package$().paperScale$1 = 1.0;
+  scale = 1.0;
+  var shortSide$2 = 210.0;
+  var longSide$2 = 297.0;
+  $m_sci_List$();
+  var xs = new $c_sjs_js_WrappedArray().init___sjs_js_Array([2.0, 2.5, 2.0]);
+  var this$10 = $m_sci_List$();
+  var cbf = this$10.ReusableCBFInstance$2;
+  var list = $as_sci_List($s_sc_TraversableLike$class__to__sc_TraversableLike__scg_CanBuildFrom__O(xs, cbf));
+  var take = 0;
+  while (true) {
+    var jsx$2 = shortSide$2;
+    var x$2 = size.x$1;
+    var y = size.y$1;
+    if ((jsx$2 < ((x$2 < y) ? x$2 : y))) {
+      var jsx$1 = true
+    } else {
+      var jsx$3 = longSide$2;
+      var x$3 = size.x$1;
+      var y$1 = size.y$1;
+      var jsx$1 = (jsx$3 < ((x$3 > y$1) ? x$3 : y$1))
+    };
+    if (jsx$1) {
+      var n = take;
+      var factor = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(list, n));
+      shortSide$2 = (shortSide$2 * factor);
+      longSide$2 = (longSide$2 * factor);
+      take = ((take < 2) ? ((1 + take) | 0) : 0);
+      $m_Lcom_repocad_web_package$().paperScale$1 = ($m_Lcom_repocad_web_package$().paperScale$1 * factor)
+    } else {
+      break
+    }
+  };
+  if ((size.x$1 >= size.y$1)) {
+    landscape = true
+  };
+  return landscape
+});
+$c_Lcom_repocad_web_Paper.prototype.hashCode__I = (function() {
+  var acc = (-889275714);
+  acc = $m_sr_Statics$().mix__I__I__I(acc, $m_sr_Statics$().doubleHash__D__I(this.minX$1));
+  acc = $m_sr_Statics$().mix__I__I__I(acc, $m_sr_Statics$().doubleHash__D__I(this.maxX$1));
+  acc = $m_sr_Statics$().mix__I__I__I(acc, $m_sr_Statics$().doubleHash__D__I(this.minY$1));
+  acc = $m_sr_Statics$().mix__I__I__I(acc, $m_sr_Statics$().doubleHash__D__I(this.maxY$1));
+  return $m_sr_Statics$().finalizeHash__I__I__I(acc, 4)
+});
+$c_Lcom_repocad_web_Paper.prototype.resetBoundingBox__V = (function() {
+  this.maxX$1 = 105.0;
+  this.minX$1 = (-105.0);
+  this.maxY$1 = 148.0;
+  this.minY$1 = (-148.0)
+});
+$c_Lcom_repocad_web_Paper.prototype.productIterator__sc_Iterator = (function() {
+  return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
+});
+var $is_Lcom_repocad_web_Paper = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_Paper)))
+});
+var $as_Lcom_repocad_web_Paper = (function(obj) {
+  return (($is_Lcom_repocad_web_Paper(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "com.repocad.web.Paper"))
+});
+var $isArrayOf_Lcom_repocad_web_Paper = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_Paper)))
+});
+var $asArrayOf_Lcom_repocad_web_Paper = (function(obj, depth) {
+  return (($isArrayOf_Lcom_repocad_web_Paper(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcom.repocad.web.Paper;", depth))
+});
+var $d_Lcom_repocad_web_Paper = new $ClassTypeData({
+  Lcom_repocad_web_Paper: 0
+}, false, "com.repocad.web.Paper", {
+  Lcom_repocad_web_Paper: 1,
+  O: 1,
+  s_Product: 1,
+  s_Equals: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1
+});
+$c_Lcom_repocad_web_Paper.prototype.$classData = $d_Lcom_repocad_web_Paper;
 /** @constructor */
 var $c_Lcom_repocad_web_Response = (function() {
   $c_O.call(this);

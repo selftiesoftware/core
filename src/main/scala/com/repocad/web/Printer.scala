@@ -7,6 +7,29 @@ import com.repocad.web.evaluating.Evaluator
  */
 trait Printer {
 
+    //vars needed to update the drawing bounding box
+    //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
+    val paper = new Paper()
+
+  /*
+  update the bounding box each time the drawing is evaluated.
+   */
+  def updateBoundingBox(x : Double, y: Double) : Vector2D = {
+
+    if (x >= paper.maxX) paper.maxX = x
+    if (x <= paper.minX) paper.minX = x
+    if (y >= paper.maxY) paper.maxY = y
+    if (y <= paper.minX) paper.minY = y
+
+    println("MAX X;" + paper.maxX)
+
+
+    //move the paper center to the center of the current artwork on the paper
+    val cX = paper.minX + (paper.maxX - paper.minX) / 2
+    val cY = paper.minY + (paper.maxY - paper.minY) / 2
+    Vector2D(cX, cY)
+  }
+
   /**
    * Draws an arc
    * @param x First coordinate
@@ -69,7 +92,9 @@ trait Printer {
   /**
    * Prepares the printer for drawing
    */
-  def prepare() : Unit
+  def prepare() : Unit = {
+    paper.resetBoundingBox()
+  }
 
   lazy val toEnv : Evaluator.Env = {
     Map(

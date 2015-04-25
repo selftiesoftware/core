@@ -8,48 +8,6 @@ import com.repocad.web.{Printer, Vector2D, _}
  * An evaluator to evaluate a list of [[Expr]]
  */
 object Evaluator {
-  
-  //vars needed to update the drawing bounding box
-  //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
-  var minX : Option[Double] = None
-  var maxX : Option[Double] = None
-  var minY : Option[Double] = None
-  var maxY : Option[Double] = None
-
-  /*
-  update the bounding box each time the drawing is evaluated.
-   */
-  def updateBoundingBox(x : Double, y: Double) : Vector2D = {
-    if(minX.isDefined && maxX.isDefined && minY.isDefined && maxY.isDefined) {
-      if (x >= maxX.get) maxX = Some(x)
-      if (x <= minX.get) minX = Some(x)
-      if (y >= maxY.get) maxY = Some(y)
-      if (y <= minY.get) minY = Some(y)
-
-      //first run: set the bounding box.
-    } else {
-
-      maxX = Some(x+1)
-        minX = Some(x-1)
-        maxY = Some(y+1)
-        minY = Some(y-1)
-    }
-
-    //move the paper center to the center of the current artwork on the paper
-    val cX = minX.get + (maxX.get - minX.get) / 2
-    val cY = minY.get + (maxY.get - minY.get) / 2
-    Vector2D(cX, cY)
-  }
-
-  /* run once before the evaluation loop to ensure the paper is scaled down again
-     if the drawing extends are smaller after user editing of the drawing.
-  */
-  def resetBoundingBox() = {
-    maxX = None
-    minX = None
-    maxY = None
-    minY = None
-  }
 
   type Env = Map[String, Any]
 
@@ -115,7 +73,7 @@ object Evaluator {
      * @param y4 start y
      */
    override def bezierCurve(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double, x4: Double, y4: Double): Unit = Unit
-    def prepare() :Unit = Unit
+    //def prepare() :Unit = Unit
   }
 
   def eval(expr : Expr, printer : Printer) : Value = {
