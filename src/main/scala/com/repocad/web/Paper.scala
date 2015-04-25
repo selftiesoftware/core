@@ -1,8 +1,5 @@
 package com.repocad.web
 
-import com.repocad.web.evaluating.Evaluator
-import org.scalajs.dom.CanvasRenderingContext2D
-
 /**
  * an object containing methods to draw the paper with the correct scale and orientation
  */
@@ -25,9 +22,6 @@ case class Paper ( var minX : Double = -105.0, var maxX : Double = 105.0, var mi
 
     val height = maxX - minX
     val width = maxY - minY
-
-    println("X: "+height)
-    println("Y: "+width)
 
     //var landscape = if(height > width) false else true
     var landscape = false

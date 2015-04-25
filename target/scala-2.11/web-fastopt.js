@@ -1134,7 +1134,7 @@ $c_Lcom_repocad_web_Printer$.prototype.dummyEnv$lzycompute__p1__sci_Map = (funct
       $uD(eAngle$2);
       return $m_s_Unit$()
     }));
-    var jsx$5 = new $c_T2().init___O__O("arc", y$1);
+    var jsx$4 = new $c_T2().init___O__O("arc", y$1);
     var y$3 = new $c_sjsr_AnonFunction9().init___sjs_js_Function9((function(env$2$1, x1$2, y1$2, x2$2, y2$2, x3$2, y3$2, x4$2, y4$2) {
       $as_sci_Map(env$2$1);
       $uD(x1$2);
@@ -1147,7 +1147,7 @@ $c_Lcom_repocad_web_Printer$.prototype.dummyEnv$lzycompute__p1__sci_Map = (funct
       $uD(y4$2);
       return $m_s_Unit$()
     }));
-    var jsx$4 = new $c_T2().init___O__O("bezierCurve", y$3);
+    var jsx$3 = new $c_T2().init___O__O("bezierCurve", y$3);
     var y$5 = new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(env$2$2, x$2$1, y$2$1, r$2$1) {
       $as_sci_Map(env$2$2);
       $uD(x$2$1);
@@ -1155,7 +1155,7 @@ $c_Lcom_repocad_web_Printer$.prototype.dummyEnv$lzycompute__p1__sci_Map = (funct
       $uD(r$2$1);
       return $m_s_Unit$()
     }));
-    var jsx$3 = new $c_T2().init___O__O("circle", y$5);
+    var jsx$2 = new $c_T2().init___O__O("circle", y$5);
     var y$6 = new $c_sjsr_AnonFunction5().init___sjs_js_Function5((function(env$2$3, x1$2$1, y1$2$1, x2$2$1, y2$2$1) {
       $as_sci_Map(env$2$3);
       $uD(x1$2$1);
@@ -1164,7 +1164,7 @@ $c_Lcom_repocad_web_Printer$.prototype.dummyEnv$lzycompute__p1__sci_Map = (funct
       $uD(y2$2$1);
       return $m_s_Unit$()
     }));
-    var jsx$2 = new $c_T2().init___O__O("line", y$6);
+    var jsx$1 = new $c_T2().init___O__O("line", y$6);
     var y$8 = new $c_sjsr_AnonFunction5().init___sjs_js_Function5((function(env$2$4, x$2$2, y$2$2, h$2, t$2) {
       $as_sci_Map(env$2$4);
       $uD(x$2$2);
@@ -1172,29 +1172,20 @@ $c_Lcom_repocad_web_Printer$.prototype.dummyEnv$lzycompute__p1__sci_Map = (funct
       $uD(h$2);
       return $m_s_Unit$()
     }));
-    var jsx$1 = new $c_T2().init___O__O("text", y$8);
-    var y$10 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(env$2$5, x$2$3, y$2$3, w$2, h$2$1, t$2$1) {
-      $as_sci_Map(env$2$5);
-      $uD(x$2$3);
-      $uD(y$2$3);
-      $uD(w$2);
-      $uD(h$2$1);
-      return $m_s_Unit$()
-    }));
-    var array = [jsx$5, jsx$4, jsx$3, jsx$2, jsx$1, new $c_T2().init___O__O("textBox", y$10)];
-    var this$14 = new $c_scm_MapBuilder().init___sc_GenMap($m_sci_Map$EmptyMap$());
+    var array = [jsx$4, jsx$3, jsx$2, jsx$1, new $c_T2().init___O__O("text", y$8)];
+    var this$12 = new $c_scm_MapBuilder().init___sc_GenMap($m_sci_Map$EmptyMap$());
     matchEnd4: {
       var i = 0;
       var len = $uI(array["length"]);
       while ((i < len)) {
         var index = i;
         var arg1 = array[index];
-        this$14.$$plus$eq__T2__scm_MapBuilder($as_T2(arg1));
+        this$12.$$plus$eq__T2__scm_MapBuilder($as_T2(arg1));
         i = ((1 + i) | 0)
       };
       break matchEnd4
     };
-    this.dummyEnv$1 = $as_sci_Map(this$14.elems$1);
+    this.dummyEnv$1 = $as_sci_Map(this$12.elems$1);
     this.bitmap$0$1 = true
   };
   return this.dummyEnv$1
@@ -1216,8 +1207,27 @@ var $m_Lcom_repocad_web_Printer$ = (function() {
   };
   return $n_Lcom_repocad_web_Printer$
 });
+var $s_Lcom_repocad_web_Printer$class__addAction__Lcom_repocad_web_Printer__F1__V = (function($$this, action) {
+  var jsx$1 = $$this.actions__sc_Seq();
+  var this$1 = $m_sc_Seq$();
+  $$this.actions$und$eq__sc_Seq__V($as_sc_Seq(jsx$1.$$colon$plus__O__scg_CanBuildFrom__O(action, this$1.ReusableCBFInstance$2)))
+});
 var $s_Lcom_repocad_web_Printer$class__$$init$__Lcom_repocad_web_Printer__V = (function($$this) {
-  $$this.com$repocad$web$Printer$$undsetter$und$paper$und$eq__Lcom_repocad_web_Paper__V(new $c_Lcom_repocad_web_Paper().init___D__D__D__D((-105.0), 105.0, (-147.0), 147.0))
+  $$this.com$repocad$web$Printer$$undsetter$und$paper$und$eq__Lcom_repocad_web_Paper__V(new $c_Lcom_repocad_web_Paper().init___D__D__D__D((-105.0), 105.0, (-147.0), 147.0));
+  $$this.actions$und$eq__sc_Seq__V($as_sc_Seq($m_sc_Seq$().apply__sc_Seq__sc_GenTraversable($m_sci_Nil$())))
+});
+var $s_Lcom_repocad_web_Printer$class__prepare__Lcom_repocad_web_Printer__V = (function($$this) {
+  $$this.paper__Lcom_repocad_web_Paper().resetBoundingBox__V();
+  $$this.actions$und$eq__sc_Seq__V($as_sc_Seq($m_sc_Seq$().apply__sc_Seq__sc_GenTraversable($m_sci_Nil$())))
+});
+var $s_Lcom_repocad_web_Printer$class__execute__Lcom_repocad_web_Printer__V = (function($$this) {
+  $$this.drawPaper__V();
+  $$this.actions__sc_Seq().foreach__F1__V(new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer) {
+    return (function(x$1$2) {
+      var x$1 = $as_F1(x$1$2);
+      x$1.apply__O__O(arg$outer.context__O())
+    })
+  })($$this)))
 });
 var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map = (function($$this) {
   var y$1 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(arg$outer) {
@@ -1231,7 +1241,7 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
       arg$outer.arc__D__D__D__D__D__V(x, y, r, sAngle, eAngle)
     })
   })($$this));
-  var jsx$5 = new $c_T2().init___O__O("arc", y$1);
+  var jsx$4 = new $c_T2().init___O__O("arc", y$1);
   var y$3 = new $c_sjsr_AnonFunction9().init___sjs_js_Function9((function(arg$outer$1) {
     return (function(env$2$1, x1$2, y1$2, x2$2, y2$2, x3$2, y3$2, x4$2, y4$2) {
       $as_sci_Map(env$2$1);
@@ -1246,7 +1256,7 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
       arg$outer$1.bezierCurve__D__D__D__D__D__D__D__D__V(x1, y1, x2, y2, x3, y3, x4, y4)
     })
   })($$this));
-  var jsx$4 = new $c_T2().init___O__O("bezierCurve", y$3);
+  var jsx$3 = new $c_T2().init___O__O("bezierCurve", y$3);
   var y$5 = new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(arg$outer$2) {
     return (function(env$2$2, x$2$1, y$2$1, r$2$1) {
       $as_sci_Map(env$2$2);
@@ -1256,7 +1266,7 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
       arg$outer$2.circle__D__D__D__V(x$1, y$4, r$1)
     })
   })($$this));
-  var jsx$3 = new $c_T2().init___O__O("circle", y$5);
+  var jsx$2 = new $c_T2().init___O__O("circle", y$5);
   var y$6 = new $c_sjsr_AnonFunction5().init___sjs_js_Function5((function(arg$outer$3) {
     return (function(env$2$3, x1$2$1, y1$2$1, x2$2$1, y2$2$1) {
       $as_sci_Map(env$2$3);
@@ -1267,7 +1277,7 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
       arg$outer$3.line__D__D__D__D__V(x1$1, y1$1, x2$1, y2$1)
     })
   })($$this));
-  var jsx$2 = new $c_T2().init___O__O("line", y$6);
+  var jsx$1 = new $c_T2().init___O__O("line", y$6);
   var y$8 = new $c_sjsr_AnonFunction5().init___sjs_js_Function5((function(arg$outer$4) {
     return (function(env$2$4, x$2$2, y$2$2, h$2, t$2) {
       $as_sci_Map(env$2$4);
@@ -1277,31 +1287,20 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
       arg$outer$4.text__D__D__D__O__V(x$3, y$7, h, t$2)
     })
   })($$this));
-  var jsx$1 = new $c_T2().init___O__O("text", y$8);
-  var y$10 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(arg$outer$5) {
-    return (function(env$2$5, x$2$3, y$2$3, w$2, h$2$1, t$2$1) {
-      $as_sci_Map(env$2$5);
-      var x$4 = $uD(x$2$3);
-      var y$9 = $uD(y$2$3);
-      var w = $uD(w$2);
-      var h$1 = $uD(h$2$1);
-      arg$outer$5.textBox__D__D__D__D__O__V(x$4, y$9, w, h$1, t$2$1)
-    })
-  })($$this));
-  var array = [jsx$5, jsx$4, jsx$3, jsx$2, jsx$1, new $c_T2().init___O__O("textBox", y$10)];
-  var this$14 = new $c_scm_MapBuilder().init___sc_GenMap($m_sci_Map$EmptyMap$());
+  var array = [jsx$4, jsx$3, jsx$2, jsx$1, new $c_T2().init___O__O("text", y$8)];
+  var this$12 = new $c_scm_MapBuilder().init___sc_GenMap($m_sci_Map$EmptyMap$());
   matchEnd4: {
     var i = 0;
     var len = $uI(array["length"]);
     while ((i < len)) {
       var index = i;
       var arg1 = array[index];
-      this$14.$$plus$eq__T2__scm_MapBuilder($as_T2(arg1));
+      this$12.$$plus$eq__T2__scm_MapBuilder($as_T2(arg1));
       i = ((1 + i) | 0)
     };
     break matchEnd4
   };
-  return $as_sci_Map(this$14.elems$1)
+  return $as_sci_Map(this$12.elems$1)
 });
 var $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D = (function($$this, x, y) {
   if ((x >= $$this.paper__Lcom_repocad_web_Paper().maxX$1)) {
@@ -1316,10 +1315,6 @@ var $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Print
   if ((y <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
     $$this.paper__Lcom_repocad_web_Paper().minY$1 = y
   };
-  var x$1 = ("MAX X;" + $$this.paper__Lcom_repocad_web_Paper().maxX$1);
-  var this$2 = $m_s_Console$();
-  var this$3 = this$2.outVar$2;
-  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x$1);
   var cX = ($$this.paper__Lcom_repocad_web_Paper().minX$1 + (($$this.paper__Lcom_repocad_web_Paper().maxX$1 - $$this.paper__Lcom_repocad_web_Paper().minX$1) / 2));
   var cY = ($$this.paper__Lcom_repocad_web_Paper().minY$1 + (($$this.paper__Lcom_repocad_web_Paper().maxY$1 - $$this.paper__Lcom_repocad_web_Paper().minY$1) / 2));
   return new $c_Lcom_repocad_web_Vector2D().init___D__D(cX, cY)
@@ -3633,10 +3628,9 @@ $c_Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_raw_HTMLC
   return this
 });
 $c_Lcom_repocad_web_rendering_Canvas.prototype.render__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__V = (function(ast, printer) {
-  printer.paper__Lcom_repocad_web_Paper().resetBoundingBox__V();
+  $s_Lcom_repocad_web_Printer$class__prepare__Lcom_repocad_web_Printer__V(printer);
   $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer);
-  printer.clear__V();
-  $m_Lcom_repocad_web_evaluating_Evaluator$().eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either(ast, printer)
+  $s_Lcom_repocad_web_Printer$class__execute__Lcom_repocad_web_Printer__V(printer)
 });
 $c_Lcom_repocad_web_rendering_Canvas.prototype.zoom__D__Lorg_scalajs_dom_raw_MouseEvent__V = (function(delta, e) {
   this.com$repocad$web$rendering$Canvas$$printer$f.zoom__D__D__D__V(delta, $uD(e["clientX"]), $uD(e["clientY"]));
@@ -3672,14 +3666,12 @@ var $h_Lcom_repocad_web_rendering_Editor = (function() {
 $h_Lcom_repocad_web_rendering_Editor.prototype = $c_Lcom_repocad_web_rendering_Editor.prototype;
 $c_Lcom_repocad_web_rendering_Editor.prototype.updateView__V = (function() {
   var this$1 = this.printer$1;
-  this$1.paper__Lcom_repocad_web_Paper().resetBoundingBox__V();
+  $s_Lcom_repocad_web_Printer$class__prepare__Lcom_repocad_web_Printer__V(this$1);
   var jsx$1 = $m_Lcom_repocad_web_evaluating_Evaluator$();
   var this$2 = this.com$repocad$web$rendering$Editor$$ast$1;
   jsx$1.eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$2)), this.printer$1);
-  this.printer$1.clear__V();
-  var jsx$2 = $m_Lcom_repocad_web_evaluating_Evaluator$();
-  var this$3 = this.com$repocad$web$rendering$Editor$$ast$1;
-  jsx$2.eval__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_Printer__s_util_Either($as_Lcom_repocad_web_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$3)), this.printer$1)
+  var this$3 = this.printer$1;
+  $s_Lcom_repocad_web_Printer$class__execute__Lcom_repocad_web_Printer__V(this$3)
 });
 $c_Lcom_repocad_web_rendering_Editor.prototype.init___Lorg_scalajs_dom_raw_HTMLDivElement__Lcom_repocad_web_Printer = (function(container, printer) {
   this.printer$1 = printer;
@@ -8648,6 +8640,7 @@ var $c_Lcom_repocad_web_CanvasPrinter = (function() {
   this.context$1 = null;
   this.landscape$1 = false;
   this.paper$1 = null;
+  this.actions$1 = null;
   this.toEnv$1 = null;
   this.bitmap$0$1 = false
 });
@@ -8665,16 +8658,6 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.init___Lorg_scalajs_dom_raw_HTMLCanv
   this.landscape$1 = false;
   return this
 });
-$c_Lcom_repocad_web_CanvasPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
-  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x1, y1);
-  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x2, y2);
-  this.context$1["beginPath"]();
-  this.context$1["moveTo"](x1, (-y1));
-  this.context$1["lineTo"](x2, (-y2));
-  this.context$1["stroke"]();
-  this.context$1["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1);
-  this.context$1["closePath"]()
-});
 $c_Lcom_repocad_web_CanvasPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
   return this.paper$1
 });
@@ -8682,49 +8665,20 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.init__V = (function() {
   this.context$1["translate"]((($uI(this.canvas$1["width"]) / 2) | 0), (($uI(this.canvas$1["height"]) / 2) | 0));
   this.drawPaper__V()
 });
-$c_Lcom_repocad_web_CanvasPrinter.prototype.textBox__D__D__D__D__O__V = (function(x, y, w, h, t) {
-  var text = $objectToString(t);
-  var correctedH = (h / 1.5);
-  var elem$1 = 0.0;
-  elem$1 = y;
-  var thiz = $objectToString(t);
-  var length = ((0.3 * $uI(thiz["length"])) * h);
-  var lines = (length / w);
-  var this$4 = new $c_sci_StringOps().init___T(text);
-  var this$5 = $m_sci_List$();
-  var cbf = this$5.ReusableCBFInstance$2;
-  var elem = $as_sci_List($s_sc_TraversableLike$class__to__sc_TraversableLike__scg_CanBuildFrom__O(this$4, cbf));
-  var elem$1$1 = null;
-  elem$1$1 = elem;
-  var chars = $uI(text["length"]);
-  var charsPerLine = ((chars / lines) | 0);
-  var x$1 = (x + (length / (length / w)));
-  var y$1 = (y - ((h * length) / $uD($g["Math"]["ceil"](w))));
-  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$1, y$1);
-  var y$2 = (y + h);
-  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x, y$2);
-  var end = ((2 + (lines | 0)) | 0);
-  var isEmpty$4 = (end < 1);
-  var numRangeElements$4 = (isEmpty$4 ? 0 : end);
-  var lastElement$4 = (isEmpty$4 ? 0 : end);
-  var terminalElement$4 = ((1 + lastElement$4) | 0);
-  if ((numRangeElements$4 < 0)) {
-    $m_sci_Range$().scala$collection$immutable$Range$$fail__I__I__I__Z__sr_Nothing$(1, end, 1, true)
-  };
-  var i = 1;
-  var count = 0;
-  while ((i !== terminalElement$4)) {
-    var v1 = i;
-    var myFont = (("" + correctedH) + "px Arial");
-    var str = $as_sci_List(elem$1$1).take__I__sci_List(charsPerLine);
-    elem$1$1 = $as_sci_List(elem$1$1).takeRight__I__sci_List(((chars - $imul(charsPerLine, v1)) | 0));
-    this.context$1["font"] = myFont;
-    this.context$1["fillStyle"] = "black";
-    this.context$1["fillText"]($s_sc_TraversableOnce$class__mkString__sc_TraversableOnce__T__T__T__T(str, "", "", ""), x, elem$1);
-    elem$1 = (elem$1 + h);
-    count = ((1 + count) | 0);
-    i = ((1 + i) | 0)
-  }
+$c_Lcom_repocad_web_CanvasPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x1, y1);
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x2, y2);
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x1$2, y1$2, x2$2, y2$2) {
+    return (function(context$2) {
+      context$2["beginPath"]();
+      context$2["moveTo"](x1$2, (-y1$2));
+      context$2["lineTo"](x2$2, (-y2$2));
+      context$2["stroke"]();
+      context$2["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1);
+      context$2["closePath"]()
+    })
+  })(x1, y1, x2, y2));
+  $s_Lcom_repocad_web_Printer$class__addAction__Lcom_repocad_web_Printer__F1__V(this, action)
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
   var x$1 = (x + r);
@@ -8733,36 +8687,38 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.circle__D__D__D__V = (function(x, y,
   var x$2 = (x - r);
   var y$2 = (y - r);
   $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$2, y$2);
-  this.context$1["beginPath"]();
-  this.context$1["arc"](x, (-y), r, 0.0, 6.283185307179586);
-  this.context$1["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1);
-  this.context$1["stroke"]();
-  this.context$1["closePath"]()
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x$3, y$3, r$2) {
+    return (function(context$2) {
+      context$2["beginPath"]();
+      context$2["arc"](x$3, (-y$3), r$2, 0.0, 6.283185307179586);
+      context$2["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1);
+      context$2["stroke"]();
+      context$2["closePath"]()
+    })
+  })(x, y, r));
+  $s_Lcom_repocad_web_Printer$class__addAction__Lcom_repocad_web_Printer__F1__V(this, action)
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
   var thiz = $objectToString(t);
   var length = ((0.3 * $uI(thiz["length"])) * h);
   var correctedH = (h / 1.5);
-  this.context$1["save"]();
   var myFont = (("" + correctedH) + "px Arial");
-  this.context$1["font"] = myFont;
-  this.context$1["fillStyle"] = "black";
-  this.context$1["fillText"]($objectToString(t), x, (-y));
-  this.context$1["restore"]();
   var x$1 = ((-10.0) + x);
   var y$1 = ((-10.0) + y);
   $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$1, y$1);
   var x$2 = (x + length);
   var y$2 = (10 + (y + h));
-  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$2, y$2)
-});
-$c_Lcom_repocad_web_CanvasPrinter.prototype.screenText__D__D__D__O__V = (function(x, y, size, t) {
-  this.context$1["font"] = (("" + size) + " pt Arial");
-  this.context$1["fillStyle"] = "black";
-  this.context$1["save"]();
-  this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
-  this.context$1["fillText"]($objectToString(t), x, y);
-  this.context$1["restore"]()
+  $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$2, y$2);
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x$4, y$4, t$2, myFont$2) {
+    return (function(context$2) {
+      context$2["save"]();
+      context$2["font"] = myFont$2;
+      context$2["fillStyle"] = "black";
+      context$2["fillText"]($objectToString(t$2), x$4, (-y$4));
+      context$2["restore"]()
+    })
+  })(x, y, t, myFont));
+  $s_Lcom_repocad_web_Printer$class__addAction__Lcom_repocad_web_Printer__F1__V(this, action)
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   var x$1 = (x + r);
@@ -8771,47 +8727,53 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.arc__D__D__D__D__D__V = (function(x,
   var x$2 = (x - r);
   var y$2 = (y - r);
   $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x$2, y$2);
-  this.context$1["beginPath"]();
-  this.context$1["arc"](x, (-y), r, sAngle, eAngle);
-  this.context$1["stroke"]();
-  this.context$1["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1);
-  this.context$1["closePath"]()
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x$2$1, y$2$1, r$1, sAngle$1, eAngle$1) {
+    return (function(context$2) {
+      context$2["beginPath"]();
+      context$2["arc"](x$2$1, (-y$2$1), r$1, sAngle$1, eAngle$1);
+      context$2["stroke"]();
+      context$2["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1);
+      context$2["closePath"]()
+    })
+  })(x, y, r, sAngle, eAngle));
+  $s_Lcom_repocad_web_Printer$class__addAction__Lcom_repocad_web_Printer__F1__V(this, action)
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.drawPaper__V = (function() {
+  this.context$1["save"]();
+  this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+  this.context$1["fillStyle"] = "AliceBlue";
+  this.context$1["fillRect"](0.0, 0.0, $uI(this.canvas$1["width"]), $uI(this.canvas$1["height"]));
+  this.context$1["restore"]();
   $m_Lcom_repocad_web_package$().canvasCorner$1 = new $c_Lcom_repocad_web_Vector2D().init___D__D($uD(this.canvas$1["getBoundingClientRect"]()["left"]), $uD(this.canvas$1["getBoundingClientRect"]()["top"]));
   this.context$1["fillStyle"] = "white";
   this.landscape$1 = this.paper$1.scaleAndRotation__Z();
   if (this.landscape$1) {
     var jsx$1 = $m_Lcom_repocad_web_package$().drawingCenter$1.x$1;
-    var this$2 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var x = (jsx$1 - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$2, 1)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
-    var jsx$2 = $m_Lcom_repocad_web_package$().drawingCenter$1.y$1;
     var this$3 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var y = ((-jsx$2) - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$3, 0)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
-    var jsx$5 = this.context$1;
+    var x = (jsx$1 - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$3, 1)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
+    var jsx$2 = $m_Lcom_repocad_web_package$().drawingCenter$1.y$1;
     var this$4 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var jsx$4 = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$4, 1));
-    var jsx$3 = $m_Lcom_repocad_web_package$().paperScale$1;
+    var y = ((-jsx$2) - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$4, 0)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
+    var jsx$5 = this.context$1;
     var this$5 = $m_Lcom_repocad_web_package$().paperSize$1;
-    jsx$5["fillRect"](x, y, (jsx$4 * jsx$3), ($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$5, 0)) * $m_Lcom_repocad_web_package$().paperScale$1))
+    var jsx$4 = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$5, 1));
+    var jsx$3 = $m_Lcom_repocad_web_package$().paperScale$1;
+    var this$6 = $m_Lcom_repocad_web_package$().paperSize$1;
+    jsx$5["fillRect"](x, y, (jsx$4 * jsx$3), ($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$6, 0)) * $m_Lcom_repocad_web_package$().paperScale$1))
   } else {
     var jsx$6 = $m_Lcom_repocad_web_package$().drawingCenter$1.x$1;
-    var this$6 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var x$2 = (jsx$6 - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$6, 0)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
-    var jsx$7 = $m_Lcom_repocad_web_package$().drawingCenter$1.y$1;
     var this$7 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var y$2 = ((-jsx$7) - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$7, 1)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
-    var jsx$10 = this.context$1;
+    var x$2 = (jsx$6 - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$7, 0)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
+    var jsx$7 = $m_Lcom_repocad_web_package$().drawingCenter$1.y$1;
     var this$8 = $m_Lcom_repocad_web_package$().paperSize$1;
-    var jsx$9 = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 0));
-    var jsx$8 = $m_Lcom_repocad_web_package$().paperScale$1;
+    var y$2 = ((-jsx$7) - (($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 1)) * $m_Lcom_repocad_web_package$().paperScale$1) / 2));
+    var jsx$10 = this.context$1;
     var this$9 = $m_Lcom_repocad_web_package$().paperSize$1;
-    jsx$10["fillRect"](x$2, y$2, (jsx$9 * jsx$8), ($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$9, 1)) * $m_Lcom_repocad_web_package$().paperScale$1))
-  };
-  var this$10 = $m_Lcom_repocad_web_package$().paperScale$1;
-  var txt = ("p a p e r : A 4       s c a l e:   1 :  " + ("" + this$10));
-  this.screenText__D__D__D__O__V(5.0, 10.0, 70.0, txt);
-  this.screenText__D__D__D__O__V(370.0, 10.0, 70.0, "v e r.   0 . 1 5 ")
+    var jsx$9 = $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$9, 0));
+    var jsx$8 = $m_Lcom_repocad_web_package$().paperScale$1;
+    var this$10 = $m_Lcom_repocad_web_package$().paperSize$1;
+    jsx$10["fillRect"](x$2, y$2, (jsx$9 * jsx$8), ($uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$10, 1)) * $m_Lcom_repocad_web_package$().paperScale$1))
+  }
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.toEnv__sci_Map = (function() {
   return ((!this.bitmap$0$1) ? this.toEnv$lzycompute__p1__sci_Map() : this.toEnv$1)
@@ -8829,27 +8791,33 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.toEnv$lzycompute__p1__sci_Map = (fun
 $c_Lcom_repocad_web_CanvasPrinter.prototype.windowCenter__Lcom_repocad_web_Vector2D = (function() {
   return new $c_Lcom_repocad_web_Vector2D().init___D__D((0.5 * ($uD(this.canvas$1["getBoundingClientRect"]()["right"]) + $uD(this.canvas$1["getBoundingClientRect"]()["left"]))), (0.5 * ($uD(this.canvas$1["getBoundingClientRect"]()["bottom"]) + $uD(this.canvas$1["getBoundingClientRect"]()["top"]))))
 });
+$c_Lcom_repocad_web_CanvasPrinter.prototype.actions__sc_Seq = (function() {
+  return this.actions$1
+});
+$c_Lcom_repocad_web_CanvasPrinter.prototype.actions$und$eq__sc_Seq__V = (function(x$1) {
+  this.actions$1 = x$1
+});
 $c_Lcom_repocad_web_CanvasPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
   $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x1, y1);
   $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x2, y2);
   $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x3, y3);
   $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D(this, x4, y4);
-  this.context$1["beginPath"]();
-  this.context$1["moveTo"](x1, (-y1));
-  this.context$1["bezierCurveTo"](x2, (-y2), x3, (-y3), x4, (-y4));
-  this.context$1["stroke"]();
-  this.context$1["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1)
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x1$1, y1$1, x2$1, y2$1, x3$1, y3$1, x4$1, y4$1) {
+    return (function(context$2) {
+      context$2["beginPath"]();
+      context$2["moveTo"](x1$1, (-y1$1));
+      context$2["bezierCurveTo"](x2$1, (-y2$1), x3$1, (-y3$1), x4$1, (-y4$1));
+      context$2["stroke"]();
+      context$2["lineWidth"] = (0.2 * $m_Lcom_repocad_web_package$().paperScale$1)
+    })
+  })(x1, y1, x2, y2, x3, y3, x4, y4));
+  $s_Lcom_repocad_web_Printer$class__addAction__Lcom_repocad_web_Printer__F1__V(this, action)
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.translate__D__D__V = (function(x, y) {
   this.context$1["translate"](x, y)
 });
-$c_Lcom_repocad_web_CanvasPrinter.prototype.clear__V = (function() {
-  this.context$1["save"]();
-  this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
-  this.context$1["fillStyle"] = "AliceBlue";
-  this.context$1["fillRect"](0.0, 0.0, $uI(this.canvas$1["width"]), $uI(this.canvas$1["height"]));
-  this.context$1["restore"]();
-  this.drawPaper__V()
+$c_Lcom_repocad_web_CanvasPrinter.prototype.context__O = (function() {
+  return this.context$1
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.zoom__D__D__D__V = (function(delta, pointX, pointY) {
   var zoomScale = ((delta === (-1)) ? (1 + (0.15 * delta)) : (1 + (0.1767 * delta)));
@@ -8871,11 +8839,12 @@ var $c_Lcom_repocad_web_PdfPrinter = (function() {
   $c_O.call(this);
   this.landscape$1 = false;
   this.orientation$1 = null;
-  this.document$1 = null;
+  this.context$1 = null;
   this.offsetX$1 = 0.0;
   this.offsetY$1 = 0.0;
   this.scaledCenter$1 = null;
   this.paper$1 = null;
+  this.actions$1 = null;
   this.toEnv$1 = null;
   this.bitmap$0$1 = false
 });
@@ -8895,26 +8864,26 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
   };
   var s = this.orientation$1;
   var jsx$1 = $g["jsPDF"](s);
-  this.document$1 = jsx$1;
+  this.context$1 = jsx$1;
   this.offsetX$1 = $m_Lcom_repocad_web_package$().drawingCenter$1.x$1;
   this.offsetY$1 = $m_Lcom_repocad_web_package$().drawingCenter$1.y$1;
   this.scaledCenter$1 = new $c_Lcom_repocad_web_Vector2D().init___D__D(($m_Lcom_repocad_web_package$().drawingCenter$1.x$1 / $m_Lcom_repocad_web_package$().paperScale$1), ((-$m_Lcom_repocad_web_package$().drawingCenter$1.y$1) / $m_Lcom_repocad_web_package$().paperScale$1));
-  this.document$1["setLineWidth"](0.1);
+  this.context$1["setLineWidth"](0.1);
   return this
-});
-$c_Lcom_repocad_web_PdfPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
-  return this.paper$1
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
   var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D((x1 / $m_Lcom_repocad_web_package$().paperScale$1), (y1 / $m_Lcom_repocad_web_package$().paperScale$1)));
   var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D((x2 / $m_Lcom_repocad_web_package$().paperScale$1), (y2 / $m_Lcom_repocad_web_package$().paperScale$1)));
-  this.document$1["setLineWidth"](0.1);
-  var jsx$1 = this.document$1;
+  this.context$1["setLineWidth"](0.1);
+  var jsx$1 = this.context$1;
   var value = v1.x$1;
   var value$1 = v1.y$1;
   var value$2 = v2.x$1;
   var value$3 = v2.y$1;
   jsx$1["line"](value, value$1, value$2, value$3)
+});
+$c_Lcom_repocad_web_PdfPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
+  return this.paper$1
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D = (function(v) {
   if ((!this.landscape$1)) {
@@ -8933,55 +8902,22 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$transform__
     return b
   }
 });
-$c_Lcom_repocad_web_PdfPrinter.prototype.textBox__D__D__D__D__O__V = (function(x, y, w, h, t) {
-  var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D(x, y));
-  var jsx$1 = this.document$1;
-  var value = (1.8 * h);
-  jsx$1["setFontSize"](value);
-  var elem = v.y$1;
-  var elem$1 = 0.0;
-  elem$1 = elem;
-  var thiz = $objectToString(t);
-  var length = ((0.3 * $uI(thiz["length"])) * h);
-  var lines = (length / w);
-  var end = (lines | 0);
-  var isEmpty$4 = (end < 0);
-  var numRangeElements$4 = (isEmpty$4 ? 0 : ((end > 2147483646) ? (-1) : ((1 + end) | 0)));
-  var lastElement$4 = (isEmpty$4 ? (-1) : end);
-  var terminalElement$4 = ((1 + lastElement$4) | 0);
-  if ((numRangeElements$4 < 0)) {
-    $m_sci_Range$().scala$collection$immutable$Range$$fail__I__I__I__Z__sr_Nothing$(0, end, 1, true)
-  };
-  var i = 0;
-  var count = 0;
-  while ((i !== terminalElement$4)) {
-    var v1 = i;
-    var jsx$2 = this.document$1;
-    var value$1 = (v.x$1 / $m_Lcom_repocad_web_package$().paperScale$1);
-    var value$2 = (elem$1 / $m_Lcom_repocad_web_package$().paperScale$1);
-    var s = $objectToString(t);
-    jsx$2["text"](value$1, value$2, s);
-    elem$1 = (elem$1 + h);
-    count = ((1 + count) | 0);
-    i = ((1 + i) | 0)
-  }
-});
 $c_Lcom_repocad_web_PdfPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
   var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D(x, y));
-  var jsx$1 = this.document$1;
+  var jsx$1 = this.context$1;
   var value = v.x$1;
   var value$1 = v.y$1;
   jsx$1["circle"](value, value$1, r)
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.save__T__V = (function(name) {
-  this.document$1["save"](name)
+  this.context$1["save"](name)
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.text__D__D__D__O__V = (function(x, y, h, t) {
   var v = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D(x, y));
-  var jsx$1 = this.document$1;
+  var jsx$1 = this.context$1;
   var value = (1.8 * h);
   jsx$1["setFontSize"](value);
-  var jsx$2 = this.document$1;
+  var jsx$2 = this.context$1;
   var value$1 = (v.x$1 / $m_Lcom_repocad_web_package$().paperScale$1);
   var value$2 = (v.y$1 / $m_Lcom_repocad_web_package$().paperScale$1);
   var s = $objectToString(t);
@@ -9052,7 +8988,7 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y,
       };
       var scaleCurve = result$1
     };
-    var jsx$2 = this.document$1;
+    var jsx$2 = this.context$1;
     var arr$2 = $m_s_Array$().apply__sc_Seq__s_reflect_ClassTag__O(new $c_sjs_js_WrappedArray().init___sjs_js_Array([six]), $m_s_reflect_ClassTag$().apply__jl_Class__s_reflect_ClassTag($d_sjs_js_Array.getClassOf()));
     var $$this$2 = $m_s_Predef$().genericArrayOps__O__scm_ArrayOps(arr$2);
     if ($is_sjs_js_ArrayOps($$this$2)) {
@@ -9079,6 +9015,9 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y,
     these = this$13.tail__sci_List()
   }
 });
+$c_Lcom_repocad_web_PdfPrinter.prototype.drawPaper__V = (function() {
+  /*<skip>*/
+});
 $c_Lcom_repocad_web_PdfPrinter.prototype.toEnv__sci_Map = (function() {
   return ((!this.bitmap$0$1) ? this.toEnv$lzycompute__p1__sci_Map() : this.toEnv$1)
 });
@@ -9091,6 +9030,12 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.toEnv$lzycompute__p1__sci_Map = (functi
     this.bitmap$0$1 = true
   };
   return this.toEnv$1
+});
+$c_Lcom_repocad_web_PdfPrinter.prototype.actions__sc_Seq = (function() {
+  return this.actions$1
+});
+$c_Lcom_repocad_web_PdfPrinter.prototype.actions$und$eq__sc_Seq__V = (function(x$1) {
+  this.actions$1 = x$1
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V = (function(x1, y1, x2, y2, x3, y3, x4, y4) {
   var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D((x1 / $m_Lcom_repocad_web_package$().paperScale$1), (y1 / $m_Lcom_repocad_web_package$().paperScale$1)));
@@ -9137,7 +9082,7 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V 
     };
     var scaleCurve = result$1
   };
-  var jsx$2 = this.document$1;
+  var jsx$2 = this.context$1;
   var arr$2 = $m_s_Array$().apply__sc_Seq__s_reflect_ClassTag__O(new $c_sjs_js_WrappedArray().init___sjs_js_Array([six]), $m_s_reflect_ClassTag$().apply__jl_Class__s_reflect_ClassTag($d_sjs_js_Array.getClassOf()));
   var $$this$2 = $m_s_Predef$().genericArrayOps__O__scm_ArrayOps(arr$2);
   if ($is_sjs_js_ArrayOps($$this$2)) {
@@ -9161,8 +9106,8 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.bezierCurve__D__D__D__D__D__D__D__D__V 
   var value$1 = v1.y$1;
   jsx$2["lines"](jsx$1, value, value$1, scaleCurve)
 });
-$c_Lcom_repocad_web_PdfPrinter.prototype.clear__V = (function() {
-  /*<skip>*/
+$c_Lcom_repocad_web_PdfPrinter.prototype.context__O = (function() {
+  return this.context$1
 });
 var $d_Lcom_repocad_web_PdfPrinter = new $ClassTypeData({
   Lcom_repocad_web_PdfPrinter: 0
@@ -14757,25 +14702,19 @@ $c_Lcom_repocad_web_Paper.prototype.toString__T = (function() {
   return $m_sr_ScalaRunTime$().$$undtoString__s_Product__T(this)
 });
 $c_Lcom_repocad_web_Paper.prototype.scaleAndRotation__Z = (function() {
-  var height = (this.maxX$1 - this.minX$1);
-  var width = (this.maxY$1 - this.minY$1);
-  var x = ("X: " + height);
-  var this$2 = $m_s_Console$();
-  var this$3 = this$2.outVar$2;
-  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
-  var x$1 = ("Y: " + width);
-  var this$5 = $m_s_Console$();
-  var this$6 = this$5.outVar$2;
-  $as_Ljava_io_PrintStream(this$6.tl$1.get__O()).println__O__V(x$1);
+  this.maxX$1;
+  this.minX$1;
+  this.maxY$1;
+  this.minY$1;
   var landscape = false;
   var scale = $m_Lcom_repocad_web_package$().paperScale$1;
   var bottomRight = new $c_Lcom_repocad_web_Vector2D().init___D__D(this.maxX$1, this.minY$1);
   var topLeft = new $c_Lcom_repocad_web_Vector2D().init___D__D(this.minX$1, this.maxY$1);
   var size = bottomRight.$$minus__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(topLeft).abs__Lcom_repocad_web_Vector2D();
-  var this$7 = $m_Lcom_repocad_web_package$().paperSize$1;
-  $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$7, 0));
-  var this$8 = $m_Lcom_repocad_web_package$().paperSize$1;
-  $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$8, 1));
+  var this$1 = $m_Lcom_repocad_web_package$().paperSize$1;
+  $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$1, 0));
+  var this$2 = $m_Lcom_repocad_web_package$().paperSize$1;
+  $uD($s_sc_LinearSeqOptimized$class__apply__sc_LinearSeqOptimized__I__O(this$2, 1));
   $m_Lcom_repocad_web_package$().drawingCenter$1 = new $c_Lcom_repocad_web_Vector2D().init___D__D((this.maxX$1 - ((this.maxX$1 - this.minX$1) / 2)), (this.maxY$1 - ((this.maxY$1 - this.minY$1) / 2)));
   $m_Lcom_repocad_web_package$().paperScale$1 = 1.0;
   scale = 1.0;
@@ -14783,21 +14722,21 @@ $c_Lcom_repocad_web_Paper.prototype.scaleAndRotation__Z = (function() {
   var longSide$2 = 297.0;
   $m_sci_List$();
   var xs = new $c_sjs_js_WrappedArray().init___sjs_js_Array([2.0, 2.5, 2.0]);
-  var this$10 = $m_sci_List$();
-  var cbf = this$10.ReusableCBFInstance$2;
+  var this$4 = $m_sci_List$();
+  var cbf = this$4.ReusableCBFInstance$2;
   var list = $as_sci_List($s_sc_TraversableLike$class__to__sc_TraversableLike__scg_CanBuildFrom__O(xs, cbf));
   var take = 0;
   while (true) {
     var jsx$2 = shortSide$2;
-    var x$2 = size.x$1;
+    var x = size.x$1;
     var y = size.y$1;
-    if ((jsx$2 < ((x$2 < y) ? x$2 : y))) {
+    if ((jsx$2 < ((x < y) ? x : y))) {
       var jsx$1 = true
     } else {
       var jsx$3 = longSide$2;
-      var x$3 = size.x$1;
+      var x$1 = size.x$1;
       var y$1 = size.y$1;
-      var jsx$1 = (jsx$3 < ((x$3 > y$1) ? x$3 : y$1))
+      var jsx$1 = (jsx$3 < ((x$1 > y$1) ? x$1 : y$1))
     };
     if (jsx$1) {
       var n = take;
@@ -30779,9 +30718,6 @@ $h_sci_List.prototype = $c_sci_List.prototype;
 $c_sci_List.prototype.seq__sc_TraversableOnce = (function() {
   return this
 });
-$c_sci_List.prototype.takeRight__I__sci_List = (function(n) {
-  return this.loop$2__p4__sci_List__sci_List__sci_List(this.drop__I__sci_List(n), this)
-});
 $c_sci_List.prototype.init___ = (function() {
   return this
 });
@@ -30803,25 +30739,6 @@ $c_sci_List.prototype.exists__F1__Z = (function(p) {
 });
 $c_sci_List.prototype.toList__sci_List = (function() {
   return this
-});
-$c_sci_List.prototype.loop$2__p4__sci_List__sci_List__sci_List = (function(lead, lag) {
-  _loop: while (true) {
-    var x1 = lead;
-    var x$2 = $m_sci_Nil$();
-    if (((x$2 === null) ? (x1 === null) : x$2.equals__O__Z(x1))) {
-      return lag
-    } else if ($is_sci_$colon$colon(x1)) {
-      var x2 = $as_sci_$colon$colon(x1);
-      var tail = x2.tl$5;
-      var this$1 = lag;
-      var temp$lag = this$1.tail__sci_List();
-      lead = tail;
-      lag = temp$lag;
-      continue _loop
-    } else {
-      throw new $c_s_MatchError().init___O(x1)
-    }
-  }
 });
 $c_sci_List.prototype.thisCollection__sc_Traversable = (function() {
   return this

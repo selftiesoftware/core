@@ -6,12 +6,12 @@ import SplineToArc2D.arcToBezier
 /**
  * A printer that can generate pdf files
  */
-class PdfPrinter() extends Printer {
+class PdfPrinter extends Printer[Any] {
 
   val landscape = paper.scaleAndRotation() //update the paper scale and rotation so the correct values are used when generating the PDF
   var orientation : String = "landscape"
   if (!landscape) orientation = "portrait"
-  val document = js.Dynamic.global.jsPDF(orientation.toString)
+  val context = js.Dynamic.global.jsPDF(orientation.toString)
   val offsetX = com.repocad.web.drawingCenter.x
   val offsetY = com.repocad.web.drawingCenter.y
 
@@ -19,7 +19,7 @@ class PdfPrinter() extends Printer {
   var scaledCenter = Vector2D(drawingCenter.x / paperScale ,-drawingCenter.y / paperScale)
 
   //set standard line weight
-  document.setLineWidth(0.1)
+  context.setLineWidth(0.1)
 
   /**
    * create an arc.
@@ -63,7 +63,7 @@ class PdfPrinter() extends Printer {
       val six = Array(aX, aY, bX, bY, cX, cY).toJSArray //two control points and end point:
       val scaleCurve = Array(1, 1).toJSArray //scale x/y
       //create the bezier curve
-      document.lines(Array(six).toJSArray, v1.x, v1.y, scaleCurve)
+      context.lines(Array(six).toJSArray, v1.x, v1.y, scaleCurve)
     })
   }
 
@@ -81,40 +81,27 @@ class PdfPrinter() extends Printer {
     val six = Array(v2.x - x,v2.y - y,v3.x - x,v3.y - y,v4.x - x, v4.y - y).toJSArray     //two control points and end point:
     val scaleCurve = Array(1,1).toJSArray //scale x/y
     //create the bezier curve
-    document.lines(Array(six).toJSArray,v1.x,v1.y,scaleCurve)
+    context.lines(Array(six).toJSArray,v1.x,v1.y,scaleCurve)
   }
 
   def circle(x : Double, y : Double, r : Double) : Unit = {
     val v = transform(Vector2D(x, y))
-    document.circle(v.x,v.y,r)
+    context.circle(v.x,v.y,r)
   }
 
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : Unit = {
     val v1 = transform(Vector2D(x1 / paperScale, y1 / paperScale))
     val v2 = transform(Vector2D(x2 / paperScale, y2 / paperScale))
-    document.setLineWidth(0.1)
-    document.line(v1.x, v1.y, v2.x, v2.y)
+    context.setLineWidth(0.1)
+    context.line(v1.x, v1.y, v2.x, v2.y)
   }
 
   def text(x : Double, y : Double, h : Double, t : Any) : Unit = {
     val v = transform(Vector2D(x, y))
     //document.setFont("times")
-    document.setFontSize(h * 1.8)
+    context.setFontSize(h * 1.8)
     //document("test")
-    document.text(v.x / paperScale,v.y / paperScale,t.toString)
-  }
-
-  def textBox(x : Double, y : Double, w: Double, h : Double, t : Any) : Unit = {
-    val v = transform(Vector2D(x, y))
-    document.setFontSize(h * 1.8)
-    var newY = v.y
-    val length = t.toString.length * 0.3 * h
-    val lines = length/w
-
-    for (i <- 0 to lines.toInt) {
-      document.text(v.x / paperScale,newY / paperScale,t.toString)
-      newY = newY + h
-    }
+    context.text(v.x / paperScale,v.y / paperScale,t.toString)
   }
 
   private def transform(v : Vector2D): Vector2D = {
@@ -128,8 +115,9 @@ class PdfPrinter() extends Printer {
   }
 
   def save(name : String): Unit = {
-    document.save(name)
+    context.save(name)
   }
 
-  override def clear(): Unit = Unit
+  def drawPaper(): Unit = Unit
+
 }

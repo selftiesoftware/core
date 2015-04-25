@@ -2,7 +2,7 @@ package com.repocad.web.evaluating
 
 import com.repocad.web.lexing.Lexer
 import com.repocad.web.parsing._
-import com.repocad.web.{Printer, Vector2D, _}
+import com.repocad.web.{Printer, _}
 
 /**
  * An evaluator to evaluate a list of [[Expr]]
@@ -15,7 +15,7 @@ object Evaluator {
 
   private var scriptEnv : Map[String, Env] = Map()
 
-  def eval(expr : Expr, printer : Printer) : Value = {
+  def eval(expr : Expr, printer : Printer[_]) : Value = {
     try {
       eval(expr, printer.toEnv ++ RepoMath.toEnv).left.map(e => {
         println("Error when evaluating: " + e)

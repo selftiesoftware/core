@@ -1,9 +1,9 @@
 package com.repocad.web.rendering
 
 import com.repocad.web.evaluating.Evaluator
-import com.repocad.web.{Paper, Printer, Drawing}
 import com.repocad.web.lexing.Lexer
 import com.repocad.web.parsing.{Expr, Parser, UnitExpr}
+import com.repocad.web.{Drawing, Printer}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.{HTMLDivElement, HTMLTextAreaElement}
 import rx.core.Var
@@ -11,7 +11,7 @@ import rx.core.Var
 /**
  * An editor for Reposcript
  */
-class Editor(container : HTMLDivElement, printer : Printer) {
+class Editor(container : HTMLDivElement, printer : Printer[_]) {
 
   val module = Var(Drawing())
   
@@ -62,8 +62,7 @@ class Editor(container : HTMLDivElement, printer : Printer) {
     printer.prepare() //redraw the canvas
     //Evaluator.resetBoundingBox() //set the default paper scale
     Evaluator.eval(ast(), printer)
-    printer.clear()
-    Evaluator.eval(ast(), printer)
+    printer.execute()
   }
 
 }
