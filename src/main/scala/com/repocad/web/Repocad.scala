@@ -1,5 +1,13 @@
 package com.repocad.web
 
+import com.repocad.web.evaluating.Evaluator
+import com.repocad.web.lexing.Lexer
+import com.repocad.web.parsing.{Expr, Parser, UnitExpr}
+import org.scalajs.dom.Event
+import org.scalajs.dom.KeyboardEvent
+import org.scalajs.dom.MouseEvent
+import org.scalajs.dom._
+import org.scalajs.dom.raw._
 import com.repocad.web.rendering.{Canvas, Editor, Omnibox}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.{HTMLButtonElement, HTMLCanvasElement, HTMLDivElement, HTMLInputElement}
@@ -51,7 +59,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
 
   @JSExport
   def save() : Unit = {
-    displaySuccess(editor.module().save().toString)
+    displaySuccess(editor.module().toString)
   }
 
   @JSExport
