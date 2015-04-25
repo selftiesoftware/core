@@ -1078,6 +1078,24 @@ $c_Lcom_repocad_web_Ajax$.prototype.ajax__p1__T__T__T__sci_Map__Lcom_repocad_web
     }
   }
 });
+$c_Lcom_repocad_web_Ajax$.prototype.post__T__T__Lcom_repocad_web_Response = (function(url, data) {
+  var this$3 = $uI(data["length"]);
+  var y = ("" + this$3);
+  var array = [new $c_T2().init___O__O("Content-length", y)];
+  var this$7 = new $c_scm_MapBuilder().init___sc_GenMap($m_sci_Map$EmptyMap$());
+  matchEnd4: {
+    var i = 0;
+    var len = $uI(array["length"]);
+    while ((i < len)) {
+      var index = i;
+      var arg1 = array[index];
+      this$7.$$plus$eq__T2__scm_MapBuilder($as_T2(arg1));
+      i = ((1 + i) | 0)
+    };
+    break matchEnd4
+  };
+  return this.ajax__p1__T__T__T__sci_Map__Lcom_repocad_web_Response("POST", url, data, $as_sci_Map(this$7.elems$1))
+});
 var $d_Lcom_repocad_web_Ajax$ = new $ClassTypeData({
   Lcom_repocad_web_Ajax$: 0
 }, false, "com.repocad.web.Ajax$", {
@@ -1538,7 +1556,7 @@ $c_Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$printPdf__T__O = (funct
 });
 $c_Lcom_repocad_web_Repocad.prototype.save__V = (function() {
   var this$1 = this.editor$1.module$1;
-  var this$2 = $as_Lcom_repocad_web_Drawing($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$1));
+  var this$2 = $as_Lcom_repocad_web_Drawing($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$1)).save__Lcom_repocad_web_Response();
   $m_sr_ScalaRunTime$().$$undtoString__s_Product__T(this$2)
 });
 $c_Lcom_repocad_web_Repocad.prototype.printPdf__T__V = (function(name) {
@@ -14656,6 +14674,11 @@ var $h_Lcom_repocad_web_Drawing = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_Drawing.prototype = $c_Lcom_repocad_web_Drawing.prototype;
+$c_Lcom_repocad_web_Drawing.prototype.save__Lcom_repocad_web_Response = (function() {
+  var s = this.name$1;
+  var urlName = $g["encodeURI"](s);
+  return $m_Lcom_repocad_web_Ajax$().post__T__T__Lcom_repocad_web_Response(("http://repocad.com:20004/post/" + urlName), this.content$1)
+});
 $c_Lcom_repocad_web_Drawing.prototype.productPrefix__T = (function() {
   return "Drawing"
 });
