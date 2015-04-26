@@ -1,21 +1,17 @@
 package com.repocad.web
 
-import com.repocad.web.Paper._
-import com.repocad.web.evaluating.Evaluator
 import org.scalajs.dom.raw.HTMLCanvasElement
-import org.scalajs.dom.CanvasRenderingContext2D
+import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
 
 /**
  * A printer that renders to a HTML5 canvas
  * @param canvas  The HTML canvas element
  */
-class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
+class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
-  val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
+  val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
 
   var landscape = false //paper orientation
-
-
 
   //window center
   def windowCenter = Vector2D((canvas.getBoundingClientRect().right + canvas.getBoundingClientRect().left) * 0.5,
@@ -25,6 +21,12 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
    * Draw a white rectangle representing the drawing if it is printed
    */
   def drawPaper() = {
+    context.save()
+    context.setTransform(1, 0, 0, 1, 0, 0)
+    context.fillStyle = "AliceBlue"
+    context.fillRect(0, 0, canvas.width, canvas.height)
+    context.restore()
+
     canvasCorner = Vector2D(canvas.getBoundingClientRect().left,canvas.getBoundingClientRect().top)
 
     context.fillStyle = "white"
@@ -39,7 +41,9 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
       val y = -drawingCenter.y - (paperSize(1) * paperScale) /2
       context.fillRect(x, y, paperSize(0) * paperScale, paperSize(1) * paperScale)
     }
+  }
 
+  def drawScreenText(): Unit = {
     //annotation
     val txt : String = "p a p e r : A 4       s c a l e:   1 :  " + paperScale.toString
     val version : String = "v e r.   0 . 1 5 "
@@ -55,15 +59,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
 
     //mouse position in canvas coordinates
     //screenText(5,12,"mouse from canvas corner: "+mouseCanvas)
-  }
-
-  def clear(): Unit = {
-    context.save()
-    context.setTransform(1, 0, 0, 1, 0, 0)
-    context.fillStyle = "AliceBlue"
-    context.fillRect(0, 0, canvas.width, canvas.height)
-    context.restore()
-    drawPaper() //draw the paper
   }
 
   //First run...
@@ -84,22 +79,29 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
     //context.fillStyle = "Black"
     //context.fillRect(x, y, 80, 20)
     //context.restore()
-    val myFont = 10.toString() + "pt Arial"
-    context.font = myFont
-    //context.font(1)
-    //context.textAlign("left")
-    //context.textBaseline("bottom")
-    context.fillText(t.toString(), x, -y)
+    val myFont = 10.toString + "pt Arial"
+
+    addAction(context => {
+      context.font = myFont
+      //context.font(1)
+      //context.textAlign("left")
+      //context.textBaseline("bottom")
+      context.fillText(t.toString, x, -y)
+    })
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
     updateBoundingBox(x + r, y + r)
     updateBoundingBox(x - r, y - r)
-    context.beginPath()
-    context.arc(x, -y, r, sAngle, eAngle)
-    context.stroke()
-    context.lineWidth = 0.2 * paperScale
-    context.closePath()
+
+    addAction(context => {
+      context.beginPath()
+      context.arc(x, -y, r, sAngle, eAngle)
+      context.stroke()
+      context.lineWidth = 0.2 * paperScale
+      context.closePath()
+
+    })
   }
 
   override def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
@@ -107,33 +109,43 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
     updateBoundingBox(x2, y2)
     updateBoundingBox(x3, y3)
     updateBoundingBox(x4, y4)
-    context.beginPath()
-    context.moveTo(x1, -y1)
-    context.bezierCurveTo(x2, -y2, x3, -y3, x4, -y4)
-    context.stroke()
-    context.lineWidth = 0.2 * paperScale
+
+    addAction(context => {
+      context.beginPath()
+      context.moveTo(x1, -y1)
+      context.bezierCurveTo(x2, -y2, x3, -y3, x4, -y4)
+      context.stroke()
+      context.lineWidth = 0.2 * paperScale
+    })
   }
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
     updateBoundingBox(x1,y1)
     updateBoundingBox(x2,y2)
-    context.beginPath()
-    context.moveTo(x1, -y1)
-    context.lineTo(x2, -y2)
-    context.stroke()
-    context.lineWidth = 0.2 * paperScale
-    context.closePath()
+
+    addAction(context => {
+      context.beginPath()
+      context.moveTo(x1, -y1)
+      context.lineTo(x2, -y2)
+      context.stroke()
+      context.lineWidth = 0.2 * paperScale
+      context.closePath()
+    })
   }
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
     updateBoundingBox(x + r, y + r)
     updateBoundingBox(x - r, y - r)
-    context.beginPath()
-    context.arc(x, -y, r, 0, 2 * Math.PI)
-    context.lineWidth = 0.2 * paperScale
-    context.stroke()
-    context.closePath()
+
+    addAction(context => {
+      context.beginPath()
+      context.arc(x, -y, r, 0, 2 * Math.PI)
+      context.lineWidth = 0.2 * paperScale
+      context.stroke()
+      context.closePath()
+    })
   }
+
   def screenText (x: Double, y: Double, size: Double, t: Any): Unit = {
     context.font = size.toString + " pt Arial"
     context.fillStyle = "black"
@@ -144,52 +156,24 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
   }
 
   override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
-
     val length = t.toString.length * 0.3 * h
     val correctedH = h / 1.5
-    context.save()
     val myFont = correctedH.toString() + "px Arial"
-    context.font = myFont
-    context.fillStyle = "black"
-    //context.setTransform(1, 0, 0, 1, 0, 0)
-    //context.font(1)
-    //context.textAlign("left")
-    //context.textBaseline("bottom")
-    context.fillText(t.toString(), x, -y)
-    context.restore()
-    updateBoundingBox(x-10, y-10)
-    updateBoundingBox(x + length, y + h+10)
-  }
 
-  /**
-   * Display text inside a box with a given width
-   * @param x position of the top left corner of the box
-   * @param y position of the top left corner of the box
-   * @param w the width of the text box
-   * @param h text height
-   * @param t string to display
-   */
-  override def textBox(x: Double, y: Double, w: Double, h: Double, t: Any): Unit = {
-    val text = t.toString
-    val correctedH = h / 1.5
-    var newY = y
-    val length = t.toString.length * 0.3 * h
-    val lines = length/w
-    var string = text.toList
-    val chars = text.length
-    val charsPerLine = (chars / lines).toInt
-    updateBoundingBox(x + length/(length/w), y - h*length/w.ceil)
-    updateBoundingBox(x,y + h)
+    updateBoundingBox(x - 10, y - 10)
+    updateBoundingBox(x + length, y + h + 10)
 
-    for (i <- 1 to lines.toInt + 2) {
-      val myFont = correctedH.toString() + "px Arial"
-      val str = string.take(charsPerLine) //make the string from the first elements
-      string = string.takeRight(chars - charsPerLine * i) //pass the last elements to a new list
+    addAction(context => {
+      context.save()
       context.font = myFont
       context.fillStyle = "black"
-      context.fillText(str.mkString, x, newY)
-      newY = newY + h
-    }
+      //context.setTransform(1, 0, 0, 1, 0, 0)
+      //context.font(1)
+      //context.textAlign("left")
+      //context.textBaseline("bottom")
+      context.fillText(t.toString, x, -y)
+      context.restore()
+    })
   }
 
   def translate(x : Double, y : Double) : Unit = {
@@ -209,7 +193,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer {
    */
 
   def zoom(delta : Double, pointX : Double, pointY : Double) {
-
     val increment = 0.15
     //TODO: rewrite this completely. Needs to use a TransformationMatrix and take into account the zoom level.
     val zoomScale = if(delta == -1) 1 + (delta * increment) else 1 + (delta * 0.1767) //zoom in needs to be bigger

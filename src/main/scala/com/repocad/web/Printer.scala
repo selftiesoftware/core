@@ -5,11 +5,29 @@ import com.repocad.web.evaluating.Evaluator
 /**
  * A printer that can print objects on a medium
  */
-trait Printer {
+trait Printer[T] {
 
-    //vars needed to update the drawing bounding box
-    //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
-    protected val paper = new Paper()
+  val context : T 
+  
+  //vars needed to update the drawing bounding box
+  //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
+  val paper = new Paper()
+  
+  var actions = Seq[T => Unit]()
+
+  lazy val toEnv : Evaluator.Env = {
+    Map(
+      "arc"  -> ((env : Evaluator.Env, x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) => arc(x, y, r, sAngle, eAngle)),
+      "bezierCurve" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)),
+      "circle" -> ((env : Evaluator.Env, x : Double, y : Double, r : Double) => circle(x, y, r)),
+      "line" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double) => line(x1, y1, x2, y2)),
+      "text" -> ((env : Evaluator.Env, x : Double, y : Double, h : Double, t : Any) => text(x, y, h, t))
+    )
+  }
+  
+  def addAction(action : T => Unit): Unit = {
+    actions :+= action
+  }
 
   /*
   update the bounding box each time the drawing is evaluated.
@@ -20,9 +38,6 @@ trait Printer {
     if (x <= paper.minX) paper.minX = x
     if (y >= paper.maxY) paper.maxY = y
     if (y <= paper.minX) paper.minY = y
-
-    println("MAX X;" + paper.maxX)
-
 
     //move the paper center to the center of the current artwork on the paper
     val cX = paper.minX + (paper.maxX - paper.minX) / 2
@@ -61,26 +76,15 @@ trait Printer {
    */
   def circle(x : Double, y : Double, r : Double) : Unit
 
-  def clear() : Unit
-
   /**
-   * Renders a text string
-   * @param x First coordinate
-   * @param y Second coordinate
-   * @param h Height
-   * @param t Text
+   * Draws a paper
    */
-  def text(x : Double, y : Double, h : Double, t : Any)
+  protected def drawPaper() : Unit
 
-  /**
-   * Renders a text box
-   * @param x First coordinate
-   * @param y Second coordinate
-   * @param w Width
-   * @param h Line height
-   * @param t Text
-   */
-  def textBox(x : Double, y : Double, w: Double, h : Double, t : Any)
+  def execute(): Unit = {
+    drawPaper()
+    actions.foreach(_.apply(context))
+  }
 
   /**
    * Draws a line
@@ -92,21 +96,20 @@ trait Printer {
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double)
 
   /**
+   * Renders a text string
+   * @param x First coordinate
+   * @param y Second coordinate
+   * @param h Height
+   * @param t Text
+   */
+  def text(x : Double, y : Double, h : Double, t : Any)
+
+  /**
    * Prepares the printer for drawing
    */
   def prepare() : Unit = {
     paper.resetBoundingBox()
-  }
-
-  lazy val toEnv : Evaluator.Env = {
-    Map(
-      "arc"  -> ((env : Evaluator.Env, x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) => arc(x, y, r, sAngle, eAngle)),
-      "bezierCurve" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)),
-      "circle" -> ((env : Evaluator.Env, x : Double, y : Double, r : Double) => circle(x, y, r)),
-      "line" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double) => line(x1, y1, x2, y2)),
-      "text" -> ((env : Evaluator.Env, x : Double, y : Double, h : Double, t : Any) => text(x, y, h, t)),
-      "textBox" -> ((env : Evaluator.Env, x : Double, y : Double, w: Double, h : Double, t : Any) => textBox(x, y, w, h, t))
-    )
+    actions = Seq()
   }
 
 }
@@ -119,8 +122,8 @@ object Printer {
       "bezierCurve" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => Unit),
       "circle" -> ((env : Evaluator.Env, x : Double, y : Double, r : Double) => Unit),
       "line" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double) => Unit),
-      "text" -> ((env : Evaluator.Env, x : Double, y : Double, h : Double, t : Any) => Unit),
-      "textBox" -> ((env : Evaluator.Env, x : Double, y : Double, w: Double, h : Double, t : Any) => Unit)
+      "text" -> ((env : Evaluator.Env, x : Double, y : Double, h : Double, t : Any) => Unit)
     )
   }
+
 }

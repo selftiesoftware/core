@@ -2,7 +2,7 @@ package com.repocad.web.rendering
 
 import com.repocad.web.evaluating.Evaluator
 import com.repocad.web.parsing.Expr
-import com.repocad.web.{Printer, Paper, CanvasPrinter, Vector2D}
+import com.repocad.web.{CanvasPrinter, Printer, Vector2D}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
 
@@ -60,12 +60,11 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
   }
 
 
-  def render(ast : Expr, printer : Printer): Unit = {
+  def render(ast : Expr, printer : Printer[_]): Unit = {
     printer.prepare() //redraw the canvas
     //Evaluator.resetBoundingBox() //set the default paper scale
     Evaluator.eval(ast, printer)
-    printer.clear()
-    Evaluator.eval(ast, printer)
+    printer.execute()
   }
 
 }

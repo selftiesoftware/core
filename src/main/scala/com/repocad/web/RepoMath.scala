@@ -8,12 +8,12 @@ import com.repocad.web.evaluating.Evaluator
 object RepoMath {
 
   val toEnv : Evaluator.Env = Map(
-    "cos" -> ((p : Printer, degrees : Double) => math.cos(degrees)),
-    "degrees" -> ((p : Printer, degrees : Double) => math.toDegrees(degrees)),
-    "sin" -> ((p : Printer, degrees : Double) => math.sin(degrees)),
-    "radians" -> ((p : Printer, degrees : Double) => math.toRadians(degrees)),
-    "tan" -> ((p : Printer, degrees : Double) => math.tan(degrees)),
-    "toInt" -> ((p : Printer, double : Double) => double.toInt)
+    "cos" -> ((p : Printer[_], degrees : Double) => math.cos(degrees)),
+    "degrees" -> ((p : Printer[_], degrees : Double) => math.toDegrees(degrees)),
+    "sin" -> ((p : Printer[_], degrees : Double) => math.sin(degrees)),
+    "radians" -> ((p : Printer[_], degrees : Double) => math.toRadians(degrees)),
+    "tan" -> ((p : Printer[_], degrees : Double) => math.tan(degrees)),
+    "toInt" -> ((p : Printer[_], double : Double) => double.toInt)
   )
 
 }
