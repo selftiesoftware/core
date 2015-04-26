@@ -890,18 +890,6 @@ var $isArrayOf_F9 = (function(obj, depth) {
 var $asArrayOf_F9 = (function(obj, depth) {
   return (($isArrayOf_F9(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.Function9;", depth))
 });
-var $is_Lcom_repocad_web_Printer = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_Printer)))
-});
-var $as_Lcom_repocad_web_Printer = (function(obj) {
-  return (($is_Lcom_repocad_web_Printer(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "com.repocad.web.Printer"))
-});
-var $isArrayOf_Lcom_repocad_web_Printer = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_Printer)))
-});
-var $asArrayOf_Lcom_repocad_web_Printer = (function(obj, depth) {
-  return (($isArrayOf_Lcom_repocad_web_Printer(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcom.repocad.web.Printer;", depth))
-});
 var $is_Lcom_repocad_web_parsing_Expr = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_Expr)))
 });
@@ -1333,38 +1321,38 @@ var $h_Lcom_repocad_web_RepoMath$ = (function() {
 $h_Lcom_repocad_web_RepoMath$.prototype = $c_Lcom_repocad_web_RepoMath$.prototype;
 $c_Lcom_repocad_web_RepoMath$.prototype.init___ = (function() {
   $n_Lcom_repocad_web_RepoMath$ = this;
-  var y = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2, degrees$2) {
-    $as_Lcom_repocad_web_Printer(p$2);
+  var y = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(x$1$2, degrees$2) {
+    $as_sci_Map(x$1$2);
     var degrees = $uD(degrees$2);
     return $uD($g["Math"]["cos"](degrees))
   }));
   var jsx$5 = new $c_T2().init___O__O("cos", y);
-  var y$1 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$1, degrees$2$1) {
-    $as_Lcom_repocad_web_Printer(p$2$1);
+  var y$1 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(x$2$2, degrees$2$1) {
+    $as_sci_Map(x$2$2);
     var degrees$1 = $uD(degrees$2$1);
     return ((180.0 * degrees$1) / 3.141592653589793)
   }));
   var jsx$4 = new $c_T2().init___O__O("degrees", y$1);
-  var y$2 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$2, degrees$2$2) {
-    $as_Lcom_repocad_web_Printer(p$2$2);
+  var y$2 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(x$3$2, degrees$2$2) {
+    $as_sci_Map(x$3$2);
     var degrees$3 = $uD(degrees$2$2);
     return $uD($g["Math"]["sin"](degrees$3))
   }));
   var jsx$3 = new $c_T2().init___O__O("sin", y$2);
-  var y$3 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$3, degrees$2$3) {
-    $as_Lcom_repocad_web_Printer(p$2$3);
+  var y$3 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(x$4$2, degrees$2$3) {
+    $as_sci_Map(x$4$2);
     var degrees$4 = $uD(degrees$2$3);
     return (3.141592653589793 * (degrees$4 / 180.0))
   }));
   var jsx$2 = new $c_T2().init___O__O("radians", y$3);
-  var y$4 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$4, degrees$2$4) {
-    $as_Lcom_repocad_web_Printer(p$2$4);
+  var y$4 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(x$5$2, degrees$2$4) {
+    $as_sci_Map(x$5$2);
     var degrees$5 = $uD(degrees$2$4);
     return $uD($g["Math"]["tan"](degrees$5))
   }));
   var jsx$1 = new $c_T2().init___O__O("tan", y$4);
-  var y$5 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(p$2$5, double$3) {
-    $as_Lcom_repocad_web_Printer(p$2$5);
+  var y$5 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(x$6$2, double$3) {
+    $as_sci_Map(x$6$2);
     var double$2 = $uD(double$3);
     return (double$2 | 0)
   }));
