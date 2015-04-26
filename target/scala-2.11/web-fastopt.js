@@ -8902,9 +8902,6 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.init___ = (function() {
   this.document$1["setLineWidth"](0.1);
   return this
 });
-$c_Lcom_repocad_web_PdfPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
-  return this.paper$1
-});
 $c_Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1, x2, y2) {
   var v1 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D((x1 / $m_Lcom_repocad_web_package$().paperScale$1), (y1 / $m_Lcom_repocad_web_package$().paperScale$1)));
   var v2 = this.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D(new $c_Lcom_repocad_web_Vector2D().init___D__D((x2 / $m_Lcom_repocad_web_package$().paperScale$1), (y2 / $m_Lcom_repocad_web_package$().paperScale$1)));
@@ -8915,6 +8912,9 @@ $c_Lcom_repocad_web_PdfPrinter.prototype.line__D__D__D__D__V = (function(x1, y1,
   var value$2 = v2.x$1;
   var value$3 = v2.y$1;
   jsx$1["line"](value, value$1, value$2, value$3)
+});
+$c_Lcom_repocad_web_PdfPrinter.prototype.paper__Lcom_repocad_web_Paper = (function() {
+  return this.paper$1
 });
 $c_Lcom_repocad_web_PdfPrinter.prototype.com$repocad$web$PdfPrinter$$transform__Lcom_repocad_web_Vector2D__Lcom_repocad_web_Vector2D = (function(v) {
   if ((!this.landscape$1)) {
