@@ -71,23 +71,11 @@ object Parser {
               parse(blockTail, (body, bodyTail) => success(LoopExpr(condition, body), bodyTail), failure),
               failure)
 
-      case SymbolToken("for") :~: tail =>
-        parse(tail, (assignment, blockTail) =>
-              parse(blockTail, (body, bodyTail) => success(LoopExpr(assignment, body), bodyTail), failure),
-              failure)
+      case SymbolToken("repeat") :~: IntToken(n) :~: SymbolToken("def") :~: SymbolToken(variable) :~: tail =>
+        parse(tail, (body, blockTail) => success(LoopExpr(RangeExpr(variable, ConstantExpr(1), ConstantExpr(n)), body), blockTail), failure)
 
-      // Assignments
-      case SymbolToken(name) :~: SymbolToken("=") :~: tail =>
-        parse(tail, (e, stream) => success(ValExpr(name, e), stream), failure)
-
-      case SymbolToken(name) :~: SymbolToken("<-") :~: tail =>
-        parse(tail, (from, stream) => {
-            if (stream.head == SymbolToken("to")) {
-              parse(stream.tail, (to, toTail) => success(RangeExpr(name, from, to), toTail), failure)
-            } else {
-              failure("Expected 'to', found " + stream.head)
-            }
-          }, failure)
+      case SymbolToken("repeat") :~: IntToken(n) :~: tail =>
+        parse(tail, (body, blockTail) => success(LoopExpr(RangeExpr("_loopCounter", ConstantExpr(1), ConstantExpr(n)), body), blockTail), failure)
 
       // Comparisons
       case (start : Token) :~: SymbolToken(">") :~: tail =>
@@ -109,9 +97,11 @@ object Parser {
       case (start : Token) :~: SymbolToken("/") :~: tail =>
         parseTripleOp(start, tail, "/", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 
+      // Assignments
+      case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("=") :~: tail =>
+        parse(tail, (e, stream) => success(ValExpr(name, e), stream), failure)
 
-      // Function
-      case SymbolToken("function") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
+      case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
         parseUntil(tail, PunctToken(")"), (params, paramsTail) => {
           params match {
             case SeqExpr(xs) if !xs.exists(!_.isInstanceOf[RefExpr]) => parse(paramsTail, (body, bodyTail) => {

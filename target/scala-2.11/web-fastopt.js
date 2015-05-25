@@ -1217,6 +1217,23 @@ var $s_Lcom_repocad_web_Printer$class__execute__Lcom_repocad_web_Printer__V = (f
     })
   })($$this)))
 });
+var $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D = (function($$this, x, y) {
+  if ((x >= $$this.paper__Lcom_repocad_web_Paper().maxX$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().maxX$1 = x
+  };
+  if ((x <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().minX$1 = x
+  };
+  if ((y >= $$this.paper__Lcom_repocad_web_Paper().maxY$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().maxY$1 = y
+  };
+  if ((y <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
+    $$this.paper__Lcom_repocad_web_Paper().minY$1 = y
+  };
+  var cX = ($$this.paper__Lcom_repocad_web_Paper().minX$1 + (($$this.paper__Lcom_repocad_web_Paper().maxX$1 - $$this.paper__Lcom_repocad_web_Paper().minX$1) / 2));
+  var cY = ($$this.paper__Lcom_repocad_web_Paper().minY$1 + (($$this.paper__Lcom_repocad_web_Paper().maxY$1 - $$this.paper__Lcom_repocad_web_Paper().minY$1) / 2));
+  return new $c_Lcom_repocad_web_Vector2D().init___D__D(cX, cY)
+});
 var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map = (function($$this) {
   var y$1 = new $c_sjsr_AnonFunction6().init___sjs_js_Function6((function(arg$outer) {
     return (function(env$2, x$2, y$2, r$2, sAngle$2, eAngle$2) {
@@ -1289,23 +1306,6 @@ var $s_Lcom_repocad_web_Printer$class__toEnv__Lcom_repocad_web_Printer__sci_Map 
     break matchEnd4
   };
   return $as_sci_Map(this$12.elems$1)
-});
-var $s_Lcom_repocad_web_Printer$class__updateBoundingBox__Lcom_repocad_web_Printer__D__D__Lcom_repocad_web_Vector2D = (function($$this, x, y) {
-  if ((x >= $$this.paper__Lcom_repocad_web_Paper().maxX$1)) {
-    $$this.paper__Lcom_repocad_web_Paper().maxX$1 = x
-  };
-  if ((x <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
-    $$this.paper__Lcom_repocad_web_Paper().minX$1 = x
-  };
-  if ((y >= $$this.paper__Lcom_repocad_web_Paper().maxY$1)) {
-    $$this.paper__Lcom_repocad_web_Paper().maxY$1 = y
-  };
-  if ((y <= $$this.paper__Lcom_repocad_web_Paper().minX$1)) {
-    $$this.paper__Lcom_repocad_web_Paper().minY$1 = y
-  };
-  var cX = ($$this.paper__Lcom_repocad_web_Paper().minX$1 + (($$this.paper__Lcom_repocad_web_Paper().maxX$1 - $$this.paper__Lcom_repocad_web_Paper().minX$1) / 2));
-  var cY = ($$this.paper__Lcom_repocad_web_Paper().minY$1 + (($$this.paper__Lcom_repocad_web_Paper().maxY$1 - $$this.paper__Lcom_repocad_web_Paper().minY$1) / 2));
-  return new $c_Lcom_repocad_web_Vector2D().init___D__D(cX, cY)
 });
 /** @constructor */
 var $c_Lcom_repocad_web_RepoMath$ = (function() {
@@ -3014,18 +3014,18 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.seqFailure$1__p1__sr_ObjectRef__F1
 $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either = (function(tokens, success, failure) {
   _parse: while (true) {
     var x1 = tokens;
-    var o140 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o140.isEmpty__Z())) {
-      var p3 = $as_Lcom_repocad_web_lexing_Token($as_T2(o140.get__O()).$$und1$f);
-      var p4 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o140.get__O()).$$und2$f);
+    var o160 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o160.isEmpty__Z())) {
+      var p3 = $as_Lcom_repocad_web_lexing_Token($as_T2(o160.get__O()).$$und1$f);
+      var p4 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o160.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p3)) {
         var x5 = $as_Lcom_repocad_web_lexing_SymbolToken(p3);
         var p6 = x5.s$1;
         if ((p6 === "import")) {
-          var o139 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p4);
-          if ((!o139.isEmpty__Z())) {
-            var p8 = $as_Lcom_repocad_web_lexing_Token($as_T2(o139.get__O()).$$und1$f);
-            var tail = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o139.get__O()).$$und2$f);
+          var o159 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p4);
+          if ((!o159.isEmpty__Z())) {
+            var p8 = $as_Lcom_repocad_web_lexing_Token($as_T2(o159.get__O()).$$und1$f);
+            var tail = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o159.get__O()).$$und2$f);
             if ($is_Lcom_repocad_web_lexing_SymbolToken(p8)) {
               var x9 = $as_Lcom_repocad_web_lexing_SymbolToken(p8);
               var script = x9.s$1;
@@ -3035,10 +3035,10 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o142 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o142.isEmpty__Z())) {
-      var p11 = $as_Lcom_repocad_web_lexing_Token($as_T2(o142.get__O()).$$und1$f);
-      var tail$2 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o142.get__O()).$$und2$f);
+    var o162 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o162.isEmpty__Z())) {
+      var p11 = $as_Lcom_repocad_web_lexing_Token($as_T2(o162.get__O()).$$und1$f);
+      var tail$2 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o162.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p11)) {
         var x12 = $as_Lcom_repocad_web_lexing_SymbolToken(p11);
         var p13 = x12.s$1;
@@ -3050,10 +3050,10 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o144 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o144.isEmpty__Z())) {
-      var p15 = $as_Lcom_repocad_web_lexing_Token($as_T2(o144.get__O()).$$und1$f);
-      var tail$3 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o144.get__O()).$$und2$f);
+    var o164 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o164.isEmpty__Z())) {
+      var p15 = $as_Lcom_repocad_web_lexing_Token($as_T2(o164.get__O()).$$und1$f);
+      var tail$3 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o164.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p15)) {
         var x16 = $as_Lcom_repocad_web_lexing_SymbolToken(p15);
         var p17 = x16.s$1;
@@ -3065,261 +3065,48 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o146 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o146.isEmpty__Z())) {
-      var p19 = $as_Lcom_repocad_web_lexing_Token($as_T2(o146.get__O()).$$und1$f);
-      var tail$4 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o146.get__O()).$$und2$f);
+    var o169 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o169.isEmpty__Z())) {
+      var p19 = $as_Lcom_repocad_web_lexing_Token($as_T2(o169.get__O()).$$und1$f);
+      var p20 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o169.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p19)) {
-        var x20 = $as_Lcom_repocad_web_lexing_SymbolToken(p19);
-        var p21 = x20.s$1;
-        if ((p21 === "for")) {
-          var temp$success$3 = new $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4().init___F2__F1(success, failure);
-          tokens = tail$4;
-          success = temp$success$3;
-          continue _parse
-        }
-      }
-    };
-    var o149 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o149.isEmpty__Z())) {
-      var p23 = $as_Lcom_repocad_web_lexing_Token($as_T2(o149.get__O()).$$und1$f);
-      var p24 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o149.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_SymbolToken(p23)) {
-        var x25 = $as_Lcom_repocad_web_lexing_SymbolToken(p23);
-        var name = x25.s$1;
-        var o148 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p24);
-        if ((!o148.isEmpty__Z())) {
-          var p27 = $as_Lcom_repocad_web_lexing_Token($as_T2(o148.get__O()).$$und1$f);
-          var tail$5 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o148.get__O()).$$und2$f);
-          if ($is_Lcom_repocad_web_lexing_SymbolToken(p27)) {
-            var x28 = $as_Lcom_repocad_web_lexing_SymbolToken(p27);
-            var p29 = x28.s$1;
-            if ((p29 === "=")) {
-              var temp$success$4 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1, name$1) {
-                return (function(e$2, stream$2) {
-                  var e = $as_Lcom_repocad_web_parsing_Expr(e$2);
-                  var stream = $as_Lcom_repocad_web_lexing_LiveStream(stream$2);
-                  return $as_s_util_Either(success$1.apply__O__O__O(new $c_Lcom_repocad_web_parsing_ValExpr().init___T__Lcom_repocad_web_parsing_Expr(name$1, e), stream))
-                })
-              })(success, name));
-              tokens = tail$5;
-              success = temp$success$4;
-              continue _parse
-            }
-          }
-        }
-      }
-    };
-    var o152 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o152.isEmpty__Z())) {
-      var p31 = $as_Lcom_repocad_web_lexing_Token($as_T2(o152.get__O()).$$und1$f);
-      var p32 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o152.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_SymbolToken(p31)) {
-        var x33 = $as_Lcom_repocad_web_lexing_SymbolToken(p31);
-        var name$2 = x33.s$1;
-        var o151 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p32);
-        if ((!o151.isEmpty__Z())) {
-          var p35 = $as_Lcom_repocad_web_lexing_Token($as_T2(o151.get__O()).$$und1$f);
-          var tail$6 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o151.get__O()).$$und2$f);
-          if ($is_Lcom_repocad_web_lexing_SymbolToken(p35)) {
-            var x36 = $as_Lcom_repocad_web_lexing_SymbolToken(p35);
-            var p37 = x36.s$1;
-            if ((p37 === "<-")) {
-              var temp$success$5 = new $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6().init___F2__F1__T(success, failure, name$2);
-              tokens = tail$6;
-              success = temp$success$5;
-              continue _parse
-            }
-          }
-        }
-      }
-    };
-    var o155 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o155.isEmpty__Z())) {
-      var start = $as_Lcom_repocad_web_lexing_Token($as_T2(o155.get__O()).$$und1$f);
-      var p39 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o155.get__O()).$$und2$f);
-      if ((start !== null)) {
-        var o154 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p39);
-        if ((!o154.isEmpty__Z())) {
-          var p41 = $as_Lcom_repocad_web_lexing_Token($as_T2(o154.get__O()).$$und1$f);
-          var tail$7 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o154.get__O()).$$und2$f);
-          if ($is_Lcom_repocad_web_lexing_SymbolToken(p41)) {
-            var x42 = $as_Lcom_repocad_web_lexing_SymbolToken(p41);
-            var p43 = x42.s$1;
-            if ((p43 === ">")) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start, tail$7, ">", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$1) {
-                return (function(e1$2, e2$2, op$2, stream$2$1) {
-                  var e1 = $as_Lcom_repocad_web_parsing_Expr(e1$2);
-                  var e2 = $as_Lcom_repocad_web_parsing_Expr(e2$2);
-                  var op = $as_T(op$2);
-                  var stream$1 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$1);
-                  return $as_s_util_Either(success$1$1.apply__O__O__O(new $c_Lcom_repocad_web_parsing_CompExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1, e2, op), stream$1))
-                })
-              })(success)), failure)
-            }
-          }
-        }
-      }
-    };
-    var o158 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o158.isEmpty__Z())) {
-      var start$2 = $as_Lcom_repocad_web_lexing_Token($as_T2(o158.get__O()).$$und1$f);
-      var p45 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o158.get__O()).$$und2$f);
-      if ((start$2 !== null)) {
-        var o157 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p45);
-        if ((!o157.isEmpty__Z())) {
-          var p47 = $as_Lcom_repocad_web_lexing_Token($as_T2(o157.get__O()).$$und1$f);
-          var tail$8 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o157.get__O()).$$und2$f);
-          if ($is_Lcom_repocad_web_lexing_SymbolToken(p47)) {
-            var x48 = $as_Lcom_repocad_web_lexing_SymbolToken(p47);
-            var p49 = x48.s$1;
-            if ((p49 === "<")) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$2, tail$8, "<", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$2) {
-                return (function(e1$2$1, e2$2$1, op$2$1, stream$2$2) {
-                  var e1$1 = $as_Lcom_repocad_web_parsing_Expr(e1$2$1);
-                  var e2$1 = $as_Lcom_repocad_web_parsing_Expr(e2$2$1);
-                  var op$1 = $as_T(op$2$1);
-                  var stream$3 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$2);
-                  return $as_s_util_Either(success$1$2.apply__O__O__O(new $c_Lcom_repocad_web_parsing_CompExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$1, e2$1, op$1), stream$3))
-                })
-              })(success)), failure)
-            }
-          }
-        }
-      }
-    };
-    var o161 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o161.isEmpty__Z())) {
-      var start$3 = $as_Lcom_repocad_web_lexing_Token($as_T2(o161.get__O()).$$und1$f);
-      var p51 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o161.get__O()).$$und2$f);
-      if ((start$3 !== null)) {
-        var o160 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p51);
-        if ((!o160.isEmpty__Z())) {
-          var p53 = $as_Lcom_repocad_web_lexing_Token($as_T2(o160.get__O()).$$und1$f);
-          var tail$9 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o160.get__O()).$$und2$f);
-          if ($is_Lcom_repocad_web_lexing_SymbolToken(p53)) {
-            var x54 = $as_Lcom_repocad_web_lexing_SymbolToken(p53);
-            var p55 = x54.s$1;
-            if ((p55 === "+")) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$3, tail$9, "+", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$3) {
-                return (function(e1$2$2, e2$2$2, op$2$2, stream$2$3) {
-                  var e1$3 = $as_Lcom_repocad_web_parsing_Expr(e1$2$2);
-                  var e2$3 = $as_Lcom_repocad_web_parsing_Expr(e2$2$2);
-                  var op$3 = $as_T(op$2$2);
-                  var stream$4 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$3);
-                  return $as_s_util_Either(success$1$3.apply__O__O__O(new $c_Lcom_repocad_web_parsing_OpExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$3, e2$3, op$3), stream$4))
-                })
-              })(success)), failure)
-            }
-          }
-        }
-      }
-    };
-    var o164 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o164.isEmpty__Z())) {
-      var start$4 = $as_Lcom_repocad_web_lexing_Token($as_T2(o164.get__O()).$$und1$f);
-      var p57 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o164.get__O()).$$und2$f);
-      if ((start$4 !== null)) {
-        var o163 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p57);
-        if ((!o163.isEmpty__Z())) {
-          var p59 = $as_Lcom_repocad_web_lexing_Token($as_T2(o163.get__O()).$$und1$f);
-          var tail$10 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o163.get__O()).$$und2$f);
-          if ($is_Lcom_repocad_web_lexing_SymbolToken(p59)) {
-            var x60 = $as_Lcom_repocad_web_lexing_SymbolToken(p59);
-            var p61 = x60.s$1;
-            if ((p61 === "-")) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$4, tail$10, "-", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$4) {
-                return (function(e1$2$3, e2$2$3, op$2$3, stream$2$4) {
-                  var e1$4 = $as_Lcom_repocad_web_parsing_Expr(e1$2$3);
-                  var e2$4 = $as_Lcom_repocad_web_parsing_Expr(e2$2$3);
-                  var op$4 = $as_T(op$2$3);
-                  var stream$5 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$4);
-                  return $as_s_util_Either(success$1$4.apply__O__O__O(new $c_Lcom_repocad_web_parsing_OpExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$4, e2$4, op$4), stream$5))
-                })
-              })(success)), failure)
-            }
-          }
-        }
-      }
-    };
-    var o167 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o167.isEmpty__Z())) {
-      var start$5 = $as_Lcom_repocad_web_lexing_Token($as_T2(o167.get__O()).$$und1$f);
-      var p63 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o167.get__O()).$$und2$f);
-      if ((start$5 !== null)) {
-        var o166 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p63);
-        if ((!o166.isEmpty__Z())) {
-          var p65 = $as_Lcom_repocad_web_lexing_Token($as_T2(o166.get__O()).$$und1$f);
-          var tail$11 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o166.get__O()).$$und2$f);
-          if ($is_Lcom_repocad_web_lexing_SymbolToken(p65)) {
-            var x66 = $as_Lcom_repocad_web_lexing_SymbolToken(p65);
-            var p67 = x66.s$1;
-            if ((p67 === "*")) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$5, tail$11, "*", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$5) {
-                return (function(e1$2$4, e2$2$4, op$2$4, stream$2$5) {
-                  var e1$5 = $as_Lcom_repocad_web_parsing_Expr(e1$2$4);
-                  var e2$5 = $as_Lcom_repocad_web_parsing_Expr(e2$2$4);
-                  var op$5 = $as_T(op$2$4);
-                  var stream$6 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$5);
-                  return $as_s_util_Either(success$1$5.apply__O__O__O(new $c_Lcom_repocad_web_parsing_OpExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$5, e2$5, op$5), stream$6))
-                })
-              })(success)), failure)
-            }
-          }
-        }
-      }
-    };
-    var o170 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o170.isEmpty__Z())) {
-      var start$6 = $as_Lcom_repocad_web_lexing_Token($as_T2(o170.get__O()).$$und1$f);
-      var p69 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o170.get__O()).$$und2$f);
-      if ((start$6 !== null)) {
-        var o169 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p69);
-        if ((!o169.isEmpty__Z())) {
-          var p71 = $as_Lcom_repocad_web_lexing_Token($as_T2(o169.get__O()).$$und1$f);
-          var tail$12 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o169.get__O()).$$und2$f);
-          if ($is_Lcom_repocad_web_lexing_SymbolToken(p71)) {
-            var x72 = $as_Lcom_repocad_web_lexing_SymbolToken(p71);
-            var p73 = x72.s$1;
-            if ((p73 === "/")) {
-              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$6, tail$12, "/", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$6) {
-                return (function(e1$2$5, e2$2$5, op$2$5, stream$2$6) {
-                  var e1$6 = $as_Lcom_repocad_web_parsing_Expr(e1$2$5);
-                  var e2$6 = $as_Lcom_repocad_web_parsing_Expr(e2$2$5);
-                  var op$6 = $as_T(op$2$5);
-                  var stream$7 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$6);
-                  return $as_s_util_Either(success$1$6.apply__O__O__O(new $c_Lcom_repocad_web_parsing_OpExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$6, e2$6, op$6), stream$7))
-                })
-              })(success)), failure)
-            }
-          }
-        }
-      }
-    };
-    var o174 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o174.isEmpty__Z())) {
-      var p75 = $as_Lcom_repocad_web_lexing_Token($as_T2(o174.get__O()).$$und1$f);
-      var p76 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o174.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_SymbolToken(p75)) {
-        var x77 = $as_Lcom_repocad_web_lexing_SymbolToken(p75);
-        var p78 = x77.s$1;
-        if ((p78 === "function")) {
-          var o173 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p76);
-          if ((!o173.isEmpty__Z())) {
-            var p80 = $as_Lcom_repocad_web_lexing_Token($as_T2(o173.get__O()).$$und1$f);
-            var p81 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o173.get__O()).$$und2$f);
-            if ($is_Lcom_repocad_web_lexing_SymbolToken(p80)) {
-              var x82 = $as_Lcom_repocad_web_lexing_SymbolToken(p80);
-              var name$3 = x82.s$1;
-              var o172 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p81);
-              if ((!o172.isEmpty__Z())) {
-                var p84 = $as_Lcom_repocad_web_lexing_Token($as_T2(o172.get__O()).$$und1$f);
-                var tail$13 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o172.get__O()).$$und2$f);
-                if ($is_Lcom_repocad_web_lexing_PunctToken(p84)) {
-                  var x85 = $as_Lcom_repocad_web_lexing_PunctToken(p84);
-                  var p86 = x85.s$1;
-                  if ((p86 === "(")) {
-                    return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$13, new $c_Lcom_repocad_web_lexing_PunctToken().init___T(")"), new $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13().init___F2__F1__T(success, failure, name$3), failure)
+        var x21 = $as_Lcom_repocad_web_lexing_SymbolToken(p19);
+        var p22 = x21.s$1;
+        if ((p22 === "repeat")) {
+          var o168 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p20);
+          if ((!o168.isEmpty__Z())) {
+            var p24 = $as_Lcom_repocad_web_lexing_Token($as_T2(o168.get__O()).$$und1$f);
+            var p25 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o168.get__O()).$$und2$f);
+            if ($is_Lcom_repocad_web_lexing_IntToken(p24)) {
+              var x26 = $as_Lcom_repocad_web_lexing_IntToken(p24);
+              var n = x26.n$1;
+              var o167 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p25);
+              if ((!o167.isEmpty__Z())) {
+                var p28 = $as_Lcom_repocad_web_lexing_Token($as_T2(o167.get__O()).$$und1$f);
+                var p29 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o167.get__O()).$$und2$f);
+                if ($is_Lcom_repocad_web_lexing_SymbolToken(p28)) {
+                  var x30 = $as_Lcom_repocad_web_lexing_SymbolToken(p28);
+                  var p31 = x30.s$1;
+                  if ((p31 === "def")) {
+                    var o166 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p29);
+                    if ((!o166.isEmpty__Z())) {
+                      var p33 = $as_Lcom_repocad_web_lexing_Token($as_T2(o166.get__O()).$$und1$f);
+                      var tail$4 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o166.get__O()).$$und2$f);
+                      if ($is_Lcom_repocad_web_lexing_SymbolToken(p33)) {
+                        var x34 = $as_Lcom_repocad_web_lexing_SymbolToken(p33);
+                        var variable = x34.s$1;
+                        var temp$success$3 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1, n$1, variable$1) {
+                          return (function(body$2, blockTail$2) {
+                            var body = $as_Lcom_repocad_web_parsing_Expr(body$2);
+                            var blockTail = $as_Lcom_repocad_web_lexing_LiveStream(blockTail$2);
+                            return $as_s_util_Either(success$1.apply__O__O__O(new $c_Lcom_repocad_web_parsing_LoopExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(new $c_Lcom_repocad_web_parsing_RangeExpr().init___T__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(variable$1, new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(1), new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(n$1)), body), blockTail))
+                          })
+                        })(success, n, variable));
+                        tokens = tail$4;
+                        success = temp$success$3;
+                        continue _parse
+                      }
+                    }
                   }
                 }
               }
@@ -3328,69 +3115,334 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o176 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o176.isEmpty__Z())) {
-      var p88 = $as_Lcom_repocad_web_lexing_Token($as_T2(o176.get__O()).$$und1$f);
-      var tail$14 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o176.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_IntToken(p88)) {
-        var x89 = $as_Lcom_repocad_web_lexing_IntToken(p88);
-        var value = x89.n$1;
-        return $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(value), tail$14))
+    var o172 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o172.isEmpty__Z())) {
+      var p36 = $as_Lcom_repocad_web_lexing_Token($as_T2(o172.get__O()).$$und1$f);
+      var p37 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o172.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_SymbolToken(p36)) {
+        var x38 = $as_Lcom_repocad_web_lexing_SymbolToken(p36);
+        var p39 = x38.s$1;
+        if ((p39 === "repeat")) {
+          var o171 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p37);
+          if ((!o171.isEmpty__Z())) {
+            var p41 = $as_Lcom_repocad_web_lexing_Token($as_T2(o171.get__O()).$$und1$f);
+            var tail$5 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o171.get__O()).$$und2$f);
+            if ($is_Lcom_repocad_web_lexing_IntToken(p41)) {
+              var x42 = $as_Lcom_repocad_web_lexing_IntToken(p41);
+              var n$2 = x42.n$1;
+              var temp$success$4 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1$1, n$2$1) {
+                return (function(body$2$1, blockTail$2$1) {
+                  var body$1 = $as_Lcom_repocad_web_parsing_Expr(body$2$1);
+                  var blockTail$1 = $as_Lcom_repocad_web_lexing_LiveStream(blockTail$2$1);
+                  return $as_s_util_Either(success$1$1.apply__O__O__O(new $c_Lcom_repocad_web_parsing_LoopExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(new $c_Lcom_repocad_web_parsing_RangeExpr().init___T__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr("_loopCounter", new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(1), new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(n$2$1)), body$1), blockTail$1))
+                })
+              })(success, n$2));
+              tokens = tail$5;
+              success = temp$success$4;
+              continue _parse
+            }
+          }
+        }
+      }
+    };
+    var o175 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o175.isEmpty__Z())) {
+      var start = $as_Lcom_repocad_web_lexing_Token($as_T2(o175.get__O()).$$und1$f);
+      var p44 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o175.get__O()).$$und2$f);
+      if ((start !== null)) {
+        var o174 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p44);
+        if ((!o174.isEmpty__Z())) {
+          var p46 = $as_Lcom_repocad_web_lexing_Token($as_T2(o174.get__O()).$$und1$f);
+          var tail$6 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o174.get__O()).$$und2$f);
+          if ($is_Lcom_repocad_web_lexing_SymbolToken(p46)) {
+            var x47 = $as_Lcom_repocad_web_lexing_SymbolToken(p46);
+            var p48 = x47.s$1;
+            if ((p48 === ">")) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start, tail$6, ">", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$2) {
+                return (function(e1$2, e2$2, op$2, stream$2) {
+                  var e1 = $as_Lcom_repocad_web_parsing_Expr(e1$2);
+                  var e2 = $as_Lcom_repocad_web_parsing_Expr(e2$2);
+                  var op = $as_T(op$2);
+                  var stream = $as_Lcom_repocad_web_lexing_LiveStream(stream$2);
+                  return $as_s_util_Either(success$1$2.apply__O__O__O(new $c_Lcom_repocad_web_parsing_CompExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1, e2, op), stream))
+                })
+              })(success)), failure)
+            }
+          }
+        }
       }
     };
     var o178 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
     if ((!o178.isEmpty__Z())) {
-      var p91 = $as_Lcom_repocad_web_lexing_Token($as_T2(o178.get__O()).$$und1$f);
-      var tail$15 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o178.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_DoubleToken(p91)) {
-        var x92 = $as_Lcom_repocad_web_lexing_DoubleToken(p91);
-        var value$2 = x92.d$1;
-        return $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(value$2), tail$15))
-      }
-    };
-    var o180 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o180.isEmpty__Z())) {
-      var p94 = $as_Lcom_repocad_web_lexing_Token($as_T2(o180.get__O()).$$und1$f);
-      var tail$16 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o180.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_StringToken(p94)) {
-        var x95 = $as_Lcom_repocad_web_lexing_StringToken(p94);
-        var value$3 = x95.s$1;
-        if ((value$3 !== null)) {
-          return $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(value$3), tail$16))
+      var start$2 = $as_Lcom_repocad_web_lexing_Token($as_T2(o178.get__O()).$$und1$f);
+      var p50 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o178.get__O()).$$und2$f);
+      if ((start$2 !== null)) {
+        var o177 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p50);
+        if ((!o177.isEmpty__Z())) {
+          var p52 = $as_Lcom_repocad_web_lexing_Token($as_T2(o177.get__O()).$$und1$f);
+          var tail$7 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o177.get__O()).$$und2$f);
+          if ($is_Lcom_repocad_web_lexing_SymbolToken(p52)) {
+            var x53 = $as_Lcom_repocad_web_lexing_SymbolToken(p52);
+            var p54 = x53.s$1;
+            if ((p54 === "<")) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$2, tail$7, "<", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$3) {
+                return (function(e1$2$1, e2$2$1, op$2$1, stream$2$1) {
+                  var e1$1 = $as_Lcom_repocad_web_parsing_Expr(e1$2$1);
+                  var e2$1 = $as_Lcom_repocad_web_parsing_Expr(e2$2$1);
+                  var op$1 = $as_T(op$2$1);
+                  var stream$1 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$1);
+                  return $as_s_util_Either(success$1$3.apply__O__O__O(new $c_Lcom_repocad_web_parsing_CompExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$1, e2$1, op$1), stream$1))
+                })
+              })(success)), failure)
+            }
+          }
         }
       }
     };
-    var o182 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o182.isEmpty__Z())) {
-      var p97 = $as_Lcom_repocad_web_lexing_Token($as_T2(o182.get__O()).$$und1$f);
-      var tail$17 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o182.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_PunctToken(p97)) {
-        var x98 = $as_Lcom_repocad_web_lexing_PunctToken(p97);
-        var p99 = x98.s$1;
-        if ((p99 === "{")) {
-          return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$17, new $c_Lcom_repocad_web_lexing_PunctToken().init___T("}"), success, failure)
+    var o181 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o181.isEmpty__Z())) {
+      var start$3 = $as_Lcom_repocad_web_lexing_Token($as_T2(o181.get__O()).$$und1$f);
+      var p56 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o181.get__O()).$$und2$f);
+      if ((start$3 !== null)) {
+        var o180 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p56);
+        if ((!o180.isEmpty__Z())) {
+          var p58 = $as_Lcom_repocad_web_lexing_Token($as_T2(o180.get__O()).$$und1$f);
+          var tail$8 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o180.get__O()).$$und2$f);
+          if ($is_Lcom_repocad_web_lexing_SymbolToken(p58)) {
+            var x59 = $as_Lcom_repocad_web_lexing_SymbolToken(p58);
+            var p60 = x59.s$1;
+            if ((p60 === "+")) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$3, tail$8, "+", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$4) {
+                return (function(e1$2$2, e2$2$2, op$2$2, stream$2$2) {
+                  var e1$3 = $as_Lcom_repocad_web_parsing_Expr(e1$2$2);
+                  var e2$3 = $as_Lcom_repocad_web_parsing_Expr(e2$2$2);
+                  var op$3 = $as_T(op$2$2);
+                  var stream$3 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$2);
+                  return $as_s_util_Either(success$1$4.apply__O__O__O(new $c_Lcom_repocad_web_parsing_OpExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$3, e2$3, op$3), stream$3))
+                })
+              })(success)), failure)
+            }
+          }
         }
       }
     };
     var o184 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
     if ((!o184.isEmpty__Z())) {
-      var p101 = $as_Lcom_repocad_web_lexing_Token($as_T2(o184.get__O()).$$und1$f);
-      var tail$18 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o184.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_PunctToken(p101)) {
-        var x102 = $as_Lcom_repocad_web_lexing_PunctToken(p101);
-        var p103 = x102.s$1;
-        if ((p103 === "(")) {
+      var start$4 = $as_Lcom_repocad_web_lexing_Token($as_T2(o184.get__O()).$$und1$f);
+      var p62 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o184.get__O()).$$und2$f);
+      if ((start$4 !== null)) {
+        var o183 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p62);
+        if ((!o183.isEmpty__Z())) {
+          var p64 = $as_Lcom_repocad_web_lexing_Token($as_T2(o183.get__O()).$$und1$f);
+          var tail$9 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o183.get__O()).$$und2$f);
+          if ($is_Lcom_repocad_web_lexing_SymbolToken(p64)) {
+            var x65 = $as_Lcom_repocad_web_lexing_SymbolToken(p64);
+            var p66 = x65.s$1;
+            if ((p66 === "-")) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$4, tail$9, "-", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$5) {
+                return (function(e1$2$3, e2$2$3, op$2$3, stream$2$3) {
+                  var e1$4 = $as_Lcom_repocad_web_parsing_Expr(e1$2$3);
+                  var e2$4 = $as_Lcom_repocad_web_parsing_Expr(e2$2$3);
+                  var op$4 = $as_T(op$2$3);
+                  var stream$4 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$3);
+                  return $as_s_util_Either(success$1$5.apply__O__O__O(new $c_Lcom_repocad_web_parsing_OpExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$4, e2$4, op$4), stream$4))
+                })
+              })(success)), failure)
+            }
+          }
+        }
+      }
+    };
+    var o187 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o187.isEmpty__Z())) {
+      var start$5 = $as_Lcom_repocad_web_lexing_Token($as_T2(o187.get__O()).$$und1$f);
+      var p68 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o187.get__O()).$$und2$f);
+      if ((start$5 !== null)) {
+        var o186 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p68);
+        if ((!o186.isEmpty__Z())) {
+          var p70 = $as_Lcom_repocad_web_lexing_Token($as_T2(o186.get__O()).$$und1$f);
+          var tail$10 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o186.get__O()).$$und2$f);
+          if ($is_Lcom_repocad_web_lexing_SymbolToken(p70)) {
+            var x71 = $as_Lcom_repocad_web_lexing_SymbolToken(p70);
+            var p72 = x71.s$1;
+            if ((p72 === "*")) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$5, tail$10, "*", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$6) {
+                return (function(e1$2$4, e2$2$4, op$2$4, stream$2$4) {
+                  var e1$5 = $as_Lcom_repocad_web_parsing_Expr(e1$2$4);
+                  var e2$5 = $as_Lcom_repocad_web_parsing_Expr(e2$2$4);
+                  var op$5 = $as_T(op$2$4);
+                  var stream$5 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$4);
+                  return $as_s_util_Either(success$1$6.apply__O__O__O(new $c_Lcom_repocad_web_parsing_OpExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$5, e2$5, op$5), stream$5))
+                })
+              })(success)), failure)
+            }
+          }
+        }
+      }
+    };
+    var o190 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o190.isEmpty__Z())) {
+      var start$6 = $as_Lcom_repocad_web_lexing_Token($as_T2(o190.get__O()).$$und1$f);
+      var p74 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o190.get__O()).$$und2$f);
+      if ((start$6 !== null)) {
+        var o189 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p74);
+        if ((!o189.isEmpty__Z())) {
+          var p76 = $as_Lcom_repocad_web_lexing_Token($as_T2(o189.get__O()).$$und1$f);
+          var tail$11 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o189.get__O()).$$und2$f);
+          if ($is_Lcom_repocad_web_lexing_SymbolToken(p76)) {
+            var x77 = $as_Lcom_repocad_web_lexing_SymbolToken(p76);
+            var p78 = x77.s$1;
+            if ((p78 === "/")) {
+              return this.parseTripleOp__Lcom_repocad_web_lexing_Token__Lcom_repocad_web_lexing_LiveStream__T__F4__F1__s_util_Either(start$6, tail$11, "/", new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$1$7) {
+                return (function(e1$2$5, e2$2$5, op$2$5, stream$2$5) {
+                  var e1$6 = $as_Lcom_repocad_web_parsing_Expr(e1$2$5);
+                  var e2$6 = $as_Lcom_repocad_web_parsing_Expr(e2$2$5);
+                  var op$6 = $as_T(op$2$5);
+                  var stream$6 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$5);
+                  return $as_s_util_Either(success$1$7.apply__O__O__O(new $c_Lcom_repocad_web_parsing_OpExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr__T(e1$6, e2$6, op$6), stream$6))
+                })
+              })(success)), failure)
+            }
+          }
+        }
+      }
+    };
+    var o194 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o194.isEmpty__Z())) {
+      var p80 = $as_Lcom_repocad_web_lexing_Token($as_T2(o194.get__O()).$$und1$f);
+      var p81 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o194.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_SymbolToken(p80)) {
+        var x82 = $as_Lcom_repocad_web_lexing_SymbolToken(p80);
+        var p83 = x82.s$1;
+        if ((p83 === "def")) {
+          var o193 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p81);
+          if ((!o193.isEmpty__Z())) {
+            var p85 = $as_Lcom_repocad_web_lexing_Token($as_T2(o193.get__O()).$$und1$f);
+            var p86 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o193.get__O()).$$und2$f);
+            if ($is_Lcom_repocad_web_lexing_SymbolToken(p85)) {
+              var x87 = $as_Lcom_repocad_web_lexing_SymbolToken(p85);
+              var name = x87.s$1;
+              var o192 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p86);
+              if ((!o192.isEmpty__Z())) {
+                var p89 = $as_Lcom_repocad_web_lexing_Token($as_T2(o192.get__O()).$$und1$f);
+                var tail$12 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o192.get__O()).$$und2$f);
+                if ($is_Lcom_repocad_web_lexing_SymbolToken(p89)) {
+                  var x90 = $as_Lcom_repocad_web_lexing_SymbolToken(p89);
+                  var p91 = x90.s$1;
+                  if ((p91 === "=")) {
+                    var temp$success$5 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1$8, name$1) {
+                      return (function(e$2, stream$2$6) {
+                        var e = $as_Lcom_repocad_web_parsing_Expr(e$2);
+                        var stream$7 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$6);
+                        return $as_s_util_Either(success$1$8.apply__O__O__O(new $c_Lcom_repocad_web_parsing_ValExpr().init___T__Lcom_repocad_web_parsing_Expr(name$1, e), stream$7))
+                      })
+                    })(success, name));
+                    tokens = tail$12;
+                    success = temp$success$5;
+                    continue _parse
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+    var o198 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o198.isEmpty__Z())) {
+      var p93 = $as_Lcom_repocad_web_lexing_Token($as_T2(o198.get__O()).$$und1$f);
+      var p94 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o198.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_SymbolToken(p93)) {
+        var x95 = $as_Lcom_repocad_web_lexing_SymbolToken(p93);
+        var p96 = x95.s$1;
+        if ((p96 === "def")) {
+          var o197 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p94);
+          if ((!o197.isEmpty__Z())) {
+            var p98 = $as_Lcom_repocad_web_lexing_Token($as_T2(o197.get__O()).$$und1$f);
+            var p99 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o197.get__O()).$$und2$f);
+            if ($is_Lcom_repocad_web_lexing_SymbolToken(p98)) {
+              var x100 = $as_Lcom_repocad_web_lexing_SymbolToken(p98);
+              var name$2 = x100.s$1;
+              var o196 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p99);
+              if ((!o196.isEmpty__Z())) {
+                var p102 = $as_Lcom_repocad_web_lexing_Token($as_T2(o196.get__O()).$$und1$f);
+                var tail$13 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o196.get__O()).$$und2$f);
+                if ($is_Lcom_repocad_web_lexing_PunctToken(p102)) {
+                  var x103 = $as_Lcom_repocad_web_lexing_PunctToken(p102);
+                  var p104 = x103.s$1;
+                  if ((p104 === "(")) {
+                    return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$13, new $c_Lcom_repocad_web_lexing_PunctToken().init___T(")"), new $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13().init___F2__F1__T(success, failure, name$2), failure)
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+    var o200 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o200.isEmpty__Z())) {
+      var p106 = $as_Lcom_repocad_web_lexing_Token($as_T2(o200.get__O()).$$und1$f);
+      var tail$14 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o200.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_IntToken(p106)) {
+        var x107 = $as_Lcom_repocad_web_lexing_IntToken(p106);
+        var value = x107.n$1;
+        return $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(value), tail$14))
+      }
+    };
+    var o202 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o202.isEmpty__Z())) {
+      var p109 = $as_Lcom_repocad_web_lexing_Token($as_T2(o202.get__O()).$$und1$f);
+      var tail$15 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o202.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_DoubleToken(p109)) {
+        var x110 = $as_Lcom_repocad_web_lexing_DoubleToken(p109);
+        var value$2 = x110.d$1;
+        return $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(value$2), tail$15))
+      }
+    };
+    var o204 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o204.isEmpty__Z())) {
+      var p112 = $as_Lcom_repocad_web_lexing_Token($as_T2(o204.get__O()).$$und1$f);
+      var tail$16 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o204.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_StringToken(p112)) {
+        var x113 = $as_Lcom_repocad_web_lexing_StringToken(p112);
+        var value$3 = x113.s$1;
+        if ((value$3 !== null)) {
+          return $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_ConstantExpr().init___O(value$3), tail$16))
+        }
+      }
+    };
+    var o206 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o206.isEmpty__Z())) {
+      var p115 = $as_Lcom_repocad_web_lexing_Token($as_T2(o206.get__O()).$$und1$f);
+      var tail$17 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o206.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_PunctToken(p115)) {
+        var x116 = $as_Lcom_repocad_web_lexing_PunctToken(p115);
+        var p117 = x116.s$1;
+        if ((p117 === "{")) {
+          return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$17, new $c_Lcom_repocad_web_lexing_PunctToken().init___T("}"), success, failure)
+        }
+      }
+    };
+    var o208 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o208.isEmpty__Z())) {
+      var p119 = $as_Lcom_repocad_web_lexing_Token($as_T2(o208.get__O()).$$und1$f);
+      var tail$18 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o208.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_PunctToken(p119)) {
+        var x120 = $as_Lcom_repocad_web_lexing_PunctToken(p119);
+        var p121 = x120.s$1;
+        if ((p121 === "(")) {
           return this.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__F2__F1__s_util_Either(tail$18, new $c_Lcom_repocad_web_lexing_PunctToken().init___T(")"), success, failure)
         }
       }
     };
-    var o186 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o186.isEmpty__Z())) {
-      var p105 = $as_Lcom_repocad_web_lexing_Token($as_T2(o186.get__O()).$$und1$f);
-      var tail$19 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o186.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_SymbolToken(p105)) {
-        var x106 = $as_Lcom_repocad_web_lexing_SymbolToken(p105);
-        var name$4 = x106.s$1;
+    var o210 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o210.isEmpty__Z())) {
+      var p123 = $as_Lcom_repocad_web_lexing_Token($as_T2(o210.get__O()).$$und1$f);
+      var tail$19 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o210.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_SymbolToken(p123)) {
+        var x124 = $as_Lcom_repocad_web_lexing_SymbolToken(p123);
+        var name$3 = x124.s$1;
         if (((!tail$19.isEmpty__Z()) && (!tail$19.isPlugged__Z()))) {
           var this$1 = $as_Lcom_repocad_web_lexing_Token(tail$19.head__O());
           var this$2 = this$1.tag__T();
@@ -3399,33 +3451,33 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
           var jsx$1 = false
         };
         if (jsx$1) {
-          var temp$success$6 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1$7, failure$1, name$4$1) {
+          var temp$success$6 = new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(success$1$9, failure$1, name$3$1) {
             return (function(params$2, paramsTail$2) {
               var params = $as_Lcom_repocad_web_parsing_Expr(params$2);
               var paramsTail = $as_Lcom_repocad_web_lexing_LiveStream(paramsTail$2);
               if ($is_Lcom_repocad_web_parsing_SeqExpr(params)) {
                 var x2 = $as_Lcom_repocad_web_parsing_SeqExpr(params);
                 var xs = x2.expr$1;
-                return $as_s_util_Either(success$1$7.apply__O__O__O(new $c_Lcom_repocad_web_parsing_RefExpr().init___T__sc_Seq(name$4$1, new $c_sjs_js_WrappedArray().init___sjs_js_Array([xs])), paramsTail))
+                return $as_s_util_Either(success$1$9.apply__O__O__O(new $c_Lcom_repocad_web_parsing_RefExpr().init___T__sc_Seq(name$3$1, new $c_sjs_js_WrappedArray().init___sjs_js_Array([xs])), paramsTail))
               } else {
                 return $as_s_util_Either(failure$1.apply__O__O(("Failed to parse ref call: Expected parameters, got " + params)))
               }
             })
-          })(success, failure, name$4));
+          })(success, failure, name$3));
           tokens = tail$19;
           success = temp$success$6;
           continue _parse
         }
       }
     };
-    var o188 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o188.isEmpty__Z())) {
-      var p108 = $as_Lcom_repocad_web_lexing_Token($as_T2(o188.get__O()).$$und1$f);
-      var tail$20 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o188.get__O()).$$und2$f);
-      if ($is_Lcom_repocad_web_lexing_SymbolToken(p108)) {
-        var x109 = $as_Lcom_repocad_web_lexing_SymbolToken(p108);
-        var name$5 = x109.s$1;
-        return $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_RefExpr().init___T__sc_Seq(name$5, new $c_sjs_js_WrappedArray().init___sjs_js_Array([])), tail$20))
+    var o212 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o212.isEmpty__Z())) {
+      var p126 = $as_Lcom_repocad_web_lexing_Token($as_T2(o212.get__O()).$$und1$f);
+      var tail$20 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o212.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_SymbolToken(p126)) {
+        var x127 = $as_Lcom_repocad_web_lexing_SymbolToken(p126);
+        var name$4 = x127.s$1;
+        return $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_RefExpr().init___T__sc_Seq(name$4, new $c_sjs_js_WrappedArray().init___sjs_js_Array([])), tail$20))
       }
     };
     return $as_s_util_Either(failure.apply__O__O(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Unrecognised token pattern ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([x1]))))
@@ -15367,7 +15419,7 @@ $c_Lcom_repocad_web_evaluating_Evaluator$$anonfun$eval$6.prototype.apply__D__s_u
     var jsx$1 = this.env$1$f;
     var $$this = this.name$2$f;
     var $$this$1 = jsx$1.$$plus__T2__sci_Map(new $c_T2().init___O__O($$this, fromValue));
-    var y = (fromValue < toValue);
+    var y = (fromValue <= toValue);
     var b$1 = new $c_T2().init___O__O($$this$1, y);
     return new $c_s_util_Right().init___O(b$1)
   } else {
@@ -16734,7 +16786,7 @@ var $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13 = (function() {
   $c_sr_AbstractFunction2.call(this);
   this.success$1$f = null;
   this.failure$1$2 = null;
-  this.name$3$f = null
+  this.name$2$f = null
 });
 $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13.prototype = new $h_sr_AbstractFunction2();
 $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13.prototype.constructor = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13;
@@ -16743,10 +16795,10 @@ var $h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13 = (function() {
   /*<skip>*/
 });
 $h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13.prototype = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13.prototype;
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13.prototype.init___F2__F1__T = (function(success$1, failure$1, name$3) {
+$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13.prototype.init___F2__F1__T = (function(success$1, failure$1, name$2) {
   this.success$1$f = success$1;
   this.failure$1$2 = failure$1;
-  this.name$3$f = name$3;
+  this.name$2$f = name$2;
   return this
 });
 $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13.prototype.apply__O__O__O = (function(v1, v2) {
@@ -16760,7 +16812,7 @@ $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13.prototype.apply__Lcom_repoc
       var x$1 = $as_Lcom_repocad_web_parsing_Expr(x$1$2);
       return (!$is_Lcom_repocad_web_parsing_RefExpr(x$1))
     }))))) {
-      return $m_Lcom_repocad_web_parsing_Parser$().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(paramsTail, new $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7().init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$13__sc_Seq(this, xs), this.failure$1$2)
+      return $m_Lcom_repocad_web_parsing_Parser$().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(paramsTail, new $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5().init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$13__sc_Seq(this, xs), this.failure$1$2)
     }
   };
   return $as_s_util_Either(this.failure$1$2.apply__O__O(("Expected parameter list, got " + params)))
@@ -16777,22 +16829,22 @@ var $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13 = new $ClassTypeData({
 });
 $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13.prototype.$classData = $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13;
 /** @constructor */
-var $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7 = (function() {
+var $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5 = (function() {
   $c_sr_AbstractFunction2.call(this);
   this.$$outer$2 = null;
   this.xs$1$2 = null
 });
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype = new $h_sr_AbstractFunction2();
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype.constructor = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7;
+$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5.prototype = new $h_sr_AbstractFunction2();
+$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5.prototype.constructor = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5;
 /** @constructor */
-var $h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7 = (function() {
+var $h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5 = (function() {
   /*<skip>*/
 });
-$h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype;
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype.apply__O__O__O = (function(v1, v2) {
+$h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5.prototype = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5.prototype;
+$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5.prototype.apply__O__O__O = (function(v1, v2) {
   return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either($as_Lcom_repocad_web_parsing_Expr(v1), $as_Lcom_repocad_web_lexing_LiveStream(v2))
 });
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype.init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$13__sc_Seq = (function($$outer, xs$1) {
+$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5.prototype.init___Lcom_repocad_web_parsing_Parser$$anonfun$parse$13__sc_Seq = (function($$outer, xs$1) {
   if (($$outer === null)) {
     throw $m_sjsr_package$().unwrapJavaScriptException__jl_Throwable__O(null)
   } else {
@@ -16801,9 +16853,9 @@ $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype.
   this.xs$1$2 = xs$1;
   return this
 });
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(body, bodyTail) {
+$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(body, bodyTail) {
   var jsx$4 = this.$$outer$2.success$1$f;
-  var jsx$3 = this.$$outer$2.name$3$f;
+  var jsx$3 = this.$$outer$2.name$2$f;
   var jsx$2 = this.xs$1$2;
   var jsx$1 = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x$2$2) {
     var x$2 = $as_Lcom_repocad_web_parsing_RefExpr(x$2$2);
@@ -16812,17 +16864,17 @@ $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype.
   var this$1 = $m_sc_Seq$();
   return $as_s_util_Either(jsx$4.apply__O__O__O(new $c_Lcom_repocad_web_parsing_FunctionExpr().init___T__sc_Seq__Lcom_repocad_web_parsing_Expr(jsx$3, $as_sc_Seq(jsx$2.map__F1__scg_CanBuildFrom__O(jsx$1, this$1.ReusableCBFInstance$2)), body), bodyTail))
 });
-var $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7 = new $ClassTypeData({
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7: 0
-}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$13$$anonfun$apply$7", {
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7: 1,
+var $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5 = new $ClassTypeData({
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5: 0
+}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$13$$anonfun$apply$5", {
+  Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5: 1,
   sr_AbstractFunction2: 1,
   O: 1,
   F2: 1,
   s_Serializable: 1,
   Ljava_io_Serializable: 1
 });
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7.prototype.$classData = $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$7;
+$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5.prototype.$classData = $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$13$$anonfun$apply$5;
 /** @constructor */
 var $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$2 = (function() {
   $c_sr_AbstractFunction2.call(this);
@@ -16956,96 +17008,6 @@ var $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$3 = new $ClassTypeData({
   Ljava_io_Serializable: 1
 });
 $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$3.prototype.$classData = $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$3;
-/** @constructor */
-var $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4 = (function() {
-  $c_sr_AbstractFunction2.call(this);
-  this.success$1$f = null;
-  this.failure$1$2 = null
-});
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4.prototype = new $h_sr_AbstractFunction2();
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4.prototype.constructor = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4;
-/** @constructor */
-var $h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4 = (function() {
-  /*<skip>*/
-});
-$h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4.prototype = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4.prototype;
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4.prototype.init___F2__F1 = (function(success$1, failure$1) {
-  this.success$1$f = success$1;
-  this.failure$1$2 = failure$1;
-  return this
-});
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4.prototype.apply__O__O__O = (function(v1, v2) {
-  return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either($as_Lcom_repocad_web_parsing_Expr(v1), $as_Lcom_repocad_web_lexing_LiveStream(v2))
-});
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(assignment, blockTail) {
-  return $m_Lcom_repocad_web_parsing_Parser$().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(blockTail, new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(arg$outer, assignment$1) {
-    return (function(body$2, bodyTail$2) {
-      var body = $as_Lcom_repocad_web_parsing_Expr(body$2);
-      var bodyTail = $as_Lcom_repocad_web_lexing_LiveStream(bodyTail$2);
-      return $as_s_util_Either(arg$outer.success$1$f.apply__O__O__O(new $c_Lcom_repocad_web_parsing_LoopExpr().init___Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(assignment$1, body), bodyTail))
-    })
-  })(this, assignment)), this.failure$1$2)
-});
-var $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4 = new $ClassTypeData({
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$4: 0
-}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$4", {
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$4: 1,
-  sr_AbstractFunction2: 1,
-  O: 1,
-  F2: 1,
-  s_Serializable: 1,
-  Ljava_io_Serializable: 1
-});
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4.prototype.$classData = $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4;
-/** @constructor */
-var $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6 = (function() {
-  $c_sr_AbstractFunction2.call(this);
-  this.success$1$f = null;
-  this.failure$1$2 = null;
-  this.name$2$f = null
-});
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6.prototype = new $h_sr_AbstractFunction2();
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6.prototype.constructor = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6;
-/** @constructor */
-var $h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6 = (function() {
-  /*<skip>*/
-});
-$h_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6.prototype = $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6.prototype;
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6.prototype.init___F2__F1__T = (function(success$1, failure$1, name$2) {
-  this.success$1$f = success$1;
-  this.failure$1$2 = failure$1;
-  this.name$2$f = name$2;
-  return this
-});
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6.prototype.apply__O__O__O = (function(v1, v2) {
-  return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either($as_Lcom_repocad_web_parsing_Expr(v1), $as_Lcom_repocad_web_lexing_LiveStream(v2))
-});
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(from, stream) {
-  var x = stream.head__O();
-  var x$2 = new $c_Lcom_repocad_web_lexing_SymbolToken().init___T("to");
-  if (((x !== null) && $objectEquals(x, x$2))) {
-    return $m_Lcom_repocad_web_parsing_Parser$().parse__Lcom_repocad_web_lexing_LiveStream__F2__F1__s_util_Either(stream.tail__Lcom_repocad_web_lexing_LiveStream(), new $c_sjsr_AnonFunction2().init___sjs_js_Function2((function(arg$outer, from$1) {
-      return (function(to$2, toTail$2) {
-        var to = $as_Lcom_repocad_web_parsing_Expr(to$2);
-        var toTail = $as_Lcom_repocad_web_lexing_LiveStream(toTail$2);
-        return $as_s_util_Either(arg$outer.success$1$f.apply__O__O__O(new $c_Lcom_repocad_web_parsing_RangeExpr().init___T__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_parsing_Expr(arg$outer.name$2$f, from$1, to), toTail))
-      })
-    })(this, from)), this.failure$1$2)
-  } else {
-    return $as_s_util_Either(this.failure$1$2.apply__O__O(("Expected 'to', found " + stream.head__O())))
-  }
-});
-var $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6 = new $ClassTypeData({
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$6: 0
-}, false, "com.repocad.web.parsing.Parser$$anonfun$parse$6", {
-  Lcom_repocad_web_parsing_Parser$$anonfun$parse$6: 1,
-  sr_AbstractFunction2: 1,
-  O: 1,
-  F2: 1,
-  s_Serializable: 1,
-  Ljava_io_Serializable: 1
-});
-$c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6.prototype.$classData = $d_Lcom_repocad_web_parsing_Parser$$anonfun$parse$6;
 /** @constructor */
 var $c_Lcom_repocad_web_parsing_Parser$$anonfun$parseTripleOp$1 = (function() {
   $c_sr_AbstractFunction2.call(this);
@@ -20240,110 +20202,6 @@ var $d_Lcom_repocad_web_parsing_CompExpr = new $ClassTypeData({
 });
 $c_Lcom_repocad_web_parsing_CompExpr.prototype.$classData = $d_Lcom_repocad_web_parsing_CompExpr;
 /** @constructor */
-var $c_Lcom_repocad_web_parsing_FunctionExpr = (function() {
-  $c_O.call(this);
-  this.name$1 = null;
-  this.params$1 = null;
-  this.body$1 = null
-});
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype = new $h_O();
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.constructor = $c_Lcom_repocad_web_parsing_FunctionExpr;
-/** @constructor */
-var $h_Lcom_repocad_web_parsing_FunctionExpr = (function() {
-  /*<skip>*/
-});
-$h_Lcom_repocad_web_parsing_FunctionExpr.prototype = $c_Lcom_repocad_web_parsing_FunctionExpr.prototype;
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.productPrefix__T = (function() {
-  return "FunctionExpr"
-});
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.productArity__I = (function() {
-  return 3
-});
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.equals__O__Z = (function(x$1) {
-  if ((this === x$1)) {
-    return true
-  } else if ($is_Lcom_repocad_web_parsing_FunctionExpr(x$1)) {
-    var FunctionExpr$1 = $as_Lcom_repocad_web_parsing_FunctionExpr(x$1);
-    if ((this.name$1 === FunctionExpr$1.name$1)) {
-      var x = this.params$1;
-      var x$2 = FunctionExpr$1.params$1;
-      var jsx$1 = ((x === null) ? (x$2 === null) : x.equals__O__Z(x$2))
-    } else {
-      var jsx$1 = false
-    };
-    if (jsx$1) {
-      var x$3 = this.body$1;
-      var x$4 = FunctionExpr$1.body$1;
-      return ((x$3 === null) ? (x$4 === null) : x$3.equals__O__Z(x$4))
-    } else {
-      return false
-    }
-  } else {
-    return false
-  }
-});
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.productElement__I__O = (function(x$1) {
-  switch (x$1) {
-    case 0:
-      {
-        return this.name$1;
-        break
-      };
-    case 1:
-      {
-        return this.params$1;
-        break
-      };
-    case 2:
-      {
-        return this.body$1;
-        break
-      };
-    default:
-      throw new $c_jl_IndexOutOfBoundsException().init___T(("" + x$1));
-  }
-});
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.toString__T = (function() {
-  return $m_sr_ScalaRunTime$().$$undtoString__s_Product__T(this)
-});
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.hashCode__I = (function() {
-  var this$2 = $m_s_util_hashing_MurmurHash3$();
-  return this$2.productHash__s_Product__I__I(this, (-889275714))
-});
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.productIterator__sc_Iterator = (function() {
-  return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
-});
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.init___T__sc_Seq__Lcom_repocad_web_parsing_Expr = (function(name, params, body) {
-  this.name$1 = name;
-  this.params$1 = params;
-  this.body$1 = body;
-  return this
-});
-var $is_Lcom_repocad_web_parsing_FunctionExpr = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_FunctionExpr)))
-});
-var $as_Lcom_repocad_web_parsing_FunctionExpr = (function(obj) {
-  return (($is_Lcom_repocad_web_parsing_FunctionExpr(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "com.repocad.web.parsing.FunctionExpr"))
-});
-var $isArrayOf_Lcom_repocad_web_parsing_FunctionExpr = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_FunctionExpr)))
-});
-var $asArrayOf_Lcom_repocad_web_parsing_FunctionExpr = (function(obj, depth) {
-  return (($isArrayOf_Lcom_repocad_web_parsing_FunctionExpr(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcom.repocad.web.parsing.FunctionExpr;", depth))
-});
-var $d_Lcom_repocad_web_parsing_FunctionExpr = new $ClassTypeData({
-  Lcom_repocad_web_parsing_FunctionExpr: 0
-}, false, "com.repocad.web.parsing.FunctionExpr", {
-  Lcom_repocad_web_parsing_FunctionExpr: 1,
-  O: 1,
-  Lcom_repocad_web_parsing_Expr: 1,
-  s_Product: 1,
-  s_Equals: 1,
-  s_Serializable: 1,
-  Ljava_io_Serializable: 1
-});
-$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.$classData = $d_Lcom_repocad_web_parsing_FunctionExpr;
-/** @constructor */
 var $c_Lcom_repocad_web_parsing_IfExpr = (function() {
   $c_O.call(this);
   this.condition$1 = null;
@@ -22000,6 +21858,111 @@ var $d_Lcom_repocad_web_parsing_ConstantExpr = new $ClassTypeData({
   Ljava_io_Serializable: 1
 });
 $c_Lcom_repocad_web_parsing_ConstantExpr.prototype.$classData = $d_Lcom_repocad_web_parsing_ConstantExpr;
+/** @constructor */
+var $c_Lcom_repocad_web_parsing_FunctionExpr = (function() {
+  $c_O.call(this);
+  this.name$1 = null;
+  this.params$1 = null;
+  this.body$1 = null
+});
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype = new $h_O();
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.constructor = $c_Lcom_repocad_web_parsing_FunctionExpr;
+/** @constructor */
+var $h_Lcom_repocad_web_parsing_FunctionExpr = (function() {
+  /*<skip>*/
+});
+$h_Lcom_repocad_web_parsing_FunctionExpr.prototype = $c_Lcom_repocad_web_parsing_FunctionExpr.prototype;
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.productPrefix__T = (function() {
+  return "FunctionExpr"
+});
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.productArity__I = (function() {
+  return 3
+});
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else if ($is_Lcom_repocad_web_parsing_FunctionExpr(x$1)) {
+    var FunctionExpr$1 = $as_Lcom_repocad_web_parsing_FunctionExpr(x$1);
+    if ((this.name$1 === FunctionExpr$1.name$1)) {
+      var x = this.params$1;
+      var x$2 = FunctionExpr$1.params$1;
+      var jsx$1 = ((x === null) ? (x$2 === null) : x.equals__O__Z(x$2))
+    } else {
+      var jsx$1 = false
+    };
+    if (jsx$1) {
+      var x$3 = this.body$1;
+      var x$4 = FunctionExpr$1.body$1;
+      return ((x$3 === null) ? (x$4 === null) : x$3.equals__O__Z(x$4))
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+});
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.productElement__I__O = (function(x$1) {
+  switch (x$1) {
+    case 0:
+      {
+        return this.name$1;
+        break
+      };
+    case 1:
+      {
+        return this.params$1;
+        break
+      };
+    case 2:
+      {
+        return this.body$1;
+        break
+      };
+    default:
+      throw new $c_jl_IndexOutOfBoundsException().init___T(("" + x$1));
+  }
+});
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.toString__T = (function() {
+  return $m_sr_ScalaRunTime$().$$undtoString__s_Product__T(this)
+});
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.hashCode__I = (function() {
+  var this$2 = $m_s_util_hashing_MurmurHash3$();
+  return this$2.productHash__s_Product__I__I(this, (-889275714))
+});
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.productIterator__sc_Iterator = (function() {
+  return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
+});
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.init___T__sc_Seq__Lcom_repocad_web_parsing_Expr = (function(name, params, body) {
+  this.name$1 = name;
+  this.params$1 = params;
+  this.body$1 = body;
+  return this
+});
+var $is_Lcom_repocad_web_parsing_FunctionExpr = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_FunctionExpr)))
+});
+var $as_Lcom_repocad_web_parsing_FunctionExpr = (function(obj) {
+  return (($is_Lcom_repocad_web_parsing_FunctionExpr(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "com.repocad.web.parsing.FunctionExpr"))
+});
+var $isArrayOf_Lcom_repocad_web_parsing_FunctionExpr = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_FunctionExpr)))
+});
+var $asArrayOf_Lcom_repocad_web_parsing_FunctionExpr = (function(obj, depth) {
+  return (($isArrayOf_Lcom_repocad_web_parsing_FunctionExpr(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcom.repocad.web.parsing.FunctionExpr;", depth))
+});
+var $d_Lcom_repocad_web_parsing_FunctionExpr = new $ClassTypeData({
+  Lcom_repocad_web_parsing_FunctionExpr: 0
+}, false, "com.repocad.web.parsing.FunctionExpr", {
+  Lcom_repocad_web_parsing_FunctionExpr: 1,
+  O: 1,
+  Lcom_repocad_web_parsing_ValueExpr: 1,
+  Lcom_repocad_web_parsing_Expr: 1,
+  s_Product: 1,
+  s_Equals: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1
+});
+$c_Lcom_repocad_web_parsing_FunctionExpr.prototype.$classData = $d_Lcom_repocad_web_parsing_FunctionExpr;
 /** @constructor */
 var $c_Lcom_repocad_web_parsing_RangeExpr = (function() {
   $c_O.call(this);
