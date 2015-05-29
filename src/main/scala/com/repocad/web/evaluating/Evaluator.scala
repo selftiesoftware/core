@@ -55,6 +55,8 @@ object Evaluator {
           case 2 => (funEnv : Env, a: Any, b: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b)).fold(l => l, r => r._2)
           case 3 => (funEnv : Env, a: Any, b: Any, c: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b, params(2) -> c)).fold(l => l, r => r._2)
           case 4 => (funEnv : Env, a: Any, b: Any, c: Any, d: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d)).fold(l => l, r => r._2)
+          case 5 => (funEnv : Env, a: Any, b: Any, c: Any, d: Any, e: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d, params(4) -> e)).fold(l => l, r => r._2)
+          case 6 => (funEnv : Env, a: Any, b: Any, c: Any, d: Any, e: Any, f: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d, params(4) -> e, params(5) -> f)).fold(l => l, r => r._2)
           case x => Left("Unsupported number of arguments: " + x)
         }
         Right(env.+(name -> function) -> function)

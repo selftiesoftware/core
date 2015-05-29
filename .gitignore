@@ -15,3 +15,4 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 *.py*
+nohup.out
