@@ -77,7 +77,6 @@ Helper object for live streams.
   */
 object LiveStream {
 
-
   /**
   Creates a character-based live stream from a string.
     */
@@ -89,6 +88,13 @@ object LiveStream {
     source.terminate()
 
     new LiveStream[Char](source)
+  }
+
+  def apply[T](element : T): LiveStream[T] = {
+    val source = new LiveStreamSource[T]()
+    val stream = new LiveStream[T](source)
+    source += element
+    stream
   }
 
   /**

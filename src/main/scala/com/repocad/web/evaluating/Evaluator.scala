@@ -113,7 +113,7 @@ object Evaluator {
 
         val toOption = getValue[Double](to, env)
         fromOption.right.flatMap(fromValue => toOption.right.flatMap(toValue => {
-          Right((env + (name -> fromValue)) -> (fromValue < toValue))
+          Right((env + (name -> fromValue)) -> (fromValue <= toValue))
         }))
 
       case RefExpr(name, params) =>
