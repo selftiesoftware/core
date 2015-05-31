@@ -141,7 +141,6 @@ object Parser {
 
     tokens match {
       case fromToken :~: SymbolToken("to") :~: toToken :~: SymbolToken("def") :~: SymbolToken(counter) :~: tail =>
-        println(fromToken, toToken, tail)
         parseValueToken(toToken).fold(to => {
           parseValueToken(fromToken).fold(from => {
             parseLoopWithRange(RangeExpr(counter, from, to), tail, success, failure)
