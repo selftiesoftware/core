@@ -214,7 +214,7 @@ object Evaluator {
           Left(s"Failed to find function '$name'. Please check if it has been declared.")
         )(x => Right(env -> x))
 
-      case seq: SeqExpr =>
+      case seq: BlockExpr =>
         def foldRecursive(it: Iterator[Expr], foldEnv: Env): Value = {
           eval(it.next(), foldEnv).fold(error => Left(error), t => {
             if (it.hasNext) {

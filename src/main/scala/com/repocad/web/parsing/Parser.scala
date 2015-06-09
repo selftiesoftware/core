@@ -29,7 +29,7 @@ object Parser {
         }
       }
 
-      seqFail.map(seqFailure).getOrElse(Right(SeqExpr(seq)))
+      seqFail.map(seqFailure).getOrElse(Right(BlockExpr(seq)))
     } catch {
       case e : InternalError => {
         Left("Script too large (sorry - we're working on it!)")
@@ -96,7 +96,7 @@ object Parser {
       case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
         parseUntil(tail, PunctToken(")"), (params, paramsTail) => {
           params match {
-            case SeqExpr(xs) if !xs.exists(!_.isInstanceOf[RefExpr]) => parse(paramsTail, (body, bodyTail) => {
+            case BlockExpr(xs) if !xs.exists(!_.isInstanceOf[RefExpr]) => parse(paramsTail, (body, bodyTail) => {
               success(FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]].map(_.name), body), bodyTail)
             }, failure)
             case xs => failure("Expected parameter list, got " + xs)
@@ -115,7 +115,7 @@ object Parser {
       // References
       case SymbolToken(name) :~: tail if !tail.isEmpty && !tail.isPlugged && tail.head.tag.equals("(") => parse(tail, (params, paramsTail) => {
         params match {
-          case SeqExpr(xs) => success(RefExpr(name, xs), paramsTail)
+          case BlockExpr(xs) => success(RefExpr(name, xs), paramsTail)
           case xs => failure("Failed to parse ref call: Expected parameters, got " + xs)
         }
       }, failure)
@@ -193,7 +193,7 @@ object Parser {
       }
     }
 
-    seqFail.map(failure).getOrElse(success(SeqExpr(seq), if (seqTail.isPlugged) seqTail else seqTail.tail))
+    seqFail.map(failure).getOrElse(success(BlockExpr(seq), if (seqTail.isPlugged) seqTail else seqTail.tail))
   }
 
 }

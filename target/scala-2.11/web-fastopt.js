@@ -1982,8 +1982,8 @@ $c_Lcom_repocad_web_evaluating_Evaluator$.prototype.eval__Lcom_repocad_web_parsi
         return $as_s_util_Either(jsx$6)
       }
     };
-    if ($is_Lcom_repocad_web_parsing_SeqExpr(x1)) {
-      var x13 = $as_Lcom_repocad_web_parsing_SeqExpr(x1);
+    if ($is_Lcom_repocad_web_parsing_BlockExpr(x1)) {
+      var x13 = $as_Lcom_repocad_web_parsing_BlockExpr(x1);
       return this.com$repocad$web$evaluating$Evaluator$$foldRecursive$1__sc_Iterator__sci_Map__s_util_Either(x13.expr$1.iterator__sc_Iterator(), env)
     };
     var x$4 = $m_Lcom_repocad_web_parsing_UnitExpr$();
@@ -3426,8 +3426,8 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
             return (function(params$2, paramsTail$2) {
               var params = $as_Lcom_repocad_web_parsing_Expr(params$2);
               var paramsTail = $as_Lcom_repocad_web_lexing_LiveStream(paramsTail$2);
-              if ($is_Lcom_repocad_web_parsing_SeqExpr(params)) {
-                var x2 = $as_Lcom_repocad_web_parsing_SeqExpr(params);
+              if ($is_Lcom_repocad_web_parsing_BlockExpr(params)) {
+                var x2 = $as_Lcom_repocad_web_parsing_BlockExpr(params);
                 var xs = x2.expr$1;
                 return $as_s_util_Either(success$1$7.apply__O__O__O(new $c_Lcom_repocad_web_parsing_RefExpr().init___T__sc_Seq(name$3$1, new $c_sjs_js_WrappedArray().init___sjs_js_Array([xs])), paramsTail))
               } else {
@@ -3622,7 +3622,7 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parseUntil__Lcom_repocad_web_lexin
   };
   var this$6 = $as_s_Option(elem$1$1);
   var this$7 = (this$6.isEmpty__Z() ? $m_s_None$() : new $c_s_Some().init___O(failure.apply__O__O(this$6.get__O())));
-  return $as_s_util_Either((this$7.isEmpty__Z() ? $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_SeqExpr().init___sc_Seq($as_sc_Seq(elem$1)), ($as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).isPlugged__Z() ? $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1) : $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).tail__Lcom_repocad_web_lexing_LiveStream()))) : this$7.get__O()))
+  return $as_s_util_Either((this$7.isEmpty__Z() ? $as_s_util_Either(success.apply__O__O__O(new $c_Lcom_repocad_web_parsing_BlockExpr().init___sc_Seq($as_sc_Seq(elem$1)), ($as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).isPlugged__Z() ? $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1) : $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).tail__Lcom_repocad_web_lexing_LiveStream()))) : this$7.get__O()))
 });
 $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(tokens) {
   try {
@@ -3657,7 +3657,7 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
     var this$6 = (this$5.isEmpty__Z() ? $m_s_None$() : new $c_s_Some().init___O(f.apply__O__O(this$5.get__O())));
     if (this$6.isEmpty__Z()) {
       $m_s_package$().Right$1;
-      var b = new $c_Lcom_repocad_web_parsing_SeqExpr().init___sc_Seq($as_sc_Seq(elem$1));
+      var b = new $c_Lcom_repocad_web_parsing_BlockExpr().init___sc_Seq($as_sc_Seq(elem$1));
       var jsx$2 = new $c_s_util_Right().init___O(b)
     } else {
       var jsx$2 = this$6.get__O()
@@ -17055,8 +17055,8 @@ $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype.apply__O__O__O = 
   return this.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either($as_Lcom_repocad_web_parsing_Expr(v1), $as_Lcom_repocad_web_lexing_LiveStream(v2))
 });
 $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$10.prototype.apply__Lcom_repocad_web_parsing_Expr__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(params, paramsTail) {
-  if ($is_Lcom_repocad_web_parsing_SeqExpr(params)) {
-    var x2 = $as_Lcom_repocad_web_parsing_SeqExpr(params);
+  if ($is_Lcom_repocad_web_parsing_BlockExpr(params)) {
+    var x2 = $as_Lcom_repocad_web_parsing_BlockExpr(params);
     var xs = x2.expr$1;
     if ((!xs.exists__F1__Z(new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x$1$2) {
       var x$1 = $as_Lcom_repocad_web_parsing_Expr(x$1$2);
@@ -20417,6 +20417,85 @@ var $d_Lcom_repocad_web_lexing_Union = new $ClassTypeData({
 });
 $c_Lcom_repocad_web_lexing_Union.prototype.$classData = $d_Lcom_repocad_web_lexing_Union;
 /** @constructor */
+var $c_Lcom_repocad_web_parsing_BlockExpr = (function() {
+  $c_O.call(this);
+  this.expr$1 = null
+});
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype = new $h_O();
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.constructor = $c_Lcom_repocad_web_parsing_BlockExpr;
+/** @constructor */
+var $h_Lcom_repocad_web_parsing_BlockExpr = (function() {
+  /*<skip>*/
+});
+$h_Lcom_repocad_web_parsing_BlockExpr.prototype = $c_Lcom_repocad_web_parsing_BlockExpr.prototype;
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.productPrefix__T = (function() {
+  return "BlockExpr"
+});
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.productArity__I = (function() {
+  return 1
+});
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else if ($is_Lcom_repocad_web_parsing_BlockExpr(x$1)) {
+    var BlockExpr$1 = $as_Lcom_repocad_web_parsing_BlockExpr(x$1);
+    var x = this.expr$1;
+    var x$2 = BlockExpr$1.expr$1;
+    return ((x === null) ? (x$2 === null) : x.equals__O__Z(x$2))
+  } else {
+    return false
+  }
+});
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.productElement__I__O = (function(x$1) {
+  switch (x$1) {
+    case 0:
+      {
+        return this.expr$1;
+        break
+      };
+    default:
+      throw new $c_jl_IndexOutOfBoundsException().init___T(("" + x$1));
+  }
+});
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.toString__T = (function() {
+  return $m_sr_ScalaRunTime$().$$undtoString__s_Product__T(this)
+});
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.init___sc_Seq = (function(expr) {
+  this.expr$1 = expr;
+  return this
+});
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.hashCode__I = (function() {
+  var this$2 = $m_s_util_hashing_MurmurHash3$();
+  return this$2.productHash__s_Product__I__I(this, (-889275714))
+});
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.productIterator__sc_Iterator = (function() {
+  return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
+});
+var $is_Lcom_repocad_web_parsing_BlockExpr = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_BlockExpr)))
+});
+var $as_Lcom_repocad_web_parsing_BlockExpr = (function(obj) {
+  return (($is_Lcom_repocad_web_parsing_BlockExpr(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "com.repocad.web.parsing.BlockExpr"))
+});
+var $isArrayOf_Lcom_repocad_web_parsing_BlockExpr = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_BlockExpr)))
+});
+var $asArrayOf_Lcom_repocad_web_parsing_BlockExpr = (function(obj, depth) {
+  return (($isArrayOf_Lcom_repocad_web_parsing_BlockExpr(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcom.repocad.web.parsing.BlockExpr;", depth))
+});
+var $d_Lcom_repocad_web_parsing_BlockExpr = new $ClassTypeData({
+  Lcom_repocad_web_parsing_BlockExpr: 0
+}, false, "com.repocad.web.parsing.BlockExpr", {
+  Lcom_repocad_web_parsing_BlockExpr: 1,
+  O: 1,
+  Lcom_repocad_web_parsing_Expr: 1,
+  s_Product: 1,
+  s_Equals: 1,
+  s_Serializable: 1,
+  Ljava_io_Serializable: 1
+});
+$c_Lcom_repocad_web_parsing_BlockExpr.prototype.$classData = $d_Lcom_repocad_web_parsing_BlockExpr;
+/** @constructor */
 var $c_Lcom_repocad_web_parsing_CompExpr = (function() {
   $c_O.call(this);
   this.e1$1 = null;
@@ -20832,85 +20911,6 @@ var $d_Lcom_repocad_web_parsing_RangeExpr = new $ClassTypeData({
   Ljava_io_Serializable: 1
 });
 $c_Lcom_repocad_web_parsing_RangeExpr.prototype.$classData = $d_Lcom_repocad_web_parsing_RangeExpr;
-/** @constructor */
-var $c_Lcom_repocad_web_parsing_SeqExpr = (function() {
-  $c_O.call(this);
-  this.expr$1 = null
-});
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype = new $h_O();
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.constructor = $c_Lcom_repocad_web_parsing_SeqExpr;
-/** @constructor */
-var $h_Lcom_repocad_web_parsing_SeqExpr = (function() {
-  /*<skip>*/
-});
-$h_Lcom_repocad_web_parsing_SeqExpr.prototype = $c_Lcom_repocad_web_parsing_SeqExpr.prototype;
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.productPrefix__T = (function() {
-  return "SeqExpr"
-});
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.productArity__I = (function() {
-  return 1
-});
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.equals__O__Z = (function(x$1) {
-  if ((this === x$1)) {
-    return true
-  } else if ($is_Lcom_repocad_web_parsing_SeqExpr(x$1)) {
-    var SeqExpr$1 = $as_Lcom_repocad_web_parsing_SeqExpr(x$1);
-    var x = this.expr$1;
-    var x$2 = SeqExpr$1.expr$1;
-    return ((x === null) ? (x$2 === null) : x.equals__O__Z(x$2))
-  } else {
-    return false
-  }
-});
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.productElement__I__O = (function(x$1) {
-  switch (x$1) {
-    case 0:
-      {
-        return this.expr$1;
-        break
-      };
-    default:
-      throw new $c_jl_IndexOutOfBoundsException().init___T(("" + x$1));
-  }
-});
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.toString__T = (function() {
-  return $m_sr_ScalaRunTime$().$$undtoString__s_Product__T(this)
-});
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.init___sc_Seq = (function(expr) {
-  this.expr$1 = expr;
-  return this
-});
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.hashCode__I = (function() {
-  var this$2 = $m_s_util_hashing_MurmurHash3$();
-  return this$2.productHash__s_Product__I__I(this, (-889275714))
-});
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.productIterator__sc_Iterator = (function() {
-  return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
-});
-var $is_Lcom_repocad_web_parsing_SeqExpr = (function(obj) {
-  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.Lcom_repocad_web_parsing_SeqExpr)))
-});
-var $as_Lcom_repocad_web_parsing_SeqExpr = (function(obj) {
-  return (($is_Lcom_repocad_web_parsing_SeqExpr(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "com.repocad.web.parsing.SeqExpr"))
-});
-var $isArrayOf_Lcom_repocad_web_parsing_SeqExpr = (function(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcom_repocad_web_parsing_SeqExpr)))
-});
-var $asArrayOf_Lcom_repocad_web_parsing_SeqExpr = (function(obj, depth) {
-  return (($isArrayOf_Lcom_repocad_web_parsing_SeqExpr(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcom.repocad.web.parsing.SeqExpr;", depth))
-});
-var $d_Lcom_repocad_web_parsing_SeqExpr = new $ClassTypeData({
-  Lcom_repocad_web_parsing_SeqExpr: 0
-}, false, "com.repocad.web.parsing.SeqExpr", {
-  Lcom_repocad_web_parsing_SeqExpr: 1,
-  O: 1,
-  Lcom_repocad_web_parsing_Expr: 1,
-  s_Product: 1,
-  s_Equals: 1,
-  s_Serializable: 1,
-  Ljava_io_Serializable: 1
-});
-$c_Lcom_repocad_web_parsing_SeqExpr.prototype.$classData = $d_Lcom_repocad_web_parsing_SeqExpr;
 /** @constructor */
 var $c_Lcom_repocad_web_parsing_UnitExpr$ = (function() {
   $c_O.call(this)

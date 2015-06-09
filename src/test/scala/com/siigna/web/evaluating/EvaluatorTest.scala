@@ -32,7 +32,7 @@ class EvaluatorTest extends FlatSpec with Matchers {
   it should "evaluate a function call" in {
     val fun = FunctionExpr("a", Seq("b"), RefExpr("line", Seq(ConstantExpr(0d), ConstantExpr(0d), ConstantExpr(10d), RefExpr("b"))))
     val call = RefExpr("a", Seq(ConstantExpr(10d)))
-    val seq = SeqExpr(Seq(fun, call))
+    val seq = BlockExpr(Seq(fun, call))
     Evaluator.eval(seq, printer.toEnv, printer)
     assert(printer.latest == "line")
   }
