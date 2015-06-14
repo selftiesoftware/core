@@ -10,12 +10,16 @@ class ParserTest extends FlatSpec with Matchers {
   val mockFailure : String => Value = s => Left(s)
 
   "A parser" should "infer a type" in {
-    val stream = LiveStream[Token](SymbolToken("def"), SymbolToken("a"), SymbolToken("="), IntToken(1))
+    val stream = Lexer.lex("def a = 1")
     Parser.parse(stream, (t, _) => Right(t), f => Left(f)) should equal(Right(DefExpr("a", IntExpr(1), IntType)))
   }
   it should "allow specification of type" in {
-    val stream = LiveStream[Token](SymbolToken("def"), SymbolToken("a"), SymbolToken(":"), SymbolToken("Int"), SymbolToken("="), IntToken(1))
+    val stream = Lexer.lex("def a : Int = 1")
     Parser.parse(stream, (t, _) => Right(t), f => Left(f)) should equal(Right(DefExpr("a", IntExpr(1), IntType)))
+  }
+  it should "fail when wrong type is specified" in {
+    val stream = Lexer.lex("def a : Unit = 1")
+    Parser.parse(stream, (t, _) => Right(t), f => Left(f)).isLeft should equal (true)
   }
   
   /*"A parser" should "parse a reference" in {

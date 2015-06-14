@@ -95,7 +95,11 @@ object Parser {
 
       // Assignments
       case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken(":") :~: SymbolToken(typeName) :~: SymbolToken("=") :~: tail =>
-        Type.fromName(typeName).fold(typeError => Left(typeError), t => parse(tail, (e, stream) => success(DefExpr(name, e, t), stream), failure))
+        Type.fromName(typeName).fold(typeError => Left(typeError), t => parse(tail, (e, stream) => if (e.t == t) {
+          success(DefExpr(name, e, t), stream)
+        } else {
+          failure(s"Expected type $t but found type ${e.t}")
+        }, failure))
 
       case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("=") :~: tail =>
         parse(tail, (e, stream) => success(DefExpr(name, e, e.t), stream), failure)
