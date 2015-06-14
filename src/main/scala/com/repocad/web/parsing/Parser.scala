@@ -7,6 +7,8 @@ import com.repocad.web.lexing._
  */
 object Parser {
 
+  type Env = Set[Expr]
+
   type Value = Either[String, Expr]
 
   def parse(tokens : LiveStream[Token]) : Value = {
@@ -29,7 +31,7 @@ object Parser {
         }
       }
 
-      seqFail.map(seqFailure).getOrElse(Right(BlockExpr(seq)))
+      seqFail.map(seqFailure).getOrElse(Right(BlockExpr(seq, seq.last.t)))
     } catch {
       case e : InternalError => {
         Left("Script too large (sorry - we're working on it!)")
@@ -44,6 +46,7 @@ object Parser {
 
     tokens match {
 
+      /*
       // Import
       case SymbolToken("import") :~: SymbolToken(script) :~: tail => {
         success(ImportExpr(script), tail)
@@ -88,10 +91,16 @@ object Parser {
       case (start : Token) :~: SymbolToken("/") :~: tail =>
         parseTripleOp(start, tail, "/", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 
-      // Assignments
-      case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("=") :~: tail =>
-        parse(tail, (e, stream) => success(ValExpr(name, e), stream), failure)
+*/
 
+      // Assignments
+      case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken(":") :~: SymbolToken(typeName) :~: SymbolToken("=") :~: tail =>
+        Type.fromName(typeName).fold(typeError => Left(typeError), t => parse(tail, (e, stream) => success(DefExpr(name, e, t), stream), failure))
+
+      case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("=") :~: tail =>
+        parse(tail, (e, stream) => success(DefExpr(name, e, e.t), stream), failure)
+
+        /*
       // Functions
       case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
         parseUntil(tail, PunctToken(")"), (params, paramsTail) => {
@@ -102,12 +111,14 @@ object Parser {
             case xs => failure("Expected parameter list, got " + xs)
           }
         }, failure)
+      */
 
       // Values
-      case IntToken(value: Int) :~: tail => success(ConstantExpr(value), tail)
-      case DoubleToken(value : Double) :~: tail => success(ConstantExpr(value), tail)
-      case StringToken(value : String) :~: tail => success(ConstantExpr(value), tail)
+      case IntToken(value: Int) :~: tail => success(IntExpr(value), tail)
+      case DoubleToken(value : Double) :~: tail => success(DoubleExpr(value), tail)
+      case StringToken(value : String) :~: tail => success(StringExpr(value), tail)
 
+      /*
       // Blocks
       case PunctToken("{") :~: tail => parseUntil(tail, PunctToken("}"), success, failure)
       case PunctToken("(") :~: tail => parseUntil(tail, PunctToken(")"), success, failure)
@@ -120,18 +131,18 @@ object Parser {
         }
       }, failure)
       case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
-
+      */
       case xs => failure(s"Unrecognised token pattern $xs")
     }
   }
 
-  def parseLoop(tokens : LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value) : Value = {
+  /*def parseLoop(tokens : LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value) : Value = {
     def parseValueToken(value : Token) : Either[Expr, String] = {
       value match {
         case SymbolToken(name) => Left(RefExpr(name))
-        case IntToken(value: Int) => Left(ConstantExpr(value))
-        case DoubleToken(value : Double) => Left(ConstantExpr(value))
-        case StringToken(value : String) => Left(ConstantExpr(value))
+        case IntToken(value: Int) => Left(IntExpr(value))
+        case DoubleToken(value : Double) => Left(DoubleExpr(value))
+        case StringToken(value : String) => Left(StringExpr(value))
         case e => Right("Expected value, got " + e)
       }
     }
@@ -156,12 +167,12 @@ object Parser {
 
       case toToken :~: SymbolToken("def") :~: SymbolToken(counter) :~: tail =>
         parseValueToken(toToken).fold(to => {
-          parseLoopWithRange(RangeExpr(counter, ConstantExpr(1), to), tail, success, failure)
+          parseLoopWithRange(RangeExpr(counter, IntExpr(1), to), tail, success, failure)
         }, failure)
 
       case toToken :~: tail =>
         parseValueToken(toToken).fold(to => {
-          parseLoopWithRange(RangeExpr("_loopCounter", ConstantExpr(1), to), tail, success, failure)
+          parseLoopWithRange(RangeExpr("_loopCounter", IntExpr(1), to), tail, success, failure)
         }, failure)
 
       case tail => failure("Failed to parse loop. Expected to-token, got " + tail)
@@ -194,6 +205,6 @@ object Parser {
     }
 
     seqFail.map(failure).getOrElse(success(BlockExpr(seq), if (seqTail.isPlugged) seqTail else seqTail.tail))
-  }
+  }*/
 
 }

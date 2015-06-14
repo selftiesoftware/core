@@ -8,8 +8,17 @@ class ParserTest extends FlatSpec with Matchers {
 
   val mockSuccess : (Expr, LiveStream[Token]) => Value = (e, s) => Right(e)
   val mockFailure : String => Value = s => Left(s)
+
+  "A parser" should "infer a type" in {
+    val stream = LiveStream[Token](SymbolToken("def"), SymbolToken("a"), SymbolToken("="), IntToken(1))
+    Parser.parse(stream, (t, _) => Right(t), f => Left(f)) should equal(Right(DefExpr("a", IntExpr(1), IntType)))
+  }
+  it should "allow specification of type" in {
+    val stream = LiveStream[Token](SymbolToken("def"), SymbolToken("a"), SymbolToken(":"), SymbolToken("Int"), SymbolToken("="), IntToken(1))
+    Parser.parse(stream, (t, _) => Right(t), f => Left(f)) should equal(Right(DefExpr("a", IntExpr(1), IntType)))
+  }
   
-  "A parser" should "parse a reference" in {
+  /*"A parser" should "parse a reference" in {
     val stream = LiveStream(Iterable[Token](SymbolToken("a"), PunctToken("}")))
     Parser.parseUntil(stream, PunctToken("}"), mockSuccess, mockFailure) should equal (Right(BlockExpr(Seq(RefExpr("a")))))
   }
@@ -79,7 +88,7 @@ class ParserTest extends FlatSpec with Matchers {
   it should "parse an empty scope block" in {
     val stream = LiveStream(Iterable[Token](SymbolToken("}")))
     Parser.parseUntil(stream, SymbolToken("}"), mockSuccess, mockFailure) should equal (Right(BlockExpr(Seq())))
-  }
+  }*/
 
 
 

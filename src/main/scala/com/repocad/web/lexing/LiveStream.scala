@@ -97,6 +97,13 @@ object LiveStream {
     stream
   }
 
+  def apply[T](elements : T*) : LiveStream[T] = {
+    val source = new LiveStreamSource[T]()
+    val stream = new LiveStream[T](source)
+    source ++= elements
+    stream
+  }
+
   /**
   Creates an iterable live stream.
     */

@@ -1,6 +1,5 @@
 package com.repocad.web.evaluating
 
-import com.repocad.web.lexing.Lexer
 import com.repocad.web.parsing._
 import com.repocad.web.{Printer, _}
 
@@ -9,9 +8,11 @@ import com.repocad.web.{Printer, _}
  */
 object Evaluator {
 
-  type Env = Map[String, Any]
+  // TODO: Lazy evaluation
 
-  type Value = Either[String, (Env, Any)]
+  type Env = Map[String, Type]
+
+  type Value = Either[String, (Env, Type)]
 
   private var scriptEnv : Map[String, Env] = Map()
 
@@ -30,6 +31,8 @@ object Evaluator {
 
   protected[evaluating] def eval(expr: Expr, env : Env) : Value = {
     expr match {
+
+      /*
       case ImportExpr(name) =>
         if (scriptEnv.contains(name)) {
           Right(scriptEnv(name) ++ env -> Unit)
@@ -252,17 +255,20 @@ object Evaluator {
         }
         lastError.map(Left(_)).getOrElse(Right(loopEnv.filter(t => env.contains(t._1)) -> lastResult))
 
+      */
+
       case x => Left(s"Unknown expression $x")
     }
   }
 
-  def getValue[T](expr : Expr, env : Env) : Either[String, T] = {
-    eval(expr, env) match {
-      case Right((_, t)) if t.isInstanceOf[Int] => Right(t.asInstanceOf[Int].toDouble.asInstanceOf[T])
-      case Right((_, t : T)) => Right(t)
-      case fail => {
-        Left(s"Failed to read value from $expr, failed with: $fail")
+  def getValue[Expected](expr : Expr, expectedT : Expected, env : Env) : Either[String, Expected] = {
+    if (expr.t == expectedT) {
+      eval(expr, env) match {
+        case Right((_, t : Expected)) => Right(t)
+        case fail => Left(s"Failed to read value from $expr, failed with: $fail")
       }
+    } else {
+      Left(s"Found type ${expr.t}, but expected $expectedT")
     }
   }
 
