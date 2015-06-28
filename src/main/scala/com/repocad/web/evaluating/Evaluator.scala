@@ -10,9 +10,9 @@ object Evaluator {
 
   // TODO: Lazy evaluation
 
-  type Env = Map[String, Type]
+  type Env = Map[String, Expr]
 
-  type Value = Either[String, (Env, Type)]
+  type Value = Either[String, (Env, Expr)]
 
   private var scriptEnv : Map[String, Env] = Map()
 

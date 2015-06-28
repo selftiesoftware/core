@@ -7,42 +7,31 @@ import com.repocad.web.lexing._
  */
 object Parser {
 
-  type Env = Set[Expr]
+  type TypeEnv = Map[String, Type]
+  type ValueEnv = TypeEnv
 
-  type Value = Either[String, Expr]
+  type Value = Either[String, (Expr, ValueEnv, TypeEnv)]
 
-  def parse(tokens : LiveStream[Token]) : Value = {
-    try {
-      var seq = Seq[Expr]()
-      var seqFail : Option[String] = None
-      var seqTail : LiveStream[Token] = tokens
-      def seqSuccess: (Expr, LiveStream[Token]) => Value = (e, s) => {
-        seqTail = s
-        Right(e)
-      }
-      def seqFailure: (String) => Value = (s) => {
-        seqFail = Some(s)
-        Left(s)
-      }
-      while (seqFail.isEmpty && !seqTail.isPlugged) {
-        parse(seqTail, seqSuccess, seqFailure)  match {
-          case Left(s) => seqFail = Some(s)
-          case Right(e) => if (seq != UnitExpr) seq = seq :+ e
-        }
-      }
-
-      seqFail.map(seqFailure).getOrElse(Right(BlockExpr(seq, seq.last.t)))
-    } catch {
-      case e : InternalError => {
-        Left("Script too large (sorry - we're working on it!)")
-      }
-      case e : Exception => {
-        Left(e.getLocalizedMessage)
-      }
+  type FailureCont = String => Value
+  type SuccessCont = (Expr, ValueEnv, TypeEnv, LiveStream[Token]) => Value
+  
+  def verifyType(typeName : String, typeEnv : TypeEnv) : Either[String, Type] = {
+    typeEnv.get(typeName) match {
+      case Some(typeObject) => Right(typeObject)
+      case _ => Left(s"No type of name '$typeName' found")
     }
   }
 
-  def parse(tokens: LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
+  def parse(tokens : LiveStream[Token]) : Value = {
+    try {
+      parseUntil(tokens, _ => true, Map(), Map(), (expr, values, types, _) => Right(expr, values, types), e => Left(e))
+    } catch {
+      case e : InternalError => Left("Script too large (sorry - we're working on it!)")
+      case e : Exception => Left(e.getLocalizedMessage)
+    }
+  }
+
+  def parse(tokens: LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success: SuccessCont, failure: FailureCont): Value = {
 
     tokens match {
 
@@ -93,49 +82,66 @@ object Parser {
 
 */
 
+      // Functions
+      case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
+        parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, (paramsExpr : Expr, vs : ValueEnv, ts : TypeEnv, paramsTail : LiveStream[Token]) => paramsExpr match {
+          case BlockExpr(xs) if !xs.exists(!_.isInstanceOf[RefExpr]) =>
+            parse(paramsTail, valueEnv, typeEnv, (body, _, _, bodyTail) => {
+               FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]], body)
+              success(UnitExpr, valueEnv, typeEnv, paramsTail)
+            }, failure)
+          case xs => failure("Expected parameter list, got " + xs)
+        }, failure)
+
       // Assignments
       case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken(":") :~: SymbolToken(typeName) :~: SymbolToken("=") :~: tail =>
-        Type.fromName(typeName).fold(typeError => Left(typeError), t => parse(tail, (e, stream) => if (e.t == t) {
-          success(DefExpr(name, e, t), stream)
+        verifyType(typeName, typeEnv).right.flatMap(t => parse(tail, valueEnv, typeEnv, (e, _, _, stream) => if (e.t == t) {
+          success(DefExpr(name, e), valueEnv + (name -> t), typeEnv, stream)
         } else {
-          failure(s"Expected type $t but found type ${e.t}")
+          failure(s"'$name' has the expected type $t, but was assigned to type ${e.t}")
         }, failure))
 
       case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("=") :~: tail =>
-        parse(tail, (e, stream) => success(DefExpr(name, e, e.t), stream), failure)
-
-        /*
-      // Functions
-      case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
-        parseUntil(tail, PunctToken(")"), (params, paramsTail) => {
-          params match {
-            case BlockExpr(xs) if !xs.exists(!_.isInstanceOf[RefExpr]) => parse(paramsTail, (body, bodyTail) => {
-              success(FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]].map(_.name), body), bodyTail)
-            }, failure)
-            case xs => failure("Expected parameter list, got " + xs)
-          }
-        }, failure)
-      */
+        parse(tail, valueEnv, typeEnv, (e, _, _, stream) => success(DefExpr(name, e), valueEnv + (name -> e.t), typeEnv, stream), failure)
 
       // Values
-      case IntToken(value: Int) :~: tail => success(IntExpr(value), tail)
-      case DoubleToken(value : Double) :~: tail => success(DoubleExpr(value), tail)
-      case StringToken(value : String) :~: tail => success(StringExpr(value), tail)
+      case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
+      case DoubleToken(value : Double) :~: tail => success(DoubleExpr(value), valueEnv, typeEnv, tail)
+      case StringToken(value : String) :~: tail => success(StringExpr(value), valueEnv, typeEnv, tail)
 
       /*
       // Blocks
       case PunctToken("{") :~: tail => parseUntil(tail, PunctToken("}"), success, failure)
       case PunctToken("(") :~: tail => parseUntil(tail, PunctToken(")"), success, failure)
+      */
 
       // References
-      case SymbolToken(name) :~: tail if !tail.isEmpty && !tail.isPlugged && tail.head.tag.equals("(") => parse(tail, (params, paramsTail) => {
+      case SymbolToken(name) :~: tail => valueEnv.get(name) match {
+        case Some(f : FunctionType) =>
+          if (!tail.isEmpty && !tail.isPlugged && tail.head.tag.equals("(")) {
+            parse(tail, valueEnv, typeEnv, (params, newValueEnv, newTypeEnv, paramsTail) => {
+              params match {
+                case _ if !newValueEnv.contains(name) => failure(s"Cannot reference non-existing variable '$name'")
+                case BlockExpr(xs) => success(CallExpr(name, xs.last.t, xs), newValueEnv, newTypeEnv, paramsTail)
+                case xs => failure("Failed to parse ref call: Expected parameters, got " + xs)
+              }
+            }, failure)
+          } else {
+            failure("Failed to parse ref call: Expected parameters, got " + tail)
+          }
+        case Some(t) => success(RefExpr(name, t), valueEnv, typeEnv, tail)
+        case _ => failure(s"Cannot reference non-existing variable '$name'")
+      }
+
+      /*
+      case SymbolToken(name) :~: tail if !tail.isEmpty && !tail.isPlugged && tail.head.tag.equals("(") => parse(tail, valueEnv, typeEnv, (params, newValueEnv, newTypeEnv, paramsTail) => {
         params match {
-          case BlockExpr(xs) => success(RefExpr(name, xs), paramsTail)
+          case _ if !newValueEnv.contains(name) => failure(s"Cannot reference non-existing variable '$name'")
+          case BlockExpr(xs) => success(RefExpr(name, xs.last.t, xs), newValueEnv, newTypeEnv, paramsTail)
           case xs => failure("Failed to parse ref call: Expected parameters, got " + xs)
         }
-      }, failure)
-      case SymbolToken(name) :~: tail => success(RefExpr(name), tail)
-      */
+      }, failure)*/
+
       case xs => failure(s"Unrecognised token pattern $xs")
     }
   }
@@ -188,27 +194,37 @@ object Parser {
       parse(tail, (ex2, s2) => success(ex1, ex2, comp, s2), failure),
       failure)
   }
+  */
 
-  def parseUntil(tokens: LiveStream[Token], token : Token, success: (Expr, LiveStream[Token]) => Value, failure: String => Value): Value = {
+  def parseUntil(tokens: LiveStream[Token], token : Token, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure: FailureCont): Value = {
+    parseUntil(tokens, stream => stream.head.toString.equals(token.toString), valueEnv, typeEnv, success, failure)
+  }
+
+  def parseUntil(tokens: LiveStream[Token], condition : LiveStream[Token] => Boolean, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont): Value = {
+    var typeEnv : TypeEnv = Type.typeEnv
+    var valueEnv : ValueEnv = Map()
     var seq = Seq[Expr]()
     var seqFail : Option[String] = None
     var seqTail : LiveStream[Token] = tokens
-    def seqSuccess: (Expr, LiveStream[Token]) => Value = (e, s) => {
+    def seqSuccess: SuccessCont = (e, v, t, s) => {
       seqTail = s
-      Right(e)
+      Right((e, v, t))
     }
     def seqFailure: (String) => Value = (s) => {
       seqFail = Some(s)
       Left(s)
     }
-    while (seqFail.isEmpty && !seqTail.isPlugged && !seqTail.head.toString.equals(token.toString)) {
-      parse(seqTail, seqSuccess, failure)  match {
+    while (seqFail.isEmpty && !seqTail.isPlugged && !condition(seqTail)) {
+      parse(seqTail, valueEnv, typeEnv, seqSuccess, seqFailure)  match {
         case Left(s) => seqFail = Some(s)
-        case Right(e) => if (seq != UnitExpr) seq = seq :+ e
+        case Right((e, newValueEnv, newTypeEnv)) =>
+          if (e != UnitExpr) seq = seq :+ e
+          valueEnv = newValueEnv
+          typeEnv = newTypeEnv
       }
     }
 
-    seqFail.map(failure).getOrElse(success(BlockExpr(seq), if (seqTail.isPlugged) seqTail else seqTail.tail))
-  }*/
+    seqFail.map(seqFailure).getOrElse(success(BlockExpr(seq), valueEnv, typeEnv, seqTail))
+  }
 
 }

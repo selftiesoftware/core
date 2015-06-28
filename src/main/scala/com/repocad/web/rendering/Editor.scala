@@ -46,12 +46,12 @@ class Editor(container : HTMLDivElement, printer : Printer[_]) {
    *                 to true
    * @return an AST on success or an error message
    */
-  def parse(useCache : Boolean = true): Parser.Value = {
+  def parse(useCache : Boolean = true): Either[String, Expr] = {
     if (!useCache) {
       val tokens = Lexer.lex(module().content)
-      Parser.parse(tokens).right.map(newAst => {
-        ast() = newAst
-        newAst
+      Parser.parse(tokens).right.map(tuple => {
+        ast() = tuple._1
+        tuple._1
       })
     } else {
       Right(ast())

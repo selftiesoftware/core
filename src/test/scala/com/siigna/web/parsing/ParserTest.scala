@@ -9,17 +9,49 @@ class ParserTest extends FlatSpec with Matchers {
   val mockSuccess : (Expr, LiveStream[Token]) => Value = (e, s) => Right(e)
   val mockFailure : String => Value = s => Left(s)
 
-  "A parser" should "infer a type" in {
-    val stream = Lexer.lex("def a = 1")
-    Parser.parse(stream, (t, _) => Right(t), f => Left(f)) should equal(Right(DefExpr("a", IntExpr(1), IntType)))
+  def testEquals(expected : Expr, expression : String) = {
+    parseString(expression) should equal(Right(Map(), Map(), expected))
+  }
+
+  def parseString(string : String) = {
+    val stream = Lexer.lex(string)
+    Parser.parse(stream, Map(), Map(), (t, _, _, _) => Right((Map[String, Type](), Map[String, Type](), t)), f => Left(f))
+  }
+
+  "Value parsing" should "parse an integer" in {
+    testEquals(IntExpr(1), "1")
+  }
+  it should "parse a string" in {
+    testEquals(StringExpr("string"), "\"string\"")
+  }
+  it should "parse a double" in {
+    testEquals(DoubleExpr(123.42), "123.42")
+  }
+  it should "parse a boolean" in {
+    testEquals(BooleanExpr(true), "true")
+  }
+
+  "Definition parsing" should "parse a definition" in {
+    testEquals(DefExpr("a", StringExpr("hi")), "def a = \"hi\"")
+  }
+  it should "store a value in the value environment" in {
+    parseString("def a = 10") should equal (Right(Map("a" -> IntType), Map(), _))
+  }
+  it should "fail to parse a function with no parameters" in {
+    parseString("def a() = {}") should equal(Left(_))
+  }
+  it should "parse a function with one parameter" in {
+    testEquals(FunctionExpr())
+  }
+
+  "Type inference" should "infer a type" in {
+    parseString("def a = 1") should equal(Right(Map() -> DefExpr("a", IntExpr(1), IntType)))
   }
   it should "allow specification of type" in {
-    val stream = Lexer.lex("def a : Int = 1")
-    Parser.parse(stream, (t, _) => Right(t), f => Left(f)) should equal(Right(DefExpr("a", IntExpr(1), IntType)))
+    parseString("def a : Int = 1") should equal(Right(DefExpr("a", IntExpr(1), IntType)))
   }
   it should "fail when wrong type is specified" in {
-    val stream = Lexer.lex("def a : Unit = 1")
-    Parser.parse(stream, (t, _) => Right(t), f => Left(f)).isLeft should equal (true)
+    parseString("def a : Unit = 1").isLeft should equal (true)
   }
   
   /*"A parser" should "parse a reference" in {
