@@ -1,21 +1,22 @@
 package com.repocad.web.parsing
 
 import com.repocad.web.lexing._
-import com.repocad.web.parsing.Parser.Value
+import com.repocad.web.parsing.Parser._
 import org.scalatest.{Matchers, FlatSpec}
+import org.scalatest.EitherValues._
 
 class ParserTest extends FlatSpec with Matchers {
 
-  val mockSuccess : (Expr, LiveStream[Token]) => Value = (e, s) => Right(e)
-  val mockFailure : String => Value = s => Left(s)
+  val mockSuccess : SuccessCont = (e, v, t, s) => Right(e, v, t)
+  val mockFailure : FailureCont = s => Left(s)
 
   def testEquals(expected : Expr, expression : String) = {
-    parseString(expression) should equal(Right(Map(), Map(), expected))
+    parseString(expression, Map(), Type.typeEnv).right.value._1 should equal(expected)
   }
 
-  def parseString(string : String) = {
+  def parseString(string : String, valueEnv : ValueEnv = Map(), typeEnv : TypeEnv = Map()) : Value = {
     val stream = Lexer.lex(string)
-    Parser.parse(stream, Map(), Map(), (t, _, _, _) => Right((Map[String, Type](), Map[String, Type](), t)), f => Left(f))
+    Parser.parse(stream, valueEnv, typeEnv, (t, vEnv, tEnv, _) => Right((t, vEnv, tEnv)), f => Left(f))
   }
 
   "Value parsing" should "parse an integer" in {
@@ -28,27 +29,27 @@ class ParserTest extends FlatSpec with Matchers {
     testEquals(DoubleExpr(123.42), "123.42")
   }
   it should "parse a boolean" in {
-    testEquals(BooleanExpr(true), "true")
+    testEquals(BooleanExpr(value = true), "true")
   }
 
   "Definition parsing" should "parse a definition" in {
     testEquals(DefExpr("a", StringExpr("hi")), "def a = \"hi\"")
   }
   it should "store a value in the value environment" in {
-    parseString("def a = 10") should equal (Right(Map("a" -> IntType), Map(), _))
+    parseString("def a = 10") should equal (Right(DefExpr("a", IntExpr(10)), Map("a" -> IntType), Map[String, Type]()))
   }
   it should "fail to parse a function with no parameters" in {
-    parseString("def a() = {}") should equal(Left(_))
+    parseString("def a() = {}").isLeft should equal(true)
   }
-  it should "parse a function with one parameter" in {
-    testEquals(FunctionExpr())
-  }
+//  it should "parse a function with one parameter" in {
+//    testEquals(FunctionExpr("a", Seq(RefExpr("a", IntType)), UnitExpr), "def a(b) = {}")
+//  }
 
   "Type inference" should "infer a type" in {
-    parseString("def a = 1") should equal(Right(Map() -> DefExpr("a", IntExpr(1), IntType)))
+    testEquals(DefExpr("a", IntExpr(1)), "def a = 1")
   }
   it should "allow specification of type" in {
-    parseString("def a : Int = 1") should equal(Right(DefExpr("a", IntExpr(1), IntType)))
+    testEquals(DefExpr("a", IntExpr(1)), "def a : Int = 1")
   }
   it should "fail when wrong type is specified" in {
     parseString("def a : Unit = 1").isLeft should equal (true)

@@ -24,7 +24,7 @@ object Parser {
 
   def parse(tokens : LiveStream[Token]) : Value = {
     try {
-      parseUntil(tokens, _ => true, Map(), Map(), (expr, values, types, _) => Right(expr, values, types), e => Left(e))
+      parseUntil(tokens, _ => true, Map(), Map(), (expr, values, types, _) => Right((expr, values, types)), e => Left(e))
     } catch {
       case e : InternalError => Left("Script too large (sorry - we're working on it!)")
       case e : Exception => Left(e.getLocalizedMessage)
@@ -105,8 +105,11 @@ object Parser {
         parse(tail, valueEnv, typeEnv, (e, _, _, stream) => success(DefExpr(name, e), valueEnv + (name -> e.t), typeEnv, stream), failure)
 
       // Values
-      case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
+      case BooleanToken(value: Boolean) :~: tail => success(BooleanExpr(value), valueEnv, typeEnv, tail)
+      case SymbolToken("false") :~: tail => success(BooleanExpr(false), valueEnv, typeEnv, tail)
+      case SymbolToken("true") :~: tail => success(BooleanExpr(true), valueEnv, typeEnv, tail)
       case DoubleToken(value : Double) :~: tail => success(DoubleExpr(value), valueEnv, typeEnv, tail)
+      case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
       case StringToken(value : String) :~: tail => success(StringExpr(value), valueEnv, typeEnv, tail)
 
       /*

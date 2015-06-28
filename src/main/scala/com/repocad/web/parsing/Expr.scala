@@ -10,7 +10,7 @@ trait Expr {
   val t: Type
 }
 
-case class BlockExpr(expr: Seq[Expr]) extends Expr { val t = expr.last.t }
+case class BlockExpr(expr: Seq[Expr]) extends Expr { val t = if (expr.isEmpty) UnitType else expr.last.t }
 case class CompExpr(e1 : Expr, e : Expr, op : String) extends Expr { val t = BooleanType }
 case class DefExpr(name: String, value : Expr) extends ValueExpr { val t = value.t }
 case class FunctionExpr(name : String, params : Seq[RefExpr], body : Expr) extends Expr { val t = FunctionType(params.size) }
