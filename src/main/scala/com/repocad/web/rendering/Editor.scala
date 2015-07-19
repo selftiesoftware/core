@@ -2,7 +2,7 @@ package com.repocad.web.rendering
 
 import com.repocad.web.evaluating.Evaluator
 import com.repocad.web.lexing.Lexer
-import com.repocad.web.parsing.{Expr, Parser, UnitExpr}
+import com.repocad.web.parsing.{Parser, UnitExpr, Expr}
 import com.repocad.web.{Drawing, Printer}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.{HTMLDivElement, HTMLTextAreaElement}

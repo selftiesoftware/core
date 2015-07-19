@@ -5,7 +5,7 @@ import com.repocad.web.parsing._
 import com.repocad.web.{Printer, _}
 
 /**
- * An evaluator to evaluate a list of [[Expr]]
+ * An evaluator to evaluate a list of [[com.repocad.web.parsing.Expr]]
  */
 object Evaluator {
 
@@ -90,6 +90,8 @@ object Evaluator {
           case Right((newEnvironment, value)) => Left("Expected boolean, got " + value)
         }
       }
+
+      case objectExpr : ObjectExpr => Right(env.+(objectExpr.name -> objectExpr), objectExpr)
 
       case OpExpr(e1, e2, op) =>
         eval(e1, env).right.flatMap(v1 => eval(e2, v1._1).right.flatMap(v2 => {
@@ -205,6 +207,19 @@ object Evaluator {
                 )
               )
             )
+          case ObjectExpr(objectName, objectParams) =>
+            if (params.size != objectParams.size) {
+              Left(Error.OBJECT_PARAM_SIZE_NOT_EQUAL(name, objectParams.size, params.size))
+            } else {
+              val actualParams : Seq[Value] = params.map(eval(_, env))
+              val (lefts, rights) = actualParams.partition((either : Value) => either.isLeft)
+              if (lefts.nonEmpty) {
+                Left(Error.OBJECT_PARAM_EVAL_ERROR(name, lefts))
+              } else {
+                val map = objectParams.zip(rights)
+                Right(env.+(name -> map), map)
+              }
+            }
 
           case x => Left("Expected callable function, got " + x)
         }
