@@ -11,12 +11,46 @@ class ParserTest extends FlatSpec with Matchers {
   val mockFailure : FailureCont = s => Left(s)
 
   def testEquals(expected : Expr, expression : String) = {
-    parseString(expression, Map(), Type.typeEnv).right.value._1 should equal(expected)
+    val either = parseString(expression, Map(), Type.typeEnv)
+    println("output: ", either)
+    either.right.value._1 should equal(expected)
   }
 
   def parseString(string : String, valueEnv : ValueEnv = Map(), typeEnv : TypeEnv = Map()) : Value = {
     val stream = Lexer.lex(string)
     Parser.parse(stream, valueEnv, typeEnv, (t, vEnv, tEnv, _) => Right((t, vEnv, tEnv)), f => Left(f))
+  }
+
+  "Assignment parsing" should "parse a definition" in {
+    testEquals(DefExpr("a", StringExpr("hi")), "def a = \"hi\"")
+  }
+  it should "store a value in the value environment" in {
+    parseString("def a = 10") should equal (Right(DefExpr("a", IntExpr(10)), Map("a" -> IntExpr(10)), Map[String, Type]()))
+  }
+  it should "parse a function with no parameters" in {
+    testEquals(FunctionExpr("a", Seq(), BlockExpr(Seq())), "def a() = {}")
+  }
+  it should "parse a function with one parameter" in {
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType)), BlockExpr(Seq())), "def a(b) = {}")
+  }
+  it should "parse a function with one typed parameter" in {
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType)), BlockExpr(Seq())), "def a(b : Int) = {}")
+  }
+  it should "parse a function with two parameters" in {
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", StringType)), BlockExpr(Seq())), "def a(b c) = {}")
+  }
+  it should "parse a function with two typed parameters" in {
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", StringType)), BlockExpr(Seq())), "def a(b : Int c : String) = {}")
+  }
+
+  "Type inference" should "infer a type" in {
+    testEquals(DefExpr("a", IntExpr(1)), "def a = 1")
+  }
+  it should "allow specification of type" in {
+    testEquals(DefExpr("a", IntExpr(1)), "def a : Int = 1")
+  }
+  it should "fail when wrong type is specified" in {
+    parseString("def a : Unit = 1").isLeft should equal (true)
   }
 
   "Value parsing" should "parse an integer" in {
@@ -30,29 +64,6 @@ class ParserTest extends FlatSpec with Matchers {
   }
   it should "parse a boolean" in {
     testEquals(BooleanExpr(value = true), "true")
-  }
-
-  "Definition parsing" should "parse a definition" in {
-    testEquals(DefExpr("a", StringExpr("hi")), "def a = \"hi\"")
-  }
-  it should "store a value in the value environment" in {
-    parseString("def a = 10") should equal (Right(DefExpr("a", IntExpr(10)), Map("a" -> IntType), Map[String, Type]()))
-  }
-  it should "fail to parse a function with no parameters" in {
-    parseString("def a() = {}").isLeft should equal(true)
-  }
-//  it should "parse a function with one parameter" in {
-//    testEquals(FunctionExpr("a", Seq(RefExpr("a", IntType)), UnitExpr), "def a(b) = {}")
-//  }
-
-  "Type inference" should "infer a type" in {
-    testEquals(DefExpr("a", IntExpr(1)), "def a = 1")
-  }
-  it should "allow specification of type" in {
-    testEquals(DefExpr("a", IntExpr(1)), "def a : Int = 1")
-  }
-  it should "fail when wrong type is specified" in {
-    parseString("def a : Unit = 1").isLeft should equal (true)
   }
   
   /*"A parser" should "parse a reference" in {

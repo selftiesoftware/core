@@ -2081,25 +2081,25 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.seqFailure$1__p1__sr_ObjectRef__F1
 $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_LiveStream__sci_Map__sci_Map__F4__F1__s_util_Either = (function(tokens, valueEnv, typeEnv, success, failure) {
   _parse: while (true) {
     var x1 = tokens;
-    var o92 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o92.isEmpty__Z())) {
-      var p3 = $as_Lcom_repocad_web_lexing_Token($as_T2(o92.get__O()).$$und1$f);
-      var p4 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o92.get__O()).$$und2$f);
+    var o114 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o114.isEmpty__Z())) {
+      var p3 = $as_Lcom_repocad_web_lexing_Token($as_T2(o114.get__O()).$$und1$f);
+      var p4 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o114.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p3)) {
         var x5 = $as_Lcom_repocad_web_lexing_SymbolToken(p3);
         var p6 = x5.s$1;
         if ((p6 === "def")) {
-          var o91 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p4);
-          if ((!o91.isEmpty__Z())) {
-            var p8 = $as_Lcom_repocad_web_lexing_Token($as_T2(o91.get__O()).$$und1$f);
-            var p9 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o91.get__O()).$$und2$f);
+          var o113 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p4);
+          if ((!o113.isEmpty__Z())) {
+            var p8 = $as_Lcom_repocad_web_lexing_Token($as_T2(o113.get__O()).$$und1$f);
+            var p9 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o113.get__O()).$$und2$f);
             if ($is_Lcom_repocad_web_lexing_SymbolToken(p8)) {
               var x10 = $as_Lcom_repocad_web_lexing_SymbolToken(p8);
               var name = x10.s$1;
-              var o90 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p9);
-              if ((!o90.isEmpty__Z())) {
-                var p12 = $as_Lcom_repocad_web_lexing_Token($as_T2(o90.get__O()).$$und1$f);
-                var tail = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o90.get__O()).$$und2$f);
+              var o112 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p9);
+              if ((!o112.isEmpty__Z())) {
+                var p12 = $as_Lcom_repocad_web_lexing_Token($as_T2(o112.get__O()).$$und1$f);
+                var tail = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o112.get__O()).$$und2$f);
                 if ($is_Lcom_repocad_web_lexing_PunctToken(p12)) {
                   var x13 = $as_Lcom_repocad_web_lexing_PunctToken(p12);
                   var p14 = x13.s$1;
@@ -2113,40 +2113,40 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o98 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o98.isEmpty__Z())) {
-      var p16 = $as_Lcom_repocad_web_lexing_Token($as_T2(o98.get__O()).$$und1$f);
-      var p17 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o98.get__O()).$$und2$f);
+    var o120 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o120.isEmpty__Z())) {
+      var p16 = $as_Lcom_repocad_web_lexing_Token($as_T2(o120.get__O()).$$und1$f);
+      var p17 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o120.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p16)) {
         var x18 = $as_Lcom_repocad_web_lexing_SymbolToken(p16);
         var p19 = x18.s$1;
         if ((p19 === "def")) {
-          var o97 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p17);
-          if ((!o97.isEmpty__Z())) {
-            var p21 = $as_Lcom_repocad_web_lexing_Token($as_T2(o97.get__O()).$$und1$f);
-            var p22 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o97.get__O()).$$und2$f);
+          var o119 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p17);
+          if ((!o119.isEmpty__Z())) {
+            var p21 = $as_Lcom_repocad_web_lexing_Token($as_T2(o119.get__O()).$$und1$f);
+            var p22 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o119.get__O()).$$und2$f);
             if ($is_Lcom_repocad_web_lexing_SymbolToken(p21)) {
               var x23 = $as_Lcom_repocad_web_lexing_SymbolToken(p21);
               var name$2 = x23.s$1;
-              var o96 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p22);
-              if ((!o96.isEmpty__Z())) {
-                var p25 = $as_Lcom_repocad_web_lexing_Token($as_T2(o96.get__O()).$$und1$f);
-                var p26 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o96.get__O()).$$und2$f);
+              var o118 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p22);
+              if ((!o118.isEmpty__Z())) {
+                var p25 = $as_Lcom_repocad_web_lexing_Token($as_T2(o118.get__O()).$$und1$f);
+                var p26 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o118.get__O()).$$und2$f);
                 if ($is_Lcom_repocad_web_lexing_SymbolToken(p25)) {
                   var x27 = $as_Lcom_repocad_web_lexing_SymbolToken(p25);
                   var p28 = x27.s$1;
                   if ((p28 === ":")) {
-                    var o95 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p26);
-                    if ((!o95.isEmpty__Z())) {
-                      var p30 = $as_Lcom_repocad_web_lexing_Token($as_T2(o95.get__O()).$$und1$f);
-                      var p31 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o95.get__O()).$$und2$f);
+                    var o117 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p26);
+                    if ((!o117.isEmpty__Z())) {
+                      var p30 = $as_Lcom_repocad_web_lexing_Token($as_T2(o117.get__O()).$$und1$f);
+                      var p31 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o117.get__O()).$$und2$f);
                       if ($is_Lcom_repocad_web_lexing_SymbolToken(p30)) {
                         var x32 = $as_Lcom_repocad_web_lexing_SymbolToken(p30);
                         var typeName = x32.s$1;
-                        var o94 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p31);
-                        if ((!o94.isEmpty__Z())) {
-                          var p34 = $as_Lcom_repocad_web_lexing_Token($as_T2(o94.get__O()).$$und1$f);
-                          var tail$2 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o94.get__O()).$$und2$f);
+                        var o116 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p31);
+                        if ((!o116.isEmpty__Z())) {
+                          var p34 = $as_Lcom_repocad_web_lexing_Token($as_T2(o116.get__O()).$$und1$f);
+                          var tail$2 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o116.get__O()).$$und2$f);
                           if ($is_Lcom_repocad_web_lexing_SymbolToken(p34)) {
                             var x35 = $as_Lcom_repocad_web_lexing_SymbolToken(p34);
                             var p36 = x35.s$1;
@@ -2166,25 +2166,25 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o102 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o102.isEmpty__Z())) {
-      var p38 = $as_Lcom_repocad_web_lexing_Token($as_T2(o102.get__O()).$$und1$f);
-      var p39 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o102.get__O()).$$und2$f);
+    var o124 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o124.isEmpty__Z())) {
+      var p38 = $as_Lcom_repocad_web_lexing_Token($as_T2(o124.get__O()).$$und1$f);
+      var p39 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o124.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p38)) {
         var x40 = $as_Lcom_repocad_web_lexing_SymbolToken(p38);
         var p41 = x40.s$1;
         if ((p41 === "def")) {
-          var o101 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p39);
-          if ((!o101.isEmpty__Z())) {
-            var p43 = $as_Lcom_repocad_web_lexing_Token($as_T2(o101.get__O()).$$und1$f);
-            var p44 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o101.get__O()).$$und2$f);
+          var o123 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p39);
+          if ((!o123.isEmpty__Z())) {
+            var p43 = $as_Lcom_repocad_web_lexing_Token($as_T2(o123.get__O()).$$und1$f);
+            var p44 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o123.get__O()).$$und2$f);
             if ($is_Lcom_repocad_web_lexing_SymbolToken(p43)) {
               var x45 = $as_Lcom_repocad_web_lexing_SymbolToken(p43);
               var name$3 = x45.s$1;
-              var o100 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p44);
-              if ((!o100.isEmpty__Z())) {
-                var p47 = $as_Lcom_repocad_web_lexing_Token($as_T2(o100.get__O()).$$und1$f);
-                var tail$3 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o100.get__O()).$$und2$f);
+              var o122 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p44);
+              if ((!o122.isEmpty__Z())) {
+                var p47 = $as_Lcom_repocad_web_lexing_Token($as_T2(o122.get__O()).$$und1$f);
+                var tail$3 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o122.get__O()).$$und2$f);
                 if ($is_Lcom_repocad_web_lexing_SymbolToken(p47)) {
                   var x48 = $as_Lcom_repocad_web_lexing_SymbolToken(p47);
                   var p49 = x48.s$1;
@@ -2211,20 +2211,20 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o104 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o104.isEmpty__Z())) {
-      var p51 = $as_Lcom_repocad_web_lexing_Token($as_T2(o104.get__O()).$$und1$f);
-      var tail$4 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o104.get__O()).$$und2$f);
+    var o126 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o126.isEmpty__Z())) {
+      var p51 = $as_Lcom_repocad_web_lexing_Token($as_T2(o126.get__O()).$$und1$f);
+      var tail$4 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o126.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_BooleanToken(p51)) {
         var x52 = $as_Lcom_repocad_web_lexing_BooleanToken(p51);
         var value = x52.b__Z();
         return $as_s_util_Either(success.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_BooleanExpr().init___Z(value), valueEnv, typeEnv, tail$4))
       }
     };
-    var o106 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o106.isEmpty__Z())) {
-      var p54 = $as_Lcom_repocad_web_lexing_Token($as_T2(o106.get__O()).$$und1$f);
-      var tail$5 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o106.get__O()).$$und2$f);
+    var o128 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o128.isEmpty__Z())) {
+      var p54 = $as_Lcom_repocad_web_lexing_Token($as_T2(o128.get__O()).$$und1$f);
+      var tail$5 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o128.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p54)) {
         var x55 = $as_Lcom_repocad_web_lexing_SymbolToken(p54);
         var p56 = x55.s$1;
@@ -2233,10 +2233,10 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o108 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o108.isEmpty__Z())) {
-      var p58 = $as_Lcom_repocad_web_lexing_Token($as_T2(o108.get__O()).$$und1$f);
-      var tail$6 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o108.get__O()).$$und2$f);
+    var o130 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o130.isEmpty__Z())) {
+      var p58 = $as_Lcom_repocad_web_lexing_Token($as_T2(o130.get__O()).$$und1$f);
+      var tail$6 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o130.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p58)) {
         var x59 = $as_Lcom_repocad_web_lexing_SymbolToken(p58);
         var p60 = x59.s$1;
@@ -2245,30 +2245,30 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o110 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o110.isEmpty__Z())) {
-      var p62 = $as_Lcom_repocad_web_lexing_Token($as_T2(o110.get__O()).$$und1$f);
-      var tail$7 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o110.get__O()).$$und2$f);
+    var o132 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o132.isEmpty__Z())) {
+      var p62 = $as_Lcom_repocad_web_lexing_Token($as_T2(o132.get__O()).$$und1$f);
+      var tail$7 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o132.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_DoubleToken(p62)) {
         var x63 = $as_Lcom_repocad_web_lexing_DoubleToken(p62);
         var value$2 = x63.d$1;
         return $as_s_util_Either(success.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_DoubleExpr().init___D(value$2), valueEnv, typeEnv, tail$7))
       }
     };
-    var o112 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o112.isEmpty__Z())) {
-      var p65 = $as_Lcom_repocad_web_lexing_Token($as_T2(o112.get__O()).$$und1$f);
-      var tail$8 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o112.get__O()).$$und2$f);
+    var o134 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o134.isEmpty__Z())) {
+      var p65 = $as_Lcom_repocad_web_lexing_Token($as_T2(o134.get__O()).$$und1$f);
+      var tail$8 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o134.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_IntToken(p65)) {
         var x66 = $as_Lcom_repocad_web_lexing_IntToken(p65);
         var value$3 = x66.n$1;
         return $as_s_util_Either(success.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_IntExpr().init___I(value$3), valueEnv, typeEnv, tail$8))
       }
     };
-    var o114 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o114.isEmpty__Z())) {
-      var p68 = $as_Lcom_repocad_web_lexing_Token($as_T2(o114.get__O()).$$und1$f);
-      var tail$9 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o114.get__O()).$$und2$f);
+    var o136 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o136.isEmpty__Z())) {
+      var p68 = $as_Lcom_repocad_web_lexing_Token($as_T2(o136.get__O()).$$und1$f);
+      var tail$9 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o136.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_StringToken(p68)) {
         var x69 = $as_Lcom_repocad_web_lexing_StringToken(p68);
         var value$4 = x69.s$1;
@@ -2277,59 +2277,186 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
         }
       }
     };
-    var o116 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
-    if ((!o116.isEmpty__Z())) {
-      var p71 = $as_Lcom_repocad_web_lexing_Token($as_T2(o116.get__O()).$$und1$f);
-      var tail$10 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o116.get__O()).$$und2$f);
+    var o139 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o139.isEmpty__Z())) {
+      var p71 = $as_Lcom_repocad_web_lexing_Token($as_T2(o139.get__O()).$$und1$f);
+      var p72 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o139.get__O()).$$und2$f);
       if ($is_Lcom_repocad_web_lexing_SymbolToken(p71)) {
-        var x72 = $as_Lcom_repocad_web_lexing_SymbolToken(p71);
-        var name$4 = x72.s$1;
-        var rc6 = false;
-        var x2 = null;
-        var x1$2 = valueEnv.get__O__s_Option(name$4);
-        if ($is_s_Some(x1$2)) {
-          rc6 = true;
-          x2 = $as_s_Some(x1$2);
-          var f = $as_Lcom_repocad_web_parsing_Type(x2.x$2);
-          if ($is_Lcom_repocad_web_parsing_FunctionType(f)) {
-            if (((!tail$10.isEmpty__Z()) && (!tail$10.isPlugged__Z()))) {
-              var this$4 = $as_Lcom_repocad_web_lexing_Token(tail$10.head__O());
-              var this$5 = this$4.tag__T();
-              var jsx$2 = (this$5 === "(")
-            } else {
-              var jsx$2 = false
-            };
-            if (jsx$2) {
-              var temp$success$2 = new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(success$2$1, failure$1, name$4$1) {
-                return (function(params$2, newValueEnv$2, newTypeEnv$2, paramsTail$2) {
-                  var params = $as_Lcom_repocad_web_parsing_Expr(params$2);
-                  var newValueEnv = $as_sci_Map(newValueEnv$2);
-                  var newTypeEnv = $as_sci_Map(newTypeEnv$2);
-                  var paramsTail = $as_Lcom_repocad_web_lexing_LiveStream(paramsTail$2);
-                  if ((!newValueEnv.contains__O__Z(name$4$1))) {
-                    return $as_s_util_Either(failure$1.apply__O__O(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Cannot reference non-existing variable '", "'"])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$4$1]))))
-                  } else if ($is_Lcom_repocad_web_parsing_BlockExpr(params)) {
-                    var x2$1 = $as_Lcom_repocad_web_parsing_BlockExpr(params);
-                    var xs = x2$1.expr$1;
-                    return $as_s_util_Either(success$2$1.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_CallExpr().init___T__Lcom_repocad_web_parsing_Type__sc_Seq(name$4$1, $as_Lcom_repocad_web_parsing_Expr(xs.last__O()).t__Lcom_repocad_web_parsing_Type(), xs), newValueEnv, newTypeEnv, paramsTail))
+        var x73 = $as_Lcom_repocad_web_lexing_SymbolToken(p71);
+        var name$4 = x73.s$1;
+        var o138 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p72);
+        if ((!o138.isEmpty__Z())) {
+          var p75 = $as_Lcom_repocad_web_lexing_Token($as_T2(o138.get__O()).$$und1$f);
+          var tail$10 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o138.get__O()).$$und2$f);
+          if ($is_Lcom_repocad_web_lexing_SymbolToken(p75)) {
+            var x76 = $as_Lcom_repocad_web_lexing_SymbolToken(p75);
+            var p77 = x76.s$1;
+            if ((p77 === "(")) {
+              var rc6 = false;
+              var x2 = null;
+              var x1$2 = valueEnv.get__O__s_Option(name$4);
+              if ($is_s_Some(x1$2)) {
+                rc6 = true;
+                x2 = $as_s_Some(x1$2);
+                var f = $as_Lcom_repocad_web_parsing_Type(x2.x$2);
+                if ($is_Lcom_repocad_web_parsing_FunctionType(f)) {
+                  var token = new $c_Lcom_repocad_web_lexing_SymbolToken().init___T(")");
+                  var success$2$1 = success;
+                  var f$1 = (function(token$1) {
+                    return (function(stream$2$1) {
+                      var stream$1 = $as_Lcom_repocad_web_lexing_LiveStream(stream$2$1);
+                      var this$4 = $objectToString(stream$1.head__O());
+                      var that = token$1.toString__T();
+                      return (this$4 === that)
+                    })
+                  })(token);
+                  var elem = $m_Lcom_repocad_web_parsing_Type$().typeEnv$1;
+                  var elem$1 = null;
+                  elem$1 = elem;
+                  var elem$2 = $as_sci_Map($m_s_Predef$().Map$2.apply__sc_Seq__sc_GenMap($m_sci_Nil$()));
+                  var elem$1$1 = null;
+                  elem$1$1 = elem$2;
+                  var elem$3 = $as_sc_Seq($m_sc_Seq$().apply__sc_Seq__sc_GenTraversable($m_sci_Nil$()));
+                  var elem$1$2 = null;
+                  elem$1$2 = elem$3;
+                  var elem$4 = $m_s_None$();
+                  var seqFail = new $c_sr_ObjectRef().init___O(elem$4);
+                  var seqTail = new $c_sr_ObjectRef().init___O(tail$10);
+                  while (true) {
+                    if (($as_s_Option(seqFail.elem$1).isEmpty__Z() && (!$as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).isPlugged__Z()))) {
+                      var arg1 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1);
+                      var jsx$2 = (!$uZ(f$1(arg1)))
+                    } else {
+                      var jsx$2 = false
+                    };
+                    if (jsx$2) {
+                      var x1$1 = this.parse__Lcom_repocad_web_lexing_LiveStream__sci_Map__sci_Map__F4__F1__s_util_Either($as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1), $as_sci_Map(elem$1$1), $as_sci_Map(elem$1), this.seqSuccess$1__p1__sr_ObjectRef__F4(seqTail), this.seqFailure$1__p1__sr_ObjectRef__F1(seqFail));
+                      matchEnd6: {
+                        if ($is_s_util_Left(x1$1)) {
+                          var x2$1 = $as_s_util_Left(x1$1);
+                          var s = $as_T(x2$1.a$2);
+                          seqFail.elem$1 = new $c_s_Some().init___O(s);
+                          break matchEnd6
+                        };
+                        if ($is_s_util_Right(x1$1)) {
+                          var x3 = $as_s_util_Right(x1$1);
+                          var p4$1 = $as_T3(x3.b$2);
+                          if ((p4$1 !== null)) {
+                            var e$1 = $as_Lcom_repocad_web_parsing_Expr(p4$1.$$und1$1);
+                            var newValueEnv = $as_sci_Map(p4$1.$$und2$1);
+                            var newTypeEnv = $as_sci_Map(p4$1.$$und3$1);
+                            var x$2 = $m_Lcom_repocad_web_parsing_UnitExpr$();
+                            if ((!((e$1 === null) ? (x$2 === null) : e$1.equals__O__Z(x$2)))) {
+                              var jsx$3 = $as_sc_Seq(elem$1$2);
+                              var this$10 = $m_sc_Seq$();
+                              elem$1$2 = $as_sc_Seq(jsx$3.$$colon$plus__O__scg_CanBuildFrom__O(e$1, this$10.ReusableCBFInstance$2))
+                            };
+                            elem$1$1 = newValueEnv;
+                            elem$1 = newTypeEnv;
+                            break matchEnd6
+                          }
+                        };
+                        throw new $c_s_MatchError().init___O(x1$1)
+                      }
+                    } else {
+                      break
+                    }
+                  };
+                  var arg1$1 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1);
+                  if ($uZ(f$1(arg1$1))) {
+                    seqTail.elem$1 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).tail__Lcom_repocad_web_lexing_LiveStream()
+                  };
+                  var this$11 = $as_s_Option(seqFail.elem$1);
+                  var f$2 = this.seqFailure$1__p1__sr_ObjectRef__F1(seqFail);
+                  var this$12 = (this$11.isEmpty__Z() ? $m_s_None$() : new $c_s_Some().init___O(f$2.apply__O__O(this$11.get__O())));
+                  if (this$12.isEmpty__Z()) {
+                    var arg1$2 = new $c_Lcom_repocad_web_parsing_BlockExpr().init___sc_Seq($as_sc_Seq(elem$1$2));
+                    var arg2 = $as_sci_Map(elem$1$1);
+                    var arg3 = $as_sci_Map(elem$1);
+                    var arg4 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1);
+                    if ((!arg2.contains__O__Z(name$4))) {
+                      var jsx$4 = $as_s_util_Either(failure.apply__O__O(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Cannot reference non-existing function '", "'"])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$4]))))
+                    } else {
+                      var xs = arg1$2.expr$1;
+                      var jsx$4 = $as_s_util_Either(success$2$1.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_CallExpr().init___T__Lcom_repocad_web_parsing_Type__sc_Seq(name$4, $as_Lcom_repocad_web_parsing_Expr(xs.last__O()).t__Lcom_repocad_web_parsing_Type(), xs), arg2, arg3, arg4))
+                    }
                   } else {
-                    return $as_s_util_Either(failure$1.apply__O__O(("Failed to parse ref call: Expected parameters, got " + params)))
-                  }
-                })
-              })(success, failure, name$4));
-              tokens = tail$10;
-              success = temp$success$2;
-              continue _parse
-            } else {
-              return $as_s_util_Either(failure.apply__O__O(("Failed to parse ref call: Expected parameters, got " + tail$10)))
+                    var jsx$4 = this$12.get__O()
+                  };
+                  return $as_s_util_Either(jsx$4)
+                }
+              };
+              if (rc6) {
+                var t = $as_Lcom_repocad_web_parsing_Type(x2.x$2);
+                return $as_s_util_Either(success.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_RefExpr().init___T__Lcom_repocad_web_parsing_Type(name$4, t), valueEnv, typeEnv, tail$10))
+              };
+              return $as_s_util_Either(failure.apply__O__O(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Cannot reference non-existing variable '", "'"])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$4]))))
             }
           }
-        };
-        if (rc6) {
-          var t = $as_Lcom_repocad_web_parsing_Type(x2.x$2);
-          return $as_s_util_Either(success.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_RefExpr().init___T__Lcom_repocad_web_parsing_Type(name$4, t), valueEnv, typeEnv, tail$10))
-        };
-        return $as_s_util_Either(failure.apply__O__O(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Cannot reference non-existing variable '", "'"])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$4]))))
+        }
+      }
+    };
+    var o143 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o143.isEmpty__Z())) {
+      var p79 = $as_Lcom_repocad_web_lexing_Token($as_T2(o143.get__O()).$$und1$f);
+      var p80 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o143.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_SymbolToken(p79)) {
+        var x81 = $as_Lcom_repocad_web_lexing_SymbolToken(p79);
+        var name$5 = x81.s$1;
+        var o142 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p80);
+        if ((!o142.isEmpty__Z())) {
+          var p83 = $as_Lcom_repocad_web_lexing_Token($as_T2(o142.get__O()).$$und1$f);
+          var p84 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o142.get__O()).$$und2$f);
+          if ($is_Lcom_repocad_web_lexing_SymbolToken(p83)) {
+            var x85 = $as_Lcom_repocad_web_lexing_SymbolToken(p83);
+            var p86 = x85.s$1;
+            if ((p86 === ":")) {
+              var o141 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(p84);
+              if ((!o141.isEmpty__Z())) {
+                var p88 = $as_Lcom_repocad_web_lexing_Token($as_T2(o141.get__O()).$$und1$f);
+                var tail$11 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o141.get__O()).$$und2$f);
+                if ($is_Lcom_repocad_web_lexing_SymbolToken(p88)) {
+                  var x89 = $as_Lcom_repocad_web_lexing_SymbolToken(p88);
+                  var typeName$2 = x89.s$1;
+                  if (valueEnv.contains__O__Z(name$5)) {
+                    var x1$3 = typeEnv.get__O__s_Option(typeName$2);
+                    if ($is_s_Some(x1$3)) {
+                      var x2$2 = $as_s_Some(x1$3);
+                      var t$2 = $as_Lcom_repocad_web_parsing_Type(x2$2.x$2);
+                      return $as_s_util_Either(success.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_RefExpr().init___T__Lcom_repocad_web_parsing_Type(name$5, t$2), valueEnv, typeEnv, tail$11))
+                    } else {
+                      var x$2$1 = $m_s_None$();
+                      if ((x$2$1 === x1$3)) {
+                        return $as_s_util_Either(failure.apply__O__O(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["No type of name '", "' could be found"])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([typeName$2]))))
+                      } else {
+                        throw new $c_s_MatchError().init___O(x1$3)
+                      }
+                    }
+                  } else {
+                    return $as_s_util_Either(failure.apply__O__O(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Invalid reference to unknown value '", "'."])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$5]))))
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+    var o145 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(x1);
+    if ((!o145.isEmpty__Z())) {
+      var p91 = $as_Lcom_repocad_web_lexing_Token($as_T2(o145.get__O()).$$und1$f);
+      var tail$12 = $as_Lcom_repocad_web_lexing_LiveStream($as_T2(o145.get__O()).$$und2$f);
+      if ($is_Lcom_repocad_web_lexing_SymbolToken(p91)) {
+        var x92 = $as_Lcom_repocad_web_lexing_SymbolToken(p91);
+        var name$6 = x92.s$1;
+        var x1$4 = valueEnv.get__O__s_Option(name$6);
+        if ($is_s_Some(x1$4)) {
+          var x2$3 = $as_s_Some(x1$4);
+          var t$3 = $as_Lcom_repocad_web_parsing_Type(x2$3.x$2);
+          return $as_s_util_Either(success.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_RefExpr().init___T__Lcom_repocad_web_parsing_Type(name$6, t$3), valueEnv, typeEnv, tail$12))
+        } else {
+          return $as_s_util_Either(failure.apply__O__O(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Cannot reference '", "'; are you sure it was defined above?"])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([name$6]))))
+        }
       }
     };
     return $as_s_util_Either(failure.apply__O__O(new $c_s_StringContext().init___sc_Seq(new $c_sjs_js_WrappedArray().init___sjs_js_Array(["Unrecognised token pattern ", ""])).s__sc_Seq__T(new $c_sjs_js_WrappedArray().init___sjs_js_Array([x1]))))
@@ -2350,6 +2477,14 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.seqSuccess$1__p1__sr_ObjectRef__F4
   })(seqTail$1))
 });
 $c_Lcom_repocad_web_parsing_Parser$.prototype.parseUntil__Lcom_repocad_web_lexing_LiveStream__Lcom_repocad_web_lexing_Token__sci_Map__sci_Map__F4__F1__s_util_Either = (function(tokens, token, valueEnv, typeEnv, success, failure) {
+  var f = (function(token$1) {
+    return (function(stream$2) {
+      var stream = $as_Lcom_repocad_web_lexing_LiveStream(stream$2);
+      var this$1 = $objectToString(stream.head__O());
+      var that = token$1.toString__T();
+      return (this$1 === that)
+    })
+  })(token);
   var elem = $m_Lcom_repocad_web_parsing_Type$().typeEnv$1;
   var elem$1 = null;
   elem$1 = elem;
@@ -2365,9 +2500,7 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parseUntil__Lcom_repocad_web_lexin
   while (true) {
     if (($as_s_Option(seqFail.elem$1).isEmpty__Z() && (!$as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).isPlugged__Z()))) {
       var arg1 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1);
-      var this$6 = $objectToString(arg1.head__O());
-      var that = token.toString__T();
-      var jsx$1 = (!(this$6 === that))
+      var jsx$1 = (!$uZ(f(arg1)))
     } else {
       var jsx$1 = false
     };
@@ -2404,13 +2537,21 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parseUntil__Lcom_repocad_web_lexin
       break
     }
   };
+  var arg1$1 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1);
+  if ($uZ(f(arg1$1))) {
+    seqTail.elem$1 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).tail__Lcom_repocad_web_lexing_LiveStream()
+  };
   var this$8 = $as_s_Option(seqFail.elem$1);
-  var f = this.seqFailure$1__p1__sr_ObjectRef__F1(seqFail);
-  var this$9 = (this$8.isEmpty__Z() ? $m_s_None$() : new $c_s_Some().init___O(f.apply__O__O(this$8.get__O())));
+  var f$1 = this.seqFailure$1__p1__sr_ObjectRef__F1(seqFail);
+  var this$9 = (this$8.isEmpty__Z() ? $m_s_None$() : new $c_s_Some().init___O(f$1.apply__O__O(this$8.get__O())));
   return $as_s_util_Either((this$9.isEmpty__Z() ? $as_s_util_Either(success.apply__O__O__O__O__O(new $c_Lcom_repocad_web_parsing_BlockExpr().init___sc_Seq($as_sc_Seq(elem$1$2)), $as_sci_Map(elem$1$1), $as_sci_Map(elem$1), $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1))) : this$9.get__O()))
 });
 $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_LiveStream__s_util_Either = (function(tokens) {
   try {
+    var f = (function(x$1$2) {
+      $as_Lcom_repocad_web_lexing_LiveStream(x$1$2);
+      return true
+    });
     $as_sci_Map($m_s_Predef$().Map$2.apply__sc_Seq__sc_GenMap($m_sci_Nil$()));
     $as_sci_Map($m_s_Predef$().Map$2.apply__sc_Seq__sc_GenMap($m_sci_Nil$()));
     var elem = $m_Lcom_repocad_web_parsing_Type$().typeEnv$1;
@@ -2425,51 +2566,65 @@ $c_Lcom_repocad_web_parsing_Parser$.prototype.parse__Lcom_repocad_web_lexing_Liv
     var elem$4 = $m_s_None$();
     var seqFail = new $c_sr_ObjectRef().init___O(elem$4);
     var seqTail = new $c_sr_ObjectRef().init___O(tokens);
-    while ((($as_s_Option(seqFail.elem$1).isEmpty__Z() && (!$as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).isPlugged__Z())) && (!($as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1), true)))) {
-      var x1 = this.parse__Lcom_repocad_web_lexing_LiveStream__sci_Map__sci_Map__F4__F1__s_util_Either($as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1), $as_sci_Map(elem$1$1), $as_sci_Map(elem$1), this.seqSuccess$1__p1__sr_ObjectRef__F4(seqTail), this.seqFailure$1__p1__sr_ObjectRef__F1(seqFail));
-      matchEnd6: {
-        if ($is_s_util_Left(x1)) {
-          var x2 = $as_s_util_Left(x1);
-          var s = $as_T(x2.a$2);
-          seqFail.elem$1 = new $c_s_Some().init___O(s);
-          break matchEnd6
-        };
-        if ($is_s_util_Right(x1)) {
-          var x3 = $as_s_util_Right(x1);
-          var p4 = $as_T3(x3.b$2);
-          if ((p4 !== null)) {
-            var e = $as_Lcom_repocad_web_parsing_Expr(p4.$$und1$1);
-            var newValueEnv = $as_sci_Map(p4.$$und2$1);
-            var newTypeEnv = $as_sci_Map(p4.$$und3$1);
-            var x$2 = $m_Lcom_repocad_web_parsing_UnitExpr$();
-            if ((!((e === null) ? (x$2 === null) : e.equals__O__Z(x$2)))) {
-              var jsx$1 = $as_sc_Seq(elem$1$2);
-              var this$6 = $m_sc_Seq$();
-              elem$1$2 = $as_sc_Seq(jsx$1.$$colon$plus__O__scg_CanBuildFrom__O(e, this$6.ReusableCBFInstance$2))
-            };
-            elem$1$1 = newValueEnv;
-            elem$1 = newTypeEnv;
+    while (true) {
+      if (($as_s_Option(seqFail.elem$1).isEmpty__Z() && (!$as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).isPlugged__Z()))) {
+        var arg1 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1);
+        var jsx$1 = (!$uZ(f(arg1)))
+      } else {
+        var jsx$1 = false
+      };
+      if (jsx$1) {
+        var x1 = this.parse__Lcom_repocad_web_lexing_LiveStream__sci_Map__sci_Map__F4__F1__s_util_Either($as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1), $as_sci_Map(elem$1$1), $as_sci_Map(elem$1), this.seqSuccess$1__p1__sr_ObjectRef__F4(seqTail), this.seqFailure$1__p1__sr_ObjectRef__F1(seqFail));
+        matchEnd6: {
+          if ($is_s_util_Left(x1)) {
+            var x2 = $as_s_util_Left(x1);
+            var s = $as_T(x2.a$2);
+            seqFail.elem$1 = new $c_s_Some().init___O(s);
             break matchEnd6
-          }
-        };
-        throw new $c_s_MatchError().init___O(x1)
+          };
+          if ($is_s_util_Right(x1)) {
+            var x3 = $as_s_util_Right(x1);
+            var p4 = $as_T3(x3.b$2);
+            if ((p4 !== null)) {
+              var e = $as_Lcom_repocad_web_parsing_Expr(p4.$$und1$1);
+              var newValueEnv = $as_sci_Map(p4.$$und2$1);
+              var newTypeEnv = $as_sci_Map(p4.$$und3$1);
+              var x$2 = $m_Lcom_repocad_web_parsing_UnitExpr$();
+              if ((!((e === null) ? (x$2 === null) : e.equals__O__Z(x$2)))) {
+                var jsx$2 = $as_sc_Seq(elem$1$2);
+                var this$6 = $m_sc_Seq$();
+                elem$1$2 = $as_sc_Seq(jsx$2.$$colon$plus__O__scg_CanBuildFrom__O(e, this$6.ReusableCBFInstance$2))
+              };
+              elem$1$1 = newValueEnv;
+              elem$1 = newTypeEnv;
+              break matchEnd6
+            }
+          };
+          throw new $c_s_MatchError().init___O(x1)
+        }
+      } else {
+        break
       }
     };
+    var arg1$1 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1);
+    if ($uZ(f(arg1$1))) {
+      seqTail.elem$1 = $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1).tail__Lcom_repocad_web_lexing_LiveStream()
+    };
     var this$7 = $as_s_Option(seqFail.elem$1);
-    var f = this.seqFailure$1__p1__sr_ObjectRef__F1(seqFail);
-    var this$8 = (this$7.isEmpty__Z() ? $m_s_None$() : new $c_s_Some().init___O(f.apply__O__O(this$7.get__O())));
+    var f$1 = this.seqFailure$1__p1__sr_ObjectRef__F1(seqFail);
+    var this$8 = (this$7.isEmpty__Z() ? $m_s_None$() : new $c_s_Some().init___O(f$1.apply__O__O(this$7.get__O())));
     if (this$8.isEmpty__Z()) {
-      var arg1$1 = new $c_Lcom_repocad_web_parsing_BlockExpr().init___sc_Seq($as_sc_Seq(elem$1$2));
+      var arg1$2 = new $c_Lcom_repocad_web_parsing_BlockExpr().init___sc_Seq($as_sc_Seq(elem$1$2));
       var arg2 = $as_sci_Map(elem$1$1);
       var arg3 = $as_sci_Map(elem$1);
       $as_Lcom_repocad_web_lexing_LiveStream(seqTail.elem$1);
       $m_s_package$().Right$1;
-      var b = new $c_T3().init___O__O__O(arg1$1, arg2, arg3);
-      var jsx$2 = new $c_s_util_Right().init___O(b)
+      var b = new $c_T3().init___O__O__O(arg1$2, arg2, arg3);
+      var jsx$3 = new $c_s_util_Right().init___O(b)
     } else {
-      var jsx$2 = this$8.get__O()
+      var jsx$3 = this$8.get__O()
     };
-    return $as_s_util_Either(jsx$2)
+    return $as_s_util_Either(jsx$3)
   } catch (e$1) {
     var e$2 = $m_sjsr_package$().wrapJavaScriptException__O__jl_Throwable(e$1);
     if ($is_jl_InternalError(e$2)) {
@@ -4522,11 +4677,11 @@ var $s_sc_IndexedSeqOptimized$class__prefixLengthImpl__p0__sc_IndexedSeqOptimize
   };
   return i
 });
-var $s_sc_IndexedSeqOptimized$class__exists__sc_IndexedSeqOptimized__F1__Z = (function($$this, p) {
-  return ($s_sc_IndexedSeqOptimized$class__prefixLengthImpl__p0__sc_IndexedSeqOptimized__F1__Z__I($$this, p, false) !== $$this.length__I())
-});
 var $s_sc_IndexedSeqOptimized$class__isEmpty__sc_IndexedSeqOptimized__Z = (function($$this) {
   return ($$this.length__I() === 0)
+});
+var $s_sc_IndexedSeqOptimized$class__exists__sc_IndexedSeqOptimized__F1__Z = (function($$this, p) {
+  return ($s_sc_IndexedSeqOptimized$class__prefixLengthImpl__p0__sc_IndexedSeqOptimized__F1__Z__I($$this, p, false) !== $$this.length__I())
 });
 var $s_sc_IndexedSeqOptimized$class__head__sc_IndexedSeqOptimized__O = (function($$this) {
   return ($s_sc_IndexedSeqOptimized$class__isEmpty__sc_IndexedSeqOptimized__Z($$this) ? new $c_sc_IndexedSeqLike$Elements().init___sc_IndexedSeqLike__I__I($$this, 0, $$this.length__I()).next__O() : $$this.apply__I__O(0))
@@ -12434,16 +12589,27 @@ $c_Lcom_repocad_web_parsing_Parser$$anonfun$parse$4.prototype.apply__Lcom_repoca
       var x$3 = $as_Lcom_repocad_web_parsing_Expr(x$3$2);
       return (!$is_Lcom_repocad_web_parsing_RefExpr(x$3))
     }))))) {
-      return $m_Lcom_repocad_web_parsing_Parser$().parse__Lcom_repocad_web_lexing_LiveStream__sci_Map__sci_Map__F4__F1__s_util_Either(paramsTail, this.valueEnv$1$f, this.typeEnv$1$f, new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(arg$outer, xs$1, paramsTail$1) {
-        return (function(body$2, x$4$2, x$5$2, bodyTail$2) {
-          var body = $as_Lcom_repocad_web_parsing_Expr(body$2);
-          $as_sci_Map(x$4$2);
-          $as_sci_Map(x$5$2);
-          $as_Lcom_repocad_web_lexing_LiveStream(bodyTail$2);
-          new $c_Lcom_repocad_web_parsing_FunctionExpr().init___T__sc_Seq__Lcom_repocad_web_parsing_Expr(arg$outer.name$1$f, xs$1, body);
-          return $as_s_util_Either(arg$outer.success$2$f.apply__O__O__O__O__O($m_Lcom_repocad_web_parsing_UnitExpr$(), arg$outer.valueEnv$1$f, arg$outer.typeEnv$1$f, paramsTail$1))
-        })
-      })(this, xs, paramsTail)), this.failure$1$2)
+      var o11 = $m_Lcom_repocad_web_lexing_$colon$tilde$colon$().unapply__Lcom_repocad_web_lexing_LiveStream__s_Option(paramsTail);
+      if ((!o11.isEmpty__Z())) {
+        var p3 = $as_Lcom_repocad_web_lexing_Token($as_T2(o11.get__O()).$$und1$f);
+        if ($is_Lcom_repocad_web_lexing_SymbolToken(p3)) {
+          var x4 = $as_Lcom_repocad_web_lexing_SymbolToken(p3);
+          var p5 = x4.s$1;
+          if ((p5 === "=")) {
+            return $m_Lcom_repocad_web_parsing_Parser$().parse__Lcom_repocad_web_lexing_LiveStream__sci_Map__sci_Map__F4__F1__s_util_Either(paramsTail, this.valueEnv$1$f, this.typeEnv$1$f, new $c_sjsr_AnonFunction4().init___sjs_js_Function4((function(arg$outer, xs$1, paramsTail$1) {
+              return (function(body$2, x$4$2, x$5$2, bodyTail$2) {
+                var body = $as_Lcom_repocad_web_parsing_Expr(body$2);
+                $as_sci_Map(x$4$2);
+                $as_sci_Map(x$5$2);
+                $as_Lcom_repocad_web_lexing_LiveStream(bodyTail$2);
+                new $c_Lcom_repocad_web_parsing_FunctionExpr().init___T__sc_Seq__Lcom_repocad_web_parsing_Expr(arg$outer.name$1$f, xs$1, body);
+                return $as_s_util_Either(arg$outer.success$2$f.apply__O__O__O__O__O($m_Lcom_repocad_web_parsing_UnitExpr$(), arg$outer.valueEnv$1$f, arg$outer.typeEnv$1$f, paramsTail$1))
+              })
+            })(this, xs, paramsTail)), this.failure$1$2)
+          }
+        }
+      };
+      return $as_s_util_Either(this.failure$1$2.apply__O__O("Expected a"))
     }
   };
   return $as_s_util_Either(this.failure$1$2.apply__O__O(("Expected parameter list, got " + paramsExpr)))
@@ -18426,9 +18592,6 @@ $c_Lcom_repocad_web_lexing_CharToken.prototype.hashCode$lzycompute__p1__I = (fun
 $c_Lcom_repocad_web_lexing_CharToken.prototype.toString__T = (function() {
   return (((2 & this.bitmap$0$1) === 0) ? this.toString$lzycompute__p1__T() : this.toString$1)
 });
-$c_Lcom_repocad_web_lexing_CharToken.prototype.tag__T = (function() {
-  return this.tag$1
-});
 $c_Lcom_repocad_web_lexing_CharToken.prototype.init___C = (function(c) {
   this.c$1 = c;
   this.tag$1 = "Char";
@@ -18507,6 +18670,11 @@ $c_Lcom_repocad_web_lexing_DoubleToken.prototype.equals__O__Z = (function(x$1) {
     return false
   }
 });
+$c_Lcom_repocad_web_lexing_DoubleToken.prototype.init___D = (function(d) {
+  this.d$1 = d;
+  this.tag$1 = "Double";
+  return this
+});
 $c_Lcom_repocad_web_lexing_DoubleToken.prototype.productElement__I__O = (function(x$1) {
   switch (x$1) {
     case 0:
@@ -18518,11 +18686,6 @@ $c_Lcom_repocad_web_lexing_DoubleToken.prototype.productElement__I__O = (functio
       throw new $c_jl_IndexOutOfBoundsException().init___T(("" + x$1));
   }
 });
-$c_Lcom_repocad_web_lexing_DoubleToken.prototype.init___D = (function(d) {
-  this.d$1 = d;
-  this.tag$1 = "Double";
-  return this
-});
 $c_Lcom_repocad_web_lexing_DoubleToken.prototype.hashCode$lzycompute__p1__I = (function() {
   if (((1 & this.bitmap$0$1) === 0)) {
     var this$1 = this.d$1;
@@ -18533,9 +18696,6 @@ $c_Lcom_repocad_web_lexing_DoubleToken.prototype.hashCode$lzycompute__p1__I = (f
 });
 $c_Lcom_repocad_web_lexing_DoubleToken.prototype.toString__T = (function() {
   return (((2 & this.bitmap$0$1) === 0) ? this.toString$lzycompute__p1__T() : this.toString$1)
-});
-$c_Lcom_repocad_web_lexing_DoubleToken.prototype.tag__T = (function() {
-  return this.tag$1
 });
 $c_Lcom_repocad_web_lexing_DoubleToken.prototype.toString$lzycompute__p1__T = (function() {
   if (((2 & this.bitmap$0$1) === 0)) {
@@ -18631,9 +18791,6 @@ $c_Lcom_repocad_web_lexing_IntToken.prototype.hashCode$lzycompute__p1__I = (func
 });
 $c_Lcom_repocad_web_lexing_IntToken.prototype.toString__T = (function() {
   return (((2 & this.bitmap$0$1) === 0) ? this.toString$lzycompute__p1__T() : this.toString$1)
-});
-$c_Lcom_repocad_web_lexing_IntToken.prototype.tag__T = (function() {
-  return this.tag$1
 });
 $c_Lcom_repocad_web_lexing_IntToken.prototype.init___I = (function(n) {
   this.n$1 = n;
@@ -18735,8 +18892,10 @@ $c_Lcom_repocad_web_lexing_PunctToken.prototype.hashCode$lzycompute__p1__I = (fu
 $c_Lcom_repocad_web_lexing_PunctToken.prototype.toString__T = (function() {
   return (((2 & this.bitmap$0$1) === 0) ? this.toString$lzycompute__p1__T() : this.toString$1)
 });
-$c_Lcom_repocad_web_lexing_PunctToken.prototype.tag__T = (function() {
-  return this.tag$1
+$c_Lcom_repocad_web_lexing_PunctToken.prototype.init___T = (function(s) {
+  this.s$1 = s;
+  this.tag$1 = s;
+  return this
 });
 $c_Lcom_repocad_web_lexing_PunctToken.prototype.toString$lzycompute__p1__T = (function() {
   if (((2 & this.bitmap$0$1) === 0)) {
@@ -18747,11 +18906,6 @@ $c_Lcom_repocad_web_lexing_PunctToken.prototype.toString$lzycompute__p1__T = (fu
 });
 $c_Lcom_repocad_web_lexing_PunctToken.prototype.hashCode__I = (function() {
   return (((1 & this.bitmap$0$1) === 0) ? this.hashCode$lzycompute__p1__I() : this.hashCode$1)
-});
-$c_Lcom_repocad_web_lexing_PunctToken.prototype.init___T = (function(s) {
-  this.s$1 = s;
-  this.tag$1 = s;
-  return this
 });
 $c_Lcom_repocad_web_lexing_PunctToken.prototype.productIterator__sc_Iterator = (function() {
   return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
@@ -18837,8 +18991,10 @@ $c_Lcom_repocad_web_lexing_StringToken.prototype.hashCode$lzycompute__p1__I = (f
 $c_Lcom_repocad_web_lexing_StringToken.prototype.toString__T = (function() {
   return (((2 & this.bitmap$0$1) === 0) ? this.toString$lzycompute__p1__T() : this.toString$1)
 });
-$c_Lcom_repocad_web_lexing_StringToken.prototype.tag__T = (function() {
-  return this.tag$1
+$c_Lcom_repocad_web_lexing_StringToken.prototype.init___T = (function(s) {
+  this.s$1 = s;
+  this.tag$1 = "String";
+  return this
 });
 $c_Lcom_repocad_web_lexing_StringToken.prototype.toString$lzycompute__p1__T = (function() {
   if (((2 & this.bitmap$0$1) === 0)) {
@@ -18849,11 +19005,6 @@ $c_Lcom_repocad_web_lexing_StringToken.prototype.toString$lzycompute__p1__T = (f
 });
 $c_Lcom_repocad_web_lexing_StringToken.prototype.hashCode__I = (function() {
   return (((1 & this.bitmap$0$1) === 0) ? this.hashCode$lzycompute__p1__I() : this.hashCode$1)
-});
-$c_Lcom_repocad_web_lexing_StringToken.prototype.init___T = (function(s) {
-  this.s$1 = s;
-  this.tag$1 = "String";
-  return this
 });
 $c_Lcom_repocad_web_lexing_StringToken.prototype.productIterator__sc_Iterator = (function() {
   return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
@@ -18939,8 +19090,10 @@ $c_Lcom_repocad_web_lexing_SymbolToken.prototype.hashCode$lzycompute__p1__I = (f
 $c_Lcom_repocad_web_lexing_SymbolToken.prototype.toString__T = (function() {
   return (((2 & this.bitmap$0$1) === 0) ? this.toString$lzycompute__p1__T() : this.toString$1)
 });
-$c_Lcom_repocad_web_lexing_SymbolToken.prototype.tag__T = (function() {
-  return this.tag$1
+$c_Lcom_repocad_web_lexing_SymbolToken.prototype.init___T = (function(s) {
+  this.s$1 = s;
+  this.tag$1 = "Symbol";
+  return this
 });
 $c_Lcom_repocad_web_lexing_SymbolToken.prototype.toString$lzycompute__p1__T = (function() {
   if (((2 & this.bitmap$0$1) === 0)) {
@@ -18951,11 +19104,6 @@ $c_Lcom_repocad_web_lexing_SymbolToken.prototype.toString$lzycompute__p1__T = (f
 });
 $c_Lcom_repocad_web_lexing_SymbolToken.prototype.hashCode__I = (function() {
   return (((1 & this.bitmap$0$1) === 0) ? this.hashCode$lzycompute__p1__I() : this.hashCode$1)
-});
-$c_Lcom_repocad_web_lexing_SymbolToken.prototype.init___T = (function(s) {
-  this.s$1 = s;
-  this.tag$1 = "Symbol";
-  return this
 });
 $c_Lcom_repocad_web_lexing_SymbolToken.prototype.productIterator__sc_Iterator = (function() {
   return new $c_sr_ScalaRunTime$$anon$1().init___s_Product(this)
@@ -27838,15 +27986,15 @@ $c_scm_StringBuilder.prototype.apply__I__O = (function(idx) {
 $c_scm_StringBuilder.prototype.lengthCompare__I__I = (function(len) {
   return $s_sc_IndexedSeqOptimized$class__lengthCompare__sc_IndexedSeqOptimized__I__I(this, len)
 });
-$c_scm_StringBuilder.prototype.sameElements__sc_GenIterable__Z = (function(that) {
-  return $s_sc_IndexedSeqOptimized$class__sameElements__sc_IndexedSeqOptimized__sc_GenIterable__Z(this, that)
-});
 $c_scm_StringBuilder.prototype.apply__O__O = (function(v1) {
   var index = $uI(v1);
   var this$1 = this.underlying$5;
   var thiz = this$1.content$1;
   var c = (65535 & $uI(thiz["charCodeAt"](index)));
   return new $c_jl_Character().init___C(c)
+});
+$c_scm_StringBuilder.prototype.sameElements__sc_GenIterable__Z = (function(that) {
+  return $s_sc_IndexedSeqOptimized$class__sameElements__sc_IndexedSeqOptimized__sc_GenIterable__Z(this, that)
 });
 $c_scm_StringBuilder.prototype.exists__F1__Z = (function(p) {
   return $s_sc_IndexedSeqOptimized$class__exists__sc_IndexedSeqOptimized__F1__Z(this, p)
