@@ -92,14 +92,26 @@ object Parser {
       case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("=") :~: tail =>
         parse(tail, (e, stream) => success(ValExpr(name, e), stream), failure)
 
-      // Functions
+      // Functions and objects
       case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
         parseUntil(tail, PunctToken(")"), (params, paramsTail) => {
           params match {
-            case SeqExpr(xs) if !xs.exists(!_.isInstanceOf[RefExpr]) => parse(paramsTail, (body, bodyTail) => {
-              success(FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]].map(_.name), body), bodyTail)
-            }, failure)
-            case xs => failure("Expected parameter list, got " + xs)
+            case SeqExpr(xs) if xs.nonEmpty && !xs.exists(!_.isInstanceOf[RefExpr]) =>
+              paramsTail match {
+                case SymbolToken("=") :~: _ => {
+                  parse(paramsTail, (body, bodyTail) => {
+                    success(FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]].map(_.name), body), bodyTail)
+                  }, failure)
+                }
+                case _ if xs.isEmpty => {
+                  failure(Error.OBJECT_MISSING_PARAMETERS(name))
+                }
+                case _ => {
+                  success(ObjectExpr(name, xs.asInstanceOf[Seq[RefExpr]].map(_.name)), paramsTail)
+                }
+              }
+
+            case xs => failure(Error.EXPECTED_PARAMETERS(xs.toString))
           }
         }, failure)
 

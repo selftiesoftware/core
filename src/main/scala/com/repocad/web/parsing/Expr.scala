@@ -10,6 +10,7 @@ case class SeqExpr(expr: Seq[Expr]) extends Expr
 case class CompExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
 case class OpExpr(e1 : Expr, e2 : Expr, op : String) extends Expr
 case class FunctionExpr(name : String, params : Seq[String], body : Expr) extends Expr
+case class ObjectExpr(name : String, params : Seq[String]) extends Expr
 case class RangeExpr(name: String, from : Expr, to : Expr) extends Expr
 
 trait ControlExpr extends Expr
