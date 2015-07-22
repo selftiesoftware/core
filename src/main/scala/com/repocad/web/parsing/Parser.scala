@@ -84,12 +84,12 @@ object Parser {
 
       // Functions and objects
       case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
-        val cont : SuccessCont = (params, _, _, paramsTail) => {
+        val functionContinuation : SuccessCont = (params, _, _, paramsTail) => {
           params match {
-            case BlockExpr(xs) if xs.nonEmpty && !xs.exists(!_.isInstanceOf[RefExpr]) =>
+            case BlockExpr(xs) if xs.nonEmpty || !xs.exists(!_.isInstanceOf[RefExpr]) =>
               paramsTail match {
-                case SymbolToken("=") :~: _ => {
-                  parse(paramsTail, valueEnv, typeEnv, (body, _, _, bodyTail) => {
+                case SymbolToken("=") :~: functionTail => {
+                  parse(functionTail, valueEnv, typeEnv, (body, _, _, bodyTail) => {
                     success(FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]], body), valueEnv, typeEnv, bodyTail)
                   }, failure)
                 }
@@ -101,25 +101,10 @@ object Parser {
             case xs => failure(Error.EXPECTED_PARAMETERS(xs.toString))
           }
         }
-        parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, cont, failure)
-
-//        parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, (paramsExpr : Expr, vs : ValueEnv, ts : TypeEnv, paramsTail : LiveStream[Token]) => paramsExpr match {
-//          case BlockExpr(xs) if !xs.exists(!_.isInstanceOf[RefExpr]) =>
-//            paramsTail match {
-//              case SymbolToken("=") :~: definitionTail =>
-//                failure("")
-////                parse(definitionTail, valueEnv, typeEnv, (body, _, _, bodyTail) => {
-////                val function = FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]], body)
-////                success(function, valueEnv.+(name -> function), typeEnv, paramsTail)
-////              }, failure)
-//              case _ => failure("Expected a")
-//            }
-//
-//          case xs => failure("Expected parameter list, got " + xs)
-//        }, failure)
+        parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, functionContinuation, failure)
 
       // Assignments
-      case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken(":") :~: SymbolToken(typeName) :~: SymbolToken("=") :~: tail =>
+      case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("as") :~: SymbolToken(typeName) :~: SymbolToken("=") :~: tail =>
         verifyType(typeName, typeEnv).right.flatMap(t => parse(tail, valueEnv, typeEnv, (e, _, _, stream) => if (e.t == t) {
           success(DefExpr(name, e), valueEnv + (name -> e), typeEnv, stream)
         } else {
@@ -174,6 +159,8 @@ object Parser {
           case xs => failure("Failed to parse ref call: Expected parameters, got " + xs)
         }
       }, failure)*/
+
+      case stream if stream.isEmpty => success(UnitExpr, valueEnv, typeEnv, stream)
 
       case xs => failure(s"Unrecognised token pattern $xs")
     }
@@ -230,10 +217,14 @@ object Parser {
   */
 
   def parseUntil(tokens: LiveStream[Token], token : Token, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure: FailureCont): Value = {
-    parseUntil(tokens, stream => stream.head.toString.equals(token.toString), valueEnv, typeEnv, success, failure)
+    parseUntil(parse, tokens, stream => stream.head.toString.equals(token.toString), valueEnv, typeEnv, success, failure)
   }
 
   def parseUntil(tokens: LiveStream[Token], condition : LiveStream[Token] => Boolean, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont): Value = {
+    parseUntil(parse, tokens, condition, valueEnv, typeEnv, success, failure)
+  }
+
+  def parseUntil(parseFunction : (LiveStream[Token], ValueEnv, TypeEnv, SuccessCont, FailureCont) => Value, tokens: LiveStream[Token], condition : LiveStream[Token] => Boolean, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont): Value = {
     var typeEnv : TypeEnv = Type.typeEnv
     var valueEnv : ValueEnv = Map()
     var seq = Seq[Expr]()
@@ -248,7 +239,7 @@ object Parser {
       Left(s)
     }
     while (seqFail.isEmpty && !seqTail.isPlugged && !condition(seqTail)) {
-      parse(seqTail, valueEnv, typeEnv, seqSuccess, seqFailure) match {
+      parseFunction(seqTail, valueEnv, typeEnv, seqSuccess, seqFailure) match {
          case Left(s) => seqFail = Some(s)
          case Right((e, newValueEnv, newTypeEnv)) =>
            if (e != UnitExpr) seq = seq :+ e
