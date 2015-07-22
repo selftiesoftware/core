@@ -82,14 +82,27 @@ object Parser {
 
 */
 
-      // Functions
+      // Functions and objects
       case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
-        parseParameters(tail, typeEnv) match {
-          case Left(error) => failure(error)
-          case Right(untyped, typed, paramsTail) => {
-            parse(paramsTail, valueEnv, typeEnv, (body, body, _, bodyTail))
+        val cont : SuccessCont = (params, _, _, paramsTail) => {
+          params match {
+            case BlockExpr(xs) if xs.nonEmpty && !xs.exists(!_.isInstanceOf[RefExpr]) =>
+              paramsTail match {
+                case SymbolToken("=") :~: _ => {
+                  parse(paramsTail, valueEnv, typeEnv, (body, _, _, bodyTail) => {
+                    success(FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]], body), valueEnv, typeEnv, bodyTail)
+                  }, failure)
+                }
+                case _ => {
+                  failure(Error.OBJECT_MISSING_PARAMETERS(name))
+                }
+              }
+
+            case xs => failure(Error.EXPECTED_PARAMETERS(xs.toString))
           }
         }
+        parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, cont, failure)
+
 //        parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, (paramsExpr : Expr, vs : ValueEnv, ts : TypeEnv, paramsTail : LiveStream[Token]) => paramsExpr match {
 //          case BlockExpr(xs) if !xs.exists(!_.isInstanceOf[RefExpr]) =>
 //            paramsTail match {
@@ -215,36 +228,6 @@ object Parser {
       failure)
   }
   */
-
-  def parseParameters(stream : LiveStream[Token], typeEnv : TypeEnv) : Either[String, (Seq[String], Seq[RefExpr], LiveStream[Token])] = {
-    if (stream.isPlugged || stream.isEmpty) {
-      Right(Nil, Nil, stream)
-    } else if (stream.head.toString.equals(")")) {
-      Right(Nil, Nil, stream.tail)
-    } else {
-      stream match {
-        case SymbolToken(name) :~: SymbolToken(":") :~: SymbolToken(typeName) :~: tail =>
-          typeEnv.get(typeName) match {
-            case Some(typeClass) =>
-              parseParameters(tail, typeEnv) match {
-                case Right((untyped, typed, recursiveTail)) => Right(untyped, typed.+:(RefExpr(name, typeClass)), recursiveTail)
-                case left => left
-              }
-
-            case _ => Left(Error.TYPE_NOT_FOUND(typeName))
-          }
-        case SymbolToken(name) :~: tail =>
-          parseParameters(tail, typeEnv) match {
-            case Right((untyped, typed, recursiveTail)) => {
-              Right((untyped.+:(name), typed, recursiveTail))
-            }
-            case left => left
-          }
-
-        case _ => Right(Nil, Nil, stream)
-      }
-    }
-  }
 
   def parseUntil(tokens: LiveStream[Token], token : Token, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure: FailureCont): Value = {
     parseUntil(tokens, stream => stream.head.toString.equals(token.toString), valueEnv, typeEnv, success, failure)
