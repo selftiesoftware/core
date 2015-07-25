@@ -8,6 +8,7 @@ package object parsing {
 
   object Error {
     def EXPECTED_PARAMETERS(actual : String) : String = s"Expected parameter list when creating a function or object, but received '$actual'"
+    def EXPECTED_TYPE_PARAMETERS(name : String) : String = s"No type information for variable $name; please specify type using '$name as [Type]'"
 
     def FUNCTION_NOT_FOUND(functionName: String): String = s"Function '$functionName' not found"
 

@@ -1,5 +1,6 @@
 package com.repocad.web.parsing
 
+import com.repocad.web.{Response, Ajax}
 import com.repocad.web.lexing._
 
 /**
@@ -35,12 +36,15 @@ object Parser {
 
     tokens match {
 
-      /*
       // Import
       case SymbolToken("import") :~: SymbolToken(script) :~: tail => {
-        success(ImportExpr(script), tail)
+        RemoteParser.get(script) match {
+          case Left(error) => failure(error)
+          case Right((expr, importValueEnv, importTypeEnv)) => success(expr, importValueEnv, importTypeEnv, tail)
+        }
       }
 
+      /*
       case SymbolToken("if") :~: tail => {
         parse(tail, (condition, conditionTail) =>
           parse(conditionTail, (ifBody, ifBodyTail) => {
@@ -59,6 +63,7 @@ object Parser {
 
       // Loops
       case SymbolToken("repeat") :~: tail => parseLoop(tail, success, failure)
+
 
       // Comparisons
       case (start : Token) :~: SymbolToken(">") :~: tail =>
@@ -79,29 +84,26 @@ object Parser {
 
       case (start : Token) :~: SymbolToken("/") :~: tail =>
         parseTripleOp(start, tail, "/", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
-
 */
-
+        
       // Functions and objects
       case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
-        val functionContinuation : SuccessCont = (params, _, _, paramsTail) => {
+        parseUntil(parseParameters, tail, _.head.tag.toString.equals(")"), valueEnv, typeEnv, (params, _, _, paramsTail) => {
           params match {
             case BlockExpr(xs) if xs.nonEmpty || !xs.exists(!_.isInstanceOf[RefExpr]) =>
               paramsTail match {
                 case SymbolToken("=") :~: functionTail => {
                   parse(functionTail, valueEnv, typeEnv, (body, _, _, bodyTail) => {
-                    success(FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]], body), valueEnv, typeEnv, bodyTail)
+                    val function = FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]], body)
+                    success(function, valueEnv.+(name -> function), typeEnv, bodyTail)
                   }, failure)
                 }
-                case _ => {
-                  failure(Error.OBJECT_MISSING_PARAMETERS(name))
-                }
+                case _ => failure(Error.OBJECT_MISSING_PARAMETERS(name))
               }
 
             case xs => failure(Error.EXPECTED_PARAMETERS(xs.toString))
           }
-        }
-        parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, functionContinuation, failure)
+        }, failure)
 
       // Assignments
       case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("as") :~: SymbolToken(typeName) :~: SymbolToken("=") :~: tail =>
@@ -142,14 +144,8 @@ object Parser {
 
       case SymbolToken(name) :~: tail => valueEnv.get(name) match {
         case Some(expr) => success(RefExpr(name, expr.t), valueEnv, typeEnv, tail)
-        case _ => failure(s"Cannot reference non-existing variable '$name'")
+        case _ => failure(s"Cannot reference '$name'; are you sure it was defined above?")
       }
-
-      case SymbolToken(name) :~: tail =>
-        valueEnv.get(name) match {
-          case Some(expr) => success(RefExpr(name, expr.t), valueEnv, typeEnv, tail)
-          case _ => failure(s"Cannot reference '$name'; are you sure it was defined above?")
-        }
 
       /*
       case SymbolToken(name) :~: tail if !tail.isEmpty && !tail.isPlugged && tail.head.tag.equals("(") => parse(tail, valueEnv, typeEnv, (params, newValueEnv, newTypeEnv, paramsTail) => {
@@ -209,9 +205,24 @@ object Parser {
     }
   }
 
-  def parseTripleOp(startToken : Token, tail : LiveStream[Token], comp : String, success : (Expr, Expr, String, LiveStream[Token]) => Value, failure: String => Value): Value = {
-    parse(LiveStream(Iterable(startToken)), (ex1, _) =>
-      parse(tail, (ex2, s2) => success(ex1, ex2, comp, s2), failure),
+  */
+  def parseParameters(tokens: LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont) : Value = {
+    tokens match {
+      case SymbolToken(name) :~: SymbolToken("as") :~: SymbolToken(typeName) :~: tail =>
+        typeEnv.get(typeName) match {
+          case Some(t) =>
+            val reference = RefExpr(name, t)
+            success(reference, valueEnv.+(name -> reference), typeEnv, tail)
+          case _ => failure(Error.TYPE_NOT_FOUND(typeName))
+        }
+      case SymbolToken(name) :~: tail => failure(Error.EXPECTED_TYPE_PARAMETERS(name))
+    }
+  }
+
+  /*
+  def parseTripleOp(startToken : Token, tail : LiveStream[Token], comp : String, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure: String => Value): Value = {
+    parse(LiveStream(startToken), (ex1, firstValueEnv, firstTypeEnv, _) =>
+      parse(tail, (ex2, secondValueEnv, secondTypeEnv, s2) => success(ex1, ex2, comp, valueEnv, typeEnv, s2), failure),
       failure)
   }
   */
@@ -238,6 +249,7 @@ object Parser {
       seqFail = Some(s)
       Left(s)
     }
+
     while (seqFail.isEmpty && !seqTail.isPlugged && !condition(seqTail)) {
       parseFunction(seqTail, valueEnv, typeEnv, seqSuccess, seqFailure) match {
          case Left(s) => seqFail = Some(s)

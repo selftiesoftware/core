@@ -28,6 +28,12 @@ class DefinitionTest extends FlatSpec with Matchers {
   it should "parse a definition with type information" in {
     testEquals(DefExpr("a", IntExpr(10)), "def a as Int = 10")
   }
+  it should "store a value in the value environment" in {
+    parseString("def a = 10") should equal (Right(DefExpr("a", IntExpr(10)), Map("a" -> IntExpr(10)), Map[String, Type]()))
+  }
+  it should "fail when wrong type is specified" in {
+    parseString("def a : Unit = 1").isLeft should equal (true)
+  }
 
   /* Functions */
   "A parser for functions" should "parse a function without parameters and body" in {
@@ -35,6 +41,19 @@ class DefinitionTest extends FlatSpec with Matchers {
   }
   it should "parse a function with one parameter and no body" in {
     testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType)), UnitExpr), "def a(b as Int) = ")
+  }
+  it should "parse a function without a parameter but with a body" in {
+    testEquals(FunctionExpr("a", Seq(), BlockExpr(Seq(DefExpr("b", DoubleExpr(10.2))))), "def a() = { def b = 10.2 }")
+  }
+  it should "parse a function with two parameters and no body" in {
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", DoubleType)), UnitExpr), "def a(b as Int c as Double) = ")
+  }
+  it should "parse a function with three parameters and no body" in {
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", DoubleType), RefExpr("d", StringType)), UnitExpr), "def a(b as Int c as Double d as String) = ")
+  }
+  it should "store a function in the value environment" in {
+    val function = FunctionExpr("a", Seq(), UnitExpr)
+    parseString("def a() = ") should equal (Right(function, Map("a" -> function), Map()))
   }
 
 }

@@ -20,51 +20,6 @@ class ParserTest extends FlatSpec with Matchers {
     val stream = Lexer.lex(string)
     Parser.parse(stream, valueEnv, typeEnv, (t, vEnv, tEnv, _) => Right((t, vEnv, tEnv)), f => Left(f))
   }
-
-  "Assignment parsing" should "parse a definition" in {
-    testEquals(DefExpr("a", StringExpr("hi")), "def a = \"hi\"")
-  }
-  it should "store a value in the value environment" in {
-    parseString("def a = 10") should equal (Right(DefExpr("a", IntExpr(10)), Map("a" -> IntExpr(10)), Map[String, Type]()))
-  }
-  it should "parse a function with no parameters" in {
-    testEquals(FunctionExpr("a", Seq(), BlockExpr(Seq())), "def a() = {}")
-  }
-  it should "parse a function with one parameter" in {
-    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType)), BlockExpr(Seq())), "def a(b) = {}")
-  }
-  it should "parse a function with one typed parameter" in {
-    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType)), BlockExpr(Seq())), "def a(b : Int) = {}")
-  }
-  it should "parse a function with two parameters" in {
-    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", StringType)), BlockExpr(Seq())), "def a(b c) = {}")
-  }
-  it should "parse a function with two typed parameters" in {
-    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", StringType)), BlockExpr(Seq())), "def a(b : Int c : String) = {}")
-  }
-
-  "Type inference" should "infer a type" in {
-    testEquals(DefExpr("a", IntExpr(1)), "def a = 1")
-  }
-  it should "allow specification of type" in {
-    testEquals(DefExpr("a", IntExpr(1)), "def a : Int = 1")
-  }
-  it should "fail when wrong type is specified" in {
-    parseString("def a : Unit = 1").isLeft should equal (true)
-  }
-
-  "Value parsing" should "parse an integer" in {
-    testEquals(IntExpr(1), "1")
-  }
-  it should "parse a string" in {
-    testEquals(StringExpr("string"), "\"string\"")
-  }
-  it should "parse a double" in {
-    testEquals(DoubleExpr(123.42), "123.42")
-  }
-  it should "parse a boolean" in {
-    testEquals(BooleanExpr(value = true), "true")
-  }
   
   /*"A parser" should "parse a reference" in {
     val stream = LiveStream(Iterable[Token](SymbolToken("a"), PunctToken("}")))

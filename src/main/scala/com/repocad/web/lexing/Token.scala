@@ -48,6 +48,7 @@ trait Token extends Ordered[Token] {
       return c1
     this.localCompare(thatToken)
   }
+
 }
 
 /**
