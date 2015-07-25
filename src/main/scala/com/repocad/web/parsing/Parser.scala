@@ -85,36 +85,9 @@ object Parser {
       case (start : Token) :~: SymbolToken("/") :~: tail =>
         parseTripleOp(start, tail, "/", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 */
-        
+
       // Functions and objects
-      case SymbolToken("def") :~: SymbolToken(name) :~: PunctToken("(") :~: tail =>
-        parseUntil(parseParameters, tail, _.head.tag.toString.equals(")"), valueEnv, typeEnv, (params, _, _, paramsTail) => {
-          params match {
-            case BlockExpr(xs) if xs.nonEmpty || !xs.exists(!_.isInstanceOf[RefExpr]) =>
-              paramsTail match {
-                case SymbolToken("=") :~: functionTail => {
-                  parse(functionTail, valueEnv, typeEnv, (body, _, _, bodyTail) => {
-                    val function = FunctionExpr(name, xs.asInstanceOf[Seq[RefExpr]], body)
-                    success(function, valueEnv.+(name -> function), typeEnv, bodyTail)
-                  }, failure)
-                }
-                case _ => failure(Error.OBJECT_MISSING_PARAMETERS(name))
-              }
-
-            case xs => failure(Error.EXPECTED_PARAMETERS(xs.toString))
-          }
-        }, failure)
-
-      // Assignments
-      case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("as") :~: SymbolToken(typeName) :~: SymbolToken("=") :~: tail =>
-        verifyType(typeName, typeEnv).right.flatMap(t => parse(tail, valueEnv, typeEnv, (e, _, _, stream) => if (e.t == t) {
-          success(DefExpr(name, e), valueEnv + (name -> e), typeEnv, stream)
-        } else {
-          failure(s"'$name' has the expected type $t, but was assigned to type ${e.t}")
-        }, failure))
-
-      case SymbolToken("def") :~: SymbolToken(name) :~: SymbolToken("=") :~: tail =>
-        parse(tail, valueEnv, typeEnv, (e, _, _, stream) => success(DefExpr(name, e), valueEnv + (name -> e), typeEnv, stream), failure)
+      case SymbolToken("def") :~: tail => parseDefinition(tail, valueEnv, typeEnv, success, failure)
 
       // Values
       case BooleanToken(value: Boolean) :~: tail => success(BooleanExpr(value), valueEnv, typeEnv, tail)
@@ -142,9 +115,10 @@ object Parser {
         case _ => failure(Error.FUNCTION_NOT_FOUND(name))
       }
 
-      case SymbolToken(name) :~: tail => valueEnv.get(name) match {
+      case SymbolToken(name) :~: tail =>
+        valueEnv.get(name) match {
         case Some(expr) => success(RefExpr(name, expr.t), valueEnv, typeEnv, tail)
-        case _ => failure(s"Cannot reference '$name'; are you sure it was defined above?")
+        case _ => failure(Error.REFERENCE_NOT_FOUND(name))
       }
 
       /*
@@ -206,6 +180,72 @@ object Parser {
   }
 
   */
+
+  def parseDefinition(tokens : LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont) : Value = {
+    def parseFunctionParameters(parameterTokens : LiveStream[Token], success : (Seq[RefExpr], LiveStream[Token]) => Value, failure : FailureCont) = {
+      parseUntil(parseParameters, parameterTokens, _.head.tag.toString.equals(")"), valueEnv, typeEnv, (params, _, _, paramsTail) => {
+        params match {
+          case BlockExpr(exprs) => success(exprs.asInstanceOf[Seq[RefExpr]], paramsTail)
+          case _ => failure(Error.EXPECTED_PARAMETERS(params.toString))
+        }
+      }, failure)
+    }
+
+    def parseFunctionParametersAndBody(parameterTokens : LiveStream[Token], paramsEnv : Seq[RefExpr], success : (Seq[RefExpr], Expr, LiveStream[Token]) => Value, failure : FailureCont) : Value = {
+      parseFunctionParameters(parameterTokens, (params, paramsTail) => {
+        paramsTail match {
+          case SymbolToken("=") :~: functionTail =>
+            parseFunctionBody(functionTail, paramsEnv ++ params, (body, _, _, bodyTail) => success(params, body, bodyTail), failure)
+
+          case tail => failure(Error.SYNTAX_ERROR("=", tail.toString))
+        }
+      }, failure)
+    }
+
+    def parseFunctionBody(bodyTokens : LiveStream[Token], paramsEnv : Seq[RefExpr], success : SuccessCont, failureCont: FailureCont) : Value = {
+      parse(bodyTokens, valueEnv ++ paramsEnv.map(ref => ref.name -> ref).toMap, typeEnv, success, failure)
+    }
+
+    tokens match {
+      /* Functions */
+      case PunctToken("(") :~: tail => parseFunctionParameters(tail, (firstParams, firstTail) => {
+        firstTail match {
+          case SymbolToken(name) :~: PunctToken("(") :~: tail =>
+            parseFunctionParametersAndBody(tail, firstParams, (secondParams, body, bodyTail) => {
+              val function = FunctionExpr(name, firstParams ++ secondParams, body)
+              success(function, valueEnv.+(name -> function), typeEnv, bodyTail)
+            }, failure)
+
+          case SymbolToken(name) :~: SymbolToken("=") :~: tail =>
+            parseFunctionBody(tail, firstParams, (body, _, _, bodyTail) => {
+              val function = FunctionExpr(name, firstParams, body)
+              success(function, valueEnv.+(name -> function), typeEnv, bodyTail)
+            }, failure)
+
+        }
+      }, failure)
+
+      case SymbolToken(name) :~: PunctToken("(") :~: tail =>
+        parseFunctionParametersAndBody(tail, Seq(), (parameters, body, bodyTail) => {
+          val function = FunctionExpr(name, parameters, body)
+          success(function, valueEnv.+(name -> function), typeEnv, bodyTail)
+        }, failure)
+
+
+      /* Assignments */
+      case SymbolToken(name) :~: SymbolToken("as") :~: SymbolToken(typeName) :~: SymbolToken("=") :~: tail =>
+        verifyType(typeName, typeEnv).right.flatMap(t => parse(tail, valueEnv, typeEnv, (e, _, _, stream) => if (e.t == t) {
+          success(DefExpr(name, e), valueEnv + (name -> e), typeEnv, stream)
+        } else {
+          failure(s"'$name' has the expected type $t, but was assigned to type ${e.t}")
+        }, failure))
+
+      case SymbolToken(name) :~: SymbolToken("=") :~: tail =>
+        parse(tail, valueEnv, typeEnv, (e, _, _, stream) => success(DefExpr(name, e), valueEnv + (name -> e), typeEnv, stream), failure)
+
+    }
+  }
+
   def parseParameters(tokens: LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont) : Value = {
     tokens match {
       case SymbolToken(name) :~: SymbolToken("as") :~: SymbolToken(typeName) :~: tail =>

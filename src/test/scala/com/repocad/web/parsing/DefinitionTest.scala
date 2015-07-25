@@ -32,7 +32,7 @@ class DefinitionTest extends FlatSpec with Matchers {
     parseString("def a = 10") should equal (Right(DefExpr("a", IntExpr(10)), Map("a" -> IntExpr(10)), Map[String, Type]()))
   }
   it should "fail when wrong type is specified" in {
-    parseString("def a : Unit = 1").isLeft should equal (true)
+    parseString("def a as Unit = 1").isLeft should equal (true)
   }
 
   /* Functions */
@@ -51,9 +51,22 @@ class DefinitionTest extends FlatSpec with Matchers {
   it should "parse a function with three parameters and no body" in {
     testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", DoubleType), RefExpr("d", StringType)), UnitExpr), "def a(b as Int c as Double d as String) = ")
   }
+  it should "parse a function with four parameters and no body" in {
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", DoubleType), RefExpr("d", StringType), RefExpr("e", BooleanType)), UnitExpr), "def a(b as Int c as Double d as String e as Boolean) = ")
+  }
+  it should "parse a function with a prepended parameter" in {
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType)),UnitExpr), "def (b as Int)a = ")
+  }
   it should "store a function in the value environment" in {
     val function = FunctionExpr("a", Seq(), UnitExpr)
     parseString("def a() = ") should equal (Right(function, Map("a" -> function), Map()))
+  }
+  it should "accept references to existing parameters in the function body" in {
+    val function = FunctionExpr("a", Seq(RefExpr("b", IntType)), RefExpr("b", IntType))
+    testEquals(function, "def a(b as Int) = b")
+  }
+  it should "fail when referencing non-existing parameters in the function body" in {
+    parseString("def a(b as Int) = c") should equal(Left(Error.REFERENCE_NOT_FOUND("c")))
   }
 
 }
