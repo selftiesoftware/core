@@ -9,13 +9,7 @@ import scala.collection.immutable
  * @param nodes The nodes of the graph.
  * @param root The root key to the root node of the graph.
  */
-abstract class DirectedGraph[T](nodes : immutable.Map[T, Node[T]], root : T) {
-
-  self : DirectedGraph[T] =>
-
-  type Self >: self.type
-
-  protected def copy(nodes : immutable.Map[T, Node[T]], root : T) : Self
+final case class DirectedGraph[T](nodes : immutable.Map[T, Node[T]], root : T) {
 
   /**
    * Finds the common parent of the two nodes. If the nodes are identical, the first node is returned immediately. This
@@ -46,8 +40,8 @@ abstract class DirectedGraph[T](nodes : immutable.Map[T, Node[T]], root : T) {
 
   def exists(element : T) = nodes.contains(element)
 
-  def union(parent : T, child : T) : Self = nodes.get(parent) match {
-    case Some(parentNode) => copy(nodes.+(child -> Node(parentNode.level + 1, Some(parent))), root)
+  def union(parent : T, child : T) : DirectedGraph[T] = nodes.get(parent) match {
+    case Some(parentNode) => new DirectedGraph[T](nodes.+(child -> Node(parentNode.level + 1, Some(parent))), root)
     case None => throw new NoSuchElementException(s"No element found for $parent")
   }
 
@@ -58,16 +52,8 @@ abstract class DirectedGraph[T](nodes : immutable.Map[T, Node[T]], root : T) {
  */
 object DirectedGraph {
 
-  def apply[T](root : T) : DirectedGraph[T] = new DirectedGraphImpl[T](Map(root -> Node[T](1, None)), root)
+  def apply[T](root : T) : DirectedGraph[T] = new DirectedGraph[T](Map(root -> Node[T](1, None)), root)
 
   case class Node[T](level : Int, parent : Option[T])
-
-  class DirectedGraphImpl[T](nodes : immutable.Map[T, Node[T]], root : T) extends DirectedGraph[T](nodes, root) {
-
-    type Self = DirectedGraphImpl[T]
-
-    def copy(nodes : immutable.Map[T, Node[T]], root : T) : DirectedGraphImpl[T] = new DirectedGraphImpl[T](nodes, root)
-
-  }
 
 }

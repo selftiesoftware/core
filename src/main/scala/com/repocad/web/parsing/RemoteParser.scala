@@ -8,13 +8,13 @@ import com.repocad.web.{Response, Ajax}
  */
 object RemoteParser {
 
-  private var scriptCache : Map[String, Parser.Value] = Map()
+  private var scriptCache : Map[String, Value] = Map()
 
-  def get(scriptName : String) : Parser.Value = {
+  def get(scriptName : String) : Value = {
       scriptCache.getOrElse(scriptName, download(scriptName))
   }
 
-  private def download(scriptName : String) : Parser.Value = {
+  private def download(scriptName : String) : Value = {
     val value = Ajax.get("http://repocad.com/get/" + scriptName) match {
       case Response(_, 4, text) =>
         Parser.parse(Lexer.lex(text))

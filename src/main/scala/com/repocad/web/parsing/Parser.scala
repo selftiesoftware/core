@@ -1,5 +1,6 @@
 package com.repocad.web.parsing
 
+import com.repocad.com.repocad.util.DirectedGraph
 import com.repocad.web.{parsing, Response, Ajax}
 import com.repocad.web.lexing._
 
@@ -7,25 +8,17 @@ import com.repocad.web.lexing._
  * Parses code into drawing expressions (AST)
  */
 object Parser {
-
-  type TypeEnv = Map[String, Type]
-  type ValueEnv = Map[String, Expr]
-
-  type Value = Either[String, (Expr, ValueEnv, TypeEnv)]
-
-  type FailureCont = String => Value
-  type SuccessCont = (Expr, ValueEnv, TypeEnv, LiveStream[Token]) => Value
   
   def verifyType(typeName : String, typeEnv : TypeEnv) : Either[String, Type] = {
-    typeEnv.get(typeName) match {
-      case Some(typeObject) => Right(typeObject)
-      case _ => Left(s"No type of name '$typeName' found")
+    stringTypeMap.get(typeName) match {
+      case Some(typeObject) if typeEnv.exists(typeObject) => Right(typeObject)
+      case _ => Left(Error.TYPE_NOT_FOUND(typeName))
     }
   }
 
   def parse(tokens : LiveStream[Token]) : Value = {
     try {
-      parseUntil(tokens, _ => true, Map(), Map(), (expr, values, types, _) => Right((expr, values, types)), e => Left(e))
+      parseUntil(tokens, _ => true, defaultValueEnv, defaultTypeEnv, (expr, values, types, _) => Right((expr, values, types)), e => Left(e))
     } catch {
       case e : InternalError => Left("Script too large (sorry - we're working on it!)")
       case e : Exception => Left(e.getLocalizedMessage)
@@ -93,7 +86,7 @@ object Parser {
       case BooleanToken(value: Boolean) :~: tail => success(BooleanExpr(value), valueEnv, typeEnv, tail)
       case SymbolToken("false") :~: tail => success(BooleanExpr(false), valueEnv, typeEnv, tail)
       case SymbolToken("true") :~: tail => success(BooleanExpr(true), valueEnv, typeEnv, tail)
-      case DoubleToken(value : Double) :~: tail => success(DoubleExpr(value), valueEnv, typeEnv, tail)
+      case DoubleToken(value : Double) :~: tail => success(FloatExpr(value), valueEnv, typeEnv, tail)
       case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
       case StringToken(value : String) :~: tail => success(StringExpr(value), valueEnv, typeEnv, tail)
 
@@ -249,11 +242,11 @@ object Parser {
   def parseParameters(tokens: LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont) : Value = {
     tokens match {
       case SymbolToken(name) :~: SymbolToken("as") :~: SymbolToken(typeName) :~: tail =>
-        typeEnv.get(typeName) match {
-          case Some(t) =>
+        verifyType(typeName, typeEnv) match {
+          case Right(t) =>
             val reference = RefExpr(name, t)
             success(reference, valueEnv.+(name -> reference), typeEnv, tail)
-          case _ => failure(Error.TYPE_NOT_FOUND(typeName))
+          case Left(error) => Left(error)
         }
       case SymbolToken(name) :~: tail => failure(Error.EXPECTED_TYPE_PARAMETERS(name))
     }
@@ -276,8 +269,8 @@ object Parser {
   }
 
   def parseUntil(parseFunction : (LiveStream[Token], ValueEnv, TypeEnv, SuccessCont, FailureCont) => Value, tokens: LiveStream[Token], condition : LiveStream[Token] => Boolean, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont): Value = {
-    var typeEnv : TypeEnv = parsing.typeEnv
-    var valueEnv : ValueEnv = Map()
+    var typeEnvVar : TypeEnv = typeEnv
+    var valueEnvVar : ValueEnv = Map()
     var seq = Seq[Expr]()
     var seqFail : Option[String] = None
     var seqTail : LiveStream[Token] = tokens
@@ -291,12 +284,12 @@ object Parser {
     }
 
     while (seqFail.isEmpty && !seqTail.isPlugged && !condition(seqTail)) {
-      parseFunction(seqTail, valueEnv, typeEnv, seqSuccess, seqFailure) match {
+      parseFunction(seqTail, valueEnvVar, typeEnv, seqSuccess, seqFailure) match {
          case Left(s) => seqFail = Some(s)
          case Right((e, newValueEnv, newTypeEnv)) =>
            if (e != UnitExpr) seq = seq :+ e
-           valueEnv = newValueEnv
-           typeEnv = newTypeEnv
+           valueEnvVar = newValueEnv
+           typeEnvVar = newTypeEnv
        }
     }
 

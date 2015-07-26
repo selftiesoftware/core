@@ -1,25 +1,6 @@
 package com.repocad.web.parsing
 
-import com.repocad.web.lexing._
-import com.repocad.web.parsing
-import com.repocad.web.parsing.Parser.{FailureCont, SuccessCont, Value, TypeEnv, ValueEnv}
-import org.scalatest.{FlatSpec, Matchers}
-
-class DefinitionTest extends FlatSpec with Matchers {
-
-  val mockSuccess : SuccessCont = (e, v, t, s) => Right(e, v, t)
-  val mockFailure : FailureCont = s => Left(s)
-
-  def testEquals(expected : Expr, expression : String) = {
-    val either = parseString(expression, Map(), parsing.typeEnv).right.map(_._1)
-    println("output: ", either)
-    either should equal(Right(expected))
-  }
-
-  def parseString(string : String, valueEnv : ValueEnv = Map(), typeEnv : TypeEnv = Map()) : Value = {
-    val stream = Lexer.lex(string)
-    Parser.parse(stream, valueEnv, typeEnv, (t, vEnv, tEnv, _) => Right((t, vEnv, tEnv)), f => Left(f))
-  }
+class DefinitionTest extends ParsingTest {
 
   /* Values */
   "A parser for definitions" should "parse a definition" in {

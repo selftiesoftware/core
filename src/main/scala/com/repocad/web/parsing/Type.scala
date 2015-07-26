@@ -13,7 +13,12 @@ case object UnitType extends Type
 
 trait NumberType extends Type
 case object NumberType extends NumberType
-case object DoubleType extends NumberType
+case object FloatType extends NumberType
 case object IntType extends NumberType
 
-case class FunctionType(params : Int) extends Type
+trait FunctionType extends Type
+case object FunctionType extends FunctionType
+case object Function1Type extends FunctionType
+case object Function2Type extends FunctionType
+case object Function3Type extends FunctionType
+case object Function4Type extends FunctionType
