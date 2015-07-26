@@ -19,7 +19,16 @@ package object parsing {
 
     def SYNTAX_ERROR(expected : String, actual : String) = s"Syntax error: Expected '$expected', but found '$actual'"
 
+    def TYPE_MISMATCH(expected : String, actual : String) = s"Type mismatch: Expected $expected, but got $actual"
     def TYPE_NOT_FOUND(typeName : String) : String = s"Type '$typeName' not found"
   }
+
+  val typeEnv : Map[String, Type] = Map(
+    "Boolean" -> BooleanType,
+    "Double" -> DoubleType,
+    "Int" -> IntType,
+    "String" -> StringType,
+    "Unit" -> UnitType
+  )
 
 }

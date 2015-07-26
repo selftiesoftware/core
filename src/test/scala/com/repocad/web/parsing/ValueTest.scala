@@ -1,6 +1,7 @@
 package com.repocad.web.parsing
 
 import com.repocad.web.lexing._
+import com.repocad.web.parsing
 import com.repocad.web.parsing.Parser._
 import org.scalatest.EitherValues._
 import org.scalatest.{FlatSpec, Matchers}
@@ -11,7 +12,7 @@ class ValueTest extends FlatSpec with Matchers {
   val mockFailure : FailureCont = s => Left(s)
 
   def testEquals(expected : Expr, expression : String) = {
-    val either = parseString(expression, Map(), Type.typeEnv)
+    val either = parseString(expression, Map(), parsing.typeEnv)
     println("output: ", either)
     either.right.value._1 should equal(expected)
   }

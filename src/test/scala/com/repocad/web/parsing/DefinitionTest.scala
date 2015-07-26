@@ -1,8 +1,8 @@
 package com.repocad.web.parsing
 
 import com.repocad.web.lexing._
-import com.repocad.web.parsing.Parser._
-import org.scalatest.EitherValues._
+import com.repocad.web.parsing
+import com.repocad.web.parsing.Parser.{FailureCont, SuccessCont, Value, TypeEnv, ValueEnv}
 import org.scalatest.{FlatSpec, Matchers}
 
 class DefinitionTest extends FlatSpec with Matchers {
@@ -11,7 +11,7 @@ class DefinitionTest extends FlatSpec with Matchers {
   val mockFailure : FailureCont = s => Left(s)
 
   def testEquals(expected : Expr, expression : String) = {
-    val either = parseString(expression, Map(), Type.typeEnv).right.map(_._1)
+    val either = parseString(expression, Map(), parsing.typeEnv).right.map(_._1)
     println("output: ", either)
     either should equal(Right(expected))
   }

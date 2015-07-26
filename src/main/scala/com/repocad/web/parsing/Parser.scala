@@ -1,6 +1,6 @@
 package com.repocad.web.parsing
 
-import com.repocad.web.{Response, Ajax}
+import com.repocad.web.{parsing, Response, Ajax}
 import com.repocad.web.lexing._
 
 /**
@@ -276,7 +276,7 @@ object Parser {
   }
 
   def parseUntil(parseFunction : (LiveStream[Token], ValueEnv, TypeEnv, SuccessCont, FailureCont) => Value, tokens: LiveStream[Token], condition : LiveStream[Token] => Boolean, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont): Value = {
-    var typeEnv : TypeEnv = Type.typeEnv
+    var typeEnv : TypeEnv = parsing.typeEnv
     var valueEnv : ValueEnv = Map()
     var seq = Seq[Expr]()
     var seqFail : Option[String] = None
