@@ -1,4 +1,4 @@
-package com.repocad.web.parsing
+package com.repocad.com.repocad.util
 
 import scala.collection.immutable
 

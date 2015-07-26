@@ -1,7 +1,7 @@
-package com.repocad.web.parsing
+package com.repocad.util
 
-import com.repocad.web.lexing._
-import com.repocad.web.parsing.Parser._
+import com.repocad.com.repocad.util.{DirectedGraph, Node}
+import com.repocad.web.parsing._
 import org.scalatest.{FlatSpec, Matchers}
 
 class DirectedGraphTest extends FlatSpec with Matchers {
