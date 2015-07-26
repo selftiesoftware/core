@@ -82,14 +82,6 @@ object Parser {
       // Functions and objects
       case SymbolToken("def") :~: tail => parseDefinition(tail, valueEnv, typeEnv, success, failure)
 
-      // Values
-      case BooleanToken(value: Boolean) :~: tail => success(BooleanExpr(value), valueEnv, typeEnv, tail)
-      case SymbolToken("false") :~: tail => success(BooleanExpr(false), valueEnv, typeEnv, tail)
-      case SymbolToken("true") :~: tail => success(BooleanExpr(true), valueEnv, typeEnv, tail)
-      case DoubleToken(value : Double) :~: tail => success(FloatExpr(value), valueEnv, typeEnv, tail)
-      case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
-      case StringToken(value : String) :~: tail => success(StringExpr(value), valueEnv, typeEnv, tail)
-
       // Blocks
       case PunctToken("{") :~: tail => parseUntil(tail, PunctToken("}"), valueEnv, typeEnv, success, failure)
       case PunctToken("(") :~: tail => parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, success, failure)
@@ -115,11 +107,23 @@ object Parser {
         val funParams = funExpr.params
         parse(LiveStream(Iterable(firstToken)), valueEnv, typeEnv, (firstParam, _, _, _) => {
           parse(LiveStream(Iterable(secondToken)), valueEnv, typeEnv, (secondParam, _, _, _) => {
-//            val type1Parent = typeEnv.findChildOf(funParams.)
-//            val type2Parent = typeEnv
-            Left("")
+            (typeEnv.getChildOf(funExpr.params.head.t, firstParam.t), typeEnv.getChildOf(funExpr.params.last.t, secondParam.t)) match {
+              case (Some(firstType), Some(secondType)) => success(CallExpr(functionName, funExpr.t, Seq(firstParam, secondParam)), valueEnv, typeEnv, tail)
+              case (None, Some(secondType)) => failure(Error.TYPE_MISMATCH(funParams.head.toString, firstParam.toString))
+              case (Some(firstType), None) => failure(Error.TYPE_MISMATCH(funParams.head.toString, secondParam.toString))
+              case (None, None) => failure(Error.TWO(Error.TYPE_MISMATCH(funParams.tail.toString, firstParam.toString),
+                Error.TYPE_MISMATCH(funParams(1).toString, secondParam.toString)))
+            }
           }, failure)
         }, failure)
+
+      // Values
+      case BooleanToken(value: Boolean) :~: tail => success(BooleanExpr(value), valueEnv, typeEnv, tail)
+      case SymbolToken("false") :~: tail => success(BooleanExpr(false), valueEnv, typeEnv, tail)
+      case SymbolToken("true") :~: tail => success(BooleanExpr(true), valueEnv, typeEnv, tail)
+      case DoubleToken(value : Double) :~: tail => success(FloatExpr(value), valueEnv, typeEnv, tail)
+      case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
+      case StringToken(value : String) :~: tail => success(StringExpr(value), valueEnv, typeEnv, tail)
 
       case SymbolToken(name) :~: tail =>
         valueEnv.get(name) match {

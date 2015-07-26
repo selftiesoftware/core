@@ -13,14 +13,7 @@ trait Expr {
 case class BlockExpr(expr: Seq[Expr]) extends Expr { val t = if (expr.isEmpty) UnitType else expr.last.t }
 case class CompExpr(e1 : Expr, e2 : Expr, op : String) extends Expr { val t = BooleanType }
 case class DefExpr(name: String, value : Expr) extends ValueExpr { val t = value.t }
-case class FunctionExpr(name : String, params : Seq[RefExpr], body : Expr) extends Expr
-{ val t = params.size match {
-  case 1 => Function1Type
-  case 2 => Function2Type
-  case 3 => Function3Type
-  case 4 => Function4Type
-  case x => throw new IllegalArgumentException(s"No function with $x arguments exists")
-} }
+case class FunctionExpr(name : String, params : Seq[RefExpr], body : Expr) extends Expr { val t = body.t }
 case class OpExpr(e1 : Expr, e2 : Expr, op : String, t : NumberType) extends Expr
 case class RangeExpr(name: String, from : Expr, to : Expr, t : Type) extends Expr
 case object UnitExpr extends Expr { val t = UnitType }

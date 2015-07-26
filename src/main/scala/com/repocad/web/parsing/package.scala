@@ -32,6 +32,8 @@ package object parsing {
 
     def TYPE_MISMATCH(expected : String, actual : String) = s"Type mismatch: Expected $expected, but got $actual"
     def TYPE_NOT_FOUND(typeName : String) : String = s"Type '$typeName' not found in scope. Is it defined above?"
+
+    def TWO(error1 : String, error2 : String) = s"Two errors: $error1 and $error2"
   }
 
   val defaultValueEnv : ValueEnv = Map(
