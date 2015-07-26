@@ -21,7 +21,7 @@ case class FunctionExpr(name : String, params : Seq[RefExpr], body : Expr) exten
   case 4 => Function4Type
   case x => throw new IllegalArgumentException(s"No function with $x arguments exists")
 } }
-case class OpExpr(e1 : Expr, e2 : Expr, op : String, t : Type) extends Expr
+case class OpExpr(e1 : Expr, e2 : Expr, op : String, t : NumberType) extends Expr
 case class RangeExpr(name: String, from : Expr, to : Expr, t : Type) extends Expr
 case object UnitExpr extends Expr { val t = UnitType }
 trait ControlExpr extends Expr

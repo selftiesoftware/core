@@ -34,23 +34,25 @@ package object parsing {
     def TYPE_NOT_FOUND(typeName : String) : String = s"Type '$typeName' not found in scope. Is it defined above?"
   }
 
-  val defaultValueEnv : ValueEnv = Map()
+  val defaultValueEnv : ValueEnv = Map(
+  "+" -> FunctionExpr("+", Seq(RefExpr("first", NumberType), RefExpr("second", NumberType)), OpExpr(RefExpr("first", NumberType), RefExpr("second", NumberType), "+", NumberType))
+  )
 
   val defaultTypeEnv : TypeEnv = DirectedGraph[Type](AnyType)
     /* Primitives */
-    .union(BooleanType, AnyType)
-    .union(StringType, AnyType)
-    .union(UnitType, AnyType)
+    .union(AnyType, BooleanType)
+    .union(AnyType, StringType)
+    .union(AnyType, UnitType)
     /* Numbers */
-    .union(NumberType, AnyType)
-      .union(IntType, NumberType)
-      .union(FloatType, NumberType)
+    .union(AnyType, NumberType)
+      .union(NumberType, IntType)
+      .union(NumberType, FloatType)
     /* Functions */
-    .union(FunctionType, AnyType)
-      .union(Function1Type, AnyType)
-      .union(Function2Type, AnyType)
-      .union(Function3Type, AnyType)
-      .union(Function4Type, AnyType)
+    .union(AnyType, FunctionType)
+      .union(FunctionType, Function1Type)
+      .union(FunctionType, Function2Type)
+      .union(FunctionType, Function3Type)
+      .union(FunctionType, Function4Type)
 
   val stringTypeMap : Map[String, Type] = Map(
     "Boolean" -> BooleanType,

@@ -40,6 +40,21 @@ final case class DirectedGraph[T](nodes : immutable.Map[T, Node[T]], root : T) {
 
   def exists(element : T) = nodes.contains(element)
 
+  def getChildOf(parent : T, child : T) : Option[T] = {
+    getChildOf(parent -> nodes(parent), child -> nodes(child))
+  }
+
+  private def getChildOf(parent : (T, Node[T]), child : (T, Node[T])) : Option[T] = {
+    if (parent.equals(child)) {
+      Some(parent._1)
+    } else if (parent._2.level < child._2.level) {
+      val childParent = child._2.parent.get
+      getChildOf(parent, childParent -> nodes(childParent))
+    } else {
+      None
+    }
+  }
+
   def union(parent : T, child : T) : DirectedGraph[T] = nodes.get(parent) match {
     case Some(parentNode) => new DirectedGraph[T](nodes.+(child -> Node(parentNode.level + 1, Some(parent))), root)
     case None => throw new NoSuchElementException(s"No element found for $parent")

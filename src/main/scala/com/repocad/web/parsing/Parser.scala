@@ -108,6 +108,19 @@ object Parser {
         case _ => failure(Error.FUNCTION_NOT_FOUND(name))
       }
 
+      case (firstToken : Token) :~: SymbolToken(functionName) :~: (secondToken : Token) :~: tail
+        if valueEnv.get(functionName).filter(_.isInstanceOf[FunctionExpr])
+          .exists(_.asInstanceOf[FunctionExpr].params.size == 2) =>
+        val funExpr = valueEnv.get(functionName).get.asInstanceOf[FunctionExpr]
+        val funParams = funExpr.params
+        parse(LiveStream(Iterable(firstToken)), valueEnv, typeEnv, (firstParam, _, _, _) => {
+          parse(LiveStream(Iterable(secondToken)), valueEnv, typeEnv, (secondParam, _, _, _) => {
+//            val type1Parent = typeEnv.findChildOf(funParams.)
+//            val type2Parent = typeEnv
+            Left("")
+          }, failure)
+        }, failure)
+
       case SymbolToken(name) :~: tail =>
         valueEnv.get(name) match {
         case Some(expr) => success(RefExpr(name, expr.t), valueEnv, typeEnv, tail)

@@ -15,7 +15,7 @@ class ValueTest extends ParsingTest {
     testEquals(StringExpr("string"), "\"string\"")
   }
   it should "parse a double" in {
-    testEquals(DoubleExpr(123.42), "123.42")
+    testEquals(FloatExpr(123.42), "123.42")
   }
   it should "parse true to boolean" in {
     testEquals(BooleanExpr(value = true), "true")

@@ -20,6 +20,15 @@ class DirectedGraphTest extends FlatSpec with Matchers {
     }
   }
 
+  it should "tell if a type is a super type of another" in {
+    val graph = DirectedGraph[Type](AnyType).union(AnyType, NumberType)
+    graph.getChildOf(AnyType, NumberType) should equal(Some(AnyType))
+  }
+  it should "tell if a type is not a super type of another" in {
+    val graph = DirectedGraph[Type](AnyType).union(AnyType, NumberType).union(AnyType, FunctionType)
+    graph.getChildOf(FunctionType, NumberType) should equal(None)
+  }
+
   it should "find a common parent in a linear hiearachy" in {
     val graph = DirectedGraph[Type](AnyType).union(AnyType, NumberType).union(NumberType, IntType)
     graph.commonParent(NumberType, IntType) should equal(NumberType)

@@ -24,16 +24,16 @@ class DefinitionTest extends ParsingTest {
     testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType)), UnitExpr), "def a(b as Int) = ")
   }
   it should "parse a function without a parameter but with a body" in {
-    testEquals(FunctionExpr("a", Seq(), BlockExpr(Seq(DefExpr("b", DoubleExpr(10.2))))), "def a() = { def b = 10.2 }")
+    testEquals(FunctionExpr("a", Seq(), BlockExpr(Seq(DefExpr("b", FloatExpr(10.2))))), "def a() = { def b = 10.2 }")
   }
   it should "parse a function with two parameters and no body" in {
-    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", DoubleType)), UnitExpr), "def a(b as Int c as Double) = ")
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", FloatType)), UnitExpr), "def a(b as Int c as Double) = ")
   }
   it should "parse a function with three parameters and no body" in {
-    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", DoubleType), RefExpr("d", StringType)), UnitExpr), "def a(b as Int c as Double d as String) = ")
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", FloatType), RefExpr("d", StringType)), UnitExpr), "def a(b as Int c as Double d as String) = ")
   }
   it should "parse a function with four parameters and no body" in {
-    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", DoubleType), RefExpr("d", StringType), RefExpr("e", BooleanType)), UnitExpr), "def a(b as Int c as Double d as String e as Boolean) = ")
+    testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType), RefExpr("c", FloatType), RefExpr("d", StringType), RefExpr("e", BooleanType)), UnitExpr), "def a(b as Int c as Double d as String e as Boolean) = ")
   }
   it should "parse a function with a prepended parameter" in {
     testEquals(FunctionExpr("a", Seq(RefExpr("b", IntType)),UnitExpr), "def (b as Int)a = ")

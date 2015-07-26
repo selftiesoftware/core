@@ -4,10 +4,7 @@ import com.repocad.web.lexing.Lexer
 import com.repocad.web.parsing
 import org.scalatest.{Matchers, FlatSpec}
 
-trait ParsingTest extends FlatSpec with Matchers{
-
-  val mockSuccess : SuccessCont = (e, v, t, s) => Right(e, v, t)
-  val mockFailure : FailureCont = s => Left(s)
+trait ParsingTest extends FlatSpec with Matchers {
 
   def testEquals(expected : Expr, expression : String) = {
     val either = parseString(expression, parsing.defaultValueEnv, parsing.defaultTypeEnv).right.map(_._1)
