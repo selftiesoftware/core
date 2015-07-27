@@ -6,6 +6,8 @@ scalaVersion := "2.11.5"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1" % "test"
 
+libraryDependencies += "org.scalamock" %% "scalamock-scalatest-support" % "3.2" % "test"
+
 libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.8.0"
 
 libraryDependencies += "com.lihaoyi" %%% "scalarx" % "0.2.7"

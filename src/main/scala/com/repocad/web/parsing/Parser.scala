@@ -1,7 +1,5 @@
 package com.repocad.web.parsing
 
-import com.repocad.com.repocad.util.DirectedGraph
-import com.repocad.web.{parsing, Response, Ajax}
 import com.repocad.web.lexing._
 
 /**
@@ -18,7 +16,7 @@ object Parser {
 
   def parse(tokens : LiveStream[Token]) : Value = {
     try {
-      parseUntil(tokens, _ => true, defaultValueEnv, defaultTypeEnv, (expr, values, types, _) => Right((expr, values, types)), e => Left(e))
+      parseUntil(tokens, _ => false, defaultValueEnv, defaultTypeEnv, (expr, values, types, _) => Right((expr, values, types)), e => Left(e))
     } catch {
       case e : InternalError => Left("Script too large (sorry - we're working on it!)")
       case e : Exception => Left(e.getLocalizedMessage)
@@ -26,7 +24,6 @@ object Parser {
   }
 
   def parse(tokens: LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success: SuccessCont, failure: FailureCont): Value = {
-
     tokens match {
 
       // Import
@@ -86,19 +83,31 @@ object Parser {
       case PunctToken("{") :~: tail => parseUntil(tail, PunctToken("}"), valueEnv, typeEnv, success, failure)
       case PunctToken("(") :~: tail => parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, success, failure)
 
-      // References
-      case SymbolToken(name) :~: SymbolToken("(") :~: tail => valueEnv.get(name) match {
-        case Some(f: FunctionType) =>
-          parseUntil(tail, SymbolToken(")"), valueEnv, typeEnv, (params : Expr, newValueEnv : ValueEnv, newTypeEnv : TypeEnv, paramsTail : LiveStream[Token]) => {
+      // Values
+      case BooleanToken(value: Boolean) :~: tail => success(BooleanExpr(value), valueEnv, typeEnv, tail)
+      case SymbolToken("false") :~: tail => success(BooleanExpr(false), valueEnv, typeEnv, tail)
+      case SymbolToken("true") :~: tail => success(BooleanExpr(true), valueEnv, typeEnv, tail)
+      case DoubleToken(value : Double) :~: tail => success(FloatExpr(value), valueEnv, typeEnv, tail)
+      case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
+      case StringToken(value : String) :~: tail => success(StringExpr(value), valueEnv, typeEnv, tail)
 
-            params match {
-              case _ if !newValueEnv.contains(name) => failure(s"Cannot reference non-existing function '$name'")
-              case BlockExpr(xs) => success(CallExpr(name, xs.last.t, xs), newValueEnv, newTypeEnv, paramsTail)
-              case xs => failure("Expected parameters for function call. Got " + xs)
-            }
-          }, failure)
-        case _ => failure(Error.FUNCTION_NOT_FOUND(name))
-      }
+      // References
+      case SymbolToken(name) :~: PunctToken("(") :~: tail =>
+        valueEnv.get(name) match {
+          case Some(function : FunctionExpr) =>
+            parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, (params : Expr, newValueEnv : ValueEnv, newTypeEnv : TypeEnv, paramsTail : LiveStream[Token]) => {
+              params match {
+                case BlockExpr(xs) =>
+                  if (xs.size == function.params.size) {
+                    success(CallExpr(name, function.body.t, xs), newValueEnv, newTypeEnv, paramsTail)
+                  } else {
+                    failure(Error.EXPECTED_PARAMETER_NUMBER(name, function.params.size, xs.size))
+                  }
+                case xs => failure("Expected parameters for function call. Got " + xs)
+              }
+            }, failure)
+          case _ => failure(Error.FUNCTION_NOT_FOUND(name))
+        }
 
       case (firstToken : Token) :~: SymbolToken(functionName) :~: (secondToken : Token) :~: tail
         if valueEnv.get(functionName).filter(_.isInstanceOf[FunctionExpr])
@@ -117,28 +126,11 @@ object Parser {
           }, failure)
         }, failure)
 
-      // Values
-      case BooleanToken(value: Boolean) :~: tail => success(BooleanExpr(value), valueEnv, typeEnv, tail)
-      case SymbolToken("false") :~: tail => success(BooleanExpr(false), valueEnv, typeEnv, tail)
-      case SymbolToken("true") :~: tail => success(BooleanExpr(true), valueEnv, typeEnv, tail)
-      case DoubleToken(value : Double) :~: tail => success(FloatExpr(value), valueEnv, typeEnv, tail)
-      case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
-      case StringToken(value : String) :~: tail => success(StringExpr(value), valueEnv, typeEnv, tail)
-
       case SymbolToken(name) :~: tail =>
         valueEnv.get(name) match {
-        case Some(expr) => success(RefExpr(name, expr.t), valueEnv, typeEnv, tail)
-        case _ => failure(Error.REFERENCE_NOT_FOUND(name))
-      }
-
-      /*
-      case SymbolToken(name) :~: tail if !tail.isEmpty && !tail.isPlugged && tail.head.tag.equals("(") => parse(tail, valueEnv, typeEnv, (params, newValueEnv, newTypeEnv, paramsTail) => {
-        params match {
-          case _ if !newValueEnv.contains(name) => failure(s"Cannot reference non-existing variable '$name'")
-          case BlockExpr(xs) => success(RefExpr(name, xs.last.t, xs), newValueEnv, newTypeEnv, paramsTail)
-          case xs => failure("Failed to parse ref call: Expected parameters, got " + xs)
+          case Some(expr) => success(RefExpr(name, expr.t), valueEnv, typeEnv, tail)
+          case _ => failure(Error.REFERENCE_NOT_FOUND(name))
         }
-      }, failure)*/
 
       case stream if stream.isEmpty => success(UnitExpr, valueEnv, typeEnv, stream)
 
@@ -287,7 +279,7 @@ object Parser {
 
   def parseUntil(parseFunction : (LiveStream[Token], ValueEnv, TypeEnv, SuccessCont, FailureCont) => Value, tokens: LiveStream[Token], condition : LiveStream[Token] => Boolean, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont): Value = {
     var typeEnvVar : TypeEnv = typeEnv
-    var valueEnvVar : ValueEnv = Map()
+    var valueEnvVar : ValueEnv = valueEnv
     var seq = Seq[Expr]()
     var seqFail : Option[String] = None
     var seqTail : LiveStream[Token] = tokens

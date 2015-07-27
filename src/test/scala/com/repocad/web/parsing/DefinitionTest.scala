@@ -46,8 +46,5 @@ class DefinitionTest extends ParsingTest {
     val function = FunctionExpr("a", Seq(RefExpr("b", IntType)), RefExpr("b", IntType))
     testEquals(function, "def a(b as Int) = b")
   }
-  it should "fail when referencing non-existing parameters in the function body" in {
-    parseString("def a(b as Int) = c") should equal(Left(Error.REFERENCE_NOT_FOUND("c")))
-  }
 
 }

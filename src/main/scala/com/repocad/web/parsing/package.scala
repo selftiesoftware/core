@@ -19,12 +19,12 @@ package object parsing {
 
   object Error {
     def EXPECTED_PARAMETERS(actual : String) : String = s"Expected parameter list when creating a function or object, but received '$actual'"
-
+    def EXPECTED_PARAMETER_NUMBER(functionName : String, expected : Int, actual : Int) : String = s"Function '$functionName' requires $expected parameters, but $actual was given"
     def EXPECTED_TYPE_PARAMETERS(name : String) : String = s"No type information for variable $name; please specify its type using '$name as [Type]'"
 
-    def FUNCTION_NOT_FOUND(functionName: String): String = s"Function '$functionName' not found"
-
     def OBJECT_MISSING_PARAMETERS(name : String) = s"Object '$name' must have at least one parameter"
+
+    def FUNCTION_NOT_FOUND(functionName: String): String = s"Function '$functionName' not found"
 
     def REFERENCE_NOT_FOUND(reference : String) = s"Could not find object '$reference'. Has it been defined?"
 
@@ -37,7 +37,8 @@ package object parsing {
   }
 
   val defaultValueEnv : ValueEnv = Map(
-  "+" -> FunctionExpr("+", Seq(RefExpr("first", NumberType), RefExpr("second", NumberType)), OpExpr(RefExpr("first", NumberType), RefExpr("second", NumberType), "+", NumberType))
+    "+" -> FunctionExpr("+", Seq(RefExpr("first", NumberType), RefExpr("second", NumberType)), OpExpr(RefExpr("first", NumberType), RefExpr("second", NumberType), "+", NumberType)),
+    "line" -> FunctionExpr("line", Seq(RefExpr("x1", NumberType), RefExpr("y1", NumberType), RefExpr("x2", NumberType), RefExpr("y2", NumberType)), UnitExpr)
   )
 
   val defaultTypeEnv : TypeEnv = DirectedGraph[Type](AnyType)

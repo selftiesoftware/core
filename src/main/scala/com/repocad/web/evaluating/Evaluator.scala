@@ -10,9 +10,9 @@ object Evaluator {
 
   // TODO: Lazy evaluation
 
-  type Env = Map[String, Expr]
+  type Env = Map[String, Any]
 
-  type Value = Either[String, (Env, Expr)]
+  type Value = Either[String, (Env, Any)]
 
   private var scriptEnv : Map[String, Env] = Map()
 
@@ -23,9 +23,8 @@ object Evaluator {
         e
       })
     } catch {
-      case e : Exception => {
+      case e : Exception =>
         Left(s"Failure when evaluating script: ${e.getLocalizedMessage}")
-      }
     }
   }
 
@@ -49,22 +48,9 @@ object Evaluator {
           }
         }
 
-      case FunctionExpr(name, params, body) =>
-        val function = params.size match {
-          case 0 => (funEnv : Env) => eval(body, funEnv).fold(l => l, r => r._2)
-          case 1 => (funEnv : Env, a: Any) => {
-            eval(body, funEnv.+(params(0) -> a)).fold(l => l, r => r._2)
-          }
-          case 2 => (funEnv : Env, a: Any, b: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b)).fold(l => l, r => r._2)
-          case 3 => (funEnv : Env, a: Any, b: Any, c: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b, params(2) -> c)).fold(l => l, r => r._2)
-          case 4 => (funEnv : Env, a: Any, b: Any, c: Any, d: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d)).fold(l => l, r => r._2)
-          case 5 => (funEnv : Env, a: Any, b: Any, c: Any, d: Any, e: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d, params(4) -> e)).fold(l => l, r => r._2)
-          case 6 => (funEnv : Env, a: Any, b: Any, c: Any, d: Any, e: Any, f: Any) => eval(body, funEnv.+(params(0) -> a, params(1) -> b, params(2) -> c, params(3) -> d, params(4) -> e, params(5) -> f)).fold(l => l, r => r._2)
-          case x => Left("Unsupported number of arguments: " + x)
-        }
-        Right(env.+(name -> function) -> function)
+        */
 
-      case ConstantExpr(value) => Right(env -> value)
+      case v : ValueExpr[_] => Right(env -> v.value)
 
       case CompExpr(e1, e2, op) =>
         eval(e1, env).fold(e => Left(e), v1 => eval(e2, v1._1).fold(e => Left(e), v2 => {
@@ -77,7 +63,30 @@ object Evaluator {
           }
         }))
 
-      case IfExpr(condition, ifBody, elseBody) => {
+      case DefExpr(name, valExpr) =>
+        eval(valExpr, env).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
+
+      case FunctionExpr(name, params, body) =>
+        val function = params.size match {
+          case 0 => (funEnv : Env) => eval(body, funEnv).fold(l => l, r => r._2)
+          case 1 => (funEnv : Env, a: Any) => {
+            eval(body, funEnv.+(params.head.name -> a)).fold(l => l, r => r._2)
+          }
+          case 2 => (funEnv : Env, a: Any, b: Any) =>
+            eval(body, funEnv.+(params(0).name -> a, params(1).name -> b)).fold(l => l, r => r._2)
+          case 3 => (funEnv : Env, a: Any, b: Any, c: Any) =>
+            eval(body, funEnv.+(params(0).name -> a, params(1).name -> b, params(2).name -> c)).fold(l => l, r => r._2)
+          case 4 => (funEnv : Env, a: Any, b: Any, c: Any, d: Any) =>
+            eval(body, funEnv.+(params(0).name -> a, params(1).name -> b, params(2).name -> c, params(3).name -> d)).fold(l => l, r => r._2)
+          case 5 => (funEnv : Env, a: Any, b: Any, c: Any, d: Any, e: Any) =>
+            eval(body, funEnv.+(params(0).name -> a, params(1).name -> b, params(2).name -> c, params(3).name -> d, params(4).name -> e)).fold(l => l, r => r._2)
+          case 6 => (funEnv : Env, a: Any, b: Any, c: Any, d: Any, e: Any, f: Any) =>
+            eval(body, funEnv.+(params(0).name -> a, params(1).name -> b, params(2).name -> c, params(3).name -> d, params(4).name -> e, params(5).name -> f)).fold(l => l, r => r._2)
+          case x => Left("Unsupported number of arguments: " + x)
+        }
+        Right(env.+(name -> function) -> function)
+
+      case IfExpr(condition, ifBody, elseBody, t) => {
         eval(condition, env) match {
           case Left(thisIsBad) => Left(thisIsBad)
           case Right((conditionEnvironment, true)) => {
@@ -94,9 +103,9 @@ object Evaluator {
         }
       }
 
-      case objectExpr : ObjectExpr => Right(env.+(objectExpr.name -> objectExpr), objectExpr)
+      //case objectExpr : ObjectExpr => Right(env.+(objectExpr.name -> objectExpr), objectExpr)
 
-      case OpExpr(e1, e2, op) =>
+      case OpExpr(e1, e2, op, t) =>
         eval(e1, env).right.flatMap(v1 => eval(e2, v1._1).right.flatMap(v2 => {
           val n1 = v1._2.asInstanceOf[Double]
           val n2 = v2._2.asInstanceOf[Double]
@@ -109,19 +118,23 @@ object Evaluator {
           }
         }))
 
-      case RangeExpr(name, from, to) =>
+      /*case RangeExpr(name, from, to) =>
         val fromOption: Either[String, Double] = env.get(name).map {
           case i: Int => Right(i + 1d)
           case i: Double => Right(i + 1)
           case x => Left(s"Cannot parse $x to int")
-        }.getOrElse(getValue[Double](from, env))
+        }.getOrElse(from.value)
 
         val toOption = getValue[Double](to, env)
         fromOption.right.flatMap(fromValue => toOption.right.flatMap(toValue => {
           Right((env + (name -> fromValue)) -> (fromValue <= toValue))
         }))
 
-      case RefExpr(name, params) =>
+      case RefExpr(name, t) => env.get(name).fold(Left(s"Could not find $name in scope")) {
+        case
+      }*/
+
+      case CallExpr(name, t, params) =>
         env.get(name).fold[Value](Left(s"Failed to find function '$name'. Please check if it has been declared.")) {
           case f: Function1[Env, Any] => Right(env -> f(env))
           case f: Function2[Env, Any, Any] =>
@@ -210,7 +223,7 @@ object Evaluator {
                 )
               )
             )
-          case ObjectExpr(objectName, objectParams) =>
+          /*case ObjectExpr(objectName, objectParams) =>
             if (params.size != objectParams.size) {
               Left(Error.OBJECT_PARAM_SIZE_NOT_EQUAL(name, objectParams.size, params.size))
             } else {
@@ -222,12 +235,12 @@ object Evaluator {
                 val map = objectParams.zip(rights)
                 Right(env.+(name -> map), map)
               }
-            }
+            }*/
 
           case x => Left("Expected callable function, got " + x)
         }
 
-      case RefExpr(name) =>
+      case RefExpr(name, t) =>
         env.get(name).fold[Value](
           Left(s"Failed to find function '$name'. Please check if it has been declared.")
         )(x => Right(env -> x))
@@ -246,10 +259,7 @@ object Evaluator {
 
       case UnitExpr => Right(env -> Unit)
 
-      case ValExpr(name, valExpr) =>
-        eval(valExpr, env).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
-
-      case LoopExpr(condition: Expr, body: Expr) =>
+      case LoopExpr(condition: Expr, body: Expr, t) =>
         /* Note to self: Too much recursion error when looping recursively */
         var loopEnv: Map[String, Any] = env
         var lastResult: Any = Unit
@@ -270,20 +280,7 @@ object Evaluator {
         }
         lastError.map(Left(_)).getOrElse(Right(loopEnv.filter(t => env.contains(t._1)) -> lastResult))
 
-      */
-
       case x => Left(s"Unknown expression $x")
-    }
-  }
-
-  def getValue[Expected](expr : Expr, expectedT : Expected, env : Env) : Either[String, Expected] = {
-    if (expr.t == expectedT) {
-      eval(expr, env) match {
-        case Right((_, t : Expected)) => Right(t)
-        case fail => Left(s"Failed to read value from $expr, failed with: $fail")
-      }
-    } else {
-      Left(s"Found type ${expr.t}, but expected $expectedT")
     }
   }
 
