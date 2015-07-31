@@ -11,21 +11,17 @@ trait Expr {
 }
 
 case class BlockExpr(expr: Seq[Expr]) extends Expr { val t = if (expr.isEmpty) UnitType else expr.last.t }
-case class CompExpr(e1 : Expr, e2 : Expr, op : String) extends Expr { val t = BooleanType }
+case class CallExpr(name: String, t : Type, params: Seq[Expr]) extends Expr
 case class DefExpr(name: String, value : Expr) extends Expr { val t = value.t }
 case class FunctionExpr(name : String, params : Seq[RefExpr], body : Expr) extends Expr { val t = body.t }
 case class OpExpr(e1 : Expr, e2 : Expr, op : String, t : Type) extends Expr
-case class RangeExpr(name: String, from : Expr, to : Expr, t : Type) extends Expr
+case class RefExpr(name: String, t : Type) extends Expr
 case object UnitExpr extends Expr { val t = UnitType }
-trait ControlExpr extends Expr
 
+trait ControlExpr extends Expr
 case class ImportExpr(name : String) extends ControlExpr { val t = UnitType }
 case class IfExpr(condition : Expr, ifBody : Expr, elseExpr : Option[Expr], t : Type) extends ControlExpr
 case class LoopExpr(condition : Expr, body : Expr, t : Type) extends ControlExpr
-
-
-case class CallExpr(name: String, t : Type, params: Seq[Expr]) extends Expr
-case class RefExpr(name: String, t : Type) extends Expr
 
 trait ValueExpr[T] extends Expr { val value : T }
 case class BooleanExpr(value : Boolean) extends ValueExpr[Boolean] { val t = BooleanType }

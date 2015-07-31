@@ -8,17 +8,11 @@ import com.repocad.web.{Printer, _}
  */
 object Evaluator {
 
-  // TODO: Lazy evaluation
-
-  type Env = Map[String, Any]
-
-  type Value = Either[String, (Env, Any)]
-
   private var scriptEnv : Map[String, Env] = Map()
 
   def eval(expr : Expr, printer : Printer[_]) : Value = {
     try {
-      eval(expr, printer.toEnv ++ RepoMath.toEnv).left.map(e => {
+      eval(expr, printer.toEnv.++(RepoMath.toEnv)).left.map(e => {
         println("Error when evaluating: " + e)
         e
       })
@@ -28,7 +22,7 @@ object Evaluator {
     }
   }
 
-  protected[evaluating] def eval(expr: Expr, env : Env) : Value = {
+  def eval(expr: Expr, env : Env) : Value = {
     expr match {
 
       /*
@@ -51,17 +45,6 @@ object Evaluator {
         */
 
       case v : ValueExpr[_] => Right(env -> v.value)
-
-      case CompExpr(e1, e2, op) =>
-        eval(e1, env).fold(e => Left(e), v1 => eval(e2, v1._1).fold(e => Left(e), v2 => {
-          val n1 = v1._2.asInstanceOf[Double]
-          val n2 = v2._2.asInstanceOf[Double]
-          op match {
-            case ">" => Right(env -> (n1 > n2))
-            case "<" => Right(env -> (n1 < n2))
-            case x => Left(s"Unknown comparison operator $x")
-          }
-        }))
 
       case DefExpr(name, valExpr) =>
         eval(valExpr, env).fold(Left(_), value => Right(env.+(name -> value._2) -> value._2))
@@ -104,19 +87,6 @@ object Evaluator {
       }
 
       //case objectExpr : ObjectExpr => Right(env.+(objectExpr.name -> objectExpr), objectExpr)
-
-      case OpExpr(e1, e2, op, t) =>
-        eval(e1, env).right.flatMap(v1 => eval(e2, v1._1).right.flatMap(v2 => {
-          val n1 = v1._2.asInstanceOf[Double]
-          val n2 = v2._2.asInstanceOf[Double]
-          op match {
-            case "-" => Right(env -> (n1 - n2))
-            case "+" => Right(env -> (n1 + n2))
-            case "*" => Right(env -> (n1 * n2))
-            case "/" => Right(env -> (n1 / n2))
-            case x => Left(s"Unknown arithmetic operator $x")
-          }
-        }))
 
       /*case RangeExpr(name, from, to) =>
         val fromOption: Either[String, Double] = env.get(name).map {
@@ -246,16 +216,20 @@ object Evaluator {
         )(x => Right(env -> x))
 
       case seq: BlockExpr =>
-        def foldRecursive(it: Iterator[Expr], foldEnv: Env): Value = {
-          eval(it.next(), foldEnv).fold(error => Left(error), t => {
-            if (it.hasNext) {
-              foldRecursive(it, t._1)
-            } else {
-              Right(t._1 -> t._2)
-            }
-          })
+        if (seq.expr.isEmpty) {
+          Right(env, Unit)
+        } else {
+          def foldRecursive(it: Iterator[Expr], foldEnv: Env): Value = {
+            eval(it.next(), foldEnv).fold(error => Left(error), t => {
+              if (it.hasNext) {
+                foldRecursive(it, t._1)
+              } else {
+                Right(t._1 -> t._2)
+              }
+            })
+          }
+          foldRecursive(seq.expr.iterator, env)
         }
-        foldRecursive(seq.expr.iterator, env)
 
       case UnitExpr => Right(env -> Unit)
 

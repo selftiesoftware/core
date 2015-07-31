@@ -15,13 +15,13 @@ trait Printer[T] {
   
   var actions = Seq[T => Unit]()
 
-  lazy val toEnv : Evaluator.Env = {
+  lazy val toEnv : evaluating.Env = {
     Map(
-      "arc"  -> ((env : Evaluator.Env, x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) => arc(x, y, r, sAngle, eAngle)),
-      "bezierCurve" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)),
-      "circle" -> ((env : Evaluator.Env, x : Double, y : Double, r : Double) => circle(x, y, r)),
-      "line" -> ((env : Evaluator.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double) => line(x1, y1, x2, y2)),
-      "text" -> ((env : Evaluator.Env, x : Double, y : Double, h : Double, t : Any) => text(x, y, h, t))
+      "arc"  -> ((env : evaluating.Env, x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) => arc(x, y, r, sAngle, eAngle)),
+      "bezierCurve" -> ((env : evaluating.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)),
+      "circle" -> ((env : evaluating.Env, x : Double, y : Double, r : Double) => circle(x, y, r)),
+      "line" -> ((env : evaluating.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double) => line(x1, y1, x2, y2)),
+      "text" -> ((env : evaluating.Env, x : Double, y : Double, h : Double, t : Any) => text(x, y, h, t))
     )
   }
   

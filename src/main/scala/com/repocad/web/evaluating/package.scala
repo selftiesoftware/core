@@ -1,6 +1,6 @@
 package com.repocad.web
 
-import com.repocad.web.evaluating.Evaluator.Value
+import com.repocad.web.evaluating.Value
 
 /**
  * The evaluating package contains code to execute the Abstract Syntax Tree (AST) from the 
@@ -8,7 +8,15 @@ import com.repocad.web.evaluating.Evaluator.Value
  */
 package object evaluating {
 
+  type Env = Map[String, Any]
+
+  type Value = Either[String, (Env, Any)]
+
+  lazy val defaultEnv : Env = parsing.defaultValueEnv.mapValues(expr => Evaluator.eval(expr, Map[String, Any]()))
+
   object Error {
+    def OPERATOR_NOT_FOUND(x: String): String = s"Failed to find operator '$x'. Has it been defined?"
+
     def OBJECT_PARAM_EVAL_ERROR(name: String, lefts: Seq[Value]): String =
       s"Failed to evaluate ${lefts.size} parameters when creating object '$name': $lefts"
 

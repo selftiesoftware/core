@@ -1,6 +1,5 @@
 package com.repocad.web.evaluating
 
-import com.repocad.web.evaluating.Evaluator.Env
 import com.repocad.web.parsing.{FloatExpr, UnitType, IntExpr, CallExpr}
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{FlatSpec, Matchers}
