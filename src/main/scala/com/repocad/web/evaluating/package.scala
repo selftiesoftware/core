@@ -12,8 +12,6 @@ package object evaluating {
 
   type Value = Either[String, (Env, Any)]
 
-  lazy val defaultEnv : Env = parsing.defaultValueEnv.mapValues(expr => Evaluator.eval(expr, Map[String, Any]()))
-
   object Error {
     def OPERATOR_NOT_FOUND(x: String): String = s"Failed to find operator '$x'. Has it been defined?"
 

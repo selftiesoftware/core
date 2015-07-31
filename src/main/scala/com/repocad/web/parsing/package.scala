@@ -17,6 +17,30 @@ package object parsing {
   type FailureCont = String => Value
   type SuccessCont = (Expr, ValueEnv, TypeEnv, LiveStream[Token]) => Value
 
+  val defaultTypeEnv : TypeEnv = DirectedGraph[Type](AnyType)
+    /* Primitives */
+    .union(AnyType, BooleanType)
+    .union(AnyType, StringType)
+    .union(AnyType, UnitType)
+    /* Numbers */
+    .union(AnyType, NumberType)
+    .union(NumberType, IntType)
+    .union(NumberType, FloatType)
+    /* Functions */
+    .union(AnyType, FunctionType)
+    .union(FunctionType, Function1Type)
+    .union(FunctionType, Function2Type)
+    .union(FunctionType, Function3Type)
+    .union(FunctionType, Function4Type)
+
+  val stringTypeMap : Map[String, Type] = Map(
+    "Boolean" -> BooleanType,
+    "Float" -> FloatType,
+    "Int" -> IntType,
+    "String" -> StringType,
+    "Unit" -> UnitType
+  )
+
   object Error {
     def EXPECTED_PARAMETERS(actual : String) : String = s"Expected parameter list when creating a function or object, but received '$actual'"
     def EXPECTED_PARAMETER_NUMBER(functionName : String, expected : Int, actual : Int) : String = s"Function '$functionName' requires $expected parameters, but $actual was given"
@@ -35,34 +59,5 @@ package object parsing {
 
     def TWO(error1 : String, error2 : String) = s"Two errors: $error1 and $error2"
   }
-
-  val defaultValueEnv : ValueEnv = Map(
-    "+" -> FunctionExpr("+", Seq(RefExpr("first", NumberType), RefExpr("second", NumberType)), OpExpr(RefExpr("first", NumberType), RefExpr("second", NumberType), "+", NumberType)),
-    "line" -> FunctionExpr("line", Seq(RefExpr("x1", NumberType), RefExpr("y1", NumberType), RefExpr("x2", NumberType), RefExpr("y2", NumberType)), UnitExpr)
-  )
-
-  val defaultTypeEnv : TypeEnv = DirectedGraph[Type](AnyType)
-    /* Primitives */
-    .union(AnyType, BooleanType)
-    .union(AnyType, StringType)
-    .union(AnyType, UnitType)
-    /* Numbers */
-    .union(AnyType, NumberType)
-      .union(NumberType, IntType)
-      .union(NumberType, FloatType)
-    /* Functions */
-    .union(AnyType, FunctionType)
-      .union(FunctionType, Function1Type)
-      .union(FunctionType, Function2Type)
-      .union(FunctionType, Function3Type)
-      .union(FunctionType, Function4Type)
-
-  val stringTypeMap : Map[String, Type] = Map(
-    "Boolean" -> BooleanType,
-    "Float" -> FloatType,
-    "Int" -> IntType,
-    "String" -> StringType,
-    "Unit" -> UnitType
-  )
 
 }

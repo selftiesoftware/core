@@ -1,5 +1,6 @@
 package com.repocad.web.parsing
 
+import com.repocad.web.Environment
 import com.repocad.web.lexing._
 
 /**
@@ -16,7 +17,7 @@ object Parser {
 
   def parse(tokens : LiveStream[Token]) : Value = {
     try {
-      parseUntil(tokens, _ => false, defaultValueEnv, defaultTypeEnv, (expr, values, types, _) => Right((expr, values, types)), e => Left(e))
+      parseUntil(tokens, _ => false, Environment.getParserEnv, defaultTypeEnv, (expr, values, types, _) => Right((expr, values, types)), e => Left(e))
     } catch {
       case e : InternalError => Left("Script too large (sorry - we're working on it!)")
       case e : Exception => Left(e.getLocalizedMessage)
@@ -54,14 +55,6 @@ object Parser {
       // Loops
       case SymbolToken("repeat") :~: tail => parseLoop(tail, success, failure)
 
-
-      // Comparisons
-      case (start : Token) :~: SymbolToken(">") :~: tail =>
-        parseTripleOp(start, tail, ">", (e1, e2, op, stream) => success(CompExpr(e1, e2, op), stream), failure)
-
-      case (start : Token) :~: SymbolToken("<") :~: tail =>
-        parseTripleOp(start, tail, "<", (e1, e2, op, stream) => success(CompExpr(e1, e2, op), stream), failure)
-
       // Operations
       case (start : Token) :~: SymbolToken("+") :~: tail =>
         parseTripleOp(start, tail, "+", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
@@ -82,14 +75,6 @@ object Parser {
       // Blocks
       case PunctToken("{") :~: tail => parseUntil(tail, PunctToken("}"), valueEnv, typeEnv, success, failure)
       case PunctToken("(") :~: tail => parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, success, failure)
-
-      // Values
-      case BooleanToken(value: Boolean) :~: tail => success(BooleanExpr(value), valueEnv, typeEnv, tail)
-      case SymbolToken("false") :~: tail => success(BooleanExpr(false), valueEnv, typeEnv, tail)
-      case SymbolToken("true") :~: tail => success(BooleanExpr(true), valueEnv, typeEnv, tail)
-      case DoubleToken(value : Double) :~: tail => success(FloatExpr(value), valueEnv, typeEnv, tail)
-      case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
-      case StringToken(value : String) :~: tail => success(StringExpr(value), valueEnv, typeEnv, tail)
 
       // References
       case SymbolToken(name) :~: PunctToken("(") :~: tail =>
@@ -125,6 +110,14 @@ object Parser {
             }
           }, failure)
         }, failure)
+
+      // Values
+      case BooleanToken(value: Boolean) :~: tail => success(BooleanExpr(value), valueEnv, typeEnv, tail)
+      case SymbolToken("false") :~: tail => success(BooleanExpr(false), valueEnv, typeEnv, tail)
+      case SymbolToken("true") :~: tail => success(BooleanExpr(true), valueEnv, typeEnv, tail)
+      case DoubleToken(value : Double) :~: tail => success(FloatExpr(value), valueEnv, typeEnv, tail)
+      case IntToken(value: Int) :~: tail => success(IntExpr(value), valueEnv, typeEnv, tail)
+      case StringToken(value : String) :~: tail => success(StringExpr(value), valueEnv, typeEnv, tail)
 
       case SymbolToken(name) :~: tail =>
         valueEnv.get(name) match {
