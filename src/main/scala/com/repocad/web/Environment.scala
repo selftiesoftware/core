@@ -9,11 +9,13 @@ import com.repocad.web.parsing._
 object Environment {
 
   private lazy val parserValueEnv : parsing.ValueEnv = Map(
+    "<" -> FunctionExpr("<", Seq(RefExpr("first", NumberType), RefExpr("second", NumberType)), new Expr { val t = BooleanType }),
     "+" -> FunctionExpr("+", Seq(RefExpr("first", NumberType), RefExpr("second", NumberType)), new Expr { val t = NumberType }),
     "line" -> FunctionExpr("line", Seq(RefExpr("x1", NumberType), RefExpr("y1", NumberType), RefExpr("x2", NumberType), RefExpr("y2", NumberType)), UnitExpr)
   )
 
   private lazy val evaluatorEnv : evaluating.Env = Map(
+    "<" -> ((env : evaluating.Env, a : Any, b : Any) => RepoMath.lt(a, b)),
     "+" -> ((env : evaluating.Env, a : Any, b : Any) => RepoMath.plus(a, b))
   )
 

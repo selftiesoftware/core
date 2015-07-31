@@ -5,8 +5,13 @@ import com.repocad.web.lexing.Lexer
 
 class CalculationPrimitivesTest extends ParsingTest {
 
+  def toCallExpr(a : Int, b : Int, op : String, typ : Type) = CallExpr(op, typ, Seq(IntExpr(a), IntExpr(b)))
+
   "A parser using default calculation primitives" should "parse a plus function" in {
-    parseString("10 + 10", Environment.getParserEnv).right.get._1 should equal (CallExpr("+", NumberType, Seq(IntExpr(10), IntExpr(10))))
+    parseString("10 + 10", Environment.getParserEnv).right.get._1 should equal (toCallExpr(10, 10, "+", NumberType))
+  }
+  it should "parse a less-than function" in {
+    parseString("10 < 10", Environment.getParserEnv).right.get._1 should equal (toCallExpr(10, 10, "<", BooleanType))
   }
 
 
