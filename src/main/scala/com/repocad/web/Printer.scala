@@ -1,6 +1,7 @@
 package com.repocad.web
 
 import com.repocad.web.evaluating.Evaluator
+import com.repocad.web.parsing._
 
 /**
  * A printer that can print objects on a medium
@@ -15,10 +16,10 @@ trait Printer[T] {
   
   var actions = Seq[T => Unit]()
 
-  lazy val toEnv : evaluating.Env = {
+  lazy val toEvaluatorEnv : evaluating.Env = {
     Map(
       "arc"  -> ((env : evaluating.Env, x : Double, y : Double, r : Double, sAngle : Double, eAngle : Double) => arc(x, y, r, sAngle, eAngle)),
-      "bezierCurve" -> ((env : evaluating.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)),
+      "bezier" -> ((env : evaluating.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double, x3 : Double, y3 : Double, x4 : Double, y4 : Double) => bezierCurve(x1, y1, x2, y2, x3, y3, x4, y4)),
       "circle" -> ((env : evaluating.Env, x : Double, y : Double, r : Double) => circle(x, y, r)),
       "line" -> ((env : evaluating.Env, x1 : Double, y1 : Double, x2 : Double, y2 : Double) => line(x1, y1, x2, y2)),
       "text" -> ((env : evaluating.Env, x : Double, y : Double, h : Double, t : Any) => text(x, y, h, t))
@@ -112,4 +113,17 @@ trait Printer[T] {
     actions = Seq()
   }
 
+}
+
+object Printer {
+
+  lazy val toParserEnv : parsing.ValueEnv = {
+    Map(
+      "arc"  -> FunctionExpr("arc", Seq(RefExpr("x", NumberType), RefExpr("y", NumberType), RefExpr("r", NumberType), RefExpr("sAngle", NumberType), RefExpr("eAngle", NumberType)), UnitExpr),
+      "bezier" -> FunctionExpr("arc", Seq(RefExpr("x1", NumberType), RefExpr("y1", NumberType), RefExpr("x2", NumberType), RefExpr("y2", NumberType), RefExpr("x3", NumberType), RefExpr("y3", NumberType), RefExpr("x4", NumberType), RefExpr("y4", NumberType)), UnitExpr),
+      "circle" -> FunctionExpr("arc", Seq(RefExpr("x", NumberType), RefExpr("y", NumberType), RefExpr("r", NumberType)), UnitExpr),
+      "line" -> FunctionExpr("line", Seq(RefExpr("x1", NumberType), RefExpr("y1", NumberType), RefExpr("x2", NumberType), RefExpr("y2", NumberType)), UnitExpr),
+      "text" -> FunctionExpr("arc", Seq(RefExpr("x", NumberType), RefExpr("y", NumberType), RefExpr("h", NumberType), RefExpr("t", StringType)), UnitExpr)
+    )
+  }
 }

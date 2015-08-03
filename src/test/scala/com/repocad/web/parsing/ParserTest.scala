@@ -1,7 +1,7 @@
 package com.repocad.web.parsing
 
 import com.repocad.web.lexing._
-import com.repocad.web.parsing
+import com.repocad.web.{Printer, parsing}
 import com.repocad.web.parsing.Parser._
 import org.scalatest.{Matchers, FlatSpec}
 import org.scalatest.EitherValues._

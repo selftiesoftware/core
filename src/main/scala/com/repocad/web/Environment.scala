@@ -31,10 +31,10 @@ object Environment {
     ">=" -> ((env : evaluating.Env, a : Any, b : Any) => RepoMath.lessThanEquals(b, a))
   )
 
-  def getParserEnv : parsing.ValueEnv = parserValueEnv
+  def getParserEnv : parsing.ValueEnv = parserValueEnv ++ Printer.toParserEnv
 
   def getEvaluatorEnv(printer : Printer[_]) : evaluating.Env = {
-    evaluatorEnv ++ printer.toEnv
+    evaluatorEnv ++ printer.toEvaluatorEnv
   }
 
 }

@@ -12,7 +12,7 @@ object Evaluator {
 
   def eval(expr : Expr, printer : Printer[_]) : Value = {
     try {
-      eval(expr, printer.toEnv.++(RepoMath.toEnv)).left.map(e => {
+      eval(expr, Environment.getParserEnv).left.map(e => {
         println("Error when evaluating: " + e)
         e
       })
