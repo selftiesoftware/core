@@ -14,7 +14,6 @@ case class BlockExpr(expr: Seq[Expr]) extends Expr { val t = if (expr.isEmpty) U
 case class CallExpr(name: String, t : Type, params: Seq[Expr]) extends Expr
 case class DefExpr(name: String, value : Expr) extends Expr { val t = value.t }
 case class FunctionExpr(name : String, params : Seq[RefExpr], body : Expr) extends Expr { val t = body.t }
-case class OpExpr(e1 : Expr, e2 : Expr, op : String, t : Type) extends Expr
 case class RefExpr(name: String, t : Type) extends Expr
 case object UnitExpr extends Expr { val t = UnitType }
 

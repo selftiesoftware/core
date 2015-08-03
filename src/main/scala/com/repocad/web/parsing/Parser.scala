@@ -76,7 +76,7 @@ object Parser {
       case PunctToken("{") :~: tail => parseUntil(tail, PunctToken("}"), valueEnv, typeEnv, success, failure)
       case PunctToken("(") :~: tail => parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, success, failure)
 
-      // References
+      // References to Functions
       case SymbolToken(name) :~: PunctToken("(") :~: tail =>
         valueEnv.get(name) match {
           case Some(function : FunctionExpr) =>
@@ -94,6 +94,7 @@ object Parser {
           case _ => failure(Error.FUNCTION_NOT_FOUND(name))
         }
 
+      // References to Operations
       case (firstToken : Token) :~: SymbolToken(functionName) :~: (secondToken : Token) :~: tail
         if valueEnv.get(functionName).filter(_.isInstanceOf[FunctionExpr])
           .exists(_.asInstanceOf[FunctionExpr].params.size == 2) =>
