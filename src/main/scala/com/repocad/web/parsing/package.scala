@@ -33,7 +33,7 @@ package object parsing {
     .union(FunctionType, Function3Type)
     .union(FunctionType, Function4Type)
 
-  val stringTypeMap : Map[String, Type] = Map(
+  lazy val stringTypeMap : Map[String, Type] = Map(
     "Boolean" -> BooleanType,
     "Float" -> FloatType,
     "Int" -> IntType,

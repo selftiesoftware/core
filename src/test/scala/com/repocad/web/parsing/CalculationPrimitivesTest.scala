@@ -33,5 +33,4 @@ class CalculationPrimitivesTest extends ParsingTest {
     testCallExpr("10 >= 10", 10, 10, ">=", BooleanType)
   }
 
-
 }

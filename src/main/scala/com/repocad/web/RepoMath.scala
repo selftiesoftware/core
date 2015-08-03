@@ -22,13 +22,4 @@ object RepoMath {
       case (x : Double, y : Double) => f(x, y)
     }
 
-  val toEnv : evaluating.Env = Map(
-    /*"cos" -> ((_ : Evaluator.Env, degrees : Double) => math.cos(degrees)),
-    "degrees" -> ((_ : Evaluator.Env, degrees : Double) => math.toDegrees(degrees)),
-    "sin" -> ((_ : Evaluator.Env, degrees : Double) => math.sin(degrees)),
-    "radians" -> ((_ : Evaluator.Env, degrees : Double) => math.toRadians(degrees)),
-    "tan" -> ((_ : Evaluator.Env, degrees : Double) => math.tan(degrees)),
-    "toInt" -> ((_ : Evaluator.Env, double : Double) => double.toInt)*/
-  )
-
 }
