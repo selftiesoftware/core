@@ -39,19 +39,18 @@ class ExprTest extends FlatSpec with MockFactory with Matchers {
     eval(UnitExpr, emptyEnv) should equal(Right(Map() -> Unit))
   }
 
-  /*
   "A control expression evaluator" should "evaluate an if statement where the condition is true" in {
-    eval(IfExpr(BooleanExpr(true), IntExpr(1), None, IntType), emptyEnv) should equal(Right(emptyEnv -> 1))
+    eval(IfExpr(BooleanExpr(true), IntExpr(1), UnitExpr, AnyType), emptyEnv) should equal(Right(emptyEnv -> 1))
   }
   it should "evaluate an if statement where the condition is false but the else does not exist" in {
-    eval(IfExpr(BooleanExpr(false), IntExpr(1), None, IntType), emptyEnv) should equal(Right(emptyEnv -> Unit))
+    eval(IfExpr(BooleanExpr(false), IntExpr(1), UnitExpr, AnyType), emptyEnv) should equal(Right(emptyEnv -> Unit))
   }
   it should "evaluate an if statement where the condition is false and the else body exists" in {
-    eval(IfExpr(BooleanExpr(false), IntExpr(1), Some(IntExpr(2)), IntType), emptyEnv) should equal(Right(emptyEnv -> 2))
+    eval(IfExpr(BooleanExpr(false), IntExpr(1), IntExpr(2), IntType), emptyEnv) should equal(Right(emptyEnv -> 2))
   }
-  it should "evaluate a loop expression with a false condition" in {
-    eval(LoopExpr(BooleanExpr(false), IntExpr(1), IntType), emptyEnv) should equal(Right(emptyEnv -> Unit))
-  }*/
+//  it should "evaluate a loop expression with a false condition" in {
+//    eval(LoopExpr(BooleanExpr(false), IntExpr(1), IntType), emptyEnv) should equal(Right(emptyEnv -> Unit))
+//  }
 //  it should "evaluate a loop once" in {
 //    val loopCondition = BlockExpr(Seq())
 //    eval(LoopExpr())
