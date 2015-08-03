@@ -39,6 +39,7 @@ class ExprTest extends FlatSpec with MockFactory with Matchers {
     eval(UnitExpr, emptyEnv) should equal(Right(Map() -> Unit))
   }
 
+  /*
   "A control expression evaluator" should "evaluate an if statement where the condition is true" in {
     eval(IfExpr(BooleanExpr(true), IntExpr(1), None, IntType), emptyEnv) should equal(Right(emptyEnv -> 1))
   }
@@ -50,7 +51,7 @@ class ExprTest extends FlatSpec with MockFactory with Matchers {
   }
   it should "evaluate a loop expression with a false condition" in {
     eval(LoopExpr(BooleanExpr(false), IntExpr(1), IntType), emptyEnv) should equal(Right(emptyEnv -> Unit))
-  }
+  }*/
 //  it should "evaluate a loop once" in {
 //    val loopCondition = BlockExpr(Seq())
 //    eval(LoopExpr())

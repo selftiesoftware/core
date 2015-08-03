@@ -35,38 +35,30 @@ object Parser {
         }
       }
 
-      /*
       case SymbolToken("if") :~: tail => {
-        parse(tail, (condition, conditionTail) =>
-          parse(conditionTail, (ifBody, ifBodyTail) => {
-            ifBodyTail match {
-              case SymbolToken("else") :~: elseIfTail => {
-                parse(elseIfTail, (elseBody, elseBodyTail) => {
-                  success(IfExpr(condition, ifBody, Some(elseBody)), elseBodyTail)
-                }, failure)
+        parse(tail, valueEnv, typeEnv, (condition, _, _, conditionTail) => {
+          if (condition.t != BooleanType) {
+            failure(Error.TYPE_MISMATCH(BooleanType.toString, condition.t.toString))
+          } else {
+            parse(conditionTail, valueEnv, typeEnv, (ifBody, _, _, ifBodyTail) => {
+              ifBodyTail match {
+                case SymbolToken("else") :~: elseIfTail => {
+                  parse(elseIfTail, valueEnv, typeEnv, (elseBody, _, _, elseBodyTail) => {
+                    success(IfExpr(condition, ifBody, elseBody, typeEnv.commonParent(ifBody.t, elseBody.t)),
+                      valueEnv, typeEnv, elseBodyTail)
+                  }, failure)
+                }
+                case _ => success(IfExpr(condition, ifBody, UnitExpr, typeEnv.commonParent(ifBody.t, UnitType)),
+                  valueEnv, typeEnv, ifBodyTail)
               }
-
-              case _ => success(IfExpr(condition, ifBody, None), ifBodyTail)
-            }
-          }, failure),
-          failure)
+            }, failure)
+          }
+        }, failure)
       }
 
+      /*
       // Loops
       case SymbolToken("repeat") :~: tail => parseLoop(tail, success, failure)
-
-      // Operations
-      case (start : Token) :~: SymbolToken("+") :~: tail =>
-        parseTripleOp(start, tail, "+", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
-
-      case (start : Token) :~: SymbolToken("-") :~: tail =>
-        parseTripleOp(start, tail, "-", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
-
-      case (start : Token) :~: SymbolToken("*") :~: tail =>
-        parseTripleOp(start, tail, "*", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
-
-      case (start : Token) :~: SymbolToken("/") :~: tail =>
-        parseTripleOp(start, tail, "/", (e1, e2, op, stream) => success(OpExpr(e1, e2, op), stream), failure)
 */
 
       // Functions and objects

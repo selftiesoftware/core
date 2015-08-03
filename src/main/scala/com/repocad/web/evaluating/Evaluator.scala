@@ -69,6 +69,7 @@ object Evaluator {
         }
         Right(env.+(name -> function) -> function)
 
+        /*
       case IfExpr(condition, ifBody, elseBody, t) => {
         eval(condition, env) match {
           case Left(thisIsBad) => Left(thisIsBad)
@@ -84,7 +85,7 @@ object Evaluator {
           }
           case Right((newEnvironment, value)) => Left("Expected boolean, got " + value)
         }
-      }
+      }*/
 
       //case objectExpr : ObjectExpr => Right(env.+(objectExpr.name -> objectExpr), objectExpr)
 

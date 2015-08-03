@@ -19,7 +19,7 @@ case object UnitExpr extends Expr { val t = UnitType }
 
 trait ControlExpr extends Expr
 case class ImportExpr(name : String) extends ControlExpr { val t = UnitType }
-case class IfExpr(condition : Expr, ifBody : Expr, elseExpr : Option[Expr], t : Type) extends ControlExpr
+case class IfExpr(condition : Expr, ifBody : Expr, elseExpr : Expr, t : Type) extends ControlExpr
 case class LoopExpr(condition : Expr, body : Expr, t : Type) extends ControlExpr
 
 trait ValueExpr[T] extends Expr { val value : T }
