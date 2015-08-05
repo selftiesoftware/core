@@ -18,10 +18,11 @@ package object evaluating {
     def OBJECT_PARAM_EVAL_ERROR(name: String, lefts: Seq[Value]): String =
       s"Failed to evaluate ${lefts.size} parameters when creating object '$name': $lefts"
 
-
     def OBJECT_PARAM_SIZE_NOT_EQUAL(objectName : String, expectedParams : Int, actualParams : Int) = 
       s"Object '$objectName' requires $expectedParams parameters, but was given $actualParams"
-    
+
+    def TYPE_MISMATCH(expected : String, actual : String) = s"Expected type $expected but found $actual"
+
   }
   
 }

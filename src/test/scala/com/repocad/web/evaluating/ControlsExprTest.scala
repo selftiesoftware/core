@@ -21,13 +21,12 @@ class ControlsExprTest extends FlatSpec with MockFactory with Matchers {
    it should "evaluate an if statement where the condition is false and the else body exists" in {
      eval(IfExpr(BooleanExpr(false), IntExpr(1), IntExpr(2), IntType), emptyEnv) should equal(Right(emptyEnv -> 2))
    }
- //  it should "evaluate a loop expression with a false condition" in {
- //    eval(LoopExpr(BooleanExpr(false), IntExpr(1), IntType), emptyEnv) should equal(Right(emptyEnv -> Unit))
- //  }
- //  it should "evaluate a loop once" in {
- //    val loopCondition = BlockExpr(Seq())
- //    eval(LoopExpr())
- //  }
+   it should "evaluate a loop expression with a false condition" in {
+     eval(LoopExpr(DefExpr("a", IntExpr(1)), IntExpr(2), IntExpr(3)), emptyEnv) should equal(Right(emptyEnv -> Unit))
+   }
+   it should "evaluate a loop once" in {
+
+   }
 
  //  "evaluate an import statement" in {
  //

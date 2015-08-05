@@ -228,27 +228,35 @@ object Evaluator {
         }
 
       case UnitExpr => Right(env -> Unit)
-
-      case LoopExpr(condition: Expr, body: Expr, t) =>
-        /* Note to self: Too much recursion error when looping recursively */
-        var loopEnv: Map[String, Any] = env
-        var lastResult: Any = Unit
-        var lastError: Option[String] = None
-        def getCondition = eval(condition, loopEnv).fold(error => {
-          lastError = Some(error); false
-        }, v => {
-          loopEnv = v._1
-          v._2.asInstanceOf[Boolean]
-        })
-        while (lastError.isEmpty && getCondition) {
-          eval(body, loopEnv).fold(s => {
-            lastError = Some(s); s
-          }, x => {
-            lastResult = x._2
-            loopEnv = x._1
-          })
+      case LoopExpr(loopCounter: DefExpr, loopEnd : Expr, body: Expr) =>
+        def updateLoopCounter(loopEnv : Env, max : Int) : (Env, Boolean) = {
+          val newValue = loopEnv.get(loopCounter.name).get.asInstanceOf[Int] + 1
+          (loopEnv.updated(loopCounter.name, newValue), newValue <= max)
         }
-        lastError.map(Left(_)).getOrElse(Right(loopEnv.filter(t => env.contains(t._1)) -> lastResult))
+        eval(loopCounter.value, env) match {
+          case Right((loopStartEnv : Env, loopStart : Int)) =>
+            eval(loopEnd, env) match {
+              case Right((_, loopEnd : Int)) =>
+                /* Note to self: Too much recursion error when looping recursively */
+                var loopInvariant: (Env, Boolean) = (loopStartEnv, true)
+                var lastResult: Any = Unit
+                var lastError: Option[String] = None
+                while (lastError.isEmpty && {loopInvariant = updateLoopCounter(loopInvariant._1, loopEnd); loopInvariant._2}) {
+                  eval(body, loopInvariant._1).fold(s => {
+                    lastError = Some(s); s
+                  }, x => {
+                    lastResult = x._2
+                    loopInvariant = (x._1, loopInvariant._2)
+                  })
+                }
+                lastError.map(Left(_)).getOrElse(Right(loopInvariant._1.filter(t => env.contains(t._1)) -> lastResult))
+              case Right((_, x)) => Left(Error.TYPE_MISMATCH("integer", x.toString))
+              case Left(x) => Left(x)
+            }
+
+          case Right((_, x)) => Left(Error.TYPE_MISMATCH("integer", x.toString))
+          case Left(x) => Left(x)
+        }
 
       case x => Left(s"Unknown expression $x")
     }

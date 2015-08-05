@@ -124,47 +124,6 @@ object Parser {
     }
   }
 
-  def parseLoop(tokens : LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success: SuccessCont, failure: String => Value) : Value = {
-    def parseValueToken(value : Token) : Either[String, Expr] = {
-      value match {
-        case SymbolToken(name) => valueEnv.get(name) match {
-          case Some(f : FloatExpr) => Right(f)
-          case Some(i : IntExpr) => Right(i)
-          case Some(x) => Left(Error.TYPE_MISMATCH("numeric reference", x.toString))
-          case None => Left(Error.REFERENCE_NOT_FOUND(name))
-        }
-        case IntToken(value: Int) => Right(IntExpr(value))
-        case DoubleToken(value : Double) => Right(FloatExpr(value))
-        case e => Left(Error.SYNTAX_ERROR("a numeric value or reference to a numeric value", e.toString))
-      }
-    }
-    def parseLoopWithRange(counterName : String, fromToken : Token, toToken : Token, bodyTokens : LiveStream[Token], success: SuccessCont, failure: String => Value) : Value = {
-      parseValueToken(fromToken).right.flatMap(from => {
-        parseValueToken(toToken).right.flatMap(to => {
-          parse(bodyTokens, valueEnv + (counterName -> from), typeEnv, (bodyExpr, _, _, bodyTail) => {
-            success(LoopExpr(DefExpr(counterName, from), to, bodyExpr), valueEnv, typeEnv, bodyTail)
-          }, failure)
-        })
-      })
-    }
-
-    tokens match {
-      case fromToken :~: SymbolToken("to") :~: toToken :~: SymbolToken("using") :~: SymbolToken(counter) :~: tail =>
-        parseLoopWithRange(counter, fromToken, toToken, tail, success, failure)
-
-      case fromToken :~: SymbolToken("to") :~: toToken :~: tail =>
-        parseLoopWithRange(DEFAULT_LOOP_COUNTER, fromToken, toToken, tail, success, failure)
-
-      case toToken :~: SymbolToken("using") :~: SymbolToken(counter) :~: tail =>
-        parseLoopWithRange(counter, IntToken(1), toToken, tail, success, failure)
-
-      case toToken :~: tail =>
-        parseLoopWithRange(DEFAULT_LOOP_COUNTER, IntToken(1), toToken, tail, success, failure)
-
-      case tail => failure("Failed to parse loop. Expected to-token, got " + tail)
-    }
-  }
-
   def parseDefinition(tokens : LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont) : Value = {
     def parseFunctionParameters(parameterTokens : LiveStream[Token], success : (Seq[RefExpr], LiveStream[Token]) => Value, failure : FailureCont) = {
       parseUntil(parseParameters, parameterTokens, _.head.tag.toString.equals(")"), valueEnv, typeEnv, (params, _, _, paramsTail) => {
@@ -227,6 +186,47 @@ object Parser {
       case SymbolToken(name) :~: SymbolToken("=") :~: tail =>
         parse(tail, valueEnv, typeEnv, (e, _, _, stream) => success(DefExpr(name, e), valueEnv + (name -> e), typeEnv, stream), failure)
 
+    }
+  }
+
+  def parseLoop(tokens : LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success: SuccessCont, failure: String => Value) : Value = {
+    def parseValueToken(value : Token) : Either[String, Expr] = {
+      value match {
+        case SymbolToken(name) => valueEnv.get(name) match {
+          case Some(f : FloatExpr) => Right(f)
+          case Some(i : IntExpr) => Right(i)
+          case Some(x) => Left(Error.TYPE_MISMATCH("numeric reference", x.toString))
+          case None => Left(Error.REFERENCE_NOT_FOUND(name))
+        }
+        case IntToken(value: Int) => Right(IntExpr(value))
+        case DoubleToken(value : Double) => Right(FloatExpr(value))
+        case e => Left(Error.SYNTAX_ERROR("a numeric value or reference to a numeric value", e.toString))
+      }
+    }
+    def parseLoopWithRange(counterName : String, fromToken : Token, toToken : Token, bodyTokens : LiveStream[Token], success: SuccessCont, failure: String => Value) : Value = {
+      parseValueToken(fromToken).right.flatMap(from => {
+        parseValueToken(toToken).right.flatMap(to => {
+          parse(bodyTokens, valueEnv + (counterName -> from), typeEnv, (bodyExpr, _, _, bodyTail) => {
+            success(LoopExpr(DefExpr(counterName, from), to, bodyExpr), valueEnv, typeEnv, bodyTail)
+          }, failure)
+        })
+      })
+    }
+
+    tokens match {
+      case fromToken :~: SymbolToken("to") :~: toToken :~: SymbolToken("using") :~: SymbolToken(counter) :~: tail =>
+        parseLoopWithRange(counter, fromToken, toToken, tail, success, failure)
+
+      case fromToken :~: SymbolToken("to") :~: toToken :~: tail =>
+        parseLoopWithRange(DEFAULT_LOOP_COUNTER, fromToken, toToken, tail, success, failure)
+
+      case toToken :~: SymbolToken("using") :~: SymbolToken(counter) :~: tail =>
+        parseLoopWithRange(counter, IntToken(1), toToken, tail, success, failure)
+
+      case toToken :~: tail =>
+        parseLoopWithRange(DEFAULT_LOOP_COUNTER, IntToken(1), toToken, tail, success, failure)
+
+      case tail => failure("Failed to parse loop. Expected to-token, got " + tail)
     }
   }
 
