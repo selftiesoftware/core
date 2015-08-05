@@ -7,8 +7,10 @@ import com.repocad.web.lexing._
  * Parses code into drawing expressions (AST)
  */
 object Parser {
+
+  private val DEFAULT_LOOP_COUNTER = "_loopCounter"
   
-  def verifyType(typeName : String, typeEnv : TypeEnv) : Either[String, Type] = {
+  def verifyType(typeName : String, typeEnv : TypeEnv) : Either[String, AnyType] = {
     stringTypeMap.get(typeName) match {
       case Some(typeObject) if typeEnv.exists(typeObject) => Right(typeObject)
       case _ => Left(Error.TYPE_NOT_FOUND(typeName))
@@ -56,10 +58,8 @@ object Parser {
         }, failure)
       }
 
-      /*
       // Loops
-      case SymbolToken("repeat") :~: tail => parseLoop(tail, success, failure)
-*/
+      case SymbolToken("repeat") :~: tail => parseLoop(tail, valueEnv, typeEnv, success, failure)
 
       // Functions and objects
       case SymbolToken("def") :~: tail => parseDefinition(tail, valueEnv, typeEnv, success, failure)
@@ -124,50 +124,46 @@ object Parser {
     }
   }
 
-  /*def parseLoop(tokens : LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value) : Value = {
-    def parseValueToken(value : Token) : Either[Expr, String] = {
+  def parseLoop(tokens : LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success: SuccessCont, failure: String => Value) : Value = {
+    def parseValueToken(value : Token) : Either[String, Expr] = {
       value match {
-        case SymbolToken(name) => Left(RefExpr(name))
-        case IntToken(value: Int) => Left(IntExpr(value))
-        case DoubleToken(value : Double) => Left(DoubleExpr(value))
-        case StringToken(value : String) => Left(StringExpr(value))
-        case e => Right("Expected value, got " + e)
+        case SymbolToken(name) => valueEnv.get(name) match {
+          case Some(f : FloatExpr) => Right(f)
+          case Some(i : IntExpr) => Right(i)
+          case Some(x) => Left(Error.TYPE_MISMATCH("numeric reference", x.toString))
+          case None => Left(Error.REFERENCE_NOT_FOUND(name))
+        }
+        case IntToken(value: Int) => Right(IntExpr(value))
+        case DoubleToken(value : Double) => Right(FloatExpr(value))
+        case e => Left(Error.SYNTAX_ERROR("a numeric value or reference to a numeric value", e.toString))
       }
     }
-    def parseLoopWithRange(range : RangeExpr, loopTokens : LiveStream[Token], success: (Expr, LiveStream[Token]) => Value, failure: String => Value) : Value = {
-      parse(loopTokens, (body, blockTail) => success(LoopExpr(range, body), blockTail), failure)
+    def parseLoopWithRange(counterName : String, fromToken : Token, toToken : Token, bodyTokens : LiveStream[Token], success: SuccessCont, failure: String => Value) : Value = {
+      parseValueToken(fromToken).right.flatMap(from => {
+        parseValueToken(toToken).right.flatMap(to => {
+          parse(bodyTokens, valueEnv + (counterName -> from), typeEnv, (bodyExpr, _, _, bodyTail) => {
+            success(LoopExpr(DefExpr(counterName, from), to, bodyExpr), valueEnv, typeEnv, bodyTail)
+          }, failure)
+        })
+      })
     }
 
     tokens match {
-      case fromToken :~: SymbolToken("to") :~: toToken :~: SymbolToken("def") :~: SymbolToken(counter) :~: tail =>
-        parseValueToken(toToken).fold(to => {
-          parseValueToken(fromToken).fold(from => {
-            parseLoopWithRange(RangeExpr(counter, from, to), tail, success, failure)
-          }, failure)
-        }, failure)
+      case fromToken :~: SymbolToken("to") :~: toToken :~: SymbolToken("using") :~: SymbolToken(counter) :~: tail =>
+        parseLoopWithRange(counter, fromToken, toToken, tail, success, failure)
 
       case fromToken :~: SymbolToken("to") :~: toToken :~: tail =>
-        parseValueToken(toToken).fold(to => {
-          parseValueToken(fromToken).fold(from => {
-            parseLoopWithRange(RangeExpr("_loopCounter", from, to), tail, success, failure)
-          }, failure)
-        }, failure)
+        parseLoopWithRange(DEFAULT_LOOP_COUNTER, fromToken, toToken, tail, success, failure)
 
-      case toToken :~: SymbolToken("def") :~: SymbolToken(counter) :~: tail =>
-        parseValueToken(toToken).fold(to => {
-          parseLoopWithRange(RangeExpr(counter, IntExpr(1), to), tail, success, failure)
-        }, failure)
+      case toToken :~: SymbolToken("using") :~: SymbolToken(counter) :~: tail =>
+        parseLoopWithRange(counter, IntToken(1), toToken, tail, success, failure)
 
       case toToken :~: tail =>
-        parseValueToken(toToken).fold(to => {
-          parseLoopWithRange(RangeExpr("_loopCounter", IntExpr(1), to), tail, success, failure)
-        }, failure)
+        parseLoopWithRange(DEFAULT_LOOP_COUNTER, IntToken(1), toToken, tail, success, failure)
 
       case tail => failure("Failed to parse loop. Expected to-token, got " + tail)
     }
   }
-
-  */
 
   def parseDefinition(tokens : LiveStream[Token], valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure : FailureCont) : Value = {
     def parseFunctionParameters(parameterTokens : LiveStream[Token], success : (Seq[RefExpr], LiveStream[Token]) => Value, failure : FailureCont) = {
@@ -246,14 +242,6 @@ object Parser {
       case SymbolToken(name) :~: tail => failure(Error.EXPECTED_TYPE_PARAMETERS(name))
     }
   }
-
-  /*
-  def parseTripleOp(startToken : Token, tail : LiveStream[Token], comp : String, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure: String => Value): Value = {
-    parse(LiveStream(startToken), (ex1, firstValueEnv, firstTypeEnv, _) =>
-      parse(tail, (ex2, secondValueEnv, secondTypeEnv, s2) => success(ex1, ex2, comp, valueEnv, typeEnv, s2), failure),
-      failure)
-  }
-  */
 
   def parseUntil(tokens: LiveStream[Token], token : Token, valueEnv : ValueEnv, typeEnv : TypeEnv, success : SuccessCont, failure: FailureCont): Value = {
     parseUntil(parse, tokens, stream => stream.head.toString.equals(token.toString), valueEnv, typeEnv, success, failure)

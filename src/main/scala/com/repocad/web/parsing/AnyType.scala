@@ -3,20 +3,22 @@ package com.repocad.web.parsing
 /**
  * The type from where all data types in RepoScript inherit.
  */
-trait Type
+trait AnyType
 
-case object AnyType extends Type
+case object AnyType extends AnyType
 
-case object BooleanType extends Type
-case object StringType extends Type
-case object UnitType extends Type
+case class CollectionType(content : AnyType) extends AnyType
 
-trait NumberType extends Type
+case object BooleanType extends AnyType
+case object StringType extends AnyType
+case object UnitType extends AnyType
+
+trait NumberType extends AnyType
 case object NumberType extends NumberType
 case object FloatType extends NumberType
 case object IntType extends NumberType
 
-trait FunctionType extends Type
+trait FunctionType extends AnyType
 case object FunctionType extends FunctionType
 case object Function1Type extends FunctionType
 case object Function2Type extends FunctionType

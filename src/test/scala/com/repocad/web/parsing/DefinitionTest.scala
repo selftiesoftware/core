@@ -10,7 +10,7 @@ class DefinitionTest extends ParsingTest {
     testEquals(DefExpr("a", IntExpr(10)), "def a as Int = 10")
   }
   it should "store a value in the value environment" in {
-    parseString("def a = 10") should equal (Right(DefExpr("a", IntExpr(10)), Map("a" -> IntExpr(10)), Map[String, Type]()))
+    parseString("def a = 10") should equal (Right(DefExpr("a", IntExpr(10)), Map("a" -> IntExpr(10)), Map[String, AnyType]()))
   }
   it should "fail when wrong type is specified" in {
     parseString("def a as Unit = 1").isLeft should equal (true)

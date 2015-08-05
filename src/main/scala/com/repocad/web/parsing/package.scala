@@ -9,7 +9,7 @@ import com.repocad.web.lexing.{Token, LiveStream}
  */
 package object parsing {
 
-  type TypeEnv = DirectedGraph[Type]
+  type TypeEnv = DirectedGraph[AnyType]
   type ValueEnv = Map[String, Expr]
 
   type Value = Either[String, (Expr, ValueEnv, TypeEnv)]
@@ -17,7 +17,7 @@ package object parsing {
   type FailureCont = String => Value
   type SuccessCont = (Expr, ValueEnv, TypeEnv, LiveStream[Token]) => Value
 
-  val defaultTypeEnv : TypeEnv = DirectedGraph[Type](AnyType)
+  val defaultTypeEnv : TypeEnv = DirectedGraph[AnyType](AnyType)
     /* Primitives */
     .union(AnyType, BooleanType)
     .union(AnyType, StringType)
@@ -33,7 +33,7 @@ package object parsing {
     .union(FunctionType, Function3Type)
     .union(FunctionType, Function4Type)
 
-  lazy val stringTypeMap : Map[String, Type] = Map(
+  lazy val stringTypeMap : Map[String, AnyType] = Map(
     "Boolean" -> BooleanType,
     "Float" -> FloatType,
     "Int" -> IntType,
