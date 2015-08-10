@@ -27,11 +27,14 @@ object Ajax {
     try {
       val xhr = new dom.XMLHttpRequest()
       xhr.open(method, url, async = false) // Handle synchronously
+      xhr.timeout = 500
       headers.foreach(t => xhr.setRequestHeader(t._1, t._2))
       xhr.send(data)
       Response(xhr)
     } catch {
-      case e : Throwable => Response(0, 0, "")
+      case e : Throwable => {
+        Response(0, 0, e.toString)
+      }
     }
   }
 
