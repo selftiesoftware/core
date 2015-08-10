@@ -12,7 +12,7 @@ object Evaluator {
 
   def eval(expr : Expr, printer : Printer[_]) : Value = {
     try {
-      eval(expr, printer.toEvaluatorEnv).left.map(e => {
+      eval(expr, Environment.getEvaluatorEnv(printer)).left.map(e => {
         println("Error when evaluating: " + e)
         e
       })
