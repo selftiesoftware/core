@@ -49,7 +49,6 @@ class Editor(container : HTMLDivElement, printer : Printer[_]) {
   def parse(useCache : Boolean = true): Either[String, Expr] = {
     if (!useCache) {
       val tokens = Lexer.lex(module().content)
-      println(tokens)
       Parser.parse(tokens).right.map(tuple => {
         ast() = tuple._1
         tuple._1
