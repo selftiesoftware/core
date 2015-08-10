@@ -229,9 +229,14 @@ object Evaluator {
 
       case UnitExpr => Right(env -> Unit)
       case LoopExpr(loopCounter: DefExpr, loopEnd : Expr, body: Expr) =>
-        def updateLoopCounter(loopEnv : Env, max : Int) : (Env, Boolean) = {
-          val newValue = loopEnv.get(loopCounter.name).get.asInstanceOf[Int] + 1
-          (loopEnv.updated(loopCounter.name, newValue), newValue <= max)
+        def updateLoopCounter(loopEnv : Env, min : Int, max : Int) : (Env, Boolean) = {
+          loopEnv.get(loopCounter.name) match {
+            case Some(oldValue : Int) =>
+              val newValue = oldValue + 1
+              (loopEnv.updated(loopCounter.name, newValue), newValue <= max)
+            case None =>
+              (loopEnv.updated(loopCounter.name, min), min <= max)
+          }
         }
         eval(loopCounter.value, env) match {
           case Right((loopStartEnv : Env, loopStart : Int)) =>
@@ -241,7 +246,7 @@ object Evaluator {
                 var loopInvariant: (Env, Boolean) = (loopStartEnv, true)
                 var lastResult: Any = Unit
                 var lastError: Option[String] = None
-                while (lastError.isEmpty && {loopInvariant = updateLoopCounter(loopInvariant._1, loopEnd); loopInvariant._2}) {
+                while (lastError.isEmpty && {loopInvariant = updateLoopCounter(loopInvariant._1, loopStart, loopEnd); loopInvariant._2}) {
                   eval(body, loopInvariant._1).fold(s => {
                     lastError = Some(s); s
                   }, x => {

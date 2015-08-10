@@ -15,5 +15,6 @@ class PrinterTest extends FlatSpec with MockFactory with Matchers {
     (mockPrinter.line _).expects(1.0, 2.0, 3.0, 4.0)
     Evaluator.eval(CallExpr("line", UnitType, Seq(FloatExpr(1d), FloatExpr(2d), FloatExpr(3d), FloatExpr(4d))), env)
   }
+  // Test int -> double conversion
 
 }
