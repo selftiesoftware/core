@@ -18,10 +18,6 @@ class ExprTest extends FlatSpec with MockFactory with Matchers {
   it should "evaluate a non-empty block expression" in {
     eval(BlockExpr(Seq(IntExpr(1))), emptyEnv) should equal (Right(emptyEnv -> 1))
   }
-  it should "evaluate a call expression" in {
-    val funEnv = Map("f" -> ((env : Env, a : Int) => a))
-    eval(CallExpr("f", IntType, Seq(IntExpr(1))), funEnv) should equal(Right(funEnv -> 1))
-  }
   it should "evaluate a def expression" in {
     eval(DefExpr("test", IntExpr(1)), emptyEnv) should equal (Right(Map("test" -> 1) -> 1))
   }

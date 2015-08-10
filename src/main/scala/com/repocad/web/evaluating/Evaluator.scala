@@ -228,33 +228,25 @@ object Evaluator {
         }
 
       case UnitExpr => Right(env -> Unit)
-      case LoopExpr(loopCounter: DefExpr, loopEnd : Expr, body: Expr) =>
-        def updateLoopCounter(loopEnv : Env, min : Int, max : Int) : (Env, Boolean) = {
-          loopEnv.get(loopCounter.name) match {
-            case Some(oldValue : Int) =>
-              val newValue = oldValue + 1
-              (loopEnv.updated(loopCounter.name, newValue), newValue <= max)
-            case None =>
-              (loopEnv.updated(loopCounter.name, min), min <= max)
-          }
-        }
-        eval(loopCounter.value, env) match {
+      case LoopExpr(loopCounterExpr: DefExpr, loopEnd : Expr, body: Expr) =>
+        eval(loopCounterExpr.value, env) match {
           case Right((loopStartEnv : Env, loopStart : Int)) =>
             eval(loopEnd, env) match {
               case Right((_, loopEnd : Int)) =>
                 /* Note to self: Too much recursion error when looping recursively */
-                var loopInvariant: (Env, Boolean) = (loopStartEnv, true)
+                var loopEnv: Env = loopStartEnv
                 var lastResult: Any = Unit
                 var lastError: Option[String] = None
-                while (lastError.isEmpty && {loopInvariant = updateLoopCounter(loopInvariant._1, loopStart, loopEnd); loopInvariant._2}) {
-                  eval(body, loopInvariant._1).fold(s => {
+                for (loopCounter <- loopStart until loopEnd if lastError.isEmpty) {
+                  loopEnv = loopEnv.updated(loopCounterExpr.name, loopCounter)
+                  eval(body, loopEnv).fold(s => {
                     lastError = Some(s); s
                   }, x => {
                     lastResult = x._2
-                    loopInvariant = (x._1, loopInvariant._2)
+                    loopEnv = x._1
                   })
                 }
-                lastError.map(Left(_)).getOrElse(Right(loopInvariant._1.filter(t => env.contains(t._1)) -> lastResult))
+                lastError.map(Left(_)).getOrElse(Right(loopEnv.filter(t => env.contains(t._1)) -> lastResult))
               case Right((_, x)) => Left(Error.TYPE_MISMATCH("integer", x.toString))
               case Left(x) => Left(x)
             }
