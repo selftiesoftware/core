@@ -17,6 +17,18 @@ object Parser {
     }
   }
 
+  def verifySimilarTypes(functionName : String, expected : Seq[RefExpr], actual : Seq[Expr], typeEnv : TypeEnv) : Option[String] = {
+    if (actual.size != expected.size) {
+      Some(Error.EXPECTED_PARAMETER_NUMBER(functionName, expected.size, actual.size))
+    } else {
+      expected.zip(actual).collect {
+        case (expectedParam, actualParam) if typeEnv.getChildOf(expectedParam.t, actualParam.t).isEmpty =>
+          return Some(Error.TYPE_MISMATCH(expectedParam.t.toString, actualParam.t.toString))
+      }
+      None
+    }
+  }
+
   def parse(tokens : LiveStream[Token]) : Value = {
     try {
       parseUntil(tokens, _ => false, Environment.getParserEnv, defaultTypeEnv, (expr, values, types, _) => Right((expr, values, types)), e => Left(e))
@@ -74,12 +86,9 @@ object Parser {
           case Some(function : FunctionExpr) =>
             parseUntil(tail, PunctToken(")"), valueEnv, typeEnv, (params : Expr, newValueEnv : ValueEnv, newTypeEnv : TypeEnv, paramsTail : LiveStream[Token]) => {
               params match {
-                case BlockExpr(xs) =>
-                  if (xs.size == function.params.size) {
-                    success(CallExpr(name, function.body.t, xs), newValueEnv, newTypeEnv, paramsTail)
-                  } else {
-                    failure(Error.EXPECTED_PARAMETER_NUMBER(name, function.params.size, xs.size))
-                  }
+                case BlockExpr(xs : Seq[RefExpr]) =>
+                  verifySimilarTypes(name, function.params, xs, typeEnv).map(failure)
+                    .getOrElse(success(CallExpr(name, function.body.t, xs), newValueEnv, newTypeEnv, paramsTail))
                 case xs => failure("Expected parameters for function call. Got " + xs)
               }
             }, failure)
@@ -94,13 +103,8 @@ object Parser {
         val funParams = funExpr.params
         parse(LiveStream(Iterable(firstToken)), valueEnv, typeEnv, (firstParam, _, _, _) => {
           parse(LiveStream(Iterable(secondToken)), valueEnv, typeEnv, (secondParam, _, _, _) => {
-            (typeEnv.getChildOf(funExpr.params.head.t, firstParam.t), typeEnv.getChildOf(funExpr.params.last.t, secondParam.t)) match {
-              case (Some(firstType), Some(secondType)) => success(CallExpr(functionName, funExpr.t, Seq(firstParam, secondParam)), valueEnv, typeEnv, tail)
-              case (None, Some(secondType)) => failure(Error.TYPE_MISMATCH(funParams.head.toString, firstParam.toString))
-              case (Some(firstType), None) => failure(Error.TYPE_MISMATCH(funParams.head.toString, secondParam.toString))
-              case (None, None) => failure(Error.TWO(Error.TYPE_MISMATCH(funParams.tail.toString, firstParam.toString),
-                Error.TYPE_MISMATCH(funParams(1).toString, secondParam.toString)))
-            }
+            verifySimilarTypes(functionName, funExpr.params, Seq(firstParam, secondParam), typeEnv).map(failure)
+              .getOrElse(success(CallExpr(functionName, funExpr.t, Seq(firstParam, secondParam)), valueEnv, typeEnv, tail))
           }, failure)
         }, failure)
 
