@@ -9,25 +9,6 @@ import com.repocad.web.lexing._
 object Parser {
 
   private val DEFAULT_LOOP_COUNTER = "_loopCounter"
-  
-  def verifyType(typeName : String, typeEnv : TypeEnv) : Either[String, AnyType] = {
-    stringTypeMap.get(typeName) match {
-      case Some(typeObject) if typeEnv.exists(typeObject) => Right(typeObject)
-      case _ => Left(Error.TYPE_NOT_FOUND(typeName))
-    }
-  }
-
-  def verifySimilarTypes(functionName : String, expected : Seq[RefExpr], actual : Seq[Expr], typeEnv : TypeEnv) : Option[String] = {
-    if (actual.size != expected.size) {
-      Some(Error.EXPECTED_PARAMETER_NUMBER(functionName, expected.size, actual.size))
-    } else {
-      expected.zip(actual).collect {
-        case (expectedParam, actualParam) if typeEnv.getChildOf(expectedParam.t, actualParam.t).isEmpty =>
-          return Some(Error.TYPE_MISMATCH(expectedParam.t.toString, actualParam.t.toString))
-      }
-      None
-    }
-  }
 
   def parse(tokens : LiveStream[Token]) : Value = {
     try {
@@ -269,7 +250,6 @@ object Parser {
       seqFail = Some(s)
       Left(s)
     }
-
     while (seqFail.isEmpty && !seqTail.isPlugged && !condition(seqTail)) {
       parseFunction(seqTail, valueEnvVar, typeEnv, seqSuccess, seqFailure) match {
          case Left(s) => seqFail = Some(s)
@@ -279,12 +259,29 @@ object Parser {
            typeEnvVar = newTypeEnv
        }
     }
-
-    if (condition(seqTail)) {
+    if (!seqTail.isPlugged && condition(seqTail) ) {
       seqTail = seqTail.tail
     }
-
     seqFail.map(seqFailure).getOrElse(success(BlockExpr(seq), valueEnv, typeEnv, seqTail))
+  }
+
+  def verifyType(typeName : String, typeEnv : TypeEnv) : Either[String, AnyType] = {
+    stringTypeMap.get(typeName) match {
+      case Some(typeObject) if typeEnv.exists(typeObject) => Right(typeObject)
+      case _ => Left(Error.TYPE_NOT_FOUND(typeName))
+    }
+  }
+
+  def verifySimilarTypes(functionName : String, expected : Seq[RefExpr], actual : Seq[Expr], typeEnv : TypeEnv) : Option[String] = {
+    if (actual.size != expected.size) {
+      Some(Error.EXPECTED_PARAMETER_NUMBER(functionName, expected.size, actual.size))
+    } else {
+      expected.zip(actual).collect {
+        case (expectedParam, actualParam) if typeEnv.getChildOf(expectedParam.t, actualParam.t).isEmpty =>
+          return Some(Error.TYPE_MISMATCH(expectedParam.t.toString, actualParam.t.toString, s"calling $functionName"))
+      }
+      None
+    }
   }
 
 }

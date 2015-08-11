@@ -52,7 +52,7 @@ class Editor(container : HTMLDivElement, printer : Printer[_]) {
       Parser.parse(tokens).right.map(tuple => {
         ast() = tuple._1
         tuple._1
-      }).left.map(error => { println(error); error })
+      }).left.map(error => { println("Error when parsing: " + error); error })
     } else {
       Right(ast())
     }

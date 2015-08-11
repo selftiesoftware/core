@@ -9,8 +9,8 @@ trait ParsingTest extends FlatSpec with Matchers {
 
   val emptyTypeEnv : TypeEnv = new DirectedGraph(Map(), AnyType)
 
-  def testEqualsAll(expected : Expr, expression : String) = {
-    parseStringAll(expression).right.map(_._1) should equal(Right(expected))
+  def testEqualsAll(expected : Seq[Expr], expression : String) = {
+    parseStringAll(expression).right.map(_._1) should equal(Right(BlockExpr(expected)))
   }
 
   def testEquals(expected : Expr, expression : String, valueEnv : ValueEnv = Environment.getParserEnv, typeEnv: TypeEnv = parsing.defaultTypeEnv) = {

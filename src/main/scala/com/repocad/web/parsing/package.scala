@@ -55,7 +55,9 @@ package object parsing {
 
     def SYNTAX_ERROR(expected : String, actual : String) = s"Syntax error: Expected '$expected', but found '$actual'"
 
-    def TYPE_MISMATCH(expected : String, actual : String) = s"Type mismatch: Expected $expected, but got $actual"
+    def TYPE_MISMATCH(expected : String, actual : String, when : String = "") =
+      s"Type mismatch ${if (when.isEmpty) "" else "when " + when}: Expected $expected, but got $actual"
+
     def TYPE_NOT_FOUND(typeName : String) : String = s"Type '$typeName' not found in scope. Is it defined above?"
 
     def TWO(error1 : String, error2 : String) = s"Two errors: $error1 and $error2"
