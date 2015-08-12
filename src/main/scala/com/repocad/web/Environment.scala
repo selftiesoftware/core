@@ -1,10 +1,11 @@
 package com.repocad.web
 
-import com.repocad.web.parsing._
+import com.repocad.reposcript.parsing._
+import com.repocad.reposcript.{Printer, evaluating, parsing}
 
 /**
- * An environment containing defaults for use in the [[com.repocad.web.parsing.Parser]] and
- * [[com.repocad.web.evaluating.Evaluator]].
+ * An environment containing defaults for use in the [[Parser]] and
+ * [[com.repocad.reposcript.evaluating.Evaluator]].
  */
 object Environment {
 

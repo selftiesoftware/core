@@ -1,5 +1,6 @@
 package com.repocad.web
 
+import com.repocad.reposcript.Printer
 import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
 
@@ -8,6 +9,10 @@ import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
  * @param canvas  The HTML canvas element
  */
 class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
+
+  //vars needed to update the drawing bounding box
+  //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
+  val paper = new Paper()
 
   val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
 
@@ -34,12 +39,12 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
     if(landscape) {
       val x = drawingCenter.x - (paperSize(1) * paperScale) /2
-      val y = -drawingCenter.y - (paperSize(0) * paperScale) /2
-      context.fillRect(x, y, paperSize(1) * paperScale, paperSize(0) * paperScale)
+      val y = -drawingCenter.y - (paperSize.head * paperScale) /2
+      context.fillRect(x, y, paperSize(1) * paperScale, paperSize.head * paperScale)
     } else {
-      val x = drawingCenter.x - (paperSize(0) * paperScale) /2
+      val x = drawingCenter.x - (paperSize.head * paperScale) /2
       val y = -drawingCenter.y - (paperSize(1) * paperScale) /2
-      context.fillRect(x, y, paperSize(0) * paperScale, paperSize(1) * paperScale)
+      context.fillRect(x, y, paperSize.head * paperScale, paperSize(1) * paperScale)
     }
   }
 
@@ -146,12 +151,20 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     })
   }
 
+  /**
+   * Prepares the printer for drawing
+   */
+  def prepare() : Unit = {
+    paper.resetBoundingBox()
+    actions = Seq()
+  }
+
   def screenText (x: Double, y: Double, size: Double, t: Any): Unit = {
     context.font = size.toString + " pt Arial"
     context.fillStyle = "black"
     context.save()
     context.setTransform(1, 0, 0, 1, 0, 0)
-    context.fillText(t.toString(), x, y)
+    context.fillText(t.toString, x, y)
     context.restore()
   }
 
@@ -178,6 +191,22 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
   def translate(x : Double, y : Double) : Unit = {
     context.translate(x, y)
+  }
+
+  /*
+  update the bounding box each time the drawing is evaluated.
+   */
+  def updateBoundingBox(x : Double, y: Double) : Vector2D = {
+
+    if (x >= paper.maxX) paper.maxX = x
+    if (x <= paper.minX) paper.minX = x
+    if (y >= paper.maxY) paper.maxY = y
+    if (y <= paper.minX) paper.minY = y
+
+    //move the paper center to the center of the current artwork on the paper
+    val cX = paper.minX + (paper.maxX - paper.minX) / 2
+    val cY = paper.minY + (paper.maxY - paper.minY) / 2
+    Vector2D(cX, cY)
   }
 
   /**

@@ -1,5 +1,6 @@
 package com.repocad.web
 
+import com.repocad.reposcript.{HttpClient, Response}
 import org.scalajs.dom
 import org.scalajs.dom._
 import scala.scalajs.js
@@ -8,13 +9,14 @@ import scala.scalajs.js
  * A drawing that is automatically synched
  */
 sealed case class Drawing(name : String, content : String) {
-  def save(): Response = {
+  def save(httpClient : HttpClient): Response = {
     val urlName = js.Dynamic.global.encodeURI(name)
-    Ajax.post("http://repocad.com:20004/post/" + urlName, content)
+    httpClient.post("http://repocad.com:20004/post/" + urlName, content)
   }
 }
 
 object Drawing {
+
   def apply() : Drawing = {
     val hash = window.location.hash.replace("#", "")
     def getDefault = Drawing.get("default")

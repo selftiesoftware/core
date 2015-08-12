@@ -51,7 +51,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
 
   @JSExport
   def save() : Unit = {
-    displaySuccess(editor.module().save().toString)
+    displaySuccess(editor.module().save(Ajax).toString)
   }
 
   @JSExport

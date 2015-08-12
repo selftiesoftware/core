@@ -1,12 +1,18 @@
 package com.repocad.web
 
+import com.repocad.reposcript.Printer
+import com.repocad.web.SplineToArc2D.arcToBezier
+
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
-import SplineToArc2D.arcToBezier
 /**
  * A printer that can generate pdf files
  */
 class PdfPrinter extends Printer[Any] {
+
+  //vars needed to update the drawing bounding box
+  //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
+  val paper = new Paper()
 
   val landscape = paper.scaleAndRotation() //update the paper scale and rotation so the correct values are used when generating the PDF
   var orientation : String = "landscape"
@@ -94,6 +100,14 @@ class PdfPrinter extends Printer[Any] {
     val v2 = transform(Vector2D(x2 / paperScale, y2 / paperScale))
     context.setLineWidth(0.1)
     context.line(v1.x, v1.y, v2.x, v2.y)
+  }
+
+  /**
+   * Prepares the printer for drawing
+   */
+  def prepare() : Unit = {
+    paper.resetBoundingBox()
+    actions = Seq()
   }
 
   def text(x : Double, y : Double, h : Double, t : Any) : Unit = {

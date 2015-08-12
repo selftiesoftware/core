@@ -1,9 +1,10 @@
 package com.repocad.web.rendering
 
-import com.repocad.web.evaluating.Evaluator
-import com.repocad.web.lexing.Lexer
-import com.repocad.web.parsing.{Parser, UnitExpr, Expr}
-import com.repocad.web.{Drawing, Printer}
+import com.repocad.reposcript.Printer
+import com.repocad.reposcript.evaluating.Evaluator
+import com.repocad.reposcript.lexing.Lexer
+import com.repocad.reposcript.parsing.{Expr, Parser, UnitExpr}
+import com.repocad.web.{Reposcript, Drawing}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.{HTMLDivElement, HTMLTextAreaElement}
 import rx.core.Var
@@ -48,8 +49,7 @@ class Editor(container : HTMLDivElement, printer : Printer[_]) {
    */
   def parse(useCache : Boolean = true): Either[String, Expr] = {
     if (!useCache) {
-      val tokens = Lexer.lex(module().content)
-      Parser.parse(tokens).right.map(tuple => {
+      Reposcript.parse(module().content).right.map(tuple => {
         ast() = tuple._1
         tuple._1
       }).left.map(error => { println("Error when parsing: " + error); error })
@@ -61,7 +61,7 @@ class Editor(container : HTMLDivElement, printer : Printer[_]) {
   def updateView(): Unit = {
     printer.prepare() //redraw the canvas
     //Evaluator.resetBoundingBox() //set the default paper scale
-    Evaluator.eval(ast(), printer)
+    Reposcript.evaluate(ast(), printer)
     printer.execute()
   }
 
