@@ -1,9 +1,9 @@
 package com.repocad.web
 
-import com.repocad.reposcript.{parsing, evaluating, Printer}
 import com.repocad.reposcript.evaluating.Evaluator
 import com.repocad.reposcript.lexing.Lexer
 import com.repocad.reposcript.parsing.{Expr, Parser}
+import com.repocad.reposcript.{Printer, evaluating, parsing}
 
 /**
  * An entrypoint for reposcript.

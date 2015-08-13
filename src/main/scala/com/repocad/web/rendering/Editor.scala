@@ -1,10 +1,8 @@
 package com.repocad.web.rendering
 
 import com.repocad.reposcript.Printer
-import com.repocad.reposcript.evaluating.Evaluator
-import com.repocad.reposcript.lexing.Lexer
-import com.repocad.reposcript.parsing.{Expr, Parser, UnitExpr}
-import com.repocad.web.{Reposcript, Drawing}
+import com.repocad.reposcript.parsing.{Expr, UnitExpr}
+import com.repocad.web.{Drawing, Reposcript}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.{HTMLDivElement, HTMLTextAreaElement}
 import rx.core.Var

@@ -3,19 +3,32 @@ package com.repocad.web
 import com.repocad.reposcript.{HttpClient, Response}
 import org.scalajs.dom
 import org.scalajs.dom._
+
+import scala.collection.mutable
+import scala.concurrent.Future
 import scala.scalajs.js
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 /**
  * A drawing that is automatically synched
  */
 sealed case class Drawing(name : String, content : String) {
-  def save(httpClient : HttpClient): Response = {
+  def save(httpClient : HttpClient): Future[Response] = {
     val urlName = js.Dynamic.global.encodeURI(name)
-    httpClient.post("http://repocad.com:20004/post/" + urlName, content)
+    httpClient.post("post/" + urlName, content)
   }
 }
 
 object Drawing {
+
+  /* Lazily load drawings */
+  private val drawingList : mutable.Seq[String] = mutable.Seq()
+
+  Ajax.get("list/") map {
+    case Response(_, _, text) => text.split("\n").filter(!_.endsWith("/")).toSeq
+  } foreach {
+    list => drawings ++ list
+  }
 
   def apply() : Drawing = {
     val hash = window.location.hash.replace("#", "")
@@ -27,16 +40,14 @@ object Drawing {
     }).left.map(_ => Drawing(js.Math.random().toString.substring(7), "")).merge
   }
 
-  lazy val drawings = Ajax.get("http://repocad.com:20004/list/") match {
-    case Response(_, _, text) => text.split("\n").filter(!_.endsWith("/")).toSeq
-  }
+  def drawings = drawingList
 
   private var listener : () => js.Any = () => ()
 
   dom.setInterval(() => listener(), 100)
 
   def get(name : String) : Either[String, Drawing] = {
-    Ajax.get("http://repocad.com:20004/get/" + name) match {
+    Ajax.getSynchronous("get/" + name) match {
       case Response(404, _, _) => Right(Drawing(name, ""))
       case Response(status, state, response) => Right(Drawing(name, response))
     }
