@@ -10,7 +10,7 @@ import com.repocad.reposcript.{Printer, evaluating, parsing}
  */
 object Reposcript {
 
-  private val parser = new Parser(Ajax)
+  private val parser = new Parser(Ajax, Environment.getParserEnv, parsing.defaultTypeEnv)
   private val evaluator = new Evaluator(parser)
 
   def parse(code : String) : parsing.Value = {
