@@ -4,8 +4,10 @@ import com.repocad.reposcript.Printer
 import com.repocad.reposcript.parsing.{Expr, UnitExpr}
 import com.repocad.web.{Drawing, Reposcript}
 import org.scalajs.dom._
-import org.scalajs.dom.raw.{HTMLDivElement, HTMLTextAreaElement}
+import org.scalajs.dom.raw.HTMLDivElement
 import rx.core.Var
+
+import scala.scalajs.js
 
 /**
  * An editor for Reposcript
@@ -16,25 +18,24 @@ class Editor(container : HTMLDivElement, printer : Printer[_]) {
   
   private val ast = Var[Expr](UnitExpr)
 
-  val textarea = container.ownerDocument.createElement("textarea").asInstanceOf[HTMLTextAreaElement]
+  //textarea.style.height = js.Dynamic.global.window.innerHeight.toString.toDouble * 0.7 - 52 + "px"
 
-  container.appendChild(textarea)
-  textarea.style.width = "100%"
-  textarea.style.height = scalajs.js.Dynamic.global.window.innerHeight.toString.toDouble * 0.7 - 52 + "px"
+  val codeMirror = js.Dynamic.global.CodeMirror(container)
 
-  textarea.onkeyup = (e : Event) => {
-    if (module().content != textarea.value) {
-      module() = module().copy(content = textarea.value)
+  codeMirror.on("change", (e : Event) => {
+    val newCode : String = codeMirror.getValue().toString
+    if (module().content != newCode) {
+      module() = module().copy(content = newCode)
       parse(false)
       updateView()
     }
-  }
+  })
 
   def getAst : Expr = ast()
 
   def setDrawing(drawing : Drawing): Unit = {
     module() = drawing
-    textarea.value = drawing.content
+    codeMirror.setValue(drawing.content)
     parse(false)
   }
 
