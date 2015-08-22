@@ -6,6 +6,8 @@ import com.repocad.web.{Reposcript, CanvasPrinter, Vector2D}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
 
+import scala.scalajs.js
+
 /**
  * A canvas that can draw a drawing
  */
@@ -14,7 +16,7 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
   var landscape = printer.landscape
   var center : Vector2D = printer.windowCenter
 
-  var zoomLevel : Int = 1 // the current zoom-level
+  var zoomLevel : Double = 0.5 // the current zoom-level
 
   var mousePosition = Vector2D(0, 0)
   var mouseDown = false

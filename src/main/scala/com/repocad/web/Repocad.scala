@@ -30,15 +30,14 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
       omnibox.loadDrawing(title.value)
     }
 
-    newDrawing.onclick = (e : MouseEvent) => {
-      val title = scala.scalajs.js.Dynamic.global.prompt("Name the new drawing").toString
-      if (title != null && !title.isEmpty) {
-        omnibox.loadDrawing(title)
-      }
-    }
-
+//    newDrawing.onclick = (e : MouseEvent) => {
+//      val title = scala.scalajs.js.Dynamic.global.prompt("Name the new drawing").toString
+//      if (title != null && !title.isEmpty) {
+//        omnibox.loadDrawing(title)
+//      }
+//    }
     view.init()
-    render()
+    editor.updateView()
   }
 
   @JSExport
@@ -46,7 +45,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
 
   @JSExport
   def render() : Unit = {
-    canvas.render(editor.getAst)
+    editor.updateView()
   }
 
   @JSExport

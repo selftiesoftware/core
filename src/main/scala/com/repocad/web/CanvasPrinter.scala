@@ -18,6 +18,13 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
   var landscape = false //paper orientation
 
+  //First run...
+  def init(): Unit = {
+    context.translate(canvas.width / 2, canvas.height / 2)
+    context.scale(0.5, 0.5)
+    prepare()
+  }
+
   //window center
   def windowCenter = Vector2D((canvas.getBoundingClientRect().right + canvas.getBoundingClientRect().left) * 0.5,
     (canvas.getBoundingClientRect().bottom + canvas.getBoundingClientRect().top) * 0.5)
@@ -64,12 +71,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
     //mouse position in canvas coordinates
     //screenText(5,12,"mouse from canvas corner: "+mouseCanvas)
-  }
-
-  //First run...
-  def init(): Unit = {
-    context.translate(canvas.width / 2, canvas.height / 2)
-    drawPaper() //redraw the paper
   }
 
   /**
@@ -157,6 +158,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   def prepare() : Unit = {
     paper.resetBoundingBox()
     actions = Seq()
+    drawPaper() //redraw the paper
   }
 
   def screenText (x: Double, y: Double, size: Double, t: Any): Unit = {

@@ -40,6 +40,7 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
     module() = drawing
     codeMirror.setValue(drawing.content)
     parse(false)
+    updateView()
   }
 
   /**
