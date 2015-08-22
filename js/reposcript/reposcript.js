@@ -1,3 +1,4 @@
+// Code adapted from Octave mode for CodeMirror
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -11,7 +12,7 @@
 })(function(CodeMirror) {
 "use strict";
 
-CodeMirror.defineMode("octave", function() {
+CodeMirror.defineMode("reposcript", function() {
   function wordRegexp(words) {
     return new RegExp("^((" + words.join(")|(") + "))\\b");
   }
@@ -25,20 +26,11 @@ CodeMirror.defineMode("octave", function() {
   var identifiers = new RegExp("^[_A-Za-z\xa1-\uffff][_A-Za-z0-9\xa1-\uffff]*");
 
   var builtins = wordRegexp([
-    'error', 'eval', 'function', 'abs', 'acos', 'atan', 'asin', 'cos',
-    'cosh', 'exp', 'log', 'prod', 'sum', 'log10', 'max', 'min', 'sign', 'sin', 'sinh',
-    'sqrt', 'tan', 'reshape', 'break', 'zeros', 'default', 'margin', 'round', 'ones',
-    'rand', 'syn', 'ceil', 'floor', 'size', 'clear', 'zeros', 'eye', 'mean', 'std', 'cov',
-    'det', 'eig', 'inv', 'norm', 'rank', 'trace', 'expm', 'logm', 'sqrtm', 'linspace', 'plot',
-    'title', 'xlabel', 'ylabel', 'legend', 'text', 'grid', 'meshgrid', 'mesh', 'num2str',
-    'fft', 'ifft', 'arrayfun', 'cellfun', 'input', 'fliplr', 'flipud', 'ismember'
+    'arc', 'bezier', 'circle', 'line', 'rectangle', 'text'
   ]);
 
   var keywords = wordRegexp([
-    'return', 'case', 'switch', 'else', 'elseif', 'end', 'endif', 'endfunction',
-    'if', 'otherwise', 'do', 'for', 'while', 'try', 'catch', 'classdef', 'properties', 'events',
-    'methods', 'global', 'persistent', 'endfor', 'endwhile', 'printf', 'sprintf', 'disp', 'until',
-    'continue', 'pkg'
+    'if', 'repeat', 'import', 'as', 'def'
   ]);
 
 
@@ -66,13 +58,6 @@ CodeMirror.defineMode("octave", function() {
   function tokenBase(stream, state) {
     // whitespaces
     if (stream.eatSpace()) return null;
-
-    // Handle one line Comments
-    if (stream.match('%{')){
-      state.tokenize = tokenComment;
-      stream.skipToEnd();
-      return 'comment';
-    }
 
     if (stream.match(/^[%#]/)){
       stream.skipToEnd();
@@ -130,6 +115,6 @@ CodeMirror.defineMode("octave", function() {
   };
 });
 
-CodeMirror.defineMIME("text/x-octave", "octave");
+CodeMirror.defineMIME("text/x-reposcript", "reposcript");
 
 });
