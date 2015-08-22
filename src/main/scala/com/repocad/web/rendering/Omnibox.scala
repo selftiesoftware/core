@@ -31,10 +31,7 @@ class Omnibox(inputField : HTMLInputElement, editor : Editor, canvas : Canvas) {
     window.location.hash = drawing.name
     inputField.value = drawing.name
     editor.setDrawing(drawing)
-    canvas.render(editor.getAst)
-    println("set paper")
-    //Paper.scaleAndRotation()
-
+    editor.updateView()
   }
 
   def loadDrawing(name : String) : Unit = {

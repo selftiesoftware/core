@@ -2,7 +2,7 @@ package com.repocad.web.rendering
 
 import com.repocad.reposcript.Printer
 import com.repocad.reposcript.parsing.{Expr, UnitExpr}
-import com.repocad.web.{Drawing, Reposcript}
+import com.repocad.web.{Repocad, Drawing, Reposcript}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLDivElement
 import rx.core.Var
@@ -12,15 +12,18 @@ import scala.scalajs.js
 /**
  * An editor for Reposcript
  */
-class Editor(container : HTMLDivElement, printer : Printer[_]) {
+class Editor(container : HTMLDivElement, repoCad : Repocad) {
 
   val module = Var(Drawing())
-  
+  val printer = repoCad.view
   private val ast = Var[Expr](UnitExpr)
 
-  //textarea.style.height = js.Dynamic.global.window.innerHeight.toString.toDouble * 0.7 - 52 + "px"
+  val codeMirrorHeight = js.Dynamic.global.window.innerHeight.toString.toDouble * 0.7 + "px"
 
-  val codeMirror = js.Dynamic.global.CodeMirror(container)
+  val codeMirrorSettings = js.Dynamic.literal("mode" -> "reposcript", "lineNumbers" -> true)
+  val codeMirror = js.Dynamic.global.CodeMirror(container, codeMirrorSettings)
+
+  codeMirror.setSize("100%", codeMirrorHeight)
 
   codeMirror.on("change", (e : Event) => {
     val newCode : String = codeMirror.getValue().toString
@@ -48,10 +51,12 @@ class Editor(container : HTMLDivElement, printer : Printer[_]) {
    */
   def parse(useCache : Boolean = true): Either[String, Expr] = {
     if (!useCache) {
-      Reposcript.parse(module().content).right.map(tuple => {
+      val result = Reposcript.parse(module().content).right.map(tuple => {
         ast() = tuple._1
         tuple._1
-      }).left.map(error => { println("Error when parsing: " + error); error })
+      })
+      result.fold[Unit](repoCad.displayError, _ => repoCad.displaySuccess("Success"))
+      result
     } else {
       Right(ast())
     }
@@ -59,7 +64,6 @@ class Editor(container : HTMLDivElement, printer : Printer[_]) {
 
   def updateView(): Unit = {
     printer.prepare() //redraw the canvas
-    //Evaluator.resetBoundingBox() //set the default paper scale
     Reposcript.evaluate(ast(), printer)
     printer.execute()
   }

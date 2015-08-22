@@ -14,7 +14,7 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
   var landscape = printer.landscape
   var center : Vector2D = printer.windowCenter
 
-  var zoomLevel : Int = 0 // the current zoom-level
+  var zoomLevel : Int = 1 // the current zoom-level
 
   var mousePosition = Vector2D(0, 0)
   var mouseDown = false
@@ -59,10 +59,8 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     render(ast, printer)
   }
 
-
   def render(ast : Expr, printer : Printer[_]): Unit = {
     printer.prepare() //redraw the canvas
-    //Evaluator.resetBoundingBox() //set the default paper scale
     Reposcript.evaluate(ast, printer)
     printer.execute()
   }

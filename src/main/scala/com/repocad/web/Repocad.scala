@@ -17,10 +17,10 @@ import scala.scalajs.js.annotation.JSExport
  */
 @JSExport("Repocad")
 class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HTMLInputElement,
-              searchDrawing : HTMLButtonElement, newDrawing : HTMLButtonElement) {
+              searchDrawing : HTMLButtonElement, newDrawing : HTMLButtonElement, log : HTMLDivElement) {
 
   val view = new CanvasPrinter(canvasElement)
-  val editor = new Editor(editorDiv, view)
+  val editor = new Editor(editorDiv, this)
   val canvas = new Canvas(canvasElement, editor, view)
   val omnibox = new Omnibox(title, editor, canvas)
 
@@ -67,11 +67,15 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   }
 
   def displayError(error : String): Unit = {
-    //debug.innerHTML = error
+    log.classList.remove("success")
+    log.classList.add("error")
+    log.innerHTML = error
   }
 
   def displaySuccess(success : String = ""): Unit = {
-    //debug.innerHTML = success
+    log.classList.remove("error")
+    log.classList.add("success")
+    log.innerHTML = success
   }
 
 }
