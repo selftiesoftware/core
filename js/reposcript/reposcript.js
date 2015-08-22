@@ -26,7 +26,8 @@ CodeMirror.defineMode("reposcript", function() {
   var identifiers = new RegExp("^[_A-Za-z\xa1-\uffff][_A-Za-z0-9\xa1-\uffff]*");
 
   var builtins = wordRegexp([
-    'arc', 'bezier', 'circle', 'line', 'rectangle', 'text'
+    'arc', 'bezier', 'circle', 'line', 'rectangle', 'text',
+    'Number', 'Boolean', 'String'
   ]);
 
   var keywords = wordRegexp([
