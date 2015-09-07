@@ -31,12 +31,12 @@ object Ajax extends HttpClient {
   }
 
   def applySynchronous(method : String, url : String, data : String, headers : Map[String, String]) : Response = {
+    val xhr = createRequest(method, url, data, headers, sync = false)
     try {
-      val xhr = createRequest(method, url, data, headers, sync = false)
       xhr.send(data)
       Response(xhr.status, xhr.readyState, xhr.responseText)
     } catch {
-      case e : Throwable => Response(0, 0, e.toString)
+      case e : Throwable => Response(0, 0, "")
     }
   }
 

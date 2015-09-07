@@ -7,6 +7,9 @@ import org.scalajs.dom.raw.{HTMLButtonElement, HTMLCanvasElement, HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters.JSRichGenTraversableOnce
 import scala.scalajs.js.annotation.JSExport
+import scala.util.{Failure, Success}
+
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 /**
  * The entry point for compiling and evaluating repocad code
@@ -44,7 +47,11 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
 
   @JSExport
   def save() : Unit = {
-    displaySuccess(editor.module().save(Ajax).toString)
+    val future = editor.module().save(Ajax)
+    future.onComplete(_ match {
+      case Success(response) => displaySuccess(s"'${editor.module().name}' saved successfully")
+      case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
+    })
   }
 
   @JSExport

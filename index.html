@@ -28,14 +28,17 @@
     <!-- Header -->
     <div class="row">
         <div class="one column">
-            <a href="/"><img src="images/repoCad_logo_NB.png" alt="RepoCad logo" align="top"
-                             style="width:35px;height:35px;"></a>
+            <a href="/">
+                <img src="images/repoCad_logo_NB.png" alt="RepoCad"
+                             style="width:48px; height:37px; padding:0 0 0 10px;">
+            </a>
         </div>
 
-        <input type="text" id="drawingTitle" class="nine columns" list="drawingTitles" style="background-color: #F0F8FF"/>
+        <input type="text" id="drawingTitle" class="nine columns" list="drawingTitles" style="background-color: #F0F8FF" placeholder="Type in a name to find or create a new script"/>
         <datalist id="drawingTitles" name="drawingTitles"></datalist>
 
         <button class="two columns" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i></button>
+        <!--<button class="two columns"><i class="fa fa-lg fa-navicon"></i></button>-->
     </div>
 
     <!-- Canvas and editor -->

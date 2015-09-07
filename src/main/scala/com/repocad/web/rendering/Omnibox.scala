@@ -9,9 +9,11 @@ import org.scalajs.dom.raw.HTMLInputElement
  */
 class Omnibox(inputField : HTMLInputElement, editor : Editor, canvas : Canvas) {
 
-  val drawing = window.location.hash match {
+  val defaultDrawing = "default"
+
+  private val drawing = window.location.hash match {
     case name : String if name.size > 1 => Drawing.get(name.substring(1))
-    case _ => Drawing.get("default")
+    case _ => Drawing.get(defaultDrawing)
   }
 
   drawing match {
@@ -29,7 +31,9 @@ class Omnibox(inputField : HTMLInputElement, editor : Editor, canvas : Canvas) {
 
   def loadDrawing(drawing : Drawing) : Unit = {
     window.location.hash = drawing.name
-    inputField.value = drawing.name
+    if (drawing.name != defaultDrawing) {
+      inputField.value = drawing.name
+    }
     editor.setDrawing(drawing)
     editor.updateView()
   }
@@ -37,7 +41,6 @@ class Omnibox(inputField : HTMLInputElement, editor : Editor, canvas : Canvas) {
   def loadDrawing(name : String) : Unit = {
     if (!name.isEmpty) {
       Drawing.get(name).fold(println, drawing => {
-        inputField.value = drawing.name
         loadDrawing(drawing)
       })
     }
