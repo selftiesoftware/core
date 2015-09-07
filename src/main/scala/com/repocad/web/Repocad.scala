@@ -5,6 +5,7 @@ import org.scalajs.dom.MouseEvent
 import org.scalajs.dom.raw.{HTMLButtonElement, HTMLCanvasElement, HTMLDivElement, HTMLInputElement}
 
 import scala.scalajs.js
+import scala.scalajs.js.Dynamic
 import scala.scalajs.js.JSConverters.JSRichGenTraversableOnce
 import scala.scalajs.js.annotation.JSExport
 import scala.util.{Failure, Success}
@@ -20,7 +21,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  */
 @JSExport("Repocad")
 class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HTMLInputElement,
-              searchDrawing : HTMLButtonElement, log : HTMLDivElement) {
+              searchDrawing : HTMLButtonElement, newDrawing : HTMLButtonElement, log : HTMLDivElement) {
 
   val view = new CanvasPrinter(canvasElement)
   val editor = new Editor(editorDiv, this)
@@ -31,6 +32,13 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   def init() : Unit = {
     searchDrawing.onclick = (e : MouseEvent) => {
       omnibox.loadDrawing(title.value)
+    }
+
+    newDrawing.onclick = (e : MouseEvent) => {
+      val name = Dynamic.global.prompt("Please write the name of the new drawing")
+      if (name != null) {
+        omnibox.loadDrawing(name.toString)
+      }
     }
 
     view.init()

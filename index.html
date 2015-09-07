@@ -34,10 +34,11 @@
             </a>
         </div>
 
-        <input type="text" id="drawingTitle" class="nine columns" list="drawingTitles" style="background-color: #F0F8FF" placeholder="Type in a name to find or create a new script"/>
+        <input type="text" id="drawingTitle" class="seven columns" list="drawingTitles" style="background-color: #F0F8FF" placeholder="Type in a name to find or create a new script"/>
         <datalist id="drawingTitles" name="drawingTitles"></datalist>
 
-        <button class="two columns" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i></button>
+        <button class="two columns" alt="Create new drawing" id="drawingNewButton"><i class="fa fa-lg fa-file-o"></i> New</button>
+        <button class="two columns" alt="Search for drawing" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i> Search</button>
         <!--<button class="two columns"><i class="fa fa-lg fa-navicon"></i></button>-->
     </div>
 
@@ -103,7 +104,8 @@
     var save = document.getElementById("save");
     var title = document.getElementById("drawingTitle");
     var searchDrawing = document.getElementById("drawingSearchButton");
-    var repocad = new Repocad(canvas, editor, title, searchDrawing, log);
+    var newDrawing = document.getElementById("drawingNewButton");
+    var repocad = new Repocad(canvas, editor, title, searchDrawing, newDrawing, log);
 
     editor.style.height = window.innerHeight * 0.7 - 52 + "px";
 
