@@ -1,8 +1,7 @@
 package com.repocad.web.rendering
 
-import com.repocad.reposcript.Printer
 import com.repocad.reposcript.parsing.{Expr, UnitExpr}
-import com.repocad.web.{Repocad, Drawing, Reposcript}
+import com.repocad.web.{Drawing, Repocad, Reposcript}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLDivElement
 import rx.core.Var
@@ -32,6 +31,15 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
       parse(false)
       updateView()
     }
+  })
+
+  codeMirror.on("mouseover", () => {
+    val mouse = codeMirror.getCursor()
+    val range = codeMirror.findWordAt(mouse)
+    console.log(codeMirror)
+    console.log(range)
+    val word = codeMirror.getRange(range.anchor, range.head)
+    console.log(word)
   })
 
   def getAst : Expr = ast()

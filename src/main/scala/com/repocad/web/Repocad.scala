@@ -17,7 +17,7 @@ import scala.scalajs.js.annotation.JSExport
  */
 @JSExport("Repocad")
 class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HTMLInputElement,
-              searchDrawing : HTMLButtonElement, newDrawing : HTMLButtonElement, log : HTMLDivElement) {
+              searchDrawing : HTMLButtonElement, log : HTMLDivElement) {
 
   val view = new CanvasPrinter(canvasElement)
   val editor = new Editor(editorDiv, this)
@@ -30,12 +30,6 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
       omnibox.loadDrawing(title.value)
     }
 
-//    newDrawing.onclick = (e : MouseEvent) => {
-//      val title = scala.scalajs.js.Dynamic.global.prompt("Name the new drawing").toString
-//      if (title != null && !title.isEmpty) {
-//        omnibox.loadDrawing(title)
-//      }
-//    }
     view.init()
     editor.updateView()
   }
