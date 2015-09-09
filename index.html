@@ -13,13 +13,31 @@
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/codemirror.css">
 
-    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link rel="icon" type="image/png" href="images/favicon.png"/>
 </head>
 <body>
 
 <style>
-    #canvas {
-        border: 1px solid #777;
+    a h1 {
+    text-decoration: none !important;
+    }
+    h1 {
+    color: #222;
+    font-size: 12rem;
+    }
+    p {
+    font-size: 1.8rem;
+    }
+    .box {
+    padding: .2rem .5rem;
+    margin: 0 .2rem;
+    font-size: 90%;
+    background: #F1F1F1;
+    border: 1px solid #E1E1E1;
+    border-radius: 4px;
+    }
+    .button {
+    font-size: 1.4rem;
     }
 </style>
 
@@ -27,130 +45,124 @@
 
     <!-- Header -->
     <div class="row">
-        <div class="one column">
-            <a href="/">
-                <img src="images/repoCad_logo_NB.png" alt="RepoCad"
-                             style="width:48px; height:37px; padding:0 0 0 10px;">
-            </a>
+        <img class="three columns" src="images/repoCad_logo.png" alt="RepoCad - The internet of digital design"
+             align="bottom">
+
+        <div class="nine columns">
+            <h1>RepoCad</h1>
+
+            <h2>The internet of digital design</h2>
         </div>
-
-        <input type="text" id="drawingTitle" class="seven columns" list="drawingTitles" style="background-color: #F0F8FF" placeholder="Type in a name to find or create a new script"/>
-        <datalist id="drawingTitles" name="drawingTitles"></datalist>
-
-        <button class="two columns" alt="Create new drawing" id="drawingNewButton"><i class="fa fa-lg fa-file-o"></i> New</button>
-        <button class="two columns" alt="Search for drawing" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i> Search</button>
-        <!--<button class="two columns"><i class="fa fa-lg fa-navicon"></i></button>-->
     </div>
 
-    <!-- Canvas and editor -->
+    <hr>
+
+    <div class="row">
+        <i class="one column fa fa-5x fa-question"></i>
+
+        <div class="eleven columns">
+            <h2>What is RepoCad?</h2>
+
+            <p>
+                RepoCad is a collaborative and modern design editor that uses the state of the art scripting language,
+                <a href="reposcript.html">RepoScript</a> to <i>write</i> design. Together with our library
+                of drawings, this gives you a novel way to collaborate on designs with whoever you want.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <i class="one column fa fa-4x fa-pencil-square-o"></i>
+
+        <div class="five columns">
+            <h2>The editor</h2>
+
+            <p>
+                Instead of torturing users with repetitive strain injuries from pointing and clicking,
+                RepoCad uses text to create visuals.
+            </p>
+
+            <p>
+                RepoScript turns code into design in an elegant way. Simplicity is key.
+            </p>
+
+            <a class="button twelve columns" href="editor.html">
+                <i class="fa fa-lg fa-pencil"></i>&nbsp;Go to the editor</a>
+        </div>
+        <i class="one column fa fa-4x fa-database"></i>
+
+        <div class="five columns">
+            <h2>The library</h2>
+
+            <p>
+                RepoCad is a library of design drawings and tools that can be used by anyone.
+            </p>
+
+            <p>
+                We want to move the lonely designer into a global design network, where ideas are
+                shared and built upon.
+            </p>
+
+            <a class="button twelve columns" href="https://github.com/repocad/lib">
+                <i class="fa fa-lg fa-database"></i>&nbsp;Go to the library</a>
+        </div>
+    </div>
+
+    <hr>
+
     <div class="row">
 
-        <div class="six columns" id="editor"></div>
+        <p class="four columns">
+            <i class="fa fa-4x fa-dollar pull-left"></i>
+            RepoCad is free to use. And will always be. But quality is expensive and we spend a lot of time on this.
+            Please
+            consider donating.
+        </p>
 
-        <div class="six columns"><canvas id="canvas"></canvas></div>
+        <p class="four columns">
+            <i class="fa fa-4x fa-copyright pull-left"></i>
+            RepoCad is open- source and our code is licensed under the <abbr
+                title="GNU General Public License">GPL</abbr>.
+            Your drawings are your own, but we encourage you to share them!
+        </p>
 
+        <p class="four columns">
+            <i class="fa fa-4x fa-cog pull-left"></i>
+            RepoCad is fresh off the shelf and some of the edges still needs polishing. Help us by telling us about
+            any problems you have.
+        </p>
     </div>
-
-    <style type="text/css">
-        #log {
-        padding: 3px 0 3px 5px;
-        }
-        #log.error {
-        background-color: #F43;
-        }
-        #log.success {
-        background-color: #EEE;
-        }
-    </style>
-
-    <!-- Debug, save and export -->
     <div class="row">
 
-        <div class="six columns"><p id="log">&nbsp;</p></div>
-
-        <button id="save" class="button three columns">
-            <i class="fa fa-save fa-lg"></i> Save
-        </button>
-        <button id="toPdf" class="button three columns">
-            <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
-        </button>
+        <a class="four columns button" href="">Donate</a>
+        <a class="four columns button" href="https://github.com/repocad" title="RepoCad on GitHub">Visit our
+            GitHub</a>
+        <a class="four columns button" href="https://github.com/repocad/web/issues"
+           title="RepoCad issues on GitHub">Write a bug report</a>
 
     </div>
+
+    <hr>
+
+    <div class="row">
+        <i class="one column fa fa-4x fa-comment-o"></i>
+
+        <div class="eleven columns">
+            <p>
+                Curious to know more about RepoCad? Would you like to get in touch with us?
+                <br/>
+                <a href="https://github.com/repocad/web/wiki" title="RepoCad documentation">Visit our documentation page</a>
+            </p>
+        </div>
+    </div>
+
+    <hr>
 
     <footer class="row" style="text-align: center">
-        Copyright (c) Selftie Software, licensed under the open-source license <a href="https://github.com/repocad/web/blob/master/repocad_license_agreement.pdf?raw=true">GPL</a>.
+        Copyright (c) Selftie Software, licensed under the open-source license <a
+            href="https://github.com/repocad/web/blob/master/repocad_license_agreement.pdf?raw=true">GPL</a>.
     </footer>
 </div>
 
-<!-- Include Scala.js compiled code -->
-<script type="text/javascript" src="web.js"></script>
-<!-- Include JSPDF -->
-<script type="text/javascript" src="js/jspdf.min.js"></script>
-<!-- Include CodeMirror -->
-<script src="js/codemirror.js"></script>
-<script src="js/reposcript/reposcript.js"></script>
-
-<!-- Run tutorial.webapp.TutorialApp -->
-<script type="text/javascript">
-
-    var canvas = document.getElementById("canvas");
-    var container = document.getElementById("container");
-    var drawingTitles = document.getElementById("drawingTitles");
-    var editor = document.getElementById("editor");
-    var log = document.getElementById("log");
-    var toggleMax = document.getElementById("toggleMax");
-    var toggleRun = document.getElementById("toggleRun");
-    var toPdf = document.getElementById("toPdf");
-    var save = document.getElementById("save");
-    var title = document.getElementById("drawingTitle");
-    var searchDrawing = document.getElementById("drawingSearchButton");
-    var newDrawing = document.getElementById("drawingNewButton");
-    var repocad = new Repocad(canvas, editor, title, searchDrawing, newDrawing, log);
-
-    editor.style.height = window.innerHeight * 0.7 - 52 + "px";
-
-    canvas.width = container.offsetWidth / 2 - 20;
-    canvas.height = window.innerHeight * 0.7;
-
-    function MouseWheelHandler(e) {
-
-        // cross-browser wheel delta
-        var e = window.event || e; // old IE support
-        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        repocad.zoom(delta, e);
-
-        // Stop scroll from happening
-        if (e.preventDefault)
-            e.preventDefault();
-        return false;
-    }
-
-    if (canvas.addEventListener) {
-        // IE9, Chrome, Safari, Opera
-        canvas.addEventListener("mousewheel", MouseWheelHandler, false);
-        // Firefox
-        canvas.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
-    }
-
-    window.onload = function (e) {
-        repocad.init();
-
-        var drawings = repocad.getDrawings();
-
-        for (var i in drawings) {
-            var e = new Option();
-            e.name = drawings[i];
-            e.value = drawings[i];
-            drawingTitles.appendChild(e);
-        }
-
-        toPdf.onclick = function (e) {
-            repocad.printPdf("IOD_2d_print.pdf");
-        }
-        save.onclick = function(e) {
-            repocad.save();
-        }
-    };
-</script>
 </body>
 </html>

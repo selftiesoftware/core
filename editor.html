@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Internet Of Digital Design</title>
+    <meta name="description" content="Language for CAD">
+    <meta name="author" content="Selftie Software">
+
+    <link href='css/font.css' rel='stylesheet' type='text/css'>
+    <link href="css/font-awesome.css" rel="stylesheet" type='text/css'>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/codemirror.css">
+
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+</head>
+<body>
+
+<style>
+    #canvas {
+        border: 1px solid #777;
+    }
+</style>
+
+<div class="container" id="container">
+
+    <!-- Header -->
+    <div class="row">
+        <div class="one column">
+            <a href="/">
+                <img src="images/repoCad_logo_NB.png" alt="RepoCad"
+                             style="width:48px; height:37px; padding:0 0 0 10px;">
+            </a>
+        </div>
+
+        <input type="text" id="drawingTitle" class="seven columns" list="drawingTitles" style="background-color: #F0F8FF" placeholder="Type in a name to find or create a new script"/>
+        <datalist id="drawingTitles" name="drawingTitles"></datalist>
+
+        <button class="two columns" alt="Create new drawing" id="drawingNewButton"><i class="fa fa-lg fa-file-o"></i> New</button>
+        <button class="two columns" alt="Search for drawing" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i> Search</button>
+        <!--<button class="two columns"><i class="fa fa-lg fa-navicon"></i></button>-->
+    </div>
+
+    <!-- Canvas and editor -->
+    <div class="row">
+
+        <div class="six columns" id="editor"></div>
+
+        <div class="six columns"><canvas id="canvas"></canvas></div>
+
+    </div>
+
+    <style type="text/css">
+        #log {
+        padding: 3px 0 3px 5px;
+        }
+        #log.error {
+        background-color: #F43;
+        }
+        #log.success {
+        background-color: #EEE;
+        }
+    </style>
+
+    <!-- Debug, save and export -->
+    <div class="row">
+
+        <div class="six columns"><p id="log">&nbsp;</p></div>
+
+        <button id="save" class="button three columns">
+            <i class="fa fa-save fa-lg"></i> Save
+        </button>
+        <button id="toPdf" class="button three columns">
+            <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
+        </button>
+
+    </div>
+
+    <footer class="row" style="text-align: center">
+        Copyright (c) Selftie Software, licensed under the open-source license <a href="https://github.com/repocad/web/blob/master/repocad_license_agreement.pdf?raw=true">GPL</a>.
+    </footer>
+</div>
+
+<!-- Include Scala.js compiled code -->
+<script type="text/javascript" src="web.js"></script>
+<!-- Include JSPDF -->
+<script type="text/javascript" src="js/jspdf.min.js"></script>
+<!-- Include CodeMirror -->
+<script src="js/codemirror.js"></script>
+<script src="js/reposcript/reposcript.js"></script>
+
+<!-- Run tutorial.webapp.TutorialApp -->
+<script type="text/javascript">
+
+    var canvas = document.getElementById("canvas");
+    var container = document.getElementById("container");
+    var drawingTitles = document.getElementById("drawingTitles");
+    var editor = document.getElementById("editor");
+    var log = document.getElementById("log");
+    var toggleMax = document.getElementById("toggleMax");
+    var toggleRun = document.getElementById("toggleRun");
+    var toPdf = document.getElementById("toPdf");
+    var save = document.getElementById("save");
+    var title = document.getElementById("drawingTitle");
+    var searchDrawing = document.getElementById("drawingSearchButton");
+    var newDrawing = document.getElementById("drawingNewButton");
+    var repocad = new Repocad(canvas, editor, title, searchDrawing, newDrawing, log);
+
+    editor.style.height = window.innerHeight * 0.7 - 52 + "px";
+
+    canvas.width = container.offsetWidth / 2 - 20;
+    canvas.height = window.innerHeight * 0.7;
+
+    function MouseWheelHandler(e) {
+
+        // cross-browser wheel delta
+        var e = window.event || e; // old IE support
+        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+        repocad.zoom(delta, e);
+
+        // Stop scroll from happening
+        if (e.preventDefault)
+            e.preventDefault();
+        return false;
+    }
+
+    if (canvas.addEventListener) {
+        // IE9, Chrome, Safari, Opera
+        canvas.addEventListener("mousewheel", MouseWheelHandler, false);
+        // Firefox
+        canvas.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
+    }
+
+    window.onload = function (e) {
+        repocad.init();
+
+        var drawings = repocad.getDrawings();
+
+        for (var i in drawings) {
+            var e = new Option();
+            e.name = drawings[i];
+            e.value = drawings[i];
+            drawingTitles.appendChild(e);
+        }
+
+        toPdf.onclick = function (e) {
+            repocad.printPdf("IOD_2d_print.pdf");
+        }
+        save.onclick = function(e) {
+            repocad.save();
+        }
+    };
+</script>
+</body>
+</html>
