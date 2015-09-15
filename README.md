@@ -9,7 +9,7 @@ Read more on [our wiki documentation](https://github.com/repocad/web/wiki).
 RepoCad is best served on its website, [repocad.com](http://repocad.com). But if you feel adventurous this is all open-source, so [fork](https://help.github.com/articles/fork-a-repo/) all you want!.
 
 ## Can I help?
-Hell yes. Send me an email by writing to me below.
+Oh yes. Send an message to the email written below.
 
 ## License
 Licensed under GPL. Please read:
