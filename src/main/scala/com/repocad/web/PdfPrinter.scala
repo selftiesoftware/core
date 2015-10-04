@@ -12,6 +12,8 @@ import scala.scalajs.js.JSConverters._
 class PdfPrinter(paper : Paper) extends Printer[Any] {
 
   val context = js.Dynamic.global.jsPDF(paper.orientation.toString)
+
+  // NOTE: Y is flipped
   var scaledCenter = Vector2D(paper.center.x, -paper.center.y)
 
   //set standard line weight
@@ -108,11 +110,9 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
 
   private def transform(v : Vector2D): Vector2D = {
     if (paper.orientation == Portrait) {
-      val a = Vector2D(v.x,-v.y) - scaledCenter
-      a
+      Vector2D(v.x,-v.y) - scaledCenter / paper.scale + Vector2D(105, 148.5)
     } else {
-      val b = Vector2D(v.x,-v.y) - scaledCenter
-      b
+      Vector2D(v.x,-v.y) - scaledCenter / paper.scale + Vector2D(148.5, 105)
     }
   }
 

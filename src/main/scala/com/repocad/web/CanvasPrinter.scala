@@ -19,7 +19,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   //First run...
   def init(): Unit = {
     context.translate(canvas.width / 2, canvas.height / 2)
-    context.scale(0.5, 0.5)
+    context.scale(1, 1)
     prepare()
   }
 
@@ -40,7 +40,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     context.fillStyle = "white"
     paper = boundingBox.toPaper
 
-    context.fillRect(paper.minX, paper.minY, paper.width, paper.height)
+    context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
   }
 
   def drawScreenText(): Unit = {
@@ -162,7 +162,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
     val length = t.toString.length * 0.3 * h
     val correctedH = h / 1.5
-    val myFont = correctedH.toString() + "px Arial"
+    val myFont : String = correctedH + "px Arial"
 
     boundingBox.add(x - 10, y - 10)
     boundingBox.add(x + length, y + h + 10)
