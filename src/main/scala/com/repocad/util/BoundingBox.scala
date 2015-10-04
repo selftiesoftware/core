@@ -23,18 +23,18 @@ class BoundingBox {
 
   def toPaper : Paper = Paper(xRange.min, yRange.min, xRange.max, yRange.max)
 
+  override def toString = s"X[${xRange.min}, ${xRange.max}}] Y: [${yRange.min}, ${yRange.max}}]"
+
 }
 
 trait DynamicRange {
   def add(number : Double) : DynamicRange
-  def center : Double
   def max : Double
   def min : Double
 }
 
 case object EmptyRange extends DynamicRange {
   def add(number : Double) = NonEmptyRange(number, number)
-  def center = 0
   def max = 0
   def min = 0
 }
@@ -44,10 +44,9 @@ case class NonEmptyRange(min : Double, max : Double) extends DynamicRange {
     if (number < min) {
       NonEmptyRange(number, max)
     } else if (number > max) {
-      NonEmptyRange(min, max)
+      NonEmptyRange(min, number)
     } else {
       this
     }
   }
-  def center = (min + max) / 2
 }
