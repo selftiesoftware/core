@@ -20,8 +20,8 @@ object Paper {
   def apply() : Paper = new Paper(Vector2D(0, 0), Portrait, 1)
 
   def apply(minX : Double, minY : Double, maxX : Double, maxY : Double) : Paper = {
-    val height = maxX - minX
-    val width = maxY - minY
+    val height = maxY - minY
+    val width = maxX - minX
 
     val center = Vector2D((minX + maxX) / 2, (minY + maxY) / 2)
     val orientation = if (width < height) Portrait else Landscape
