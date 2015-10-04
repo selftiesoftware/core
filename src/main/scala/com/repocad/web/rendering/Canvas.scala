@@ -2,7 +2,8 @@ package com.repocad.web.rendering
 
 import com.repocad.reposcript.Printer
 import com.repocad.reposcript.parsing.Expr
-import com.repocad.web.{Reposcript, CanvasPrinter, Vector2D}
+import com.repocad.util.Vector2D
+import com.repocad.web.{Reposcript, CanvasPrinter}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
 
@@ -13,7 +14,6 @@ import scala.scalajs.js
  */
 class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinter) {
 
-  var landscape = printer.landscape
   var center : Vector2D = printer.windowCenter
 
   var zoomLevel : Double = 0.5 // the current zoom-level
@@ -41,7 +41,7 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
 
   canvas.onmousemove = (e : MouseEvent) => {
     if (mouseDown) {
-      val zoomFactor = zoomLevel.toDouble.abs
+      val zoomFactor = zoomLevel.abs
       val newZ1 = math.pow(zoomFactor,1.1)
       val newZ2 = math.pow(zoomFactor,0.5)
 

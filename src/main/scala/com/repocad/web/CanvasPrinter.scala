@@ -1,6 +1,7 @@
 package com.repocad.web
 
 import com.repocad.reposcript.Printer
+import com.repocad.util.{Vector2D, Paper, BoundingBox}
 import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
 
@@ -10,13 +11,10 @@ import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
  */
 class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
-  //vars needed to update the drawing bounding box
-  //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
-  val paper = new Paper()
-
   val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
 
-  var landscape = false //paper orientation
+  private var paper = Paper(0, 0, 0, 0)
+  private var boundingBox = new BoundingBox
 
   //First run...
   def init(): Unit = {
@@ -39,25 +37,15 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     context.fillRect(0, 0, canvas.width, canvas.height)
     context.restore()
 
-    canvasCorner = Vector2D(canvas.getBoundingClientRect().left,canvas.getBoundingClientRect().top)
-
     context.fillStyle = "white"
-    landscape = paper.scaleAndRotation() //run the scale and rotation evaluation
+    paper = boundingBox.toPaper
 
-    if(landscape) {
-      val x = drawingCenter.x - (paperSize(1) * paperScale) /2
-      val y = -drawingCenter.y - (paperSize.head * paperScale) /2
-      context.fillRect(x, y, paperSize(1) * paperScale, paperSize.head * paperScale)
-    } else {
-      val x = drawingCenter.x - (paperSize.head * paperScale) /2
-      val y = -drawingCenter.y - (paperSize(1) * paperScale) /2
-      context.fillRect(x, y, paperSize.head * paperScale, paperSize(1) * paperScale)
-    }
+    context.fillRect(paper.minX, paper.minY, paper.width, paper.height)
   }
 
   def drawScreenText(): Unit = {
     //annotation
-    val txt : String = "p a p e r : A 4       s c a l e:   1 :  " + paperScale.toString
+    val txt : String = "p a p e r : A 4       s c a l e:   1 :  " + paper.scale
     val version : String = "v e r.   0 . 1 5 "
     screenText(5,10,70,txt)
     screenText(370,10,70,version)
@@ -97,56 +85,58 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
-    updateBoundingBox(x + r, y + r)
-    updateBoundingBox(x - r, y - r)
+    boundingBox.add(x + r, y + r)
+    boundingBox.add(x - r, y - r)
 
     addAction(context => {
       context.beginPath()
       context.arc(x, -y, r, sAngle, eAngle)
       context.stroke()
-      context.lineWidth = 0.2 * paperScale
+      context.lineWidth = 0.2 * paper.scale
       context.closePath()
 
     })
   }
 
   override def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
-    updateBoundingBox(x1, y1)
-    updateBoundingBox(x2, y2)
-    updateBoundingBox(x3, y3)
-    updateBoundingBox(x4, y4)
+    boundingBox.add(x1, y1)
+    boundingBox.add(x2, y2)
+    boundingBox.add(x3, y3)
+    boundingBox.add(x4, y4)
 
     addAction(context => {
       context.beginPath()
       context.moveTo(x1, -y1)
       context.bezierCurveTo(x2, -y2, x3, -y3, x4, -y4)
       context.stroke()
-      context.lineWidth = 0.2 * paperScale
+      context.lineWidth = 0.2 * paper.scale
     })
   }
 
+  def getPaper = paper
+
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
-    updateBoundingBox(x1,y1)
-    updateBoundingBox(x2,y2)
+    boundingBox.add(x1,y1)
+    boundingBox.add(x2,y2)
 
     addAction(context => {
       context.beginPath()
       context.moveTo(x1, -y1)
       context.lineTo(x2, -y2)
       context.stroke()
-      context.lineWidth = 0.2 * paperScale
+      context.lineWidth = 0.2 * paper.scale
       context.closePath()
     })
   }
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
-    updateBoundingBox(x + r, y + r)
-    updateBoundingBox(x - r, y - r)
+    boundingBox.add(x + r, y + r)
+    boundingBox.add(x - r, y - r)
 
     addAction(context => {
       context.beginPath()
       context.arc(x, -y, r, 0, 2 * Math.PI)
-      context.lineWidth = 0.2 * paperScale
+      context.lineWidth = 0.2 * paper.scale
       context.stroke()
       context.closePath()
     })
@@ -156,9 +146,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
    * Prepares the printer for drawing
    */
   def prepare() : Unit = {
-    paper.resetBoundingBox()
     actions = Seq()
-    drawPaper() //redraw the paper
+    boundingBox = new BoundingBox
   }
 
   def screenText (x: Double, y: Double, size: Double, t: Any): Unit = {
@@ -175,8 +164,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     val correctedH = h / 1.5
     val myFont = correctedH.toString() + "px Arial"
 
-    updateBoundingBox(x - 10, y - 10)
-    updateBoundingBox(x + length, y + h + 10)
+    boundingBox.add(x - 10, y - 10)
+    boundingBox.add(x + length, y + h + 10)
 
     addAction(context => {
       context.save()
@@ -195,22 +184,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     context.translate(x, y)
   }
 
-  /*
-  update the bounding box each time the drawing is evaluated.
-   */
-  def updateBoundingBox(x : Double, y: Double) : Vector2D = {
-
-    if (x >= paper.maxX) paper.maxX = x
-    if (x <= paper.minX) paper.minX = x
-    if (y >= paper.maxY) paper.maxY = y
-    if (y <= paper.minX) paper.minY = y
-
-    //move the paper center to the center of the current artwork on the paper
-    val cX = paper.minX + (paper.maxX - paper.minX) / 2
-    val cY = paper.minY + (paper.maxY - paper.minY) / 2
-    Vector2D(cX, cY)
-  }
-
   /**
    * Carries out a zoom action by zooming with the given delta and then panning
    * the printer relative to the current zoom-factor.
@@ -222,7 +195,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
    * @param pointX  The center X for the zoom-operation
    * @param pointY  The center Y for the zoom-operation
    */
-
   def zoom(delta : Double, pointX : Double, pointY : Double) {
     val increment = 0.15
     //TODO: rewrite this completely. Needs to use a TransformationMatrix and take into account the zoom level.

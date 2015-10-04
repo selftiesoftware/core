@@ -17,7 +17,7 @@
  * Read more at http://repocad.com and https://github.com/repocad
  */
 
-package com.repocad.web
+package com.repocad.util
 
 /**
  * A vector class utility.
