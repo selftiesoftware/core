@@ -1,28 +1,20 @@
 package com.repocad.web
 
 import com.repocad.reposcript.Printer
-import com.repocad.web.SplineToArc2D.arcToBezier
+import com.repocad.util.{SplineToArc2D, Vector2D, Portrait, Paper}
+import SplineToArc2D.arcToBezier
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
 /**
  * A printer that can generate pdf files
  */
-class PdfPrinter extends Printer[Any] {
+class PdfPrinter(paper : Paper) extends Printer[Any] {
 
-  //vars needed to update the drawing bounding box
-  //harvest biggest and smallest Y-coordinates in order to dynamically scale the drawing paper
-  val paper = new Paper()
+  val context = js.Dynamic.global.jsPDF(paper.orientation.toString)
 
-  val landscape = paper.scaleAndRotation() //update the paper scale and rotation so the correct values are used when generating the PDF
-  var orientation : String = "landscape"
-  if (!landscape) orientation = "portrait"
-  val context = js.Dynamic.global.jsPDF(orientation.toString)
-  val offsetX = com.repocad.web.drawingCenter.x
-  val offsetY = com.repocad.web.drawingCenter.y
-
-  //Transform by moving (0, 0) to center of paper NOTE: Y is flipped.
-  var scaledCenter = Vector2D(drawingCenter.x / paperScale ,-drawingCenter.y / paperScale)
+  // NOTE: Y is flipped
+  var scaledCenter = Vector2D(paper.center.x, -paper.center.y)
 
   //set standard line weight
   context.setLineWidth(0.1)
@@ -50,10 +42,10 @@ class PdfPrinter extends Printer[Any] {
       val x4 = spline(6)
       val y4 = spline(7)
 
-      val v1 = transform(Vector2D(x1 / paperScale, y1 / paperScale))
-      val v2 = transform(Vector2D(x2 / paperScale, y2 / paperScale))
-      val v3 = transform(Vector2D(x3 / paperScale, y3 / paperScale))
-      val v4 = transform(Vector2D(x4 / paperScale, y4 / paperScale)) //endPoint
+      val v1 = transform(Vector2D(x1 / paper.scale, y1 / paper.scale))
+      val v2 = transform(Vector2D(x2 / paper.scale, y2 / paper.scale))
+      val v3 = transform(Vector2D(x3 / paper.scale, y3 / paper.scale))
+      val v4 = transform(Vector2D(x4 / paper.scale, y4 / paper.scale)) //endPoint
       val xS = v1.x
       val yS = v1.y
 
@@ -75,10 +67,10 @@ class PdfPrinter extends Printer[Any] {
 
   //TODO: unable to get the output format right.. some constellation of Array[Double]'s ??
   def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
-    val v1 = transform(Vector2D(x1 / paperScale, y1 / paperScale))
-    val v2 = transform(Vector2D(x2 / paperScale, y2 / paperScale))
-    val v3 = transform(Vector2D(x3 / paperScale, y3 / paperScale))
-    val v4 = transform(Vector2D(x4 / paperScale, y4 / paperScale))//endPoint
+    val v1 = transform(Vector2D(x1 / paper.scale, y1 / paper.scale))
+    val v2 = transform(Vector2D(x2 / paper.scale, y2 / paper.scale))
+    val v3 = transform(Vector2D(x3 / paper.scale, y3 / paper.scale))
+    val v4 = transform(Vector2D(x4 / paper.scale, y4 / paper.scale))//endPoint
     val x = v1.x
     val y = v1.y
 
@@ -96,8 +88,8 @@ class PdfPrinter extends Printer[Any] {
   }
 
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : Unit = {
-    val v1 = transform(Vector2D(x1 / paperScale, y1 / paperScale))
-    val v2 = transform(Vector2D(x2 / paperScale, y2 / paperScale))
+    val v1 = transform(Vector2D(x1 / paper.scale, y1 / paper.scale))
+    val v2 = transform(Vector2D(x2 / paper.scale, y2 / paper.scale))
     context.setLineWidth(0.1)
     context.line(v1.x, v1.y, v2.x, v2.y)
   }
@@ -106,8 +98,6 @@ class PdfPrinter extends Printer[Any] {
    * Prepares the printer for drawing
    */
   def prepare() : Unit = {
-    paper.resetBoundingBox()
-    actions = Seq()
   }
 
   def text(x : Double, y : Double, h : Double, t : Any) : Unit = {
@@ -115,16 +105,14 @@ class PdfPrinter extends Printer[Any] {
     //document.setFont("times")
     context.setFontSize(h * 1.8)
     //document("test")
-    context.text(v.x / paperScale,v.y / paperScale,t.toString)
+    context.text(v.x / paper.scale, v.y / paper.scale, t.toString)
   }
 
   private def transform(v : Vector2D): Vector2D = {
-    if (!landscape) {
-      val a = Vector2D(v.x,-v.y) - scaledCenter + Vector2D(paperSize(0)/2,paperSize(1)/2)
-      a
+    if (paper.orientation == Portrait) {
+      Vector2D(v.x,-v.y) - scaledCenter / paper.scale + Vector2D(105, 148.5)
     } else {
-      val b = Vector2D(v.x,-v.y) - scaledCenter + Vector2D(paperSize(1)/2,paperSize(0)/2)
-      b
+      Vector2D(v.x,-v.y) - scaledCenter / paper.scale + Vector2D(148.5, 105)
     }
   }
 

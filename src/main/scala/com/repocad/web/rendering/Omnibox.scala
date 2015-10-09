@@ -1,6 +1,6 @@
 package com.repocad.web.rendering
 
-import com.repocad.web.{Paper, Drawing}
+import com.repocad.web.Drawing
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLInputElement
 

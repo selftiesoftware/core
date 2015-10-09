@@ -1,6 +1,6 @@
-package com.repocad.web
+package com.repocad.util
 
-  object SplineToArc2D {
+object SplineToArc2D {
 
     def arcToBezier(cX: Double, cY: Double, radius: Double, startAngleLarge: Double, endAngleLarge: Double) : List[List[Double]] = {
 
