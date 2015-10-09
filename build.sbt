@@ -1,4 +1,5 @@
-val script = RootProject(uri("git://github.com/repocad/reposcript"))
+//val script = RootProject(uri("git://github.com/repocad/reposcript"))
+val script = RootProject(file("c://repocad/reposcript"))
 
 val project = Project("web", file("."))
   .settings(
