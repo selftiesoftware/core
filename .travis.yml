@@ -1,23 +1,17 @@
 sudo: false
-
 language: scala
-
 scala:
-  - 2.11.7
-
+- 2.11.7
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION test fullOptJS
-
-before_deploy: 
-  - mv target/scala-2.11/web-opt.js web.js
-  - rm -rf target
-  - rm -rf project
-  - zip web.zip -r *
-
+- sbt ++$TRAVIS_SCALA_VERSION test fullOptJS
+before_deploy:
+- mv target/scala-2.11/web-opt.js web.js
+- rm -rf target
+- rm -rf project
+- zip web.zip -r *
 deploy:
-  - provider: releases
-  - api_key: "nl5cwsZFk/KXg1DUcwut8fDfa1Ac61eoISr2AyIWThi9E+QifRH14GDoIDa7XDcbo8qIzLKToHWkWefOnnjYfrYkAAp2AoyG74DyTqXH7Q+V462ZsKjYofeyBnCnB4nM+wnRjUwZFEkZvDyuw630HbF80Fcfo4WN1GjahdSHdCA="
-  - file: "web.zip"
-  - skip_cleanup: true
-  - on:
-    tags: true
+- provider: releases
+- file: web.zip
+- skip_cleanup: true
+dd:
+  secure: bny9FFgcyR70DpFd1WN5eVVAR8XNFeFigSRp2OMbFbwAzneQil1L8eRnpCZHwy0JpuQcGy8igk23LxrQaD+6PX5OS33hqmVLJkUfa6gYc4NkLC9GVgIiPz53nFFXTC4fh+CT0uEgNuDxCRERxSSjSXf8Z2MROMLPsN1YtgMyGfI=
