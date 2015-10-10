@@ -53,9 +53,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     screenText(5,10,70,txt)
     screenText(370,10,70,version)
 
-
-
-
     //DEBUGGING
 
     //screenText(5,6,"paper center from canvas corner: "+panVector)
