@@ -9,9 +9,11 @@ before_deploy:
 - rm -rf project
 - zip web.zip -r *
 deploy:
+  skip_cleanup: true
   provider: releases
   api_key:
     secure: TYkH+TVMEjcQQ/8a73l9hqyAWgI0ZLpDyTfwLxvWXp8o1Qd/DfP79RSsyb0frS9a0nADgi5ldQskXtvfSq3e3guhYJDHem2hgwc8BJWQ4SyyikaqxCBRE95B5h/5EJL//KGCksa1M4NLIuSLguthxx8y7r+RJmgw0dJjyfwL86Q=
   file: web.zip
   on:
+    tags: true
     repo: repocad/web
