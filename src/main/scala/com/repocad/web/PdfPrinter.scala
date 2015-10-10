@@ -14,7 +14,7 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
   val context = js.Dynamic.global.jsPDF(paper.orientation.toString)
 
   // NOTE: Y is flipped
-  var scaledCenter = Vector2D(paper.center.x, -paper.center.y)
+  val scaledCenter = Vector2D(paper.center.x, -paper.center.y)
 
   //set standard line weight
   context.setLineWidth(0.1)
