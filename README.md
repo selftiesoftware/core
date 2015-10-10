@@ -1,3 +1,5 @@
+![Travis build status](https://travis-ci.org/repocad/web.svg)
+
 The website of RepoCad
 ===
 
