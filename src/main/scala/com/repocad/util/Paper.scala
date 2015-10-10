@@ -17,6 +17,9 @@ case class Paper(center : Vector2D, orientation : PaperRotation, scale : Int) {
 
 object Paper {
 
+  //find the appriate scale divisible with either 1,2 or 5
+  //private def roundScale (scale : Int) = {}
+
   def apply() : Paper = new Paper(Vector2D(0, 0), Portrait, 1)
 
   def apply(minX : Double, minY : Double, maxX : Double, maxY : Double) : Paper = {

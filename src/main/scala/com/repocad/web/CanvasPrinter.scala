@@ -41,6 +41,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     paper = boundingBox.toPaper
 
     context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
+
+    drawScreenText()
   }
 
   def drawScreenText(): Unit = {
