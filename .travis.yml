@@ -6,7 +6,7 @@ scala:
   - 2.11.7
 
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION compile test fullOptJS
+  - sbt ++$TRAVIS_SCALA_VERSION test fullOptJS
 
 before_deploy: 
   - mv target/scala-2.11/web-opt.js web.js
