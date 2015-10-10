@@ -48,9 +48,12 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   def drawScreenText(): Unit = {
     //annotation
     val txt : String = "p a p e r : A 4       s c a l e:   1 :  " + paper.scale
-    val version : String = "v e r.   0 . 1 5 "
+    val version : String = "v e r.   0 . 2 "
     screenText(5,10,70,txt)
     screenText(370,10,70,version)
+
+
+
 
     //DEBUGGING
 
