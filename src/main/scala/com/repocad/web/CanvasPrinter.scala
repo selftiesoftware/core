@@ -1,7 +1,7 @@
 package com.repocad.web
 
 import com.repocad.reposcript.Printer
-import com.repocad.util.{Vector2D, Paper, BoundingBox}
+import com.repocad.util.{TransformationMatrix, Vector2D, Paper, BoundingBox}
 import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
 
@@ -11,21 +11,21 @@ import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
  */
 class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
+  val zoomFactor = 1.15
   val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
+  var transformation = TransformationMatrix()
 
   private var paper = Paper(0, 0, 0, 0)
   private var boundingBox = new BoundingBox
 
   //First run...
   def init(): Unit = {
-    context.translate(canvas.width / 2, canvas.height / 2)
-    context.scale(1, 1)
+    transform(_.translate(canvasCenter.x, canvasCenter.y))
     prepare()
   }
 
-  //window center
-  def windowCenter = Vector2D((canvas.getBoundingClientRect().right + canvas.getBoundingClientRect().left) * 0.5,
-    (canvas.getBoundingClientRect().bottom + canvas.getBoundingClientRect().top) * 0.5)
+  def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
+  def windowCenter = Vector2D(canvas.getBoundingClientRect().left, canvas.getBoundingClientRect().top) + canvasCenter
 
   /**
    * Draw a white rectangle representing the drawing if it is printed
@@ -41,19 +41,14 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     paper = boundingBox.toPaper
 
     context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
-
-    drawScreenText()
   }
 
   def drawScreenText(): Unit = {
     //annotation
     val txt : String = "p a p e r : A 4       s c a l e:   1 :  " + paper.scale
-    val version : String = "v e r.   0 . 2 "
+    val version : String = "v e r.   0 . 1 5 "
     screenText(5,10,70,txt)
     screenText(370,10,70,version)
-
-
-
 
     //DEBUGGING
 
@@ -186,28 +181,23 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   }
 
   def translate(x : Double, y : Double) : Unit = {
-    context.translate(x, y)
+    val zoom = transformation.scale
+    transform(_.translate(x / zoom, y / zoom))
   }
 
   /**
    * Carries out a zoom action by zooming with the given delta and then panning
    * the printer relative to the current zoom-factor.
-   * The zoom-function are disabled if the zoom level are below 0.00001 or above 50
-   * Also, if the delta is cropped at (+/-)10, to avoid touch-pad bugs with huge deltas etc.
-   * The zoom is logarithmic (base 2) since linear zooming gives some very brutal zoom-steps.
    *
    * @param delta  The current zoom delta (1 or -1) as received from the mouse wheel / touch pad via js
    * @param pointX  The center X for the zoom-operation
    * @param pointY  The center Y for the zoom-operation
    */
   def zoom(delta : Double, pointX : Double, pointY : Double) {
-    val increment = 0.15
-    //TODO: rewrite this completely. Needs to use a TransformationMatrix and take into account the zoom level.
-    val zoomScale = if(delta == -1) 1 + (delta * increment) else 1 + (delta * 0.1767) //zoom in needs to be bigger
-    val mousePoint = Vector2D(pointX - windowCenter.x, pointY - windowCenter.y)
-    context.translate(mousePoint.x, mousePoint.y)
-    context.scale(zoomScale, zoomScale)
-    context.translate(-mousePoint.x, -mousePoint.y)
+    val mousePoint = Vector2D(pointX, pointY) - windowCenter
+    transform(_.translate(mousePoint.x, mousePoint.y))
+    transform(_.scale(delta))
+    transform(_.translate(-mousePoint.x, -mousePoint.y))
   }
 
   /**
@@ -217,5 +207,10 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     //zoom = math.max(View.width, View.height) / math.max(drawing.boundary.width, drawing.boundary.height) * 0.5 // 20% margin
     //val translateX = centerX * zoom
     //val translateY = centerY * zoom
+  }
+
+  def transform(f : TransformationMatrix => TransformationMatrix): Unit = {
+    this.transformation = f(transformation)
+    context.setTransform(transformation.a, transformation.b, transformation.c, transformation.d, transformation.e, transformation.f)
   }
 }

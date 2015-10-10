@@ -75,7 +75,6 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
    * @param {number} y - vector end point for y (start = 0)
    * @returns {{x: number, y: number}}
    */
-
   /*
   def reflectVector(x : Double, y : Double) {
 
@@ -88,21 +87,14 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
     return {x:x, y:y}
   }
 
-  /**
-   * Short-hand to reset current matrix to an identity matrix.
-   */
-  reset: function() {
-    return this.setTransform(1, 0, 0, 1, 0, 0)
-  },
-
   */
   /**
    * Rotates current matrix accumulative by angle.
    * @param {angle} - angle in radians
    */
   def rotate(angle : Double) {
-    var cos = math.cos(angle)
-    var sin = math.sin(angle)
+    val cos = math.cos(angle)
+    val sin = math.sin(angle)
     this.transform(cos, sin, -sin, cos, 0, 0)
   }
 
@@ -133,16 +125,19 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
   scaleU: function(f) {
     return this._t(f, 0, 0, f, 0, 0)
   },
+  */
+
+  def scale = math.sqrt(a * a + b * b)
 
   /**
-   * Scales current matrix accumulative.
-   * @param {number} sx - scale factor x (1 does nothing)
-   * @param {number} sy - scale factor y (1 does nothing)
+   * Scales current matrix equally in both axes.
+   * @param scale Scale factor for both y and x axis (1 does nothing)
+   * @return A new matrix with the scale
    */
-  scale: function(sx, sy) {
-    return this._t(sx, 0, 0, sy, 0, 0)
-  },
-
+  def scale(scale : Double) = {
+    transform(scale, 0, 0, scale, 0, 0)
+  }
+  /*
   /**
    * Scales current matrix on x axis accumulative.
    * @param {number} sx - scale factor x (1 does nothing)
@@ -231,15 +226,15 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
 
 */
 
+  def translation = Vector2D(e, f)
+
   /**
    * Translate current matrix accumulative.
    * @param tx - translation for x
    * @param ty - translation for y
    */
-
   def translate(tx : Double, ty : Double) = {
-    //return this._t(1, 0, 0, 1, tx, ty)
-    this.transform(1, 0, 0, 1, tx, ty)
+    transform(1, 0, 0, 1, tx, ty)
   }
 
   /*
@@ -264,38 +259,26 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
 
   /**
    * Multiplies current matrix with new matrix values.
-   * @param {number} a2 - scale x
-   * @param {number} b2 - shear y
-   * @param {number} c2 - shear x
-   * @param {number} d2 - scale y
-   * @param {number} e2 - translate x
-   * @param {number} f2 - translate y
+   * @param a2 - scale x
+   * @param b2 - shear y
+   * @param c2 - shear x
+   * @param d2 - scale y
+   * @param e2 - translate x
+   * @param f2 - translate y
    */
-
   def transform(a2 : Double, b2  : Double, c2 : Double, d2 : Double, e2 : Double, f2 : Double) = {
-
-    val me = this
-    val a1 = me.a
-    val b1 = me.b
-    val c1 = me.c
-    val d1 = me.d
-    val e1 = me.e
-    val f1 = me.f
-
     /* matrix order (canvas compatible):
     * ace
     * bdf
     * 001
     */
-    val me.a = a1 * a2 + c1 * b2
-    val me.b = b1 * a2 + d1 * b2
-    val me.c = a1 * c2 + c1 * d2
-    val me.d = b1 * c2 + d1 * d2
-    val me.e = a1 * e2 + c1 * f2 + e1
-    val me.f = b1 * e2 + d1 * f2 + f1
-
-     //return me._x()
-     me //???? IS THIS RIGHT?
+    val newA = a * a2 + c * b2
+    val newB = b * a2 + d * b2
+    val newC = a * c2 + c * d2
+    val newD = b * c2 + d * d2
+    val newE = a * e2 + c * f2 + e
+    val newF = b * e2 + d * f2 + f
+    TransformationMatrix(newA, newB, newC, newD, newE, newF)
   }
 
   /*
@@ -477,24 +460,20 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
   determinant : function() {
     return this.a * this.d - this.b * this.c
   },
-
+  */
   /**
    * Apply current matrix to x and y point.
    * Returns a point object.
    *
-   * @param {number} x - value for x
-   * @param {number} y - value for y
-   * @returns {{x: number, y: number}} A new transformed point object
+   * @param x - value for x
+   * @param y - value for y
+   * @return A new transformed Vector2D
    */
-  applyToPoint: function(x, y) {
+  def applyToPoint(x : Double, y : Double) = {
+    Vector2D(x * a + y * c + e, x * b + y * d + f)
+  }
 
-    var me = this
-
-    return {
-      x: x * me.a + y * me.c + me.e,
-      y: x * me.b + y * me.d + me.f
-    }
-  },
+  /*
 
   /**
    * Apply current matrix to array with point objects or point pairs.
@@ -602,66 +581,10 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
   isValid : function() {
     return !this._q(this.a * this.d, 0)
   },
-
-  /**
-   * Clones current instance and returning a new matrix.
-   * @param {boolean} [noContext=false] don't clone context reference if true
-   * @returns {Matrix}
-   */
-  clone : function(noContext) {
-    var me = this,
-    m = new Matrix()
-    m.a = me.a
-    m.b = me.b
-    m.c = me.c
-    m.d = me.d
-    m.e = me.e
-    m.f = me.f
-    if (!noContext) m.context = me.context
-
-    return m
-  },
-
-  /**
-   * Compares current matrix with another matrix. Returns true if equal
-   * (within epsilon tolerance).
-   * @param {Matrix} m - matrix to compare this matrix with
-   * @returns {boolean}
-   */
-  isEqual: function(m) {
-
-    var me = this,
-    q = me._q
-
-    return (q(me.a, m.a) &&
-      q(me.b, m.b) &&
-      q(me.c, m.c) &&
-      q(me.d, m.d) &&
-      q(me.e, m.e) &&
-      q(me.f, m.f))
-  },
-
-  /**
-   * Compares floating point values with some tolerance (epsilon)
-   * @param {number} f1 - float 1
-   * @param {number} f2 - float 2
-   * @returns {boolean}
-   * @private
-   */
-  _q: function(f1, f2) {
-    return Math.abs(f1 - f2) < 1e-14
-  },
-
-  /**
-   * Apply current absolute matrix to context if defined, to sync it.
-   * @private
-   */
-  _x: function() {
-    var me = this
-    if (me.context)
-      me.context.setTransform(me.a, me.b, me.c, me.d, me.e, me.f)
-    return me
-  }
 */
 
+}
+
+object TransformationMatrix {
+  def apply() = new TransformationMatrix(1, 0, 0, 1, 0, 10)
 }

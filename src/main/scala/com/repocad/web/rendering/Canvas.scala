@@ -1,7 +1,7 @@
 package com.repocad.web.rendering
 
 import com.repocad.reposcript.Printer
-import com.repocad.reposcript.parsing.Expr
+import com.repocad.reposcript.parsing._
 import com.repocad.util.Vector2D
 import com.repocad.web.{Reposcript, CanvasPrinter}
 import org.scalajs.dom._
@@ -14,9 +14,7 @@ import scala.scalajs.js
  */
 class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinter) {
 
-  var center : Vector2D = printer.windowCenter
-
-  var zoomLevel : Double = 0.5 // the current zoom-level
+  var zoomLevel : Double = 1
 
   var mousePosition = Vector2D(0, 0)
   var mouseDown = false
@@ -28,10 +26,29 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
   canvas.onmouseleave = mouseExit
   canvas.onmouseup = mouseExit
 
-  def zoom(delta : Double, e : MouseEvent) = {
+  def zoom(wheel: Double, e : MouseEvent) = {
+    val delta = if (wheel > 0) {
+      1.1
+    } else {
+      0.9
+    }
     printer.zoom(delta, e.clientX, e.clientY)
-    zoomLevel = zoomLevel + delta.toInt //update the zoom level
+    zoomLevel += 1 - delta //update the zoom level
     render(editor.getAst)
+
+    printer.context.save()
+    printer.context.setTransform(1, 0, 0, 1, 0, 0)
+
+    val mouse = Vector2D(e.clientX, e.clientY) - printer.windowCenter
+    val translation = printer.transformation.translation - printer.canvasCenter
+    printer.line(0, 0, translation.x, translation.y)
+    printer.line(0, 0, mouse.x, mouse.y)
+    println(mouse)
+    printer.execute()
+
+    printer.context.restore()
+
+    //render(editor.getAst)
   }
 
   canvas.onmousedown = (e : MouseEvent) => {
@@ -41,18 +58,9 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
 
   canvas.onmousemove = (e : MouseEvent) => {
     if (mouseDown) {
-      val zoomFactor = zoomLevel.abs
-      val newZ1 = math.pow(zoomFactor,1.1)
-      val newZ2 = math.pow(zoomFactor,0.5)
-
       val newV = Vector2D(e.clientX, e.clientY)
-      if(zoomLevel < 0) { //zooming out
-        printer.translate((newV - mousePosition).x * newZ1, (newV - mousePosition).y * newZ1)
-      } else if(zoomLevel > 0){//zooming in
-        printer.translate((newV - mousePosition).x / newZ2, (newV - mousePosition).y / newZ2)
-      } else printer.translate((newV - mousePosition).x, (newV - mousePosition).y)
+      printer.translate((newV - mousePosition).x, (newV - mousePosition).y)
       mousePosition = newV
-
       render(editor.getAst)
     }
   }
