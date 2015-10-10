@@ -19,6 +19,8 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
   //set standard line weight
   context.setLineWidth(0.1)
 
+
+
   /**
    * create an arc.
    * @param x The x-coordinate of the center of the arc
@@ -121,5 +123,18 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
   }
 
   def drawPaper(): Unit = Unit
+
+  def drawHeader(x : Int, y : Int): Unit = {
+    context.setFontSize(11)
+    context.text(x, y, "1:"+paper.scale)
+    context.setFontSize(8)
+    context.text(x, y+6, "www.repocad.com")
+
+  }
+
+  //draw paper header
+  if(paper.orientation == Portrait) {
+    drawHeader(170,280)
+  } else drawHeader(260,195)
 
 }
