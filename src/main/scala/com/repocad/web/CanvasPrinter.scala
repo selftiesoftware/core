@@ -31,6 +31,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
    * Draw a white rectangle representing the drawing if it is printed
    */
   def drawPaper() = {
+
     context.save()
     context.setTransform(1, 0, 0, 1, 0, 0)
     context.fillStyle = "AliceBlue"

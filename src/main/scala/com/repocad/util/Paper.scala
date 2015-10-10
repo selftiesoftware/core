@@ -18,7 +18,21 @@ case class Paper(center : Vector2D, orientation : PaperRotation, scale : Int) {
 object Paper {
 
   //find the appriate scale divisible with either 1,2 or 5
-  //private def roundScale (scale : Int) = {}
+  private def roundScale (scale : Int) : Int = {
+     val exp : Int = math.log10(scale).toInt
+     val base : Double = math.pow(10,exp)
+
+    if(scale <= 1 * base) {
+      base.toInt
+    }
+    else if (scale <= 2 * base) {
+      (base * 2).toInt
+    }
+    else if (scale <= 5 * base) {
+      (base * 5).toInt
+    }
+    else (base * 10).toInt
+  }
 
   def apply() : Paper = new Paper(Vector2D(0, 0), Portrait, 1)
 
@@ -28,8 +42,8 @@ object Paper {
 
     val center = Vector2D((minX + maxX) / 2, (minY + maxY) / 2)
     val orientation = if (width < height) Portrait else Landscape
-    val scale = math.max(orientation.getScaleFromHeight(height), orientation.getScaleFromWidth(width))
-
+    val scale = roundScale(math.max(orientation.getScaleFromHeight(height), orientation.getScaleFromWidth(width)))
+    
     new Paper(center, orientation, scale)
   }
 
