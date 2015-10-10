@@ -1,0 +1,17 @@
+sudo: false
+language: scala
+scala:
+- 2.11.7
+script:
+- sbt ++$TRAVIS_SCALA_VERSION test fullOptJS
+before_deploy:
+- mv target/scala-2.11/web-opt.js web.js
+- rm -rf target
+- rm -rf project
+- zip web.zip -r *
+deploy:
+- provider: releases
+- file: web.zip
+- skip_cleanup: true
+dd:
+  secure: bny9FFgcyR70DpFd1WN5eVVAR8XNFeFigSRp2OMbFbwAzneQil1L8eRnpCZHwy0JpuQcGy8igk23LxrQaD+6PX5OS33hqmVLJkUfa6gYc4NkLC9GVgIiPz53nFFXTC4fh+CT0uEgNuDxCRERxSSjSXf8Z2MROMLPsN1YtgMyGfI=

@@ -1,4 +1,4 @@
-val script = RootProject(file("../reposcript"))
+val reposcript = RootProject(uri("git://github.com/repocad/reposcript"))
 
 val project = Project("web", file("."))
   .settings(
@@ -17,3 +17,4 @@ val project = Project("web", file("."))
       )
   )
   .enablePlugins(ScalaJSPlugin)
+  .dependsOn(reposcript)
