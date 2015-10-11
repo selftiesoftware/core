@@ -195,10 +195,10 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
    * @param pointY  The center Y for the zoom-operation
    */
   def zoom(delta : Double, pointX : Double, pointY : Double) {
-    val mousePoint = Vector2D(pointX, pointY) - windowCenter
-    transform(_.translate(mousePoint.x, mousePoint.y))
+    val translation = Vector2D(pointX, pointY) - windowCenter
+    transform(_.translate(translation.x, translation.y))
     transform(_.scale(delta))
-    transform(_.translate(-mousePoint.x, -mousePoint.y))
+    transform(_.translate(-translation.x, -translation.y))
   }
 
   /**
@@ -212,6 +212,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
   def transform(f : TransformationMatrix => TransformationMatrix): Unit = {
     this.transformation = f(transformation)
-    context.setTransform(transformation.a, transformation.b, transformation.c, transformation.d, transformation.e, transformation.f)
+    context.setTransform(transformation.a, transformation.b, transformation.c,
+                         transformation.d, transformation.e, transformation.f)
   }
 }
