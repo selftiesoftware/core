@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -36,32 +35,21 @@
         <img width="7%" src="http://repocad.com/images/repoCad_logo.png" alt="RepoCad - The internet of digital design"
              align="bottom">
         </a>
-
         <div class="nine columns">
             <h2><i><b>RepoCad</b></i> - a prototype for the internet of digital design</h2>
         </div>
     </div>
 
     <div class="row">
-        <i class="one column fa fa-4x fa-exclamation"></i>
+        <i class="one column fa fa-4x fa-lightbulb-o"></i>
 
         <div class="eleven columns">
-            <h2>What is RepoCad?</h2>
+            <h2>How do I draw in repoCad?</h2>
 
             <h3>
-                RepoCad is a collaborative and modern 2d design editor that uses the state of the art scripting language,
-                <a href="reposcript.html">RepoScript</a> to <i>write</i> design. Together with our library of drawings, this gives you a novel way to collaborate on designs with whoever you want. Everything you draw can be printed directly to PDF. </br></br>
-               
-                <div class="five columns">               
-                    <a class="button twelve columns" href="reposcript.html">
-                    <i class="fa fa-lg fa-pencil"></i>&nbsp;intro to scripting in RepoCad</a>
-                </div>               
-               
-                <div class="five columns">               
-                    <a class="button twelve columns" href="editor.html">
-                    <i class="fa fa-lg fa-pencil"></i>&nbsp;goto RepoCad</a>
-                </div> 
-                
+                Please watch our YouTube tutorial, or read through the brief 
+                three-step guide to get started below: 
+                </br></br>             
             </h3>
         </div>
     </div>
@@ -69,149 +57,72 @@
     <hr>
 
     <div class="row">
-        <i class="one column fa fa-3x fa-cubes"></i>
-
-        <h2 class="eleven columns">Use cases</h2>
+        <a class="one column"><h2>1</h2></a>
+        <h2 class="eleven columns">create a new script</h2>
+    </div>
+    <div class="row">
+        <div class="four columns">
+        <p>
+        Open <a href="editor.html">repocad</a> and click "NEW in order to name your drawing. The NEW button is located above the blue canvas. </br></br>
+        Type in a name for your drawing. Try to be as precise as possible, as this will be telling all other users what to expect when opening it.
+        </p>       
+        </div>
+        
+         <div class="seven columns">
+            <img width="100%" src="../images/newDrawing.png" alt="now to create a new script"/>
+        </div>      
     </div>
 
     <div class="row">
-        <div class="four columns">
-
-            <div class="row">
-            <a href="/editor.html#storageShelf" title="View the script for the storage shelf" class="five columns">
-            <img width="180%" src="images/storageShelf.png" alt="Storage shelf from RepoCad"/>
-            </a>
-            </div>
-            <div class="row">
-                <a class="button ten columns" href="/editor.html#storageShelf"
-                title="View the script for the storage boxes">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                Parametric storage</a>
-            </div>
-        </div>
-     
-        <div class="four columns">
-            <div class="row">
-                <a href="/editor.html#bridge" title="View the script for the parametric bridge"
-               class="offset-by-one five columns">
-                <img width="180%" src="images/bridge.png" alt="Parametric bridge in RepoCad"/>
-                </a>
-            </div>
-            <div class="row">
-                <a class="button ten columns" href="/editor.html#bridge" title="View the script for the bridge">
-                    <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                    Parametric bridge</a>
-            </div>
-        </div>
-
-        <div class="four columns">
-            <div class="row">
-            <a href="/editor.html#ruler" title="View the script for the ruler" class="five columns">
-                <img width="180%" src="images/ruler.png" alt="A ruler drawn in RepoCad"/>
-            </a>
-            </div>
-            <div class="row">
-                <a class="button ten columns" href="/editor.html#ruler"
-                   title="View the script for the ruler">
-                    <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                    Ruler</a>
-            </div>
-        </div>
-            
-
-            <!--
-            <div class="four columns">
-                <h3>Minute paper</h3>
-                <div class="row">
-                <a href="/editor.html#minutePaper" title="View the script for the ruler" class="five columns">
-                    <img width="180%" src="images/minutePaper.png" alt="minute paper used by pilots to calculate ground speed"/>
-                </a>
-                </div>
-                <div class="row">
-
-                    <a class="button eight columns" href="/editor.html#minutePaper"
-                       title="View the script for the minute paper">
-                        <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                        Edit drawing</a>
-                        </br>
-                </div>
-            </div> 
-        -->
+        <a class="one column"><h2>2</h2></a>
+        <h2 class="eleven columns">create some artwork</h2>
     </div>
+    <div class="row">
+        <div class="four columns">
+        <p>
+        Draw a line(0,210) to (100,210): </br>
+        line(0 210 100 210)</br></br>
+        Draw a text string at(10,210) with height = 7:</br>
+        text(0 215 7 "hello world!")</br></br>
+        To define a value you can then call type:</br>
+        def myValue = 10</br></br>
+        To make a loop which runs some code 20 times, where the "i" variable increases each time, type:</br>
+        repeat 0 to 20 using i {</br>
+            line(0 i * myValue 180 i * myValue)  
+        }</br></br>
+        Declaring the value myValue and typing this loop will create a ruled paper with variable line spacing.</br></br>
+        Look through the <a href="https://github.com/repocad/lib">library</a> to see how others script in RepoCad.
+       
+        </p>       
+        </div>
+        
+         <div class="seven columns">
+            <img width="100%" src="../images/basicScripting.png" alt="now to create a new script"/>
+        </div>      
+    </div>
+   
 
-            <hr>
+    <div class="row">
+        <a class="one column"><h2>3</h2></a>
+        <h2 class="eleven columns">save and print your work</h2>
+    </div>
+    <div class="row">
+        <div class="four columns">
+        <p>
+        Hit the SAVE button below the canvas to store your changes to the script.
+        The script is always accessible from the <a href="https://github.com/repocad/lib">library.</a> </br></br>
+        Please check that the editor feedback underneath the editor window tells you that the script is saved. It may take a few seconds.</br></br>
+        Hitting PRINT will generate a PDF file in an A4 size containing your artwork.  
+        
+        </p>       
+        </div>
+        
+         <div class="seven columns">
+            <img width="100%" src="../images/savePrint.png" alt="now to create a new script"/>
+        </div>      
+    </div>
+       
     
-  
-    <div class="row">
-        <i class="one column fa fa-4x fa-info"></i>
-
-        <div class="eleven columns">
-            <h2>An Internet of Digital Design</h2>   
-                <p>
-                We think digital design should be accessible to all, and developed by all. For that to happen, we need an <i>editor</i> and a <i>library</i>:
-                </p>
-        </div>
-    </div>
-
-
-    <div class="row">
-
-        <i class="one column fa fa-3x fa-pencil-square-o"></i>
-
-        <div class="five columns">
-            <h2>The editor</h2>
-
-            <p>
-                The main method for drawing is by <i>writing</i> the artwork, instead of clicking with a mouse. We use a scripting language for this called 'Reposcript'. 
-            </p>
-
-            <p>
-                RepoScript turns code into design in an elegant way. Simplicity is key.
-            </p>
-
-            <a class="button twelve columns" href="editor.html">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;try it yourself</a>
-        </div>
-        <i class="one column fa fa-3x fa-database"></i>
-
-        <div class="five columns">
-            <h2>The library</h2>
-
-            <p>
-                RepoCad is a library of design drawings and tools that can be used by anyone.
-            </p>
-
-            <p>
-                The second you hit the 'save' button,your code is stored in a global library, where others can use it and build upon it.
-            </p>
-
-            <a class="button twelve columns" href="https://github.com/repocad/lib">
-                <i class="fa fa-lg fa-database"></i>&nbsp;Go to the library</a>
-        </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-        <i class="one column fa fa-4x fa-question"></i>
-
-        <div class="eleven columns">
-            <h2>Why RepoCad?</h2>
-
-            <p>
-                <q>Repo</q> is short for repository, signifying the importance of online storage and accessibility.
-                The title also contain a pun on "repossession": the re-claiming of tools used for creating designs.
-                We wrote this <a href="https://t.co/Zp9pYnTrj0">academic paper entitled "The Internet Of Digital Design"</a> explaining it all in great detail.
-            </p>
-
-            <p>
-                Read more about why we created RepoCad
-                <a href="https://github.com/repocad/web/wiki" title="Documentation for RepoCad">on
-                    our documentation page</a>.
-            </p>
-        </div>
-    </div>
-
     <hr>
     
     <div class="row">
