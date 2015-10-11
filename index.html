@@ -29,15 +29,14 @@
 
 <div class="container" id="container">
 
-    <!-- Header -->
+
+<!-- Header -->
     <div class="row">
-        <img class="three columns" src="http://repocad.com/images/repoCad_logo.png" alt="RepoCad - The internet of digital design"
+        <img width="7%" src="http://repocad.com/images/repoCad_logo.png" alt="RepoCad - The internet of digital design"
              align="bottom">
 
         <div class="nine columns">
-            <h1>RepoCad</h1>
-
-            <h2>The internet of digital design</h2>
+            <h2><i><b>RepoCad</b></i> - a prototype for the internet of digital design</h2>
         </div>
     </div>
 
@@ -49,23 +48,116 @@
         <div class="eleven columns">
             <h2>What is RepoCad?</h2>
 
-            <p>
-                RepoCad is a collaborative and modern design editor that uses the state of the art scripting language,
-                <a href="reposcript.html">RepoScript</a> to <i>write</i> design. Together with our library
-                of drawings, this gives you a novel way to collaborate on designs with whoever you want.
-            </p>
+            <h3>
+                RepoCad is a collaborative and modern 2d design editor that uses the state of the art scripting language,
+                <a href="reposcript.html">RepoScript</a> to <i>write</i> design. Together with our library of drawings, this gives you a novel way to collaborate on designs with whoever you want. Everything you draw can be printed directly to PDF.
+            </h3>
         </div>
     </div>
 
+    <hr>
+
     <div class="row">
+        <i class="one column fa fa-3x fa-cubes"></i>
+
+        <h2 class="eleven columns">Use cases</h2>
+    </div>
+
+    <div class="row">
+        <div class="four columns">
+            <h3>Parametric storage</h3>
+            <div class="row">
+            <a href="/editor.html#storageShelf" title="View the script for the storage shelf" class="five columns">
+            <img width="180%" src="images/storageShelf.png" alt="Storage shelf from RepoCad"/>
+            </a>
+            </div>
+            <div class="row">
+
+                <a class="button eight columns" href="/editor.html#storageShelf"
+                title="View the script for the storage boxes">
+                <i class="fa fa-lg fa-pencil"></i>&nbsp;
+                Edit drawing</a>
+                </br>
+            </div>
+        </div>
+     
+        <div class="four columns">
+            <h3>Parametric bridge</h3>
+            <div class="row">
+                <a href="/editor.html#bridge" title="View the script for the parametric bridge"
+               class="offset-by-one five columns">
+                <img width="180%" src="images/bridge.png" alt="Parametric bridge in RepoCad"/>
+                </a>
+            </div>
+            <div class="row">
+                <a class="button eight columns" href="/editor.html#bridge" title="View the script for the bridge">
+                    <i class="fa fa-lg fa-pencil"></i>&nbsp;
+                    Edit drawing</a>
+                    </br>
+            </div>
+        </div>
+
+        <div class="four columns">
+            <h3>Ruler</h3>
+            <div class="row">
+            <a href="/editor.html#ruler" title="View the script for the ruler" class="five columns">
+                <img width="180%" src="images/ruler.png" alt="A ruler drawn in RepoCad"/>
+            </a>
+            </div>
+            <div class="row">
+                <a class="button eight columns" href="/editor.html#ruler"
+                   title="View the script for the ruler">
+                    <i class="fa fa-lg fa-pencil"></i>&nbsp;
+                    Edit drawing</a>
+                    </br>
+            </div>
+        </div>
+            
+
+            <!--
+            <div class="four columns">
+                <h3>Minute paper</h3>
+                <div class="row">
+                <a href="/editor.html#minutePaper" title="View the script for the ruler" class="five columns">
+                    <img width="180%" src="images/minutePaper.png" alt="minute paper used by pilots to calculate ground speed"/>
+                </a>
+                </div>
+                <div class="row">
+
+                    <a class="button eight columns" href="/editor.html#minutePaper"
+                       title="View the script for the minute paper">
+                        <i class="fa fa-lg fa-pencil"></i>&nbsp;
+                        Edit drawing</a>
+                        </br>
+                </div>
+            </div> 
+        -->
+    </div>
+
+            <hr>
+    
+  
+    <div class="row">
+        <i class="one column fa fa-4x fa-info"></i>
+
+        <div class="eleven columns">
+            <h2>An Internet of Digital Design</h2>   
+                <p>
+                We think digital design should be accessible to all, and developed by all. For that to happen, we need an <i>editor</i> and a <i>library</i>:
+                </p>
+        </div>
+    </div>
+
+
+    <div class="row">
+
         <i class="one column fa fa-3x fa-pencil-square-o"></i>
 
         <div class="five columns">
             <h2>The editor</h2>
 
             <p>
-                Instead of torturing users with repetitive strain injuries from pointing and clicking,
-                RepoCad uses text to create visuals.
+                The main method for drawing is by <i>writing</i> the artwork, instead of clicking with a mouse. We use a scripting language for this called 'Reposcript'. 
             </p>
 
             <p>
@@ -73,7 +165,7 @@
             </p>
 
             <a class="button twelve columns" href="editor.html">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;Go to the editor</a>
+                <i class="fa fa-lg fa-pencil"></i>&nbsp;try it yourself</a>
         </div>
         <i class="one column fa fa-3x fa-database"></i>
 
@@ -85,8 +177,7 @@
             </p>
 
             <p>
-                We want to move the lonely designer into a global design network, where ideas are
-                shared and built upon.
+                The second you hit the 'save' button,your code is stored in a global library, where others can use it and build upon it.
             </p>
 
             <a class="button twelve columns" href="https://github.com/repocad/lib">
@@ -103,9 +194,9 @@
             <h2>Why RepoCad?</h2>
 
             <p>
-                RepoCad is a result of many years frustration with current design tools and methods.
                 <q>Repo</q> is short for repository, signifying the importance of online storage and accessibility.
                 The title also contain a pun on "repossession": the re-claiming of tools used for creating designs.
+                We wrote this <a href="https://t.co/Zp9pYnTrj0">academic paper entitled "The Internet Of Digital Design"</a> explaining it all in great detail.
             </p>
 
             <p>
@@ -117,87 +208,7 @@
     </div>
 
     <hr>
-
-    <div class="row">
-        <i class="one column fa fa-3x fa-cubes"></i>
-
-        <h2 class="eleven columns">Use cases</h2>
-    </div>
-
-    <div class="row">
-        <div class="offset-by-one six columns">
-            <h3>Storage boxes</h3>
-
-            <p>
-                A box for storing miscellaneous objects. This proof-of-concept uses parametricity to create a
-                rectangular
-                plate, which is repeated 5 times to form a box.
-            </p>
-
-            <p>
-                The box can be exported and sent to a laser cutter or similar manifacturing
-                equipment.
-            </p>
-            <a class="button twelve columns" href="/editor.html#storageBox"
-               title="View the script for the storage boxes">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                View in RepoCad</a>
-        </div>
-        <a href="/editor.html#storageBox" title="View the script for the storage boxes" class="five columns">
-            <img class="eleven columns" src="images/storageBoxes.png" alt="Storage boxes from RepoCad"/>
-        </a>
-    </div>
-
-    <br>
-    <br>
-
-    <div class="row">
-        <a href="/editor.html#bridge" title="View the script for the parametric bridge"
-           class="offset-by-one five columns">
-            <img class="twelve columns" src="images/bridge.png" alt="Parametric bridge in RepoCad"/>
-        </a>
-
-        <div class="six columns">
-            <h3>Parametric bridge</h3>
-
-            <p>
-                This bridge is constructed using simple parametric principles. The bridge support lines are drawn 
-                by looping the same line of code.
-            </p>
-            <a class="button twelve columns" href="/editor.html#bridge" title="View the script for the bridge">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                View in RepoCad</a>
-        </div>
-    </div>
-
-    <br>
-    <br>
-
-    <div class="row">
-        <div class="offset-by-one six columns">
-            <h3>Ruler</h3>
-
-            <p>
-                This ruler by Ole Egholm Jackson, illustrates how RepoCad can be used to draw precise drawings.
-                The ruler can be extended and the unit can be switched between cm and inches.
-            </p>
-
-            <p>
-                As with the above examples, we encourage you to change the script for the ruler and see what happens
-                when the code changes!
-            </p>
-            <a class="button twelve columns" href="/editor.html#ruler"
-               title="View the script for the ruler">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                View in RepoCad</a>
-        </div>
-        <a href="/editor.html#ruler" title="View the script for the ruler" class="five columns">
-            <img class="eleven columns" src="images/ruler.png" alt="A ruler drawn in RepoCad"/>
-        </a>
-    </div>
-
-    <hr>
-
+    
     <div class="row">
         <i class="one column fa fa-3x fa-random"></i>
 
@@ -233,8 +244,7 @@
 
         <div class="four columns">
             <i class="fa fa-3x fa-cog pull-left"></i>
-            RepoCad is fresh off the shelf and still needs some polishing. Help us by being patient and telling us
-            about any problems you have.
+            RepoCad still needs some polishing. Help us by telling us about any problems you have, or what features you need to improve your workflow.
             <br><br>
             <a class="twelve columns button" href="https://github.com/repocad/web/issues"
                    title="RepoCad issues on GitHub">
@@ -359,7 +369,7 @@
 
     .container .column,
     .container .columns {
-    margin-left: 4%; }
+    margin-left: 2%; }
 
     .container .one.column,
     .container .one.columns          { width: 4.66666666667%; }
@@ -430,12 +440,12 @@
 
     /* Larger than phablet */
     @media (min-width: 550px) {
-    h1 { font-size: 5.0rem; }
-    h2 { font-size: 4.2rem; }
-    h3 { font-size: 3.6rem; }
+    h1 { font-size: 3.0rem; }
+    h2 { font-size: 2.4rem; }
+    h3 { font-size: 2.0rem; }
     h4 { font-size: 1.5rem; }
-    h5 { font-size: 2.4rem; }
-    h6 { font-size: 1.5rem; }
+    h5 { font-size: 1.2rem; }
+    h6 { font-size: 1.0rem; }
     }
 
     p {
@@ -611,7 +621,7 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
     button,
     .button {
-    margin-bottom: 1rem; }
+    margin-bottom: 4rem; }
     input,
     textarea,
     select,
@@ -693,14 +703,14 @@
     @media (min-width: 1200px) {}
 
     body {
-    font-size: 18px;
+    font-size: 13px;
     }
     h1 {
     color: #222;
     font-size: 12rem;
     }
     h2, h3, h4 {
-    margin: 0 0 3rem;
+    margin: 0 0 0.4rem;
     line-height: 3rem;
     }
     hr {
