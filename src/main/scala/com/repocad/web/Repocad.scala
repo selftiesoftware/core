@@ -57,7 +57,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   def save() : Unit = {
     val future = editor.module().save(Ajax)
     future.onComplete(_ match {
-      case Success(response) => displaySuccess(s"'${editor.module().name}' saved successfully")
+      case Success(response) => displaySuccess(s"'${editor.module().name}' saved to www.github.com/repocad/lib")
       case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
     })
   }

@@ -43,8 +43,9 @@ object Paper {
     val center = Vector2D((minX + maxX) / 2, (minY + maxY) / 2)
     val orientation = if (width < height) Portrait else Landscape
     val scale = roundScale(math.max(orientation.getScaleFromHeight(height), orientation.getScaleFromWidth(width)))
-    
+
     new Paper(center, orientation, scale)
+
   }
 
 }
