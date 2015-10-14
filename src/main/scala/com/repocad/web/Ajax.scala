@@ -33,7 +33,6 @@ object Ajax extends HttpClient {
   def applySynchronous(method : String, url : String, data : String, headers : Map[String, String]) : Response = {
     val xhr = createRequest(method, url, data, headers, sync = false)
     try {
-      xhr.timeout = 10
       xhr.send(data)
       Response(xhr.status, xhr.readyState, xhr.responseText)
     } catch {
