@@ -196,8 +196,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
    * @param pointY  The center Y for the zoom-operation
    */
   def zoom(delta : Double, pointX : Double, pointY : Double) {
-    val mousePoint = Vector2D(pointX, pointY)
-    val translation = mousePoint - windowCenter - transformation.translation + canvasCenter
+    val screenPoint = Vector2D(pointX, pointY) - windowCenter + canvasCenter
+    val translation = transformation.inverse.applyToPoint(screenPoint.x, screenPoint.y)
     transform(_.translate(translation.x, translation.y))
     transform(_.scale(delta))
     transform(_.translate(-translation.x, -translation.y))
