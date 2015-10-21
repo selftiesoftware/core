@@ -314,44 +314,27 @@ case class TransformationMatrix(a : Double,b : Double,c : Double,d : Double,e : 
 
     return me._x()
   },
-
+*/
   /**
    * Get an inverse matrix of current matrix. The method returns a new
    * matrix with values you need to use to get to an identity matrix.
    * Context from parent matrix is not applied to the returned matrix.
-   * @returns {Matrix}
+   * Thanks to <a href="http://phrogz.net/tmp/canvas_zoom_to_cursor.html">Gavin Kistner</a>
+   * @return An inverted transformation matrix
    */
-  inverse: function() {
+  def inverse = {
+    val dt = a * d - b * c	// determinant(), skip DRY here...
 
-    if (this.isIdentity()) {
-      return new Matrix()
-    }
-    else if (!this.isInvertible()) {
-      throw "Matrix is not invertible."
-    }
-    else {
-      var me = this,
-      a = me.a,
-      b = me.b,
-      c = me.c,
-      d = me.d,
-      e = me.e,
-      f = me.f,
+    val newA = d / dt
+    val newB = -b / dt
+    val newC = -c / dt
+    val newD = a / dt
+    val newE = (c * f - d * e) / dt
+    val newF = -(a * f - b * e) / dt
 
-      m = new Matrix(),
-      dt = a * d - b * c	// determinant(), skip DRY here...
-
-      m.a = d / dt
-      m.b = -b / dt
-      m.c = -c / dt
-      m.d = a / dt
-      m.e = (c * f - d * e) / dt
-      m.f = -(a * f - b * e) / dt
-
-      return m
-    }
-  },
-
+    new TransformationMatrix(newA, newB, newC, newD, newE, newF)
+  }
+/*
   /**
    * Interpolate this matrix with another and produce a new matrix.
    * t is a value in the range [0.0, 1.0] where 0 is this instance and

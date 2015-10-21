@@ -32,23 +32,10 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     } else {
       0.9
     }
+
     printer.zoom(delta, e.clientX, e.clientY)
     zoomLevel += 1 - delta //update the zoom level
     render(editor.getAst)
-
-    printer.context.save()
-    printer.context.setTransform(1, 0, 0, 1, 0, 0)
-
-    val mouse = Vector2D(e.clientX, e.clientY) - printer.windowCenter
-    val translation = printer.transformation.translation - printer.canvasCenter
-    printer.line(0, 0, translation.x, translation.y)
-    printer.line(0, 0, mouse.x, mouse.y)
-    println(mouse)
-    printer.execute()
-
-    printer.context.restore()
-
-    //render(editor.getAst)
   }
 
   canvas.onmousedown = (e : MouseEvent) => {

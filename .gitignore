@@ -16,6 +16,4 @@ project/plugins/project/
 .worksheet
 *.py*
 nohup.out
-
-# Symlinks
-src/main/scala/com/repocad/reposcript
+web.js
