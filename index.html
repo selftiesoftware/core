@@ -29,16 +29,49 @@
 
 <div class="container" id="container">
 
+    <style>
+        #video {
+            z-index:-100;
+        }
+        #after-video {
+            position: relative;
+            margin-top: -279px;
+        }
+        @media screen and (max-device-width: 800px) {
+            html {
+                background: #f9f9f9 no-repeat center center fixed;
+            }
+            #video {
+                display: none;
+            }
+        }
+    </style>
+
     <!-- Header -->
-    <div class="row">
-        <div class="seven columns offset-by-two">
+    <iframe id="video-youtube" width="960" height="660" src="https://www.youtube.com/embed/hR5irKCpxKE" frameborder="0" allowfullscreen style="display:none;"></iframe>
+    <video autoplay loop id="video">
+        <source src="video/index_streamer.webm" type="video/webm">
+        <source src="video/index_streamer.mp4" type="video/mp4">
+    </video>
+    <div class="row" id="after-video">
+        <div class="six columns offset-by-two">
             <h1>RepoCad</h1>
 
             <h2>The internet of digital design</h2>
         </div>
-        <img class="two columns" src="images/repoCad_logo.png" alt="RepoCad - The internet of digital design"
-             align="bottom">
+        <img class="three columns" src="images/repoCad_logo.png" alt="RepoCad - The internet of digital design">
     </div>
+
+    <script type="text/javascript">
+        var video = document.getElementById("video");
+        var youtube = document.getElementById("video-youtube");
+        var text = document.getElementById("after-video");
+        video.onclick = function(e) {
+            video.style.display = "none";
+            youtube.style.display = "block";
+            text.style.display = "none";
+        };
+    </script>
 
     <hr>
 
