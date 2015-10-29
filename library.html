@@ -29,160 +29,77 @@
 
 <div class="container" id="container">
 
-    <style>
-        #video {
-            z-index:-100;
-        }
-        #after-video {
-            position: relative;
-            margin-top: -279px;
-        }
-        @media screen and (max-device-width: 800px) {
-            html {
-                background: #f9f9f9 no-repeat center center fixed;
-            }
-            #video {
-                display: none;
-            }
-        }
-    </style>
-
     <!-- Header -->
-    <iframe id="video-youtube" width="960" height="660" src="https://www.youtube.com/embed/hR5irKCpxKE" frameborder="0" allowfullscreen style="display:none;"></iframe>
-    <video autoplay loop id="video">
-        <source src="video/index_streamer.webm" type="video/webm">
-        <source src="video/index_streamer.mp4" type="video/mp4">
-    </video>
-    <div class="row" id="after-video">
-        <div class="six columns offset-by-two">
-            <h1>RepoCad</h1>
-
-            <h2>The internet of digital design</h2>
-        </div>
-        <img class="three columns" src="images/repoCad_logo.png" alt="RepoCad - The internet of digital design">
-    </div>
-
-    <script type="text/javascript">
-        var video = document.getElementById("video");
-        var youtube = document.getElementById("video-youtube");
-        var text = document.getElementById("after-video");
-        video.onclick = function(e) {
-            video.style.display = "none";
-            youtube.style.display = "block";
-            text.style.display = "none";
-        };
-    </script>
-
-    <hr>
-
     <div class="row">
-        <i class="one column fa fa-3x fa-exclamation"></i>
+        <div class="one column">    
+            <a href="index.html"><img src="images/repoCad_logo_small.png" alt="repocad start page"></a>
+        </div>
+        <div class="two columns">    
 
-        <div class="eleven columns">
-            <h2>What is RepoCad?</h2>
+            <a href="https://github.com/repocad/lib"><h2>library</h2><a>
+        </div>    
+        <div class="nine columns">    
+            <input type="text" id="drawingTitle" class="seven columns" list="drawingTitles" style="background-color: #F0F8FF" placeholder="Type a name to find or create a new script"/>
+        <datalist id="drawingTitles" name="drawingTitles"></datalist>
+        <button class="two columns" alt="Search for drawing" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i> Search</button>
+        
+        <button class="two columns" alt="Create new drawing" id="drawingNewButton"><i class="fa fa-lg fa-file-o"></i> New</button>
 
-            <p>
-                RepoCad is a collaborative and modern design editor that uses the state of the art
-                scripting language, <a href="reposcript.html">RepoScript</a> to <i>write</i> design.
-                We have created a prototype of <b>an internet of digital design</b>.
-            </p>
+        <!--<button class="two columns"><i class="fa fa-lg fa-navicon"></i></button>-->
+    
+            
+            
         </div>
     </div>
 
+    <!--- LIBRARY ROW --->
     <div class="row">
-        <i class="one column fa fa-2x fa-pencil-square-o"></i>
-
-        <div class="five columns">
-            <h2>The editor</h2>
-
-            <p>
-                The editor is where you open existing drawings from the library or create new ones. In the editor you write code which becomes drawings,
-                and see the result in real-time.
-            </p>
-
-            <a class="button twelve columns" href="editor.html">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;Go to the editor</a>
+        <!--- ENTRY --->
+        <div class="three columns">
+            <a href="https://github.com/repocad/lib/blob/master/clock" title="open source code"><h3>clock</h3> </a>
+            <a href="editor.html#clock"><img class="twelve columns" title="view drawing" src="images/library_test.png" alt="resizeable clock"></a>  
+        <h4>OleEgholm  views: 1</h4>
         </div>
-        <i class="one column fa fa-2x fa-database"></i>
-
-        <div class="five columns">
-            <h2>The library</h2>
-
-            <p>
-                Our library of drawings gives you a novel way to collaborate on designs with whoever you want,
-                whenever you want.
-            </p>
-
-            <a class="button twelve columns" href="library.html">
-                <i class="fa fa-lg fa-database"></i>&nbsp;Go to the library</a>
+        
+        <!--- ENTRY --->
+        <div class="three columns">
+            <a href="https://github.com/repocad/lib/blob/master/clock"><h3>clock</h3></a>
+            <a href="editor.html#clock"><img class="twelve columns" src="images/library_test.png" alt="resizeable clock"></a>  
+        <h4>OleEgholm  views: 1</h4>
         </div>
-    </div>
 
-    <hr>
+        <!--- ENTRY --->
+        <div class="three columns">
+            <a href="https://github.com/repocad/lib/blob/master/clock"><h3>clock</h3></a>
+            <a href="editor.html#clock"><img class="twelve columns" src="images/library_test.png" alt="resizeable clock"></a>  
+        <h4>OleEgholm  views: 1</h4>
+        </div>
 
+        
+    <!--- LIBRARY ROW --->
     <div class="row">
-        <i class="one column fa fa-2x fa-cubes"></i>
-
-        <h2 class="eleven columns">Use cases</h2>
-    </div>
-
-    <div class="row">
-        <div class="four columns">
-            <a href="/editor.html#storageShelf" title="View the script for the storage shelf" class="five columns">
-                <img width="180%" src="images/storageShelf.png" alt="Storage shelf from RepoCad"/>
-            </a>
-            <a class="button ten columns" href="/editor.html#storageShelf"
-               title="View the script for the storage boxes">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                Parametric storage</a>
+        <!--- ENTRY --->
+        <div class="three columns">
+            <a href="https://github.com/repocad/lib/blob/master/clock"><h3>clock</h3></a>
+            <a href="editor.html#clock"><img class="twelve columns" src="images/library_test.png" alt="resizeable clock"></a>  
+        <h4>OleEgholm  views: 1</h4>
+         </div>
+       
+        <!--- ENTRY --->
+        <div class="three columns">
+            <a href="https://github.com/repocad/lib/blob/master/clock"><h3>clock</h3></a>
+            <a href="editor.html#clock"><img class="twelve columns" src="images/library_test.png" alt="resizeable clock"></a>  
+        <h4>OleEgholm  views: 1</h4>
         </div>
 
-        <div class="four columns">
-            <a href="/editor.html#clock" title="View the script for the clock"
-               class="offset-by-one five columns">
-                <img width="180%" src="images/clock.png" alt="resizeable clock in RepoCad"/>
-            </a>
-            <a class="button ten columns" href="/editor.html#clock" title="View the script for the clock">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                Resizeable clock</a>
+        <!--- ENTRY --->
+        <div class="three columns">
+            <a href="https://github.com/repocad/lib/blob/master/clock"><h3>clock</h3></a>
+            <a href="editor.html#clock"><img class="twelve columns" src="images/library_test.png" alt="resizeable clock"></a>  
+        <h4>OleEgholm  views: 1</h4>
         </div>
-
-        <div class="four columns">
-            <a href="/editor.html#ruler" title="View the script for the ruler" class="five columns">
-                <img width="180%" src="images/ruler.png" alt="A ruler drawn in RepoCad"/>
-            </a>
-            <a class="button ten columns" href="/editor.html#ruler"
-               title="View the script for the ruler">
-                <i class="fa fa-lg fa-pencil"></i>&nbsp;
-                Ruler</a>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="row">
-        <i class="one column fa fa-3x fa-question"></i>
-
-        <div class="eleven columns">
-            <h2>Why RepoCad?</h2>
-
-            <p>
-                We think a new approach to digital drawing is needed. 
-                The codeword is 'accessibility'.
-                We created RepoCad because we wanted a platform where both drawings and drawing tools are developed and shared online.
-                That means everybody can access any drawing or drawing tool anytime, and either print it or develop it further.
-                <q>Repo</q> is short for repository, signifying the importance of online storage and accessibility.
-                The title also contain a pun on "repossession": the re-claiming of tools used for creating designs.
-            </p>
-
-            <p>
-                Read more about why we created RepoCad
-                <a href="https://github.com/repocad/web/wiki" title="Documentation for RepoCad">on
-                    our documentation page</a>.
-            </p>
-        </div>
-    </div>
-
+    </div>        
+    
     <hr>
 
     <div class="row">
@@ -432,7 +349,8 @@
     /* Links
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
     a {
-    color: #1EAEDB; }
+    text-decoration:none;
+    color: #000000; }
     a:hover {
     color: #0FA0CE; }
 
@@ -687,10 +605,20 @@
     font-size: 8rem;
     margin-top: 0;
     }
-    h2, h3, h4 {
+    h2{
     font-size: 3.5rem;
     margin: 0 0 3rem;
     line-height: 3rem;
+    }
+    h3 {
+    font-size: 2rem;
+    margin: 0 0 1rem;
+    line-height: 2rem;
+    }
+    h4 {
+    font-size: 1.1rem;
+    margin: 0 0 1rem;
+    line-height: 2rem;
     }
     hr {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
