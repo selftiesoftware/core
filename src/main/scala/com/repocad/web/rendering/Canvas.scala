@@ -23,8 +23,9 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     mouseDown = false
   }
 
-  canvas.onmouseleave = mouseExit
-  canvas.onmouseup = mouseExit
+  //export to file
+
+  //make a mechanism to put images in a GIT branch
 
   def zoom(wheel: Double, e : MouseEvent) = {
     val delta = if (wheel > 0) {
@@ -61,5 +62,13 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     Reposcript.evaluate(ast, printer)
     printer.execute()
   }
+
+  def pngImage() = {
+    val image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
+    window.location.href = image
+  }
+
+  canvas.onmouseleave = mouseExit
+  canvas.onmouseup = mouseExit
 
 }

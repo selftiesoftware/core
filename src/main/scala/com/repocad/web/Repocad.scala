@@ -69,6 +69,12 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
     printer.save(name)
   }
 
+  //PNG generator - used to add a thumbnail in the library when the drawing is saved to Github.
+  @JSExport
+  def printPng(name : String) : Unit = {
+    canvas.pngImage()
+  }
+
   @JSExport
   def zoom(delta : Double, e : MouseEvent) : Unit = {
     canvas.zoom(delta, e)
