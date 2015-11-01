@@ -17,7 +17,6 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  *
  *              TODO: Version numbers for AST!
  *              TODO: Import versioned compilers on request
- *              TODO: Use optimised JS
  */
 @JSExport("Repocad")
 class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HTMLInputElement,
