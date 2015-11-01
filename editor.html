@@ -84,13 +84,15 @@
 
         <div class="six columns"><p id="log">&nbsp;</p></div>
 
-        <button id="save" class="button three columns">
+        <button id="save" class="button two columns">
             <i class="fa fa-save fa-lg"></i> Save
         </button>
-        <button id="toPdf" class="button three columns">
+        <button id="toPdf" class="button two columns">
             <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
         </button>
-
+        <button id="toPng" class="button two columns">
+            <i class="fa fa-file-pdf-o fa-lg"></i> print(PNG)
+        </button>
     </div>
 
     <footer class="row" style="text-align: center">
@@ -131,6 +133,7 @@
     var toggleMax = document.getElementById("toggleMax");
     var toggleRun = document.getElementById("toggleRun");
     var toPdf = document.getElementById("toPdf");
+    var toPng = document.getElementById("toPng");
     var save = document.getElementById("save");
     var title = document.getElementById("drawingTitle");
     var searchDrawing = document.getElementById("drawingSearchButton");
@@ -177,6 +180,10 @@
         toPdf.onclick = function (e) {
             repocad.printPdf("IOD_2d_print.pdf");
         }
+        toPng.onclick = function (e) {
+            repocad.printPng("IOD_2d_print.png");
+        }
+        
         save.onclick = function(e) {
             repocad.save();
         }
