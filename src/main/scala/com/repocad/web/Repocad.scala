@@ -70,8 +70,9 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
 
   //PNG generator - used to add a thumbnail in the library when the drawing is saved to Github.
   @JSExport
-  def printPng(name : String) : Unit = {
-    canvas.pngImage()
+  def printPng() = {
+    val png = canvas.png
+    png
   }
 
   @JSExport
