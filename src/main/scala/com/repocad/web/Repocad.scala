@@ -64,6 +64,9 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   @JSExport
   def printPdf(name : String) : Unit = {
     val printer = new PdfPrinter(view.getPaper)
+    val expList = List()
+    expList :+ editor.getAst
+    RepoMath.sortByX(expList)
     canvas.render(editor.getAst, printer)
     printer.save(name)
   }

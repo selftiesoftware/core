@@ -1,5 +1,7 @@
 package com.repocad.web
 
+import com.repocad.reposcript.parsing.Expr
+
 /**
  * An object that provides math functions to RepoScript
  */
@@ -19,5 +21,15 @@ object RepoMath {
       case (x : Int, y : Double) => f(x, y)
       case (x : Double, y : Double) => f(x, y)
     }
+
+  //sort a list in the format editor.AST by X value (in order to get a sorted export output eg. in PDF files)
+  //this is useful for cnc milling, engraving etc.
+  def sortByX(ast : List[Expr]): Unit = {
+    for(x <- ast ){
+      println("AST EXPR:")
+      println(x)
+    }
+    //return sorted list
+  }
 
 }
