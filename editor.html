@@ -90,8 +90,9 @@
         <button id="toPdf" class="button two columns">
             <i class="fa fa-file-pdf-o fa-lg"></i> print(PDF)
         </button>
-        <button id="toPng" class="button two columns">
-            <i class="fa fa-file-pdf-o fa-lg"></i> print(PNG)
+        <button class="button two columns">
+                <a class="fa fa-file-pdf-o fa-lg"></a>
+                <a id="toPng" href="#" onclick="toPng">PNG</a>
         </button>
     </div>
 
@@ -202,12 +203,10 @@
             repocad.printPdf("IOD_2d_print.pdf");
         }
         toPng.onclick = function (e) {
-            var uri = repocad.printPng('IOD_2d_print.png');
-            console.log("URI:")
-            console.log(uri)
-            saveAs (uri,'IOD_2d_print.png');
-        }
-        
+            var png = repocad.printPng();
+            this.href = png;
+
+
         save.onclick = function(e) {
             repocad.save();
         }

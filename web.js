@@ -5297,6 +5297,7 @@ function $m_Lcom_repocad_util_package$() {
   return $n_Lcom_repocad_util_package$
 }
 /** @constructor */
+<<<<<<< HEAD
 function $c_Lcom_repocad_web_RepoMath$() {
   $c_O.call(this)
 }
@@ -5336,6 +5337,8 @@ function $m_Lcom_repocad_web_RepoMath$() {
   return $n_Lcom_repocad_web_RepoMath$
 }
 /** @constructor */
+=======
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
 function $c_Lcom_repocad_web_Repocad() {
   $c_O.call(this);
   this.com$repocad$web$Repocad$$title$f = null;
@@ -5371,6 +5374,12 @@ $c_Lcom_repocad_web_Repocad.prototype.init__V = (function() {
   this.view$1.init__V();
   this.editor$1.updateView__V()
 });
+<<<<<<< HEAD
+=======
+$c_Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$printPng__O = (function() {
+  return this.printPng__T()
+});
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
 $c_Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$getDrawings__O = (function() {
   var this$1 = $m_Lcom_repocad_web_Drawing$();
   var $$this = this$1.drawingList$1;
@@ -5397,6 +5406,17 @@ $c_Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$init__O = (function() {
 $c_Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$zoom__D__Lorg_scalajs_dom_raw_MouseEvent__O = (function(delta, e) {
   this.canvas$1.zoom__D__Lorg_scalajs_dom_raw_MouseEvent__V(delta, e)
 });
+<<<<<<< HEAD
+=======
+$c_Lcom_repocad_web_Repocad.prototype.printPng__T = (function() {
+  var png = this.canvas$1.png$1;
+  var x = ("DataURI in web.js" + png);
+  var this$2 = $m_s_Console$();
+  var this$3 = this$2.outVar$2;
+  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
+  return png
+});
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
 $c_Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$render__O = (function() {
   this.editor$1.updateView__V()
 });
@@ -5428,6 +5448,7 @@ $c_Lcom_repocad_web_Repocad.prototype.save__V = (function() {
 $c_Lcom_repocad_web_Repocad.prototype.printPdf__T__V = (function(name) {
   var this$1 = this.view$1;
   var printer = new $c_Lcom_repocad_web_PdfPrinter().init___Lcom_repocad_util_Paper(this$1.com$repocad$web$CanvasPrinter$$paper$1);
+<<<<<<< HEAD
   var expList = $m_sci_Nil$();
   var this$2 = this.editor$1;
   var this$3 = this$2.com$repocad$web$rendering$Editor$$ast$1;
@@ -5440,6 +5461,12 @@ $c_Lcom_repocad_web_Repocad.prototype.printPdf__T__V = (function(name) {
   var this$5 = this.editor$1;
   var this$6 = this$5.com$repocad$web$rendering$Editor$$ast$1;
   jsx$1.render__Lcom_repocad_reposcript_parsing_Expr__Lcom_repocad_reposcript_Printer__V($as_Lcom_repocad_reposcript_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$6)), printer);
+=======
+  var jsx$1 = this.canvas$1;
+  var this$2 = this.editor$1;
+  var this$3 = this$2.com$repocad$web$rendering$Editor$$ast$1;
+  jsx$1.render__Lcom_repocad_reposcript_parsing_Expr__Lcom_repocad_reposcript_Printer__V($as_Lcom_repocad_reposcript_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$3)), printer);
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
   printer.save__T__V(name)
 });
 $c_Lcom_repocad_web_Repocad.prototype.displayError__T__V = (function(error) {
@@ -5466,9 +5493,12 @@ $c_Lcom_repocad_web_Repocad.prototype.displaySuccess__T__V = (function(success) 
   this.log$1["classList"]["add"]("success");
   this.log$1["innerHTML"] = success
 });
+<<<<<<< HEAD
 $c_Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$printPng__T__O = (function(name) {
   this.canvas$1.pngImage__V()
 });
+=======
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
 $c_Lcom_repocad_web_Repocad.prototype["init"] = (function() {
   return this.$$js$exported$meth$init__O()
 });
@@ -5485,9 +5515,14 @@ $c_Lcom_repocad_web_Repocad.prototype["printPdf"] = (function(arg$1) {
   var prep0 = $as_T(arg$1);
   return this.$$js$exported$meth$printPdf__T__O(prep0)
 });
+<<<<<<< HEAD
 $c_Lcom_repocad_web_Repocad.prototype["printPng"] = (function(arg$1) {
   var prep0 = $as_T(arg$1);
   return this.$$js$exported$meth$printPng__T__O(prep0)
+=======
+$c_Lcom_repocad_web_Repocad.prototype["printPng"] = (function() {
+  return this.$$js$exported$meth$printPng__O()
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
 });
 $c_Lcom_repocad_web_Repocad.prototype["zoom"] = (function(arg$1, arg$2) {
   var prep0 = $uD(arg$1);
@@ -5555,13 +5590,21 @@ function $m_Lcom_repocad_web_Reposcript$() {
 /** @constructor */
 function $c_Lcom_repocad_web_rendering_Canvas() {
   $c_O.call(this);
+<<<<<<< HEAD
   this.canvas$1 = null;
+=======
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
   this.com$repocad$web$rendering$Canvas$$editor$f = null;
   this.com$repocad$web$rendering$Canvas$$printer$f = null;
   this.zoomLevel$1 = 0.0;
   this.mousePosition$1 = null;
   this.mouseDown$1 = false;
+<<<<<<< HEAD
   this.mouseExit$1 = null
+=======
+  this.mouseExit$1 = null;
+  this.png$1 = null
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
 }
 $c_Lcom_repocad_web_rendering_Canvas.prototype = new $h_O();
 $c_Lcom_repocad_web_rendering_Canvas.prototype.constructor = $c_Lcom_repocad_web_rendering_Canvas;
@@ -5570,6 +5613,7 @@ function $h_Lcom_repocad_web_rendering_Canvas() {
   /*<skip>*/
 }
 $h_Lcom_repocad_web_rendering_Canvas.prototype = $c_Lcom_repocad_web_rendering_Canvas.prototype;
+<<<<<<< HEAD
 $c_Lcom_repocad_web_rendering_Canvas.prototype.pngImage__V = (function() {
   var thiz = $as_T(this.canvas$1["toDataURL"]("image/png"));
   var image = $as_T(thiz["split"]("image/png")["join"]("image/octet-stream"));
@@ -5577,6 +5621,9 @@ $c_Lcom_repocad_web_rendering_Canvas.prototype.pngImage__V = (function() {
 });
 $c_Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_raw_HTMLCanvasElement__Lcom_repocad_web_rendering_Editor__Lcom_repocad_web_CanvasPrinter = (function(canvas, editor, printer) {
   this.canvas$1 = canvas;
+=======
+$c_Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_raw_HTMLCanvasElement__Lcom_repocad_web_rendering_Editor__Lcom_repocad_web_CanvasPrinter = (function(canvas, editor, printer) {
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
   this.com$repocad$web$rendering$Canvas$$editor$f = editor;
   this.com$repocad$web$rendering$Canvas$$printer$f = printer;
   this.zoomLevel$1 = 1.0;
@@ -5605,6 +5652,11 @@ $c_Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_raw_HTMLC
       }
     })
   })(this);
+<<<<<<< HEAD
+=======
+  var thiz = $as_T(canvas["toDataURL"]("image/png"));
+  this.png$1 = $as_T(thiz["split"]("image/png")["join"]("image/octet-stream"));
+>>>>>>> cf2648930752ba9e3f8ffc0a4ea5da2f99fc4383
   canvas["onmouseleave"] = (function(f) {
     return (function(arg1) {
       return f.apply__O__O(arg1)

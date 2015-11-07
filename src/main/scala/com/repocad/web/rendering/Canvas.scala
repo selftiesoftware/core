@@ -63,10 +63,7 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     printer.execute()
   }
 
-  def pngImage() = {
-    val image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
-    window.location.href = image
-  }
+  var png = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
 
   canvas.onmouseleave = mouseExit
   canvas.onmouseup = mouseExit
