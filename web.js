@@ -5297,6 +5297,32 @@ function $m_Lcom_repocad_util_package$() {
   return $n_Lcom_repocad_util_package$
 }
 /** @constructor */
+function $c_Lcom_repocad_web_PngPrinter() {
+  $c_O.call(this);
+  this.canvas$1 = null
+}
+$c_Lcom_repocad_web_PngPrinter.prototype = new $h_O();
+$c_Lcom_repocad_web_PngPrinter.prototype.constructor = $c_Lcom_repocad_web_PngPrinter;
+/** @constructor */
+function $h_Lcom_repocad_web_PngPrinter() {
+  /*<skip>*/
+}
+$h_Lcom_repocad_web_PngPrinter.prototype = $c_Lcom_repocad_web_PngPrinter.prototype;
+$c_Lcom_repocad_web_PngPrinter.prototype.save__T = (function() {
+  return $as_T(this.canvas$1["toDataURL"]("image/png"))
+});
+$c_Lcom_repocad_web_PngPrinter.prototype.init___Lorg_scalajs_dom_raw_HTMLCanvasElement__Lcom_repocad_reposcript_parsing_Expr__Lcom_repocad_web_CanvasPrinter = (function(canvas, expr, printer) {
+  this.canvas$1 = canvas;
+  return this
+});
+var $d_Lcom_repocad_web_PngPrinter = new $TypeData().initClass({
+  Lcom_repocad_web_PngPrinter: 0
+}, false, "com.repocad.web.PngPrinter", {
+  Lcom_repocad_web_PngPrinter: 1,
+  O: 1
+});
+$c_Lcom_repocad_web_PngPrinter.prototype.$classData = $d_Lcom_repocad_web_PngPrinter;
+/** @constructor */
 function $c_Lcom_repocad_web_Repocad() {
   $c_O.call(this);
   this.com$repocad$web$Repocad$$title$f = null;
@@ -5362,11 +5388,10 @@ $c_Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$zoom__D__Lorg_scalajs_d
   this.canvas$1.zoom__D__Lorg_scalajs_dom_raw_MouseEvent__V(delta, e)
 });
 $c_Lcom_repocad_web_Repocad.prototype.printPng__T = (function() {
-  var png = this.canvas$1.png$1;
-  var x = ("DataURI in web.js" + png);
-  var this$2 = $m_s_Console$();
-  var this$3 = this$2.outVar$2;
-  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
+  var jsx$1 = this.canvas$1;
+  var this$1 = this.editor$1;
+  var this$2 = this$1.com$repocad$web$rendering$Editor$$ast$1;
+  var png = jsx$1.toPngUrl__Lcom_repocad_reposcript_parsing_Expr__T($as_Lcom_repocad_reposcript_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$2)));
   return png
 });
 $c_Lcom_repocad_web_Repocad.prototype.$$js$exported$meth$render__O = (function() {
@@ -5515,13 +5540,13 @@ function $m_Lcom_repocad_web_Reposcript$() {
 /** @constructor */
 function $c_Lcom_repocad_web_rendering_Canvas() {
   $c_O.call(this);
+  this.canvas$1 = null;
   this.com$repocad$web$rendering$Canvas$$editor$f = null;
   this.com$repocad$web$rendering$Canvas$$printer$f = null;
   this.zoomLevel$1 = 0.0;
   this.mousePosition$1 = null;
   this.mouseDown$1 = false;
-  this.mouseExit$1 = null;
-  this.png$1 = null
+  this.mouseExit$1 = null
 }
 $c_Lcom_repocad_web_rendering_Canvas.prototype = new $h_O();
 $c_Lcom_repocad_web_rendering_Canvas.prototype.constructor = $c_Lcom_repocad_web_rendering_Canvas;
@@ -5531,6 +5556,7 @@ function $h_Lcom_repocad_web_rendering_Canvas() {
 }
 $h_Lcom_repocad_web_rendering_Canvas.prototype = $c_Lcom_repocad_web_rendering_Canvas.prototype;
 $c_Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_raw_HTMLCanvasElement__Lcom_repocad_web_rendering_Editor__Lcom_repocad_web_CanvasPrinter = (function(canvas, editor, printer) {
+  this.canvas$1 = canvas;
   this.com$repocad$web$rendering$Canvas$$editor$f = editor;
   this.com$repocad$web$rendering$Canvas$$printer$f = printer;
   this.zoomLevel$1 = 1.0;
@@ -5559,8 +5585,6 @@ $c_Lcom_repocad_web_rendering_Canvas.prototype.init___Lorg_scalajs_dom_raw_HTMLC
       }
     })
   })(this);
-  var thiz = $as_T(canvas["toDataURL"]("image/png"));
-  this.png$1 = $as_T(thiz["split"]("image/png")["join"]("image/octet-stream"));
   canvas["onmouseleave"] = (function(f) {
     return (function(arg1) {
       return f.apply__O__O(arg1)
@@ -5580,6 +5604,14 @@ $c_Lcom_repocad_web_rendering_Canvas.prototype.zoom__D__Lorg_scalajs_dom_raw_Mou
   var this$1 = this.com$repocad$web$rendering$Canvas$$editor$f;
   var this$2 = this$1.com$repocad$web$rendering$Editor$$ast$1;
   this.render__Lcom_repocad_reposcript_parsing_Expr__V($as_Lcom_repocad_reposcript_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$2)))
+});
+$c_Lcom_repocad_web_rendering_Canvas.prototype.toPngUrl__Lcom_repocad_reposcript_parsing_Expr__T = (function(ast) {
+  this.com$repocad$web$rendering$Canvas$$printer$f.zoomExtends__V();
+  var this$1 = this.com$repocad$web$rendering$Canvas$$editor$f;
+  var this$2 = this$1.com$repocad$web$rendering$Editor$$ast$1;
+  this.render__Lcom_repocad_reposcript_parsing_Expr__V($as_Lcom_repocad_reposcript_parsing_Expr($s_Lrx_core_Rx$class__apply__Lrx_core_Rx__O(this$2)));
+  var dump = new $c_Lcom_repocad_web_PngPrinter().init___Lorg_scalajs_dom_raw_HTMLCanvasElement__Lcom_repocad_reposcript_parsing_Expr__Lcom_repocad_web_CanvasPrinter(this.canvas$1, ast, this.com$repocad$web$rendering$Canvas$$printer$f);
+  return dump.save__T()
 });
 $c_Lcom_repocad_web_rendering_Canvas.prototype.render__Lcom_repocad_reposcript_parsing_Expr__V = (function(ast) {
   this.render__Lcom_repocad_reposcript_parsing_Expr__Lcom_repocad_reposcript_Printer__V(ast, this.com$repocad$web$rendering$Canvas$$printer$f)
@@ -12268,6 +12300,14 @@ function $h_Lcom_repocad_web_CanvasPrinter() {
   /*<skip>*/
 }
 $h_Lcom_repocad_web_CanvasPrinter.prototype = $c_Lcom_repocad_web_CanvasPrinter.prototype;
+$c_Lcom_repocad_web_CanvasPrinter.prototype.screenLine__D__D__D__D__V = (function(x1, y1, x2, y2) {
+  this.context$1["beginPath"]();
+  this.context$1["moveTo"](x1, y1);
+  this.context$1["lineTo"](x2, y2);
+  this.context$1["stroke"]();
+  this.context$1["lineWidth"] = 0.4;
+  this.context$1["closePath"]()
+});
 $c_Lcom_repocad_web_CanvasPrinter.prototype.init___Lorg_scalajs_dom_raw_HTMLCanvasElement = (function(canvas) {
   this.canvas$1 = canvas;
   $s_Lcom_repocad_reposcript_Printer$class__$$init$__Lcom_repocad_reposcript_Printer__V(this);
@@ -12280,7 +12320,7 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.init___Lorg_scalajs_dom_raw_HTMLCanv
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.drawScreenText__V = (function() {
   var txt = ("p a p e r : A 4       s c a l e:   1 :  " + this.com$repocad$web$CanvasPrinter$$paper$1.scale$1);
-  this.screenText__D__D__D__O__V(5.0, 10.0, 70.0, txt);
+  this.screenText__D__D__D__O__V(35.0, 10.0, 70.0, txt);
   this.screenText__D__D__D__O__V(370.0, 10.0, 70.0, "v e r.   0 . 2 ")
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.init__V = (function() {
@@ -12306,6 +12346,31 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.line__D__D__D__D__V = (function(x1, 
   })(this, x1, y1, x2, y2));
   $s_Lcom_repocad_reposcript_Printer$class__addAction__Lcom_repocad_reposcript_Printer__F1__V(this, action)
 });
+$c_Lcom_repocad_web_CanvasPrinter.prototype.zoomExtends__V = (function() {
+  var panX = this.transformation$1.e$1;
+  var panY = this.transformation$1.f$1;
+  var x = ("panX delta: " + panY);
+  var this$2 = $m_s_Console$();
+  var this$3 = this$2.outVar$2;
+  $as_Ljava_io_PrintStream(this$3.tl$1.get__O()).println__O__V(x);
+  var x$1 = ("panY delta: " + panY);
+  var this$5 = $m_s_Console$();
+  var this$6 = this$5.outVar$2;
+  $as_Ljava_io_PrintStream(this$6.tl$1.get__O()).println__O__V(x$1);
+  var x$2 = ("center canvas: " + this.canvasCenter__Lcom_repocad_util_Vector2D());
+  var this$8 = $m_s_Console$();
+  var this$9 = this$8.outVar$2;
+  $as_Ljava_io_PrintStream(this$9.tl$1.get__O()).println__O__V(x$2);
+  var arg1 = this.transformation$1;
+  var scale = (1.8 * (1 / this.transformation$1.scale__D()));
+  this.transformation$1 = arg1.transform__D__D__D__D__D__D__Lcom_repocad_util_TransformationMatrix(scale, 0.0, 0.0, scale, 0.0, 0.0);
+  this.context$1["setTransform"](this.transformation$1.a$1, this.transformation$1.b$1, this.transformation$1.c$1, this.transformation$1.d$1, this.transformation$1.e$1, this.transformation$1.f$1);
+  var arg1$1 = this.transformation$1;
+  var tx = (135 - panX);
+  var ty = (400 - panY);
+  this.transformation$1 = arg1$1.transform__D__D__D__D__D__D__Lcom_repocad_util_TransformationMatrix(1.0, 0.0, 0.0, 1.0, tx, ty);
+  this.context$1["setTransform"](this.transformation$1.a$1, this.transformation$1.b$1, this.transformation$1.c$1, this.transformation$1.d$1, this.transformation$1.e$1, this.transformation$1.f$1)
+});
 $c_Lcom_repocad_web_CanvasPrinter.prototype.toEvaluatorEnv$lzycompute__p1__sci_Map = (function() {
   if ((!this.bitmap$0$1)) {
     this.toEvaluatorEnv$1 = $s_Lcom_repocad_reposcript_Printer$class__toEvaluatorEnv__Lcom_repocad_reposcript_Printer__sci_Map(this);
@@ -12316,10 +12381,10 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.toEvaluatorEnv$lzycompute__p1__sci_M
 $c_Lcom_repocad_web_CanvasPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
   this.boundingBox$1.add__D__D__V((x + r), (y + r));
   this.boundingBox$1.add__D__D__V((x - r), (y - r));
-  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, x$8, y$3, r$2) {
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, x$10, y$3, r$2) {
     return (function(context$2) {
       context$2["beginPath"]();
-      context$2["arc"](x$8, (-y$3), r$2, 0.0, 6.283185307179586);
+      context$2["arc"](x$10, (-y$3), r$2, 0.0, 6.283185307179586);
       context$2["lineWidth"] = (0.2 * arg$outer.com$repocad$web$CanvasPrinter$$paper$1.scale$1);
       context$2["stroke"]();
       context$2["closePath"]()
@@ -12334,12 +12399,12 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.text__D__D__D__O__V = (function(x, y
   var myFont = (correctedH + "px Arial");
   this.boundingBox$1.add__D__D__V(((-10.0) + x), ((-10.0) + y));
   this.boundingBox$1.add__D__D__V((x + length), (10 + (y + h)));
-  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x$9, y$4, t$2, myFont$2) {
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x$11, y$4, t$2, myFont$2) {
     return (function(context$2) {
       context$2["save"]();
       context$2["font"] = myFont$2;
       context$2["fillStyle"] = "black";
-      context$2["fillText"]($objectToString(t$2), x$9, (-y$4));
+      context$2["fillText"]($objectToString(t$2), x$11, (-y$4));
       context$2["restore"]()
     })
   })(x, y, t, myFont));
@@ -12356,10 +12421,10 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.screenText__D__D__D__O__V = (functio
 $c_Lcom_repocad_web_CanvasPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   this.boundingBox$1.add__D__D__V((x + r), (y + r));
   this.boundingBox$1.add__D__D__V((x - r), (y - r));
-  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, x$7, y$2, r$1, sAngle$1, eAngle$1) {
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, x$9, y$2, r$1, sAngle$1, eAngle$1) {
     return (function(context$2) {
       context$2["beginPath"]();
-      context$2["arc"](x$7, (-y$2), r$1, sAngle$1, eAngle$1);
+      context$2["arc"](x$9, (-y$2), r$1, sAngle$1, eAngle$1);
       context$2["stroke"]();
       context$2["lineWidth"] = (0.2 * arg$outer.com$repocad$web$CanvasPrinter$$paper$1.scale$1);
       context$2["closePath"]()
@@ -12376,7 +12441,18 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.drawPaper__V = (function() {
   this.context$1["fillStyle"] = "white";
   this.com$repocad$web$CanvasPrinter$$paper$1 = this.boundingBox$1.toPaper__Lcom_repocad_util_Paper();
   this.context$1["fillRect"](this.com$repocad$web$CanvasPrinter$$paper$1.minX__D(), (-this.com$repocad$web$CanvasPrinter$$paper$1.maxY__D()), this.com$repocad$web$CanvasPrinter$$paper$1.width__D(), this.com$repocad$web$CanvasPrinter$$paper$1.height__D());
-  this.drawScreenText__V()
+  this.drawScreenText__V();
+  this.drawCanvasIcons__V()
+});
+$c_Lcom_repocad_web_CanvasPrinter.prototype.drawCanvasIcons__V = (function() {
+  this.context$1["save"]();
+  this.context$1["setTransform"](1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
+  this.screenLine__D__D__D__D__V(5.0, 20.0, 20.0, 5.0);
+  this.screenLine__D__D__D__D__V(9.0, 20.0, 5.0, 20.0);
+  this.screenLine__D__D__D__D__V(5.0, 15.0, 5.0, 20.0);
+  this.screenLine__D__D__D__D__V(16.0, 5.0, 20.0, 5.0);
+  this.screenLine__D__D__D__D__V(20.0, 10.0, 20.0, 5.0);
+  this.context$1["restore"]()
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.canvasCenter__Lcom_repocad_util_Vector2D = (function() {
   return new $c_Lcom_repocad_util_Vector2D().init___D__D((($uI(this.canvas$1["width"]) / 2) | 0), (($uI(this.canvas$1["height"]) / 2) | 0))

@@ -92,7 +92,7 @@
         </button>
         <button class="button two columns">
                 <a class="fa fa-file-pdf-o fa-lg"></a>
-                <a id="toPng" href="#" onclick="toPng">PNG</a>
+                <a id="toPng">PNG</a>
         </button>
     </div>
 
@@ -183,7 +183,10 @@
         }
         toPng.onclick = function (e) {
             var png = repocad.printPng();
-            this.href = png;
+            var url = canvas.toDataURL("image/png");
+            var url2 = png.replace(/octet-stream/, 'png');
+            //window.location.href = url;
+            console.log(png);
         }
 
         save.onclick = function(e) {

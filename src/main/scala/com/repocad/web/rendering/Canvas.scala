@@ -3,7 +3,7 @@ package com.repocad.web.rendering
 import com.repocad.reposcript.Printer
 import com.repocad.reposcript.parsing._
 import com.repocad.util.Vector2D
-import com.repocad.web.{Reposcript, CanvasPrinter}
+import com.repocad.web.{PngPrinter, Reposcript, CanvasPrinter}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
 
@@ -42,6 +42,10 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
   canvas.onmousedown = (e : MouseEvent) => {
     mouseDown = true
     mousePosition = Vector2D(e.clientX, e.clientY)
+
+    //testing zoom extends
+    //printer.zoomExtends()
+    //render(editor.getAst)
   }
 
   canvas.onmousemove = (e : MouseEvent) => {
@@ -63,7 +67,12 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     printer.execute()
   }
 
-  var png = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
+  def toPngUrl(ast : Expr) = {
+    printer.zoomExtends()
+    render(editor.getAst)
+    val dump = new PngPrinter(canvas,ast, printer)
+    dump.save
+  }
 
   canvas.onmouseleave = mouseExit
   canvas.onmouseup = mouseExit

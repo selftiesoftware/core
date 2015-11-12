@@ -20,7 +20,6 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
   context.setLineWidth(0.1)
 
 
-
   /**
    * create an arc.
    * @param x The x-coordinate of the center of the arc

@@ -43,24 +43,37 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
     context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
     drawScreenText()
+    drawCanvasIcons()
+
+  }
+
+  //draw an icon for zoom extends
+  def drawCanvasIcons(): Unit = {
+    context.save()
+    context.setTransform(1, 0, 0, 1, 0, 0)
+    screenLine(5,20,20,5)
+    screenLine(9,20,5,20)
+    screenLine(5,15,5,20)
+    screenLine(16,5,20,5)
+    screenLine(20,10,20,5)
+    context.restore()
   }
 
   def drawScreenText(): Unit = {
     //annotation
     val txt : String = "p a p e r : A 4       s c a l e:   1 :  " + paper.scale
     val version : String = "v e r.   0 . 2 "
-    screenText(5,10,70,txt)
+    screenText(35,10,70,txt)
     screenText(370,10,70,version)
+  }
 
-    //DEBUGGING
-
-    //screenText(5,6,"paper center from canvas corner: "+panVector)
-
-    //canvas center in canvas coordinates
-    //screenText(5,6,canvasCorner)
-
-    //mouse position in canvas coordinates
-    //screenText(5,12,"mouse from canvas corner: "+mouseCanvas)
+  def screenLine(x1 : Double , y1  : Double, x2 : Double ,y2 : Double ) = {
+    context.beginPath()
+    context.moveTo(x1, y1)
+    context.lineTo(x2, y2)
+    context.stroke()
+    context.lineWidth = 0.4
+    context.closePath()
   }
 
   /**
@@ -204,12 +217,25 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   }
 
   /**
-   * Sets the pan and zoom level to include the entire paper. Useful when a large import has occurred or similar.
+   * Sets the pan and zoom level to include the entire paper. Useful when after large import or panned out of view.
    */
-  def zoomExtends(centerX : Double, centerY : Double) {
-    //zoom = math.max(View.width, View.height) / math.max(drawing.boundary.width, drawing.boundary.height) * 0.5 // 20% margin
-    //val translateX = centerX * zoom
-    //val translateY = centerY * zoom
+  def zoomExtends() {
+    //calculate the factor by which the items on the canvas chould be zoomed
+    val panX = transformation.e
+    val panY = transformation.f
+
+    println("panX delta: "+ panY)
+    println("panY delta: "+ panY)
+    println("center canvas: "+ canvasCenter)
+
+    //zoom
+    transform(_.scale(1/transformation.scale * 1.8)) //*1.15 is to offset the margin around the paper.
+
+    //pan
+    transform(_.translate(135 - panX,  400 - panY))
+
+
+
   }
 
   def transform(f : TransformationMatrix => TransformationMatrix): Unit = {
