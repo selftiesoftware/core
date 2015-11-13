@@ -13,7 +13,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
   val zoomFactor = 1.15
   val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
-  var transformation = TransformationMatrix()
+  var transformation = TransformationMatrix(1,0,0,1,-80,90)
 
   private var paper = Paper(0, 0, 0, 0)
   private var boundingBox = new BoundingBox
@@ -197,6 +197,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
   def translate(x : Double, y : Double) : Unit = {
     val zoom = transformation.scale
+    //println(transformation)
+    println(canvas.height)
     transform(_.translate(x / zoom, y / zoom))
   }
 
@@ -224,17 +226,16 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     val panX = transformation.e
     val panY = transformation.f
 
-    println("panX delta: "+ panY)
-    println("panY delta: "+ panY)
-    println("center canvas: "+ canvasCenter)
+    //zoom to original scale first
+    transform(_.scale(1/(transformation.scale * paper.scale)))
 
-    //zoom
-    transform(_.scale(1/transformation.scale * 1.8)) //*1.15 is to offset the margin around the paper.
+    val x = canvas.height - 80
+    //transform(_.translate(140 - panX,  387 - panY))
+    transform(_.translate(-80 - panX,  90 - panY))
+    transform(_.translate(170,  355))
 
-    //pan
-    transform(_.translate(135 - panX,  400 - panY))
-
-
+    //zoom in so the paper fills the entire canvas.
+    transform(_.scale(1.8))
 
   }
 

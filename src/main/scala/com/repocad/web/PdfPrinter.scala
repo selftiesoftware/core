@@ -84,8 +84,8 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
   }
 
   def circle(x : Double, y : Double, r : Double) : Unit = {
-    val v = transform(Vector2D(x, y))
-    context.circle(v.x,v.y,r)
+    val v = transform(Vector2D(x / paper.scale, y / paper.scale))
+    context.circle(v.x,v.y,r / paper.scale)
   }
 
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : Unit = {
