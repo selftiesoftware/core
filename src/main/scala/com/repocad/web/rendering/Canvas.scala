@@ -3,7 +3,7 @@ package com.repocad.web.rendering
 import com.repocad.reposcript.Printer
 import com.repocad.reposcript.parsing._
 import com.repocad.util.Vector2D
-import com.repocad.web.{PngPrinter, Reposcript, CanvasPrinter}
+import com.repocad.web.{Reposcript, CanvasPrinter}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
 
@@ -67,17 +67,10 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     printer.execute()
   }
 
-  def toPng(ast : Expr) : String = {
+  def toPngUrl : String = {
     printer.zoomExtends()
     render(editor.getAst)
-    new PngPrinter(canvas,ast, printer).toString
-  }
-
-  def toPngUrl(ast : Expr) = {
-    printer.zoomExtends()
-    render(editor.getAst)
-    val dump = new PngPrinter(canvas,ast, printer)
-    dump.save
+    canvas.toDataURL("image/png")
   }
 
   canvas.onmouseleave = mouseExit
