@@ -237,6 +237,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     //zoom in so the paper fills the entire canvas.
     transform(_.scale(1.8))
 
+
   }
 
   def transform(f : TransformationMatrix => TransformationMatrix): Unit = {
