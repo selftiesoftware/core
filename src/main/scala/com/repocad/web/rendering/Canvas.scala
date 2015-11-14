@@ -67,6 +67,12 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     printer.execute()
   }
 
+  def toPng(ast : Expr) : String = {
+    printer.zoomExtends()
+    render(editor.getAst)
+    new PngPrinter(canvas,ast, printer).toString
+  }
+
   def toPngUrl(ast : Expr) = {
     printer.zoomExtends()
     render(editor.getAst)

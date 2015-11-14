@@ -17,6 +17,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  *
  *              TODO: Version numbers for AST!
  *              TODO: Import versioned compilers on request
+ *
  */
 @JSExport("Repocad")
 class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HTMLInputElement,
@@ -59,6 +60,14 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
       case Success(response) => displaySuccess(s"'${editor.module().name}' saved to www.github.com/repocad/lib")
       case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
     })
+    val pngText = canvas.toPng(editor.getAst)
+    val futurePng = editor.module().saveThumbnail(Ajax, pngText)
+
+    futurePng.onComplete(_ match {
+      case Success(response) => displaySuccess(s"'${editor.module().name}' saved to www.github.com/repocad/lib")
+      case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
+    })
+
   }
 
   @JSExport

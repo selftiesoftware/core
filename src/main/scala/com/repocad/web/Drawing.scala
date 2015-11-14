@@ -13,9 +13,16 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  * A drawing that is automatically synched
  */
 sealed case class Drawing(name : String, content : String) {
+  //saves the drawing to github
   def save(httpClient : HttpClient): Future[Response] = {
     val urlName = js.Dynamic.global.encodeURI(name)
     httpClient.post("post/" + urlName, content)
+  }
+  //saves the drawing to github
+  def saveThumbnail(httpClient : HttpClient, data : String): Future[Response] = {
+    val urlName = js.Dynamic.global.encodeURI(name)
+    println(urlName)
+    httpClient.post("thumbnail/" + urlName, data)
   }
 }
 
