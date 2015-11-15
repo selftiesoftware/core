@@ -197,8 +197,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
   def translate(x : Double, y : Double) : Unit = {
     val zoom = transformation.scale
-    //println(transformation)
-    println(canvas.height)
     transform(_.translate(x / zoom, y / zoom))
   }
 
