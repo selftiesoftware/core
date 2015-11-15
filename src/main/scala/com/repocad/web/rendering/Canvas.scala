@@ -39,8 +39,6 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     mouseDown = true
     mousePosition = Vector2D(e.clientX, e.clientY)
 
-    //testing zoom extends
-    printer.zoomExtends()
     render(editor.getAst)
   }
 
