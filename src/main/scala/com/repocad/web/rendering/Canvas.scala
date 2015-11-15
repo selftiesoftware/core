@@ -23,10 +23,6 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
     mouseDown = false
   }
 
-  //export to file
-
-  //make a mechanism to put images in a GIT branch
-
   def zoom(wheel: Double, e : MouseEvent) = {
     val delta = if (wheel > 0) {
       1.1

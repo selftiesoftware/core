@@ -222,22 +222,11 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
    * Sets the pan and zoom level to include the entire paper. Useful when after large import or panned out of view.
    */
   def zoomExtends() {
-    //calculate the factor by which the items on the canvas chould be zoomed
-    val panX = transformation.e
-    val panY = transformation.f
-
-    //zoom to original scale first
-    transform(_.scale(1/(transformation.scale * paper.scale)))
-
-    val x = canvas.height - 80
-    //transform(_.translate(140 - panX,  387 - panY))
-    transform(_.translate(-80 - panX,  90 - panY))
-    transform(_.translate(170,  355))
-
-    //zoom in so the paper fills the entire canvas.
-    transform(_.scale(1.8))
-
-
+    val t = transformation.translation
+    println("t.x: "+t.x)
+    println("t.y: "+t.y)
+    transform(_.translate(-t.x, -t.y)) // move paper to center
+    //transform(_.scale(1/(transformation.scale * paper.scale))) //zoom to original scale
   }
 
   def transform(f : TransformationMatrix => TransformationMatrix): Unit = {

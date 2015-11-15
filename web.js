@@ -12382,23 +12382,20 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.line__D__D__D__D__V = (function(x1, 
   $s_Lcom_repocad_reposcript_Printer$class__addAction__Lcom_repocad_reposcript_Printer__F1__V(this, action)
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.zoomExtends__V = (function() {
-  var panX = this.transformation$1.e$1;
-  var panY = this.transformation$1.f$1;
+  var this$1 = this.transformation$1;
+  var t = new $c_Lcom_repocad_util_Vector2D().init___D__D(this$1.e$1, this$1.f$1);
+  var x = ("t.x: " + t.x$1);
+  var this$3 = $m_s_Console$();
+  var this$4 = this$3.outVar$2;
+  $as_Ljava_io_PrintStream(this$4.tl$1.get__O()).println__O__V(x);
+  var x$1 = ("t.y: " + t.y$1);
+  var this$6 = $m_s_Console$();
+  var this$7 = this$6.outVar$2;
+  $as_Ljava_io_PrintStream(this$7.tl$1.get__O()).println__O__V(x$1);
   var arg1 = this.transformation$1;
-  var scale = (1 / (this.transformation$1.scale__D() * this.com$repocad$web$CanvasPrinter$$paper$1.scale$1));
-  this.transformation$1 = arg1.transform__D__D__D__D__D__D__Lcom_repocad_util_TransformationMatrix(scale, 0.0, 0.0, scale, 0.0, 0.0);
-  this.context$1["setTransform"](this.transformation$1.a$1, this.transformation$1.b$1, this.transformation$1.c$1, this.transformation$1.d$1, this.transformation$1.e$1, this.transformation$1.f$1);
-  $uI(this.canvas$1["height"]);
-  var arg1$1 = this.transformation$1;
-  var tx = ((-80) - panX);
-  var ty = (90 - panY);
-  this.transformation$1 = arg1$1.transform__D__D__D__D__D__D__Lcom_repocad_util_TransformationMatrix(1.0, 0.0, 0.0, 1.0, tx, ty);
-  this.context$1["setTransform"](this.transformation$1.a$1, this.transformation$1.b$1, this.transformation$1.c$1, this.transformation$1.d$1, this.transformation$1.e$1, this.transformation$1.f$1);
-  var arg1$2 = this.transformation$1;
-  this.transformation$1 = arg1$2.transform__D__D__D__D__D__D__Lcom_repocad_util_TransformationMatrix(1.0, 0.0, 0.0, 1.0, 170.0, 355.0);
-  this.context$1["setTransform"](this.transformation$1.a$1, this.transformation$1.b$1, this.transformation$1.c$1, this.transformation$1.d$1, this.transformation$1.e$1, this.transformation$1.f$1);
-  var arg1$3 = this.transformation$1;
-  this.transformation$1 = arg1$3.transform__D__D__D__D__D__D__Lcom_repocad_util_TransformationMatrix(1.8, 0.0, 0.0, 1.8, 0.0, 0.0);
+  var tx = (-t.x$1);
+  var ty = (-t.y$1);
+  this.transformation$1 = arg1.transform__D__D__D__D__D__D__Lcom_repocad_util_TransformationMatrix(1.0, 0.0, 0.0, 1.0, tx, ty);
   this.context$1["setTransform"](this.transformation$1.a$1, this.transformation$1.b$1, this.transformation$1.c$1, this.transformation$1.d$1, this.transformation$1.e$1, this.transformation$1.f$1)
 });
 $c_Lcom_repocad_web_CanvasPrinter.prototype.toEvaluatorEnv$lzycompute__p1__sci_Map = (function() {
@@ -12411,10 +12408,10 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.toEvaluatorEnv$lzycompute__p1__sci_M
 $c_Lcom_repocad_web_CanvasPrinter.prototype.circle__D__D__D__V = (function(x, y, r) {
   this.boundingBox$1.add__D__D__V((x + r), (y + r));
   this.boundingBox$1.add__D__D__V((x - r), (y - r));
-  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, x$12, y$3, r$2) {
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, x$9, y$3, r$2) {
     return (function(context$2) {
       context$2["beginPath"]();
-      context$2["arc"](x$12, (-y$3), r$2, 0.0, 6.283185307179586);
+      context$2["arc"](x$9, (-y$3), r$2, 0.0, 6.283185307179586);
       context$2["lineWidth"] = (0.2 * arg$outer.com$repocad$web$CanvasPrinter$$paper$1.scale$1);
       context$2["stroke"]();
       context$2["closePath"]()
@@ -12429,12 +12426,12 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.text__D__D__D__O__V = (function(x, y
   var myFont = (correctedH + "px Arial");
   this.boundingBox$1.add__D__D__V(((-10.0) + x), ((-10.0) + y));
   this.boundingBox$1.add__D__D__V((x + length), (10 + (y + h)));
-  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x$13, y$4, t$2, myFont$2) {
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(x$10, y$4, t$2, myFont$2) {
     return (function(context$2) {
       context$2["save"]();
       context$2["font"] = myFont$2;
       context$2["fillStyle"] = "black";
-      context$2["fillText"]($objectToString(t$2), x$13, (-y$4));
+      context$2["fillText"]($objectToString(t$2), x$10, (-y$4));
       context$2["restore"]()
     })
   })(x, y, t, myFont));
@@ -12451,10 +12448,10 @@ $c_Lcom_repocad_web_CanvasPrinter.prototype.screenText__D__D__D__O__V = (functio
 $c_Lcom_repocad_web_CanvasPrinter.prototype.arc__D__D__D__D__D__V = (function(x, y, r, sAngle, eAngle) {
   this.boundingBox$1.add__D__D__V((x + r), (y + r));
   this.boundingBox$1.add__D__D__V((x - r), (y - r));
-  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, x$11, y$2, r$1, sAngle$1, eAngle$1) {
+  var action = new $c_sjsr_AnonFunction1().init___sjs_js_Function1((function(arg$outer, x$8, y$2, r$1, sAngle$1, eAngle$1) {
     return (function(context$2) {
       context$2["beginPath"]();
-      context$2["arc"](x$11, (-y$2), r$1, sAngle$1, eAngle$1);
+      context$2["arc"](x$8, (-y$2), r$1, sAngle$1, eAngle$1);
       context$2["stroke"]();
       context$2["lineWidth"] = (0.2 * arg$outer.com$repocad$web$CanvasPrinter$$paper$1.scale$1);
       context$2["closePath"]()
@@ -20151,9 +20148,6 @@ $c_Lcom_repocad_web_Drawing.prototype.toString__T = (function() {
 $c_Lcom_repocad_web_Drawing.prototype.saveThumbnail__Lcom_repocad_reposcript_HttpClient__T__s_concurrent_Future = (function(httpClient, data) {
   var s = this.name$1;
   var urlName = $g["encodeURI"](s);
-  var this$4 = $m_s_Console$();
-  var this$5 = this$4.outVar$2;
-  $as_Ljava_io_PrintStream(this$5.tl$1.get__O()).println__O__V(urlName);
   var url = ("thumbnail/" + urlName);
   return $s_Lcom_repocad_reposcript_HttpClient$class__post__Lcom_repocad_reposcript_HttpClient__T__T__s_concurrent_Future(httpClient, url, data)
 });

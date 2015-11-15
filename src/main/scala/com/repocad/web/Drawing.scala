@@ -21,7 +21,6 @@ sealed case class Drawing(name : String, content : String) {
   //saves the drawing to github
   def saveThumbnail(httpClient : HttpClient, data : String): Future[Response] = {
     val urlName = js.Dynamic.global.encodeURI(name)
-    println(urlName)
     httpClient.post("thumbnail/" + urlName, data)
   }
 }
