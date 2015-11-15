@@ -60,7 +60,8 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
       case Success(response) => displaySuccess(s"'${editor.module().name}' saved to www.github.com/repocad/lib")
       case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
     })
-    val pngText = canvas.toPng(editor.getAst)
+    val pngText = canvas.toPngUrl
+    println(pngText)
     val futurePng = editor.module().saveThumbnail(Ajax, pngText)
 
     futurePng.onComplete(_ match {
@@ -80,8 +81,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   //PNG generator - used to add a thumbnail in the library when the drawing is saved to Github.
   @JSExport
   def printPng() = {
-    val png = canvas.toPngUrl(editor.getAst)
-    png
+    canvas.toPngUrl
   }
 
   @JSExport
