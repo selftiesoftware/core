@@ -105,7 +105,13 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
     val v = transform(Vector2D(x, y))
     //document.setFont("times")
     context.setFontSize(h * 1.8)
-    //document("test")
+    context.text(v.x / paper.scale, v.y / paper.scale, t.toString)
+  }
+
+
+  def textDot(x : Double, y : Double, t : Any) : Unit = {
+    val v = transform(Vector2D(x, y))
+    context.setFontSize(10)
     context.text(v.x / paper.scale, v.y / paper.scale, t.toString)
   }
 

@@ -76,29 +76,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     context.closePath()
   }
 
-  /**
-   * Display a custom text on a given position on the screen, Used for development and debugging purposes
-   * @param x position on the x axis
-   * @param y position on the y axis
-   * @param t string to display
-   */
-  def textDot(x: Double, y: Double, t : String) = {
-    //context.save()
-    //context.setTransform(1, 0, 0, 1, 0, 0)
-    //context.fillStyle = "Black"
-    //context.fillRect(x, y, 80, 20)
-    //context.restore()
-    val myFont = 10.toString + "pt Arial"
-
-    addAction(context => {
-      context.font = myFont
-      //context.font(1)
-      //context.textAlign("left")
-      //context.textBaseline("bottom")
-      context.fillText(t.toString, x, -y)
-    })
-  }
-
   override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
     boundingBox.add(x + r, y + r)
     boundingBox.add(x - r, y - r)
@@ -195,10 +172,44 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     })
   }
 
+  /**
+   * Display a custom text on a given position on the screen, Used for development and debugging purposes
+   * @param x position on the x axis
+   * @param y position on the y axis
+   * @param t string to display
+   */
+  def textDot(x: Double, y: Double, t : String) = {
+    val myFont : String = 30.toString + "px Arial"
+    addAction(context => {
+      context.save()
+      context.setTransform(1, 0, 0, 1, 0, 0)
+      context.beginPath()
+      context.moveTo(x-20, y-20)
+      context.lineTo(x+20, y+20)
+      context.stroke()
+      context.lineWidth = 0.4
+      context.closePath()
+      //context.beginPath()
+      //context.moveTo(x-20, y+20)
+      //context.lineTo(x+20, y-20)
+      //context.stroke()
+      //context.lineWidth = 0.4
+      //context.closePath()
+      //context.restore()
+      //context.save()
+      //context.setTransform(1, 0, 0, 1, 0, 0)
+      //context.fillStyle = "Black"
+      //context.fillRect(x, -y, 200, 200)
+      //context.restore()
+      //context.font = myFont
+      //context.fillText(t, x, -y)
+      context.restore()
+    })
+  }
+
   def translate(x : Double, y : Double) : Unit = {
     val zoom = transformation.scale
     //println(transformation)
-    println(canvas.height)
     transform(_.translate(x / zoom, y / zoom))
   }
 
@@ -216,17 +227,19 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     transform(_.translate(translation.x, translation.y))
     transform(_.scale(delta))
     transform(_.translate(-translation.x, -translation.y))
+
   }
 
   /**
    * Sets the pan and zoom level to include the entire paper. Useful when after large import or panned out of view.
    */
   def zoomExtends() {
-    val t = transformation.translation
-    println("t.x: "+t.x)
-    println("t.y: "+t.y)
-    transform(_.translate(-t.x, -t.y)) // move paper to center
-    //transform(_.scale(1/(transformation.scale * paper.scale))) //zoom to original scale
+    val t = -transformation.translation + canvasCenter
+    val pC = paper.center
+    transform(_.scale(1 / transformation.scale))
+    transform(_.translate(t.x,t.y))
+    transform(_.scale(1.0 / paper.scale))
+    transform(_.translate(-pC.x, pC.y))
   }
 
   def transform(f : TransformationMatrix => TransformationMatrix): Unit = {

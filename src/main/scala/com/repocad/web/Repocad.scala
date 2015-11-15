@@ -61,7 +61,6 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
       case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
     })
     val pngText = canvas.toPngUrl
-    println(pngText)
     val futurePng = editor.module().saveThumbnail(Ajax, pngText)
 
     futurePng.onComplete(_ match {
