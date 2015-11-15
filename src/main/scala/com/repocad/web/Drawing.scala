@@ -8,6 +8,8 @@ import scala.collection.mutable
 import scala.concurrent.Future
 import scala.scalajs.js
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import scala.scalajs.js.JSConverters.JSRichGenTraversableOnce
+import scala.scalajs.js.annotation.JSExport
 
 /**
  * A drawing that is automatically synched
@@ -25,16 +27,11 @@ sealed case class Drawing(name : String, content : String) {
   }
 }
 
+@JSExport("Drawing")
 object Drawing {
 
   /* Lazily load drawings */
-  private val drawingList : mutable.Seq[String] = mutable.Seq()
-
-  Ajax.get("list/") map {
-    case Response(_, _, text) => text.split("\n").filter(!_.endsWith("/")).toSeq
-  } foreach {
-    list => drawings ++ list
-  }
+  private var cachedDrawings : Option[Seq[String]] = None
 
   def apply() : Drawing = {
     val hash = window.location.hash.replace("#", "")
@@ -46,7 +43,17 @@ object Drawing {
     }).left.map(_ => Drawing(js.Math.random().toString.substring(7), "")).merge
   }
 
-  def drawings = drawingList
+  def drawings = {
+    if (cachedDrawings.isEmpty) {
+      cachedDrawings = Ajax.getSynchronous("list/") match {
+        case Response(_, _, text) => Some(text.split("\n").filter(!_.endsWith("/")).toSeq)
+      }
+    }
+    cachedDrawings.get
+  }
+
+  @JSExport
+  def javascriptDrawings = new JSRichGenTraversableOnce[String](Drawing.drawings).toJSArray
 
   private var listener : () => js.Any = () => ()
 

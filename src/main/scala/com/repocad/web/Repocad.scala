@@ -46,7 +46,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   }
 
   @JSExport
-  def getDrawings() : js.Array[String] = new JSRichGenTraversableOnce[String](Drawing.drawings).toJSArray
+  def getDrawings() : js.Array[String] = Drawing.javascriptDrawings
 
   @JSExport
   def render() : Unit = {
@@ -67,7 +67,6 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
       case Success(response) => displaySuccess(s"'${editor.module().name}' saved to www.github.com/repocad/lib")
       case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
     })
-
   }
 
   @JSExport
