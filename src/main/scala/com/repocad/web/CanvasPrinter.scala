@@ -13,7 +13,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
   val zoomFactor = 1.15
   val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
-  var transformation = TransformationMatrix()
+  var transformation = TransformationMatrix(1,0,0,1,-80,90)
 
   private var paper = Paper(0, 0, 0, 0)
   private var boundingBox = new BoundingBox
@@ -43,47 +43,37 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
     context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
     drawScreenText()
+    drawCanvasIcons()
+
+  }
+
+  //draw an icon for zoom extends
+  def drawCanvasIcons(): Unit = {
+    context.save()
+    context.setTransform(1, 0, 0, 1, 0, 0)
+    screenLine(5,20,20,5)
+    screenLine(9,20,5,20)
+    screenLine(5,15,5,20)
+    screenLine(16,5,20,5)
+    screenLine(20,10,20,5)
+    context.restore()
   }
 
   def drawScreenText(): Unit = {
     //annotation
     val txt : String = "p a p e r : A 4       s c a l e:   1 :  " + paper.scale
     val version : String = "v e r.   0 . 2 "
-    screenText(5,10,70,txt)
+    screenText(35,10,70,txt)
     screenText(370,10,70,version)
-
-    //DEBUGGING
-
-    //screenText(5,6,"paper center from canvas corner: "+panVector)
-
-    //canvas center in canvas coordinates
-    //screenText(5,6,canvasCorner)
-
-    //mouse position in canvas coordinates
-    //screenText(5,12,"mouse from canvas corner: "+mouseCanvas)
   }
 
-  /**
-   * Display a custom text on a given position on the screen, Used for development and debugging purposes
-   * @param x position on the x axis
-   * @param y position on the y axis
-   * @param t string to display
-   */
-  def textDot(x: Double, y: Double, t : String) = {
-    //context.save()
-    //context.setTransform(1, 0, 0, 1, 0, 0)
-    //context.fillStyle = "Black"
-    //context.fillRect(x, y, 80, 20)
-    //context.restore()
-    val myFont = 10.toString + "pt Arial"
-
-    addAction(context => {
-      context.font = myFont
-      //context.font(1)
-      //context.textAlign("left")
-      //context.textBaseline("bottom")
-      context.fillText(t.toString, x, -y)
-    })
+  def screenLine(x1 : Double , y1  : Double, x2 : Double ,y2 : Double ) = {
+    context.beginPath()
+    context.moveTo(x1, y1)
+    context.lineTo(x2, y2)
+    context.stroke()
+    context.lineWidth = 0.4
+    context.closePath()
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
@@ -182,8 +172,44 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     })
   }
 
+  /**
+   * Display a custom text on a given position on the screen, Used for development and debugging purposes
+   * @param x position on the x axis
+   * @param y position on the y axis
+   * @param t string to display
+   */
+  def textDot(x: Double, y: Double, t : String) = {
+    val myFont : String = 30.toString + "px Arial"
+    addAction(context => {
+      context.save()
+      context.setTransform(1, 0, 0, 1, 0, 0)
+      context.beginPath()
+      context.moveTo(x-20, y-20)
+      context.lineTo(x+20, y+20)
+      context.stroke()
+      context.lineWidth = 0.4
+      context.closePath()
+      //context.beginPath()
+      //context.moveTo(x-20, y+20)
+      //context.lineTo(x+20, y-20)
+      //context.stroke()
+      //context.lineWidth = 0.4
+      //context.closePath()
+      //context.restore()
+      //context.save()
+      //context.setTransform(1, 0, 0, 1, 0, 0)
+      //context.fillStyle = "Black"
+      //context.fillRect(x, -y, 200, 200)
+      //context.restore()
+      //context.font = myFont
+      //context.fillText(t, x, -y)
+      context.restore()
+    })
+  }
+
   def translate(x : Double, y : Double) : Unit = {
     val zoom = transformation.scale
+
     transform(_.translate(x / zoom, y / zoom))
   }
 
@@ -201,15 +227,19 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     transform(_.translate(translation.x, translation.y))
     transform(_.scale(delta))
     transform(_.translate(-translation.x, -translation.y))
+
   }
 
   /**
-   * Sets the pan and zoom level to include the entire paper. Useful when a large import has occurred or similar.
+   * Sets the pan and zoom level to include the entire paper. Useful when after large import or panned out of view.
    */
-  def zoomExtends(centerX : Double, centerY : Double) {
-    //zoom = math.max(View.width, View.height) / math.max(drawing.boundary.width, drawing.boundary.height) * 0.5 // 20% margin
-    //val translateX = centerX * zoom
-    //val translateY = centerY * zoom
+  def zoomExtends() {
+    val t = -transformation.translation + canvasCenter
+    val pC = paper.center
+    transform(_.scale(1 / transformation.scale))
+    transform(_.translate(t.x,t.y))
+    transform(_.scale(1.0 / paper.scale))
+    transform(_.translate(-pC.x, pC.y))
   }
 
   def transform(f : TransformationMatrix => TransformationMatrix): Unit = {

@@ -21,7 +21,6 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
   context.setLineWidth(0.1)
 
 
-
   /**
    * create an arc.
    * @param x The x-coordinate of the center of the arc
@@ -86,8 +85,8 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
   }
 
   def circle(x : Double, y : Double, r : Double) : Unit = {
-    val v = transform(Vector2D(x, y))
-    context.circle(v.x,v.y,r)
+    val v = transform(Vector2D(x / paper.scale, y / paper.scale))
+    context.circle(v.x,v.y,r / paper.scale)
   }
 
   def line(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : Unit = {
@@ -107,7 +106,13 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
     val v = transform(Vector2D(x, y))
     //document.setFont("times")
     context.setFontSize(h * 1.8)
-    //document("test")
+    context.text(v.x / paper.scale, v.y / paper.scale, t.toString)
+  }
+
+
+  def textDot(x : Double, y : Double, t : Any) : Unit = {
+    val v = transform(Vector2D(x, y))
+    context.setFontSize(10)
     context.text(v.x / paper.scale, v.y / paper.scale, t.toString)
   }
 

@@ -17,6 +17,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  *
  *              TODO: Version numbers for AST!
  *              TODO: Import versioned compilers on request
+ *
  */
 @JSExport("Repocad")
 class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HTMLInputElement,
@@ -45,7 +46,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   }
 
   @JSExport
-  def getDrawings() : js.Array[String] = new JSRichGenTraversableOnce[String](Drawing.drawings).toJSArray
+  def getDrawings() : js.Array[String] = Drawing.javascriptDrawings
 
   @JSExport
   def render() : Unit = {
@@ -56,6 +57,13 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   def save() : Unit = {
     val future = editor.module().save(Ajax)
     future.onComplete(_ match {
+      case Success(response) => displaySuccess(s"'${editor.module().name}' saved to www.github.com/repocad/lib")
+      case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
+    })
+    val pngText = canvas.toPngUrl
+    val futurePng = editor.module().saveThumbnail(Ajax, pngText)
+
+    futurePng.onComplete(_ match {
       case Success(response) => displaySuccess(s"'${editor.module().name}' saved to www.github.com/repocad/lib")
       case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
     })
@@ -74,8 +82,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   //PNG generator - used to add a thumbnail in the library when the drawing is saved to Github.
   @JSExport
   def printPng() = {
-    val png = canvas.png
-    png
+    canvas.toPngUrl
   }
 
   @JSExport
