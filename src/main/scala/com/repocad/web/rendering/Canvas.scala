@@ -64,8 +64,14 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
 
   def toPngUrl : String = {
     printer.zoomExtends()
+    val expCanvas = canvas
+    expCanvas.width = 500
+    expCanvas.height = 500
     render(editor.getAst)
-    canvas.toDataURL("image/png")
+    val r = canvas.toDataURL("image/png")
+    canvas.width = canvas.width
+    canvas.height = canvas.height
+    r
   }
 
   canvas.onmouseleave = mouseExit

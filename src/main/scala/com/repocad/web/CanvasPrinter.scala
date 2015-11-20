@@ -22,6 +22,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   def init(): Unit = {
     transform(_.translate(canvasCenter.x, canvasCenter.y))
     prepare()
+    zoomExtends()
   }
 
   def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
@@ -239,7 +240,11 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     transform(_.scale(1 / transformation.scale))
     transform(_.translate(t.x,t.y))
     transform(_.scale(1.0 / paper.scale))
+    transform(_.scale(1.5)) //zoom in a bit
     transform(_.translate(-pC.x, pC.y))
+
+    println("ZOOM")
+
   }
 
   def transform(f : TransformationMatrix => TransformationMatrix): Unit = {
