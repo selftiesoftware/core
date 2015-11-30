@@ -60,9 +60,9 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
    */
   def parse(useCache : Boolean = true): Either[String, Expr] = {
     if (!useCache) {
-      val result = Reposcript.parse(module().content).right.map(tuple => {
-        ast() = tuple._1
-        tuple._1
+      val result = Reposcript.parse(module().content).right.map(state => {
+        ast() = state.expr
+        state.expr
       })
       result.fold[Unit](repoCad.displayError, _ => repoCad.displaySuccess("Success"))
       result
