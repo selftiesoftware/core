@@ -14,7 +14,7 @@ object Reposcript {
   private val evaluator = new Evaluator(parser, Environment.evaluatorEnv)
 
   def parse(code : String) : parsing.Value = {
-    val tokens = Lexer.lex(code)
+    val tokens = Lexer.lex(code.toLowerCase())
     parser.parse(tokens)
   }
 
