@@ -90,7 +90,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   def displayError(error : String): Unit = {
     log.classList.remove("success")
     log.classList.add("error")
-    log.innerHTML = error
+    log.innerHTML = error.toString
   }
 
   def displaySuccess(success : String = ""): Unit = {

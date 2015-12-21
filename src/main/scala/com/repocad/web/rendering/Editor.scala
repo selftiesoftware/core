@@ -1,6 +1,6 @@
 package com.repocad.web.rendering
 
-import com.repocad.reposcript.parsing.{Expr, UnitExpr}
+import com.repocad.reposcript.parsing.{Error, Expr, UnitExpr}
 import com.repocad.web.{Drawing, Repocad, Reposcript}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLDivElement
@@ -58,13 +58,13 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
    *                 to true
    * @return an AST on success or an error message
    */
-  def parse(useCache : Boolean = true): Either[String, Expr] = {
+  def parse(useCache : Boolean = true): Either[Error, Expr] = {
     if (!useCache) {
       val result = Reposcript.parse(module().content).right.map(state => {
         ast() = state.expr
         state.expr
       })
-      result.fold[Unit](repoCad.displayError, _ => repoCad.displaySuccess("Success"))
+      result.left.map(_.toString).fold[Unit](repoCad.displayError, _ => repoCad.displaySuccess("Success"))
       result
     } else {
       Right(ast())

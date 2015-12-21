@@ -27,6 +27,6 @@ object Reposcript {
   }
 
   def evaluate(parsingOutput : parsing.Value, printer : Printer[_]) : evaluating.Value = {
-    parsingOutput.right.flatMap(t => evaluator.eval(t.expr, printer))
+    parsingOutput.right.flatMap(t => evaluator.eval(t.expr, printer)).left.map(_.toString)
   }
 }
