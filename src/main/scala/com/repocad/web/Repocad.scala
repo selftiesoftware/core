@@ -6,7 +6,6 @@ import org.scalajs.dom.raw.{HTMLButtonElement, HTMLCanvasElement, HTMLDivElement
 
 import scala.scalajs.js
 import scala.scalajs.js.Dynamic
-import scala.scalajs.js.JSConverters.JSRichGenTraversableOnce
 import scala.scalajs.js.annotation.JSExport
 import scala.util.{Failure, Success}
 
