@@ -11,7 +11,7 @@ import scala.concurrent.{Future, Promise}
  */
 object Ajax extends HttpClient {
 
-  val baseUrl = "http://repocad.com:20004/"
+  val baseUrl = "http://localhost/"
 
   private val defaultHeaders = Map("Access-Control-Allow-Origin" -> "*")
 

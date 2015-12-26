@@ -1,8 +1,9 @@
 package com.repocad.web.rendering
 
+import com.repocad.reposcript.lexing.Position
 import com.repocad.reposcript.parsing.{Error, Expr, UnitExpr}
 import com.repocad.web.{Drawing, Repocad, Reposcript}
-import org.scalajs.dom._
+import org.scalajs.dom.Event
 import org.scalajs.dom.raw.HTMLDivElement
 import rx.core.Var
 
@@ -13,14 +14,20 @@ import scala.scalajs.js
  */
 class Editor(container : HTMLDivElement, repoCad : Repocad) {
 
+  private val errorClass = "line-error"
+
+  private val ast = Var[Expr](UnitExpr)
+  private var lastError : Option[Error] = None
+
   val module = Var(Drawing())
   val printer = repoCad.view
-  private val ast = Var[Expr](UnitExpr)
 
   val codeMirrorHeight = js.Dynamic.global.window.innerHeight.toString.toDouble * 0.7 + "px"
 
   val codeMirrorSettings = js.Dynamic.literal("mode" -> "reposcript", "lineNumbers" -> true)
-  val codeMirror = js.Dynamic.global.CodeMirror(container, codeMirrorSettings)
+  val codeMirror: js.Dynamic = js.Dynamic.global.CodeMirror(container, codeMirrorSettings)
+
+  js.Dynamic.global.cm = codeMirror
 
   codeMirror.setSize("100%", codeMirrorHeight)
 
@@ -33,16 +40,42 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
     }
   })
 
-  codeMirror.on("mouseover", () => {
-    val mouse = codeMirror.getCursor()
-    val range = codeMirror.findWordAt(mouse)
-    console.log(codeMirror)
-    console.log(range)
-    val word = codeMirror.getRange(range.anchor, range.head)
-    console.log(word)
-  })
+//
+//  codeMirror.on("mouseover", () => {
+//    val mouse = codeMirror.getCursor()
+//    val range = codeMirror.findWordAt(mouse)
+//    console.log(codeMirror)
+//    console.log(range)
+//    val word = codeMirror.getRange(range.anchor, range.head)
+//    console.log(word)
+//  })
+
+  def clearError(): Unit = {
+    lastError.foreach(error => codeMirror.getDoc().removeLineClass(getLineNumber(error), "background", errorClass))
+  }
+
+  def displayError(error : Error): Unit = {
+    clearError()
+    lastError = Some(error)
+
+    codeMirror.addLineClass(getLineNumber(error), "background", errorClass)
+    repoCad.displayError(error.message)
+  }
+
+  def displaySuccess(expr : Expr) : Unit = {
+    clearError()
+    repoCad.displaySuccess("Success")
+  }
 
   def getAst : Expr = ast()
+
+  private def getLineNumber(error : Error): js.Any = {
+    if (error.position.lineNumber == Integer.MAX_VALUE) {
+      codeMirror.getDoc().lastLine()
+    } else {
+      js.Any.fromDouble(error.position.lineNumber)
+    }
+  }
 
   def setDrawing(drawing : Drawing): Unit = {
     module() = drawing
@@ -64,7 +97,7 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
         ast() = state.expr
         state.expr
       })
-      result.left.map(_.toString).fold[Unit](repoCad.displayError, _ => repoCad.displaySuccess("Success"))
+      result.fold[Unit](displayError, displaySuccess)
       result
     } else {
       Right(ast())
