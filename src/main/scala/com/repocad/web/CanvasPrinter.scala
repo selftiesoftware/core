@@ -11,7 +11,7 @@ import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
  */
 class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
-  protected val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
+  val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
 
   private val zoomFactor = 1.15
   private var transformation = TransformationMatrix(1,0,0,1,-80,90)
