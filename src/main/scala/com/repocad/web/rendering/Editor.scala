@@ -52,6 +52,7 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
 
   def clearError(): Unit = {
     lastError.foreach(error => codeMirror.getDoc().removeLineClass(getLineNumber(error), "background", errorClass))
+    lastError = None
   }
 
   def displayError(error : Error): Unit = {
