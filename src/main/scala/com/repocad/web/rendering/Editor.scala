@@ -56,11 +56,13 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
   }
 
   def displayError(error : Error): Unit = {
-    clearError()
-    lastError = Some(error)
+    if (lastError.isEmpty || lastError.exists(_ != error)) {
+      clearError()
+      lastError = Some(error)
 
-    codeMirror.addLineClass(getLineNumber(error), "background", errorClass)
-    repoCad.displayError(error.message)
+      codeMirror.addLineClass(getLineNumber(error), "background", errorClass)
+      repoCad.displayError(error.message)
+    }
   }
 
   def displaySuccess(expr : Expr) : Unit = {
@@ -74,7 +76,7 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
     if (error.position.lineNumber == Integer.MAX_VALUE) {
       codeMirror.getDoc().lastLine()
     } else {
-      js.Any.fromDouble(error.position.lineNumber)
+      js.Any.fromDouble(error.position.lineNumber.toDouble)
     }
   }
 
