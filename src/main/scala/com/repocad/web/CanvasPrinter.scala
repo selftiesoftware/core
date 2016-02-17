@@ -11,9 +11,10 @@ import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
  */
 class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
-  val zoomFactor = 1.15
   val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
-  var transformation = TransformationMatrix(1,0,0,1,-80,90)
+
+  private val zoomFactor = 1.15
+  private var transformation = TransformationMatrix(1,0,0,1,-80,90)
 
   private var paper = Paper(0, 0, 0, 0)
   private var boundingBox = new BoundingBox
@@ -22,6 +23,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   def init(): Unit = {
     transform(_.translate(canvasCenter.x, canvasCenter.y))
     prepare()
+    zoomExtends()
   }
 
   def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
@@ -43,8 +45,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
     context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
     drawScreenText()
-    drawCanvasIcons()
-
+    //drawCanvasIcons()
   }
 
   //draw an icon for zoom extends
@@ -209,7 +210,6 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
 
   def translate(x : Double, y : Double) : Unit = {
     val zoom = transformation.scale
-
     transform(_.translate(x / zoom, y / zoom))
   }
 

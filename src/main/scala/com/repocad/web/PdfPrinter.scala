@@ -103,10 +103,10 @@ class PdfPrinter(paper : Paper) extends Printer[Any] {
   }
 
   def text(x : Double, y : Double, h : Double, t : Any) : Unit = {
-    val v = transform(Vector2D(x, y))
+    val v = transform(Vector2D(x / paper.scale, y / paper.scale))
     //document.setFont("times")
-    context.setFontSize(h * 1.8)
-    context.text(v.x / paper.scale, v.y / paper.scale, t.toString)
+    context.setFontSize((h * 1.8) / paper.scale)
+    context.text(v.x, v.y, t.toString)
   }
 
 

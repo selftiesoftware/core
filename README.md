@@ -1,4 +1,4 @@
-![Travis build status](https://travis-ci.org/repocad/web.svg)
+[![Travis build status](https://travis-ci.org/repocad/web.svg)](https://travis-ci.org/repocad/web/)
 
 The website of RepoCad
 ===
@@ -11,7 +11,7 @@ Read more on [our wiki documentation](https://github.com/repocad/web/wiki).
 RepoCad is best served on its website, [repocad.com](http://repocad.com). But if you feel adventurous this is all open-source, so [fork](https://help.github.com/articles/fork-a-repo/) all you want!.
 
 ## Can I help?
-Oh yes. Send an message to the email written below.
+Oh yes. Send a message to the email written below.
 
 ## License
 Licensed under GPL. Please read:

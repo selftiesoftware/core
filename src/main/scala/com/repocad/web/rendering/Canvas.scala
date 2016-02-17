@@ -38,7 +38,6 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
   canvas.onmousedown = (e : MouseEvent) => {
     mouseDown = true
     mousePosition = Vector2D(e.clientX, e.clientY)
-
     render(editor.getAst)
   }
 
@@ -62,9 +61,17 @@ class Canvas(canvas : HTMLCanvasElement, editor : Editor, printer : CanvasPrinte
   }
 
   def toPngUrl : String = {
+    val previousWidth = canvas.width
+    val previousHeight = canvas.height
+//    canvas.width = 500
+//    canvas.height = 500
     printer.zoomExtends()
+    printer.drawPaper()
     render(editor.getAst)
-    canvas.toDataURL("image/png")
+    val r = canvas.toDataURL("image/png")
+//    canvas.width = previousWidth
+//    canvas.height = previousHeight
+    r
   }
 
   canvas.onmouseleave = mouseExit

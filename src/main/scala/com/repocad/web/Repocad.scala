@@ -6,7 +6,6 @@ import org.scalajs.dom.raw.{HTMLButtonElement, HTMLCanvasElement, HTMLDivElement
 
 import scala.scalajs.js
 import scala.scalajs.js.Dynamic
-import scala.scalajs.js.JSConverters.JSRichGenTraversableOnce
 import scala.scalajs.js.annotation.JSExport
 import scala.util.{Failure, Success}
 
@@ -93,7 +92,7 @@ class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, tit
   def displayError(error : String): Unit = {
     log.classList.remove("success")
     log.classList.add("error")
-    log.innerHTML = error
+    log.innerHTML = error.toString
   }
 
   def displaySuccess(success : String = ""): Unit = {

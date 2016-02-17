@@ -1,7 +1,11 @@
 package com.repocad.util
 
 /**
- * A paper that
+  * A paper that describes the dimension of a A-format paper oriented either horizontally (landscape) or vertically
+  * (portrait).
+  * @param center The center of the paper.
+  * @param orientation The orientation of the paper.
+  * @param scale The scaling of the paper.
  */
 case class Paper(center : Vector2D, orientation : PaperRotation, scale : Int) {
 
@@ -23,7 +27,8 @@ object Paper {
      val base : Double = math.pow(10,exp)
 
     if(scale <= 1 * base) {
-      base.toInt
+      // Give at least 1 in scale
+      math.max(1, base.toInt)
     }
     else if (scale <= 2 * base) {
       (base * 2).toInt
