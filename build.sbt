@@ -10,11 +10,12 @@ val project = Project("web", file("."))
     ),
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "0.8.0",
-      "com.lihaoyi" %%% "scalarx" % "0.2.7",
       "org.scala-lang.modules" %% "scala-async" % "0.9.5",
+      "com.thoughtworks.binding" %%% "core" % "2.0.1",
+      "com.thoughtworks.binding" %%% "dom" % "1.0.5",
       "org.scalatest" % "scalatest_2.11" % "2.2.4" % Test,
       "org.scalamock" %% "scalamock-scalatest-support" % "3.2" % Test
-      )
+    )
   )
   .enablePlugins(ScalaJSPlugin)
   .dependsOn(reposcript)

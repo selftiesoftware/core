@@ -13,22 +13,26 @@
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/codemirror.css">
 
-    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link rel="icon" type="image/png" href="images/favicon.png"/>
 
     <!-- Piwik -->
     <script type="text/javascript">
-      var _paq = _paq || [];
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="//repocad.com/piwik/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', 1]);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-      })();
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = "//repocad.com/piwik/";
+            _paq.push(['setTrackerUrl', u + 'piwik.php']);
+            _paq.push(['setSiteId', 1]);
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript';
+            g.async = true;
+            g.defer = true;
+            g.src = u + 'piwik.js';
+            s.parentNode.insertBefore(g, s);
+        })();
     </script>
-    <noscript><p><img src="//repocad.com/piwik/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+    <noscript><p><img src="//repocad.com/piwik/piwik.php?idsite=1" style="border:0;" alt=""/></p></noscript>
     <!-- End Piwik Code -->
 </head>
 <body>
@@ -46,15 +50,20 @@
         <div class="one column">
             <a href="/">
                 <img src="images/repoCad_logo_NB.png" alt="RepoCad"
-                             style="width:48px; height:37px; padding:0 0 0 10px;">
+                     style="width:48px; height:37px; padding:0 0 0 10px;">
             </a>
         </div>
 
-        <input type="text" id="drawingTitle" class="seven columns" list="drawingTitles" style="background-color: #F0F8FF" placeholder="Type in a name to find or create a new script"/>
+        <input type="text" id="drawingTitle" class="seven columns" list="drawingTitles"
+               style="background-color: #F0F8FF" placeholder="Type in a name to find or create a new script"/>
         <datalist id="drawingTitles" name="drawingTitles"></datalist>
 
-        <button class="two columns" alt="Create new drawing" id="drawingNewButton"><i class="fa fa-lg fa-file-o"></i> New</button>
-        <button class="two columns" alt="Search for drawing" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i> Search</button>
+        <button class="two columns" alt="Create new drawing" id="drawingNewButton"><i class="fa fa-lg fa-file-o"></i>
+            New
+        </button>
+        <button class="two columns" alt="Search for drawing" id="drawingSearchButton"><i class="fa fa-lg fa-search"></i>
+            Search
+        </button>
         <!--<button class="two columns"><i class="fa fa-lg fa-navicon"></i></button>-->
     </div>
 
@@ -63,23 +72,28 @@
 
         <div class="six columns" id="editor"></div>
 
-        <div class="six columns"><canvas id="canvas"></canvas></div>
+        <div class="six columns">
+            <canvas id="canvas"></canvas>
+        </div>
 
     </div>
 
     <style type="text/css">
         #log {
-        padding: 3px 0 3px 5px;
+            padding: 3px 0 3px 5px;
         }
+
         #log.error {
-        background-color: #F43;
+            background-color: #F43;
         }
+
         #log.success {
-        background-color: #EEE;
+            background-color: #EEE;
         }
+
         .line-error {
-          background-color: #FAA !important;
-          color: #F9F9F9 !important;
+            background-color: #FAA !important;
+            color: #F9F9F9 !important;
         }
     </style>
 
@@ -95,26 +109,28 @@
             <i class="fa fa-file-pdf-o fa-lg"></i> Print(PDF)
         </button>
         <button class="button two columns" id="toPng">
-                <i class="fa fa-file-pdf-o fa-lg"></i> PNG
+            <i class="fa fa-file-pdf-o fa-lg"></i> PNG
         </button>
     </div>
 
     <footer class="row" style="text-align: center">
-    
+
         ||
         <a href="http://repocad.com/">home</a> ||
         <a href="https://twitter.com/repocad">news (twitter)</a> ||
-        <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Frepocad.com%2F&display=popup&ref=plugin&src=share_button">share on facebook</a> ||
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Frepocad.com%2F&display=popup&ref=plugin&src=share_button">share
+            on facebook</a> ||
         <a href="http://repocad.com/reposcript">quick guide</a> ||
         <a href="https://github.com/repocad/lib">drawing library</a> ||
         <a href="https://github.com/repocad">source code</a> ||
         <a href="https://github.com/repocad/web/issues">known issues</a> ||
         <a href="https://github.com/repocad/web/wiki">about</a> ||
         <a href="http://aarch.dk/person/80003ada1922ad4ab7e5d16d99bb664d/">contact</a> ||
-        
+
         </br>
-        
-        Copyright (c) Selftie Software, licensed under the open-source license <a href="https://github.com/repocad/web/blob/master/repocad_license_agreement.pdf?raw=true">GPL</a>.
+
+        Copyright (c) Selftie Software, licensed under the open-source license <a
+            href="https://github.com/repocad/web/blob/master/repocad_license_agreement.pdf?raw=true">GPL</a>.
     </footer>
 </div>
 
@@ -142,7 +158,12 @@
     var title = document.getElementById("drawingTitle");
     var searchDrawing = document.getElementById("drawingSearchButton");
     var newDrawing = document.getElementById("drawingNewButton");
-    var repocad = new Repocad(canvas, editor, title, searchDrawing, newDrawing, log);
+
+    var codeEditor = new CodeEditor(editor);
+    var view = new CanvasView(canvas, codeEditor);
+    var omni = new Omnibox(title, codeEditor, view, searchDrawing, newDrawing);
+
+    var repocad = new Repocad(view, codeEditor, log);
 
     editor.style.height = window.innerHeight * 0.7 - 52 + "px";
 
@@ -154,7 +175,7 @@
         // cross-browser wheel delta
         var e = window.event || e; // old IE support
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        repocad.zoom(delta, e);
+        view.zoom(delta, e);
 
         // Stop scroll from happening
         if (e.preventDefault)
@@ -192,7 +213,7 @@
             console.log(png);
         }
 
-        save.onclick = function(e) {
+        save.onclick = function (e) {
             repocad.save();
         }
     };

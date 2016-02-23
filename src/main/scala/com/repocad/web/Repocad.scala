@@ -1,98 +1,91 @@
 package com.repocad.web
 
-import com.repocad.web.rendering.{Canvas, Editor, Omnibox}
-import org.scalajs.dom.MouseEvent
-import org.scalajs.dom.raw.{HTMLButtonElement, HTMLCanvasElement, HTMLDivElement, HTMLInputElement}
+import com.thoughtworks.binding.Binding.BindingInstances
+import org.scalajs.dom.raw.HTMLDivElement
 
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.scalajs.js
-import scala.scalajs.js.Dynamic
 import scala.scalajs.js.annotation.JSExport
 import scala.util.{Failure, Success}
 
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-
 /**
- * The entry point for compiling and evaluating repocad code
- *
- *              TODO: Version numbers for AST!
- *              TODO: Import versioned compilers on request
- *
- */
+  * The entry point for compiling and evaluating repocad code
+  *
+  * TODO: Version numbers for AST!
+  * TODO: Import versioned compilers on request
+  *
+  */
 @JSExport("Repocad")
-class Repocad(canvasElement : HTMLCanvasElement, editorDiv : HTMLDivElement, title : HTMLInputElement,
-              searchDrawing : HTMLButtonElement, newDrawing : HTMLButtonElement, log : HTMLDivElement) {
-
-  val view = new CanvasPrinter(canvasElement)
-  val editor = new Editor(editorDiv, this)
-  val canvas = new Canvas(canvasElement, editor, view)
-  val omnibox = new Omnibox(title, editor, canvas)
+class Repocad(view: View, editor: Editor, log: HTMLDivElement) {
 
   @JSExport
-  def init() : Unit = {
-    searchDrawing.onclick = (e : MouseEvent) => {
-      omnibox.loadDrawing(title.value)
-    }
+  def init() {
+    BindingInstances.bind(editor.drawing) { drawing =>
+      view.zoomExtends()
+      editor.drawing
+    }.watch()
 
-    newDrawing.onclick = (e : MouseEvent) => {
-      val name = Dynamic.global.prompt("Please write the name of the new drawing")
-      if (name != null) {
-        omnibox.loadDrawing(name.toString)
+    BindingInstances.bind(editor.ast) { ast =>
+      ast match {
+        case Right(expr) =>
+          view.render(expr)
+          displaySuccess()
+
+        case Left(err) => displayError(err.message)
       }
-    }
+      editor.ast
+    }.watch()
 
-    view.init()
-    editor.updateView()
+    editor.ast.get.right.foreach(view.render)
   }
 
   @JSExport
-  def getDrawings() : js.Array[String] = Drawing.javascriptDrawings
+  def getDrawings(): js.Array[String] = Drawing.javascriptDrawings
 
   @JSExport
-  def render() : Unit = {
-    editor.updateView()
-  }
-
-  @JSExport
-  def save() : Unit = {
-    val future = editor.module().save(Ajax)
-    future.onComplete(_ match {
-      case Success(response) => displaySuccess(s"'${editor.module().name}' saved to www.github.com/repocad/lib")
-      case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
+  def save(): Unit = {
+    val future = editor.drawing.get.save(Ajax)
+    future.onComplete({
+      case Success(response) => displaySuccess(s"'${
+        editor.drawing.get.name
+      }' saved to www.github.com/repocad/lib")
+      case Failure(error) => displayError(s"Error when saving ${
+        editor.drawing.get.name
+      }: $error")
     })
-    val pngText = canvas.toPngUrl
-    val futurePng = editor.module().saveThumbnail(Ajax, pngText)
+    val pngText = view.toPngUrl
+    val futurePng = editor.drawing.get.saveThumbnail(Ajax, pngText)
 
-    futurePng.onComplete(_ match {
-      case Success(response) => displaySuccess(s"'${editor.module().name}' saved to www.github.com/repocad/lib")
-      case Failure(error) => displayError(s"Error when saving ${editor.module().name}: $error")
+    futurePng.onComplete({
+      case Success(response) => displaySuccess(s"'${
+        editor.drawing.get.name
+      }' saved to www.github.com/repocad/lib")
+      case Failure(error) => displayError(s"Error when saving ${
+        editor.drawing.get.name
+      }: $error")
     })
   }
 
   @JSExport
-  def printPdf(name : String) : Unit = {
-    val printer = new PdfPrinter(view.getPaper)
-    canvas.render(editor.getAst, printer)
+  def printPdf(name: String): Unit = {
+    val printer = new PdfPrinter(view.paper)
+
     printer.save(name)
   }
 
   //PNG generator - used to add a thumbnail in the library when the drawing is saved to Github.
   @JSExport
   def printPng() = {
-    canvas.toPngUrl
+    view.toPngUrl
   }
 
-  @JSExport
-  def zoom(delta : Double, e : MouseEvent) : Unit = {
-    canvas.zoom(delta, e)
-  }
-
-  def displayError(error : String): Unit = {
+  def displayError(error: String): Unit = {
     log.classList.remove("success")
     log.classList.add("error")
     log.innerHTML = error.toString
   }
 
-  def displaySuccess(success : String = ""): Unit = {
+  def displaySuccess(success: String = ""): Unit = {
     log.classList.remove("error")
     log.classList.add("success")
     log.innerHTML = success

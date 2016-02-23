@@ -1,37 +1,35 @@
 package com.repocad.web
 
 import com.repocad.reposcript.Printer
-import com.repocad.util.{TransformationMatrix, Vector2D, Paper, BoundingBox}
+import com.repocad.util.{BoundingBox, Paper, TransformationMatrix, Vector2D}
 import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
 
 /**
- * A printer that renders to a HTML5 canvas
- * @param canvas  The HTML canvas element
- */
-class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
+  * A printer that renders to a HTML5 canvas
+  *
+  * @param canvas The HTML canvas element
+  */
+class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
 
-  val context : Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
+  val context: Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
 
   private val zoomFactor = 1.15
-  private var transformation = TransformationMatrix(1,0,0,1,-80,90)
+  private var transformation = TransformationMatrix(1, 0, 0, 1, -80, 90)
 
   private var paper = Paper(0, 0, 0, 0)
   private var boundingBox = new BoundingBox
 
-  //First run...
-  def init(): Unit = {
-    transform(_.translate(canvasCenter.x, canvasCenter.y))
-    prepare()
-    zoomExtends()
-  }
-
   def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
+
   def windowCenter = Vector2D(canvas.getBoundingClientRect().left, canvas.getBoundingClientRect().top) + canvasCenter
 
+  // Initialise the transformation
+  transform(_.translate(canvasCenter.x, canvasCenter.y))
+
   /**
-   * Draw a white rectangle representing the drawing if it is printed
-   */
+    * Draw a white rectangle representing the drawing if it is printed
+    */
   def drawPaper() = {
 
     context.save()
@@ -52,23 +50,23 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   def drawCanvasIcons(): Unit = {
     context.save()
     context.setTransform(1, 0, 0, 1, 0, 0)
-    screenLine(5,20,20,5)
-    screenLine(9,20,5,20)
-    screenLine(5,15,5,20)
-    screenLine(16,5,20,5)
-    screenLine(20,10,20,5)
+    screenLine(5, 20, 20, 5)
+    screenLine(9, 20, 5, 20)
+    screenLine(5, 15, 5, 20)
+    screenLine(16, 5, 20, 5)
+    screenLine(20, 10, 20, 5)
     context.restore()
   }
 
   def drawScreenText(): Unit = {
     //annotation
-    val txt : String = "p a p e r : A 4       s c a l e:   1 :  " + paper.scale
-    val version : String = "v e r.   0 . 2 "
-    screenText(35,10,70,txt)
-    screenText(370,10,70,version)
+    val txt: String = "p a p e r : A 4       s c a l e:   1 :  " + paper.scale
+    val version: String = "v e r.   0 . 2 "
+    screenText(35, 10, 70, txt)
+    screenText(370, 10, 70, version)
   }
 
-  def screenLine(x1 : Double , y1  : Double, x2 : Double ,y2 : Double ) = {
+  def screenLine(x1: Double, y1: Double, x2: Double, y2: Double) = {
     context.beginPath()
     context.moveTo(x1, y1)
     context.lineTo(x2, y2)
@@ -77,7 +75,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     context.closePath()
   }
 
-  override def arc(x: Double, y: Double, r: Double, sAngle : Double, eAngle : Double): Unit = {
+  override def arc(x: Double, y: Double, r: Double, sAngle: Double, eAngle: Double): Unit = {
     boundingBox.add(x + r, y + r)
     boundingBox.add(x - r, y - r)
 
@@ -91,7 +89,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     })
   }
 
-  override def bezierCurve(x1: Double,y1: Double,x2: Double,y2: Double,x3: Double,y3: Double,x4: Double,y4: Double) : Unit = {
+  override def bezierCurve(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double, x4: Double, y4: Double): Unit = {
     boundingBox.add(x1, y1)
     boundingBox.add(x2, y2)
     boundingBox.add(x3, y3)
@@ -109,8 +107,8 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   def getPaper = paper
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
-    boundingBox.add(x1,y1)
-    boundingBox.add(x2,y2)
+    boundingBox.add(x1, y1)
+    boundingBox.add(x2, y2)
 
     addAction(context => {
       context.beginPath()
@@ -136,14 +134,14 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   }
 
   /**
-   * Prepares the printer for drawing
-   */
-  def prepare() : Unit = {
+    * Prepares the printer for drawing
+    */
+  def prepare(): Unit = {
     actions = Seq()
     boundingBox = new BoundingBox
   }
 
-  def screenText (x: Double, y: Double, size: Double, t: Any): Unit = {
+  def screenText(x: Double, y: Double, size: Double, t: Any): Unit = {
     context.font = size.toString + " pt Arial"
     context.fillStyle = "black"
     context.save()
@@ -155,7 +153,7 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
     val length = t.toString.length * 0.3 * h
     val correctedH = h / 1.5
-    val myFont : String = correctedH + "px Arial"
+    val myFont: String = correctedH + "px Arial"
 
     boundingBox.add(x - 10, y - 10)
     boundingBox.add(x + length, y + h + 10)
@@ -174,19 +172,20 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
   }
 
   /**
-   * Display a custom text on a given position on the screen, Used for development and debugging purposes
-   * @param x position on the x axis
-   * @param y position on the y axis
-   * @param t string to display
-   */
-  def textDot(x: Double, y: Double, t : String) = {
-    val myFont : String = 30.toString + "px Arial"
+    * Display a custom text on a given position on the screen, Used for development and debugging purposes
+    *
+    * @param x position on the x axis
+    * @param y position on the y axis
+    * @param t string to display
+    */
+  def textDot(x: Double, y: Double, t: String) = {
+    val myFont: String = 30.toString + "px Arial"
     addAction(context => {
       context.save()
       context.setTransform(1, 0, 0, 1, 0, 0)
       context.beginPath()
-      context.moveTo(x-20, y-20)
-      context.lineTo(x+20, y+20)
+      context.moveTo(x - 20, y - 20)
+      context.lineTo(x + 20, y + 20)
       context.stroke()
       context.lineWidth = 0.4
       context.closePath()
@@ -208,43 +207,41 @@ class CanvasPrinter(canvas : HTMLCanvasElement) extends Printer[Canvas] {
     })
   }
 
-  def translate(x : Double, y : Double) : Unit = {
+  def translate(x: Double, y: Double): Unit = {
     val zoom = transformation.scale
     transform(_.translate(x / zoom, y / zoom))
   }
 
   /**
-   * Carries out a zoom action by zooming with the given delta and then panning
-   * the printer relative to the current zoom-factor.
-   *
-   * @param delta  The current zoom delta (1 or -1) as received from the mouse wheel / touch pad via js
-   * @param pointX  The center X for the zoom-operation
-   * @param pointY  The center Y for the zoom-operation
-   */
-  def zoom(delta : Double, pointX : Double, pointY : Double) {
-    val screenPoint = Vector2D(pointX, pointY) - windowCenter + canvasCenter
+    * Carries out a zoom action by zooming with the given delta and then panning
+    * the printer relative to the current zoom-factor.
+    *
+    * @param delta    The current zoom delta (1 or -1) as received from the mouse wheel / touch pad via js
+    * @param position The center for the zoom-operation
+    */
+  def zoom(delta: Double, position: Vector2D) {
+    val screenPoint = position - windowCenter + canvasCenter
     val translation = transformation.inverse.applyToPoint(screenPoint.x, screenPoint.y)
     transform(_.translate(translation.x, translation.y))
     transform(_.scale(delta))
     transform(_.translate(-translation.x, -translation.y))
-
   }
 
   /**
-   * Sets the pan and zoom level to include the entire paper. Useful when after large import or panned out of view.
-   */
+    * Sets the pan and zoom level to include the entire paper. Useful when after large import or panned out of view.
+    */
   def zoomExtends() {
     val t = -transformation.translation + canvasCenter
     val pC = paper.center
     transform(_.scale(1 / transformation.scale))
-    transform(_.translate(t.x,t.y))
+    transform(_.translate(t.x, t.y))
     transform(_.scale(1.0 / paper.scale))
     transform(_.translate(-pC.x, pC.y))
   }
 
-  def transform(f : TransformationMatrix => TransformationMatrix): Unit = {
+  def transform(f: TransformationMatrix => TransformationMatrix): Unit = {
     this.transformation = f(transformation)
     context.setTransform(transformation.a, transformation.b, transformation.c,
-                         transformation.d, transformation.e, transformation.f)
+      transformation.d, transformation.e, transformation.f)
   }
 }
