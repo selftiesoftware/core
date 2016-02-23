@@ -1,6 +1,7 @@
 *.class
 *.log
 *.bat
+*.iml
 # sbt specific
 .cache/
 .history/

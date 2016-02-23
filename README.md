@@ -1,4 +1,5 @@
 [![Travis build status](https://travis-ci.org/repocad/web.svg)](https://travis-ci.org/repocad/web/)
+[![Gitter chat](https://badges.gitter.im/repocad/RepoCad.png)](https://gitter.im/repocad/RepoCad)
 
 The website of RepoCad
 ===

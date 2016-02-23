@@ -68,9 +68,12 @@ class Repocad(view: View, editor: Editor, log: HTMLDivElement) {
 
   @JSExport
   def printPdf(name: String): Unit = {
-    val printer = new PdfPrinter(view.paper)
 
-    printer.save(name)
+    editor.ast.get.right.foreach(ast => {
+      val printer = new PdfPrinter(view.paper)
+      view.render(ast, printer)
+      printer.save(name)
+    })
   }
 
   //PNG generator - used to add a thumbnail in the library when the drawing is saved to Github.

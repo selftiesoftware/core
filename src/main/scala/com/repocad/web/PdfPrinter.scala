@@ -11,6 +11,7 @@ import scala.scalajs.js.JSConverters._
  */
 class PdfPrinter(paper : Paper) extends Printer[Any] {
 
+
   val context = js.Dynamic.global.jsPDF(paper.orientation.toString)
 
   // NOTE: Y is flipped
