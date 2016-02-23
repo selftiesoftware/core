@@ -3,14 +3,14 @@ package com.repocad.web
 import com.repocad.reposcript.evaluating.Evaluator
 import com.repocad.reposcript.lexing.Lexer
 import com.repocad.reposcript.parsing.{Expr, ExprState, Parser}
-import com.repocad.reposcript.{Environment, Printer, evaluating, parsing}
+import com.repocad.reposcript.{Printer, evaluating, parsing}
 
 /**
   * An entrypoint for reposcript.
   */
 object Reposcript {
 
-  private val parser = new Parser(Ajax, Environment.parserEnv, code => Lexer.lex(code, true))
+  private val parser = new Parser(Ajax, Environment.parserEnv, code => Lexer.lex(code, toLowerCase = true))
   private val evaluator = new Evaluator(parser, Environment.evaluatorEnv)
 
   def parse(code: String): parsing.Value[ExprState] = {
