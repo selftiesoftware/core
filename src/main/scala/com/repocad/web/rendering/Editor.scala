@@ -32,7 +32,7 @@ class Editor(container : HTMLDivElement, repoCad : Repocad) {
   codeMirror.setSize("100%", codeMirrorHeight)
 
   codeMirror.on("change", (e : Event) => {
-    val newCode : String = codeMirror.getValue().toString
+    val newCode : String = codeMirror.getValue().toString.toLowerCase
     if (module().content != newCode) {
       module() = module().copy(content = newCode)
       parse(false)

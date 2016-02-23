@@ -2,7 +2,7 @@ package com.repocad.web
 
 import com.repocad.reposcript.evaluating.Evaluator
 import com.repocad.reposcript.lexing.Lexer
-import com.repocad.reposcript.parsing.{Expr, Parser}
+import com.repocad.reposcript.parsing.{Expr, Parser, ExprState}
 import com.repocad.reposcript.{Environment, Printer, evaluating, parsing}
 
 /**
@@ -13,7 +13,7 @@ object Reposcript {
   private val parser = new Parser(Ajax, Environment.parserEnv)
   private val evaluator = new Evaluator(parser, Environment.evaluatorEnv)
 
-  def parse(code : String) : parsing.Value = {
+  def parse(code : String) : parsing.Value[ExprState] = {
     val tokens = Lexer.lex(code)
     parser.parse(tokens)
   }
@@ -26,7 +26,7 @@ object Reposcript {
     evaluate(parse(code), printer)
   }
 
-  def evaluate(parsingOutput : parsing.Value, printer : Printer[_]) : evaluating.Value = {
+  def evaluate(parsingOutput : parsing.Value[ExprState], printer : Printer[_]) : evaluating.Value = {
     parsingOutput.right.flatMap(t => evaluator.eval(t.expr, printer)).left.map(_.toString)
   }
 }

@@ -21,7 +21,7 @@ object Ajax extends HttpClient {
 
     xhr.onreadystatechange = (e : Event) => {
       if (xhr.readyState == 4) {
-        promise.success(Response(xhr.status, xhr.readyState, xhr.responseText))
+        promise.success(Response(xhr.status, xhr.readyState, xhr.responseText.toLowerCase))
       }
     }
 
@@ -34,7 +34,7 @@ object Ajax extends HttpClient {
     val xhr = createRequest(method, url, data, headers, sync = false)
     try {
       xhr.send(data)
-      Response(xhr.status, xhr.readyState, xhr.responseText)
+      Response(xhr.status, xhr.readyState, xhr.responseText.toLowerCase)
     } catch {
       case e : Throwable => Response(0, 0, "")
     }
