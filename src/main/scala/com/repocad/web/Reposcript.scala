@@ -10,11 +10,11 @@ import com.repocad.reposcript.{Environment, Printer, evaluating, parsing}
  */
 object Reposcript {
 
-  private val parser = new Parser(Ajax, Environment.parserEnv)
+  private val parser = new Parser(Ajax, Environment.parserEnv, code => Lexer.lex(code,true))
   private val evaluator = new Evaluator(parser, Environment.evaluatorEnv)
 
   def parse(code : String) : parsing.Value[ExprState] = {
-    val tokens = Lexer.lex(code)
+    val tokens = Lexer.lex(code, true)
     parser.parse(tokens)
   }
 
