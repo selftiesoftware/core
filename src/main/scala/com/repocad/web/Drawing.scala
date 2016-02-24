@@ -39,7 +39,7 @@ object Drawing {
     (if (hash.isEmpty) {
       getDefault
     } else {
-      Drawing.get(hash)
+      Drawing.get(hash.toLowerCase)
     }).left.map(_ => Drawing(js.Math.random().toString.substring(7), "")).merge
   }
 
