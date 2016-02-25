@@ -55,7 +55,7 @@ object Environment {
   lazy val evaluatorEnv: EvaluatorEnv = new EvaluatorEnv(
     primitiveEnv.map(t => {
       val functionType = t._2._1.asInstanceOf[FunctionType]
-      Signature(t._1.toLowerCase(), functionType.params.map(_.t), functionType.returnType) -> t._2._2
+      t._1.toLowerCase -> Map(Signature(functionType.params.map(_.t), functionType.returnType) -> t._2._2)
     })
   )
 
