@@ -14,7 +14,7 @@ import scala.scalajs.js.annotation.JSExport
 /**
  * A drawing that is automatically synched
  */
-sealed case class Drawing(name : String, content : String) {
+case class Drawing(name : String, content : String) {
   //saves the drawing to github
   def save(httpClient : HttpClient): Future[Response] = {
     val urlName = js.Dynamic.global.encodeURI(name)
@@ -51,6 +51,8 @@ object Drawing {
     }
     cachedDrawings.get
   }
+
+  val empty = new Drawing("empty", "")
 
   @JSExport
   def javascriptDrawings = new JSRichGenTraversableOnce[String](Drawing.drawings).toJSArray

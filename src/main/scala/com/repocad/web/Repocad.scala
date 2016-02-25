@@ -16,7 +16,9 @@ import scala.util.{Failure, Success}
   *
   */
 @JSExport("Repocad")
-class Repocad(view: View, editor: Editor, log: HTMLDivElement) {
+class Repocad(view: View, editor: Editor) {
+
+  private var logOption: Option[HTMLDivElement] = None
 
   @JSExport
   def init() {
@@ -83,15 +85,24 @@ class Repocad(view: View, editor: Editor, log: HTMLDivElement) {
   }
 
   def displayError(error: String): Unit = {
-    log.classList.remove("success")
-    log.classList.add("error")
-    log.innerHTML = error.toString
+    logOption.foreach(log => {
+      log.classList.remove("success")
+      log.classList.add("error")
+      log.innerHTML = error.toString
+    })
   }
 
   def displaySuccess(success: String = ""): Unit = {
-    log.classList.remove("error")
-    log.classList.add("success")
-    log.innerHTML = success
+    logOption.foreach(log => {
+      log.classList.remove("error")
+      log.classList.add("success")
+      log.innerHTML = success
+    })
+  }
+
+  def setLog(log : HTMLDivElement) : Repocad = {
+    this.logOption = Some(log)
+    this
   }
 
 }
