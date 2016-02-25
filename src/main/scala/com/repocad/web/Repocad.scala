@@ -100,6 +100,7 @@ class Repocad(view: View, editor: Editor) {
     })
   }
 
+  @JSExport
   def setLog(log : HTMLDivElement) : Repocad = {
     this.logOption = Some(log)
     this
