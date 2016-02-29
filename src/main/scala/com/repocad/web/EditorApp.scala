@@ -21,21 +21,33 @@ class EditorApp(drawingTitle: String, parent: HTMLDivElement) extends Editor {
     this
   }
 
+  @JSExport
+  def withText(variable: String) : EditorApp = {
+    this
+  }
+
   @dom def slider(variable: String, min: Int, max: Int): Binding[Node] = {
     <input type="range" min={min.toString} max={max.toString} oninput={ event: Event =>
       val target = event.target.asInstanceOf[HTMLInputElement]
-      updateAst(variable, target.valueAsNumber)
+      updateAst(variable, d => DefExpr(d.name, NumberExpr(target.valueAsNumber)))
     }>Hi</input>
   }
 
-  private def updateAst(definitionName: String, value: Int): Unit = {
-    ast := ast.get.right.map(expr => substitute(expr, definitionName, value))
+  @dom def textInput(variable: String): Binding[Node] = {
+    <input type="test" defaultValue="Text input here" onchange={ event: Event =>
+    val target = event.target.asInstanceOf[HTMLInputElement]
+    updateAst(variable, d => DefExpr(d.name, StringExpr(target.value)))
+    }></input>
   }
 
-  private def substitute(expr: Expr, definitionName: String, value: Int): Expr = {
+  private def updateAst(definitionName: String, f: DefExpr => DefExpr): Unit = {
+    ast := ast.get.right.map(expr => substitute(expr, definitionName, f))
+  }
+
+  private def substitute(expr: Expr, definitionName: String, f: DefExpr => DefExpr): Expr = {
     expr match {
-      case BlockExpr(exprs) => BlockExpr(exprs.map(e => substitute(e, definitionName, value)))
-      case DefExpr(x, NumberExpr(_)) if x == definitionName => DefExpr(x, NumberExpr(value))
+      case BlockExpr(exprs) => BlockExpr(exprs.map(e => substitute(e, definitionName, f)))
+      case DefExpr(x, y) if x == definitionName => f(DefExpr(x, y))
       case _ => expr
     }
   }
