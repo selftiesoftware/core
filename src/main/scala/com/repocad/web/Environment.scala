@@ -48,8 +48,8 @@ object Environment {
       (_: EvaluatorEnv, degrees: Double) => math.toRadians(degrees)),
     "tan" ->(FunctionType("tan", Seq(RefExpr("degrees", NumberType)), NumberTypeExpr),
       (_: EvaluatorEnv, degrees: Double) => math.tan(degrees)),
-    "toInt" ->(FunctionType("toInt", Seq(RefExpr("number", NumberType)), NumberTypeExpr),
-      (_: EvaluatorEnv, double: Double) => double.toInt)
+    "sqrt" -> (FunctionType("sqrt", Seq(RefExpr("x", NumberType)), NumberTypeExpr),
+     (_ : EvaluatorEnv, x : Double) => math.sqrt(x))
   )
 
   lazy val evaluatorEnv: EvaluatorEnv = new EvaluatorEnv(
