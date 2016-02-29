@@ -44,26 +44,30 @@ class Repocad(view: View, editor: Editor, log: HTMLDivElement) {
 
   @JSExport
   def save(): Unit = {
-    val future = editor.drawing.get.save(Ajax)
-    future.onComplete({
-      case Success(response) => displaySuccess(s"'${
-        editor.drawing.get.name
-      }' saved to www.github.com/repocad/lib")
-      case Failure(error) => displayError(s"Error when saving ${
-        editor.drawing.get.name
-      }: $error")
-    })
-    val pngText = view.toPngUrl
-    val futurePng = editor.drawing.get.saveThumbnail(Ajax, pngText)
+      val future = editor.drawing.get.save(Ajax)
+      future.onComplete({
+        case Success(response) => displaySuccess(s"'${
+          editor.drawing.get.name
+        }' saved to www.github.com/repocad/lib")
+        case Failure(error) => displayError(s"Error when saving ${
+          editor.drawing.get.name
+        }: $error")
+      })
 
-    futurePng.onComplete({
-      case Success(response) => displaySuccess(s"'${
-        editor.drawing.get.name
-      }' saved to www.github.com/repocad/lib")
-      case Failure(error) => displayError(s"Error when saving ${
-        editor.drawing.get.name
-      }: $error")
-    })
+    // Only save thumbnail if drawing compiles
+    if (editor.ast.get.isRight) {
+      val pngText = view.toPngUrl
+      val futurePng = editor.drawing.get.saveThumbnail(Ajax, pngText)
+
+      futurePng.onComplete({
+        case Success(response) => displaySuccess(s"'${
+          editor.drawing.get.name
+        }' saved to www.github.com/repocad/lib")
+        case Failure(error) => displayError(s"Error when saving ${
+          editor.drawing.get.name
+        }: $error")
+      })
+    }
   }
 
   @JSExport
