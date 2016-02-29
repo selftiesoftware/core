@@ -151,9 +151,13 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
   }
 
   override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
+   text(x, y, h, t, "Arial")
+  }
+
+  override def text(x: Double, y: Double, h: Double, t: Any, font: String): Unit = {
     val length = t.toString.length * 0.3 * h
     val correctedH = h / 1.5
-    val myFont: String = correctedH + "px Arial"
+    val myFont: String = correctedH + "px " + font
 
     boundingBox.add(x - 10, y - 10)
     boundingBox.add(x + length, y + h + 10)
