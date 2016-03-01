@@ -1,7 +1,7 @@
 package com.repocad.web
 
 import com.repocad.reposcript.Printer
-import com.repocad.util.{BoundingBox, Paper, TransformationMatrix, Vector2D}
+import com.repocad.util._
 import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
 
@@ -14,11 +14,12 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
 
   val context: Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
 
-  private val zoomFactor = 1.15
-  private var transformation = TransformationMatrix(1, 0, 0, 1, -80, 90)
+  private var _transformation = TransformationMatrix(1, 0, 0, 1, -80, 90)
+
+  def transformation : TransformationMatrix = _transformation
 
   private var paper = Paper(0, 0, 0, 0)
-  private var boundingBox = new BoundingBox
+  private var boundingBox = BoundingBox.empty
 
   def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
 
@@ -31,7 +32,6 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     * Draw a white rectangle representing the drawing if it is printed
     */
   def drawPaper() = {
-
     context.save()
     context.setTransform(1, 0, 0, 1, 0, 0)
     context.fillStyle = "AliceBlue"
@@ -42,6 +42,10 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     paper = boundingBox.toPaper
 
     context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
+    context.beginPath()
+    context.strokeStyle = "#AAA"
+    context.strokeRect(paper.minX, -paper.maxY, paper.width, paper.height)
+    context.strokeStyle = "#222"
     drawScreenText()
     //drawCanvasIcons()
   }
@@ -61,9 +65,10 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
   def drawScreenText(): Unit = {
     //annotation
     val txt: String = "p a p e r : A 4       s c a l e:   1 :  " + paper.scale
-    val version: String = "v e r.   0 . 2 "
-    screenText(35, 10, 70, txt)
-    screenText(370, 10, 70, version)
+    val versionNumber = Repocad.version.toString.foldLeft("")((string: String, char) => string + char + " ")
+    val version: String = "v e r.  " + versionNumber
+    screenText(35, 10, 10, txt)
+    screenText(370, 10, 10, version)
   }
 
   def screenLine(x1: Double, y1: Double, x2: Double, y2: Double) = {
@@ -76,8 +81,8 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle: Double, eAngle: Double): Unit = {
-    boundingBox.add(x + r, y + r)
-    boundingBox.add(x - r, y - r)
+    boundingBox = boundingBox.add(x + r, y + r)
+    boundingBox = boundingBox.add(x - r, y - r)
 
     addAction(context => {
       context.beginPath()
@@ -90,10 +95,10 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
   }
 
   override def bezierCurve(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double, x4: Double, y4: Double): Unit = {
-    boundingBox.add(x1, y1)
-    boundingBox.add(x2, y2)
-    boundingBox.add(x3, y3)
-    boundingBox.add(x4, y4)
+    boundingBox = boundingBox.add(x1, y1)
+    boundingBox = boundingBox.add(x2, y2)
+    boundingBox = boundingBox.add(x3, y3)
+    boundingBox = boundingBox.add(x4, y4)
 
     addAction(context => {
       context.beginPath()
@@ -107,8 +112,8 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
   def getPaper = paper
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
-    boundingBox.add(x1, y1)
-    boundingBox.add(x2, y2)
+    boundingBox = boundingBox.add(x1, y1)
+    boundingBox = boundingBox.add(x2, y2)
 
     addAction(context => {
       context.beginPath()
@@ -121,8 +126,8 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
   }
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
-    boundingBox.add(x + r, y + r)
-    boundingBox.add(x - r, y - r)
+    boundingBox = boundingBox.add(x + r, y + r)
+    boundingBox = boundingBox.add(x - r, y - r)
 
     addAction(context => {
       context.beginPath()
@@ -138,11 +143,10 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     */
   def prepare(): Unit = {
     actions = Seq()
-    boundingBox = new BoundingBox
   }
 
   def screenText(x: Double, y: Double, size: Double, t: Any): Unit = {
-    context.font = size.toString + " pt Arial"
+    context.font = size.toString + "px Arial"
     context.fillStyle = "black"
     context.save()
     context.setTransform(1, 0, 0, 1, 0, 0)
@@ -150,13 +154,17 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     context.restore()
   }
 
-  override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
-    val length = t.toString.length * 0.3 * h
-    val correctedH = h / 1.5
-    val myFont: String = correctedH + "px Arial"
+  override def text(x: Double, y: Double, h: Double, t: Any): Map[String, Any] = {
+    text(x, y, h, t, "Arial")
+  }
 
-    boundingBox.add(x - 10, y - 10)
-    boundingBox.add(x + length, y + h + 10)
+  override def text(x: Double, y: Double, height: Double, t: Any, font: String): Map[String, Any] = {
+    val myFont: String = height + "px " + font
+    context.font = myFont
+    val width = context.measureText(t.toString).width
+
+    boundingBox = boundingBox.add(x, y)
+    boundingBox = boundingBox.add(x + width, y + height)
 
     addAction(context => {
       context.save()
@@ -169,46 +177,12 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
       context.fillText(t.toString, x, -y)
       context.restore()
     })
-  }
 
-  /**
-    * Display a custom text on a given position on the screen, Used for development and debugging purposes
-    *
-    * @param x position on the x axis
-    * @param y position on the y axis
-    * @param t string to display
-    */
-  def textDot(x: Double, y: Double, t: String) = {
-    val myFont: String = 30.toString + "px Arial"
-    addAction(context => {
-      context.save()
-      context.setTransform(1, 0, 0, 1, 0, 0)
-      context.beginPath()
-      context.moveTo(x - 20, y - 20)
-      context.lineTo(x + 20, y + 20)
-      context.stroke()
-      context.lineWidth = 0.4
-      context.closePath()
-      //context.beginPath()
-      //context.moveTo(x-20, y+20)
-      //context.lineTo(x+20, y-20)
-      //context.stroke()
-      //context.lineWidth = 0.4
-      //context.closePath()
-      //context.restore()
-      //context.save()
-      //context.setTransform(1, 0, 0, 1, 0, 0)
-      //context.fillStyle = "Black"
-      //context.fillRect(x, -y, 200, 200)
-      //context.restore()
-      //context.font = myFont
-      //context.fillText(t, x, -y)
-      context.restore()
-    })
+    Map("x" -> width, "y" -> height)
   }
 
   def translate(x: Double, y: Double): Unit = {
-    val zoom = transformation.scale
+    val zoom = _transformation.scale
     transform(_.translate(x / zoom, y / zoom))
   }
 
@@ -221,7 +195,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     */
   def zoom(delta: Double, position: Vector2D) {
     val screenPoint = position - windowCenter + canvasCenter
-    val translation = transformation.inverse.applyToPoint(screenPoint.x, screenPoint.y)
+    val translation = _transformation.inverse.applyToPoint(screenPoint.x, screenPoint.y)
     transform(_.translate(translation.x, translation.y))
     transform(_.scale(delta))
     transform(_.translate(-translation.x, -translation.y))
@@ -231,17 +205,17 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     * Sets the pan and zoom level to include the entire paper. Useful when after large import or panned out of view.
     */
   def zoomExtends() {
-    val t = -transformation.translation + canvasCenter
+    val t = -_transformation.translation + canvasCenter
     val pC = paper.center
-    transform(_.scale(1 / transformation.scale))
+    transform(_.scale(1 / _transformation.scale))
     transform(_.translate(t.x, t.y))
     transform(_.scale(1.0 / paper.scale))
     transform(_.translate(-pC.x, pC.y))
   }
 
   def transform(f: TransformationMatrix => TransformationMatrix): Unit = {
-    this.transformation = f(transformation)
-    context.setTransform(transformation.a, transformation.b, transformation.c,
-      transformation.d, transformation.e, transformation.f)
+    this._transformation = f(_transformation)
+    context.setTransform(_transformation.a, _transformation.b, _transformation.c,
+      _transformation.d, _transformation.e, _transformation.f)
   }
 }

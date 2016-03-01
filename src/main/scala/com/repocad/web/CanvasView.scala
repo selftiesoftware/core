@@ -68,14 +68,13 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
   def toPngUrl: String = {
     val previousWidth = canvas.width
     val previousHeight = canvas.height
-    //    canvas.width = 500
-    //    canvas.height = 500
+    val t = printer.transformation
     printer.zoomExtends()
     printer.drawPaper()
     editor.ast.get.right.foreach(render)
     val r = canvas.toDataURL("image/png")
-    //    canvas.width = previousWidth
-    //    canvas.height = previousHeight
+    printer.transform(_ => t)
+    render()
     r
   }
 

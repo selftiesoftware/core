@@ -19,11 +19,15 @@ import scala.util.{Failure, Success}
 class Repocad(view: View, editor: Editor) {
 
   private var logOption: Option[HTMLDivElement] = None
+  private var drawingTitle: String = ""
 
   @JSExport
   def init() {
     BindingInstances.bind(editor.drawing) { drawing =>
-      view.zoomExtends()
+      if (drawing.name != drawingTitle) {
+        view.zoomExtends()
+      }
+      drawingTitle = drawing.name
       editor.drawing
     }.watch()
 
@@ -105,5 +109,11 @@ class Repocad(view: View, editor: Editor) {
     this.logOption = Some(log)
     this
   }
+
+}
+
+object Repocad {
+
+  val version = 0.2
 
 }
