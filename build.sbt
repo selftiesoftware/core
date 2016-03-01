@@ -17,10 +17,6 @@ val project = Project("web", file("."))
       "org.scalatest" % "scalatest_2.11" % "2.2.4" % Test,
       "org.scalamock" %% "scalamock-scalatest-support" % "3.2" % Test
     ),
-    jsDependencies ++= Seq(
-      ProvidedJS / "jspdf.min.js",
-      ProvidedJS / "opentype.min.js"
-    ),
     addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
   )
   .enablePlugins(ScalaJSPlugin)
