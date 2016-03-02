@@ -1,6 +1,6 @@
 package com.repocad.web
 
-import com.repocad.reposcript.Printer
+import com.repocad.reposcript.Renderer
 import com.repocad.reposcript.evaluating.{EvaluatorEnv, Signature}
 import com.repocad.reposcript.parsing._
 
@@ -48,8 +48,8 @@ object Environment {
       (_: EvaluatorEnv, degrees: Double) => math.toRadians(degrees)),
     "tan" ->(FunctionType("tan", Seq(RefExpr("degrees", NumberType)), NumberTypeExpr),
       (_: EvaluatorEnv, degrees: Double) => math.tan(degrees)),
-    "toInt" ->(FunctionType("toInt", Seq(RefExpr("number", NumberType)), NumberTypeExpr),
-      (_: EvaluatorEnv, double: Double) => double.toInt)
+    "sqrt" ->(FunctionType("sqrt", Seq(RefExpr("x", NumberType)), NumberTypeExpr),
+      (_: EvaluatorEnv, x: Double) => math.sqrt(x))
   )
 
   lazy val evaluatorEnv: EvaluatorEnv = new EvaluatorEnv(
@@ -61,6 +61,6 @@ object Environment {
 
   // String types plus primitive operations plus printer operations
   lazy val parserEnv: ParserEnv =
-    ParserEnv.ofMap(stringTypeMap.map(t => t._1.toLowerCase() -> t._2) ++ primitiveEnv.map(t => t._1.toLowerCase() -> t._2._1)) ++ Printer.toParserEnv
+    ParserEnv.ofMap(stringTypeMap.map(t => t._1.toLowerCase() -> t._2) ++ primitiveEnv.map(t => t._1.toLowerCase() -> t._2._1)) ++ Renderer.toParserEnv
 
 }

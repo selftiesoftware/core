@@ -50,8 +50,9 @@ object Paper {
     val scale = roundScale(math.max(orientation.getScaleFromHeight(height), orientation.getScaleFromWidth(width)))
 
     new Paper(center, orientation, scale)
-
   }
+
+  val empty = new Paper(Vector2D(0, 0), Portrait, 0)
 
 }
 

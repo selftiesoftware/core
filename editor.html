@@ -163,7 +163,7 @@
     var view = new CanvasView(canvas, codeEditor);
     var omni = new Omnibox(title, codeEditor, view, searchDrawing, newDrawing);
 
-    var repocad = new Repocad(view, codeEditor, log);
+    var repocad = new Repocad(view, codeEditor).setLog(log);
 
     editor.style.height = window.innerHeight * 0.7 - 52 + "px";
 

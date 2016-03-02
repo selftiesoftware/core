@@ -3,7 +3,7 @@ package com.repocad.web
 import com.repocad.reposcript.evaluating.Evaluator
 import com.repocad.reposcript.lexing.Lexer
 import com.repocad.reposcript.parsing.{Expr, ExprState, Parser}
-import com.repocad.reposcript.{Printer, evaluating, parsing}
+import com.repocad.reposcript.{evaluating, parsing}
 
 /**
   * An entrypoint for reposcript.

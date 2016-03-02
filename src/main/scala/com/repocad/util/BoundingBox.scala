@@ -3,28 +3,28 @@ package com.repocad.util
 /**
  * A bounding box that starts in (0, 0) and can expand when coordinates are added.
  */
-class BoundingBox {
+case class BoundingBox(xRange : DynamicRange, yRange : DynamicRange) {
 
-  private var xRange : DynamicRange = EmptyRange
-  private var yRange : DynamicRange = EmptyRange
-
-  def add(x : Double, y : Double) = {
-    xRange = xRange.add(x)
-    yRange = yRange.add(y)
+  def add(x : Double, y : Double) : BoundingBox = {
+    copy(xRange.add(x), yRange.add(y))
   }
 
-  def addX(x : Double): Unit = {
-    xRange = xRange.add(x)
+  def addX(x : Double): BoundingBox = {
+    copy(xRange = xRange.add(x))
   }
 
-  def addY(y : Double): Unit = {
-    yRange = yRange.add(y)
+  def addY(y : Double): BoundingBox = {
+    copy(yRange = yRange.add(y))
   }
 
   def toPaper : Paper = Paper(xRange.min, yRange.min, xRange.max, yRange.max)
 
   override def toString = s"X[${xRange.min}, ${xRange.max}}] Y: [${yRange.min}, ${yRange.max}}]"
 
+}
+
+object BoundingBox {
+  val empty = new BoundingBox(EmptyRange, EmptyRange)
 }
 
 trait DynamicRange {
