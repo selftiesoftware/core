@@ -48,6 +48,9 @@ object Environment {
       (_: EvaluatorEnv, degrees: Double) => math.toRadians(degrees)),
     "tan" ->(FunctionType("tan", Seq(RefExpr("degrees", NumberType)), NumberTypeExpr),
       (_: EvaluatorEnv, degrees: Double) => math.tan(degrees)),
+    // Mathematics
+    "abs" ->(FunctionType("sqrt", Seq(RefExpr("x", NumberType)), NumberTypeExpr),
+      (_: EvaluatorEnv, x: Double) => math.abs(x)),
     "sqrt" ->(FunctionType("sqrt", Seq(RefExpr("x", NumberType)), NumberTypeExpr),
       (_: EvaluatorEnv, x: Double) => math.sqrt(x))
   )
