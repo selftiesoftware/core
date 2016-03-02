@@ -1,7 +1,5 @@
 package com.repocad.web
 
-import com.repocad.reposcript.Renderer
-
 /**
   * Prints objects on a paper media.
   */

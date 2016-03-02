@@ -146,7 +146,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     context.restore()
   }
 
-  override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
+  override def text(x: Double, y: Double, h: Double, t: Any): Map[String, Any] = {
     text(x, y, h, t, "Arial")
   }
 
