@@ -1,4 +1,4 @@
-[![Travis build status](https://travis-ci.org/repocad/web.svg)](https://travis-ci.org/repocad/web/)
+[![Travis build status](https://travis-ci.org/repocad/core.svg)](https://travis-ci.org/repocad/core/)
 [![Gitter chat](https://badges.gitter.im/repocad/RepoCad.png)](https://gitter.im/repocad/RepoCad)
 
 The core of RepoCad
