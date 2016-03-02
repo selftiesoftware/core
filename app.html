@@ -58,28 +58,34 @@
     <!-- Canvas and editor -->
     <div class="row">
 
-        <div class="six columns" id="editor"></div>
+        <div class="six columns" id="editor">
+            <label>
+                Height:
+                <input type="range" min="1" max="100" value="2" id="marginHeight"/>
+                <span id="heightValue">2</span>mm
+            </label>
+            <label>Width
+                <input type="range" min="1" max="100" value="6" id="marginWidth"/>
+                <span id="widthValue">6</span>mm
+            </label>
+            <label>Text size
+                <input type="range" min="3" max="100" value="6" id="textSize">
+                <span id="textSizeValue">6</span>px
+            </label>
+            <label>
+                Font
+
+            </label>
+            <label>Text
+                <input type="text" placeholder="Input text" id="text" value="Hello world!"/>
+            </label>
+
+        </div>
 
         <div class="six columns">
             <canvas id="canvas"></canvas>
         </div>
 
-    </div>
-
-    <!-- Debug, save and export -->
-    <div class="row">
-
-        <div class="six columns"><p id="log">&nbsp;</p></div>
-
-        <button id="save" class="button two columns">
-            <i class="fa fa-save fa-lg"></i> Save
-        </button>
-        <button id="toPdf" class="button two columns">
-            <i class="fa fa-file-pdf-o fa-lg"></i> Print(PDF)
-        </button>
-        <button class="button two columns" id="toPng">
-            <i class="fa fa-file-pdf-o fa-lg"></i> PNG
-        </button>
     </div>
 
     <footer class="row" style="text-align: center">
@@ -112,8 +118,20 @@
     var canvas = document.getElementById("canvas");
     var editorDiv = document.getElementById("editor");
 
+    var sliderHeight = document.getElementById("marginHeight");
+    var sliderWidth = document.getElementById("marginWidth");
+    var textSize = document.getElementById("textSize");
+    var textInput = document.getElementById("text");
+    var heightValue = document.getElementById("heightValue");
+    var widthValue = document.getElementById("widthValue");
+    var textSizeValue = document.getElementById("textSizeValue");
+
     var editor = new EditorApp("sign", editorDiv);
-    editor.withSlider("width", 100, 300);
+    editor.withSlider(sliderWidth, "marginwidth");
+    editor.withSlider(sliderHeight, "marginheight");
+    editor.withSlider(textSize, "scale");
+    editor.withText(textInput, "content");
+
     var view = new CanvasView(canvas, editor);
 
     var repocad = new Repocad(view, editor);
@@ -143,6 +161,16 @@
 
     window.onload = function (e) {
         repocad.init();
+
+        sliderHeight.addEventListener("input", function (e) {
+            heightValue.innerHTML = e.target.value;
+        });
+        sliderWidth.addEventListener("input", function (e) {
+            widthValue.innerHTML = e.target.value;
+        });
+        textSize.addEventListener("input", function(e) {
+            textSizeValue.innerHTML = e.target.value;
+        });
 //
 //        var drawings = repocad.getDrawings();
 //

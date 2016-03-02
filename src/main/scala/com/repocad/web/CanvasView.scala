@@ -23,6 +23,28 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
     mouseDown = false
   }
 
+  canvas.onmousedown = (e: MouseEvent) => {
+    mouseDown = true
+    mousePosition = Vector2D(e.clientX, e.clientY)
+    render()
+  }
+
+  canvas.onmousemove = (e: MouseEvent) => {
+    if (mouseDown) {
+      val newV = Vector2D(e.clientX, e.clientY)
+      printer.translate((newV - mousePosition).x, (newV - mousePosition).y)
+      mousePosition = newV
+      render()
+    }
+  }
+  canvas.onmouseleave = mouseExit
+  canvas.onmouseup = mouseExit
+
+  @JSExport
+  def disablePaper(): Unit = {
+//    paper =
+  }
+
   def paper = printer.getPaper
 
   @JSExport
@@ -46,21 +68,6 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
     printer.zoomExtends()
   }
 
-  canvas.onmousedown = (e: MouseEvent) => {
-    mouseDown = true
-    mousePosition = Vector2D(e.clientX, e.clientY)
-    render()
-  }
-
-  canvas.onmousemove = (e: MouseEvent) => {
-    if (mouseDown) {
-      val newV = Vector2D(e.clientX, e.clientY)
-      printer.translate((newV - mousePosition).x, (newV - mousePosition).y)
-      mousePosition = newV
-      render()
-    }
-  }
-
   private def render(): Unit = {
     editor.ast.get.right.foreach(render)
   }
@@ -77,8 +84,5 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
     render()
     r
   }
-
-  canvas.onmouseleave = mouseExit
-  canvas.onmouseup = mouseExit
 
 }

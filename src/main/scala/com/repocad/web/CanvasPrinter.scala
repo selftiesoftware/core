@@ -1,6 +1,5 @@
 package com.repocad.web
 
-import com.repocad.reposcript.Printer
 import com.repocad.util._
 import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
@@ -16,7 +15,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
 
   private var _transformation = TransformationMatrix(1, 0, 0, 1, -80, 90)
 
-  def transformation : TransformationMatrix = _transformation
+  def transformation: TransformationMatrix = _transformation
 
   private var paper = Paper(0, 0, 0, 0)
   private var boundingBox = BoundingBox.empty
@@ -136,13 +135,6 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
       context.stroke()
       context.closePath()
     })
-  }
-
-  /**
-    * Prepares the printer for drawing
-    */
-  def prepare(): Unit = {
-    actions = Seq()
   }
 
   def screenText(x: Double, y: Double, size: Double, t: Any): Unit = {

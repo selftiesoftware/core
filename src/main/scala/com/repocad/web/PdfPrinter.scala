@@ -1,6 +1,5 @@
 package com.repocad.web
 
-import com.repocad.reposcript.Printer
 import com.repocad.util.SplineToArc2D.arcToBezier
 import com.repocad.util.{Paper, Portrait, Vector2D}
 
@@ -96,12 +95,6 @@ class PdfPrinter(paper: Paper) extends Printer[Any] {
     val v2 = transform(Vector2D(x2 / paper.scale, y2 / paper.scale))
     context.setLineWidth(0.1)
     context.line(v1.x, v1.y, v2.x, v2.y)
-  }
-
-  /**
-    * Prepares the printer for drawing
-    */
-  def prepare(): Unit = {
   }
 
   override def text(x: Double, y: Double, h: Double, t: Any): Map[String, Any] = {
