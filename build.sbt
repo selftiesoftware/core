@@ -1,6 +1,6 @@
 val reposcript = RootProject(uri("git://github.com/repocad/reposcript"))
 
-val project = Project("web", file("."))
+val project = Project("core", file("."))
   .settings(
     version := "1.0",
     scalaVersion := "2.11.7",
