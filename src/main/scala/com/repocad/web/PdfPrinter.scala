@@ -20,6 +20,11 @@ class PdfPrinter(paper: Paper) extends Printer[Any] {
   //set standard line weight
   context.setLineWidth(0.1)
 
+  //draw paper header
+  if (paper.orientation == Portrait) {
+    drawHeader(170, 280)
+  } else drawHeader(260, 195)
+
 
   /**
     * create an arc.
@@ -90,6 +95,16 @@ class PdfPrinter(paper: Paper) extends Printer[Any] {
     context.circle(v.x, v.y, r / paper.scale)
   }
 
+  def drawPaper(): Unit = {}
+
+  def drawHeader(x: Int, y: Int): Unit = {
+    context.setFontSize(11)
+    context.text(x, y, "1:" + paper.scale)
+    context.setFontSize(8)
+    context.text(x, y + 6, "www.repocad.com")
+
+  }
+
   def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
     val v1 = transform(Vector2D(x1 / paper.scale, y1 / paper.scale))
     val v2 = transform(Vector2D(x2 / paper.scale, y2 / paper.scale))
@@ -97,76 +112,30 @@ class PdfPrinter(paper: Paper) extends Printer[Any] {
     context.line(v1.x, v1.y, v2.x, v2.y)
   }
 
-  <<<<<<< HEAD
-
-  /**
-    * Prepares the printer for drawing
-    */
-  def prepare(): Unit = {
+  def save(name: String): Unit = {
+    context.save(name)
   }
 
-  override def text(x: Double, y: Double, h: Double, t: Any): Unit = {
-    =======
-    override def text(x: Double, y: Double, h: Double, t: Any): Map[String, Any] =
-    {
-      text(x, y, h, t, "Arial")
-    }
+  override def text(x: Double, y: Double, h: Double, t: Any): Map[String, Any] = {
+    text(x, y, h, t, "Arial")
+  }
 
-    override def text(x: Double, y: Double, h: Double, t: Any, font: String): Map[String, Any] =
-    {
-      >>>>>>> slider
-      val v = transform(Vector2D(x / paper.scale, y / paper.scale))
-      val fontSize = h * 1.8 / paper.scale
-      context.setFont(font)
-      context.setFontSize(fontSize)
-      context.text(v.x, v.y, t.toString)
-      val dimensions = context.getTextDimensions(t.toString)
-      Map("x" -> dimensions.w.asInstanceOf[Double], "y" -> dimensions.h.asInstanceOf[Double])
-    }
+  override def text(x: Double, y: Double, h: Double, t: Any, font: String): Map[String, Any] = {
+    val v = transform(Vector2D(x / paper.scale, y / paper.scale))
+    val fontSize = h * 1.8 / paper.scale
+    context.setFont(font)
+    context.setFontSize(fontSize)
+    context.text(v.x, v.y, t.toString)
+    val dimensions = context.getTextDimensions(t.toString)
+    Map("x" -> dimensions.w.asInstanceOf[Double], "y" -> dimensions.h.asInstanceOf[Double])
+  }
 
-    <<<<<<< HEAD
-    override def text(x: Double, y: Double, h: Double, t: Any, font: String): Unit =
-    {
-      val v = transform(Vector2D(x / paper.scale, y / paper.scale))
-      context.setFont(font)
-      context.setFontSize((h * 1.8) / paper.scale)
-      context.text(v.x, v.y, t.toString)
-    }
-
-    def textDot(x: Double, y: Double, t: Any): Unit = {
-      val v = transform(Vector2D(x, y))
-      context.setFontSize(10)
-      context.text(v.x / paper.scale, v.y / paper.scale, t.toString)
-    }
-
-    =======
-    >>>>>>> slider
-    private def transform(v: Vector2D): Vector2D =
-    {
-      if (paper.orientation == Portrait) {
-        Vector2D(v.x, -v.y) - scaledCenter / paper.scale + Vector2D(105, 148.5)
-      } else {
-        Vector2D(v.x, -v.y) - scaledCenter / paper.scale + Vector2D(148.5, 105)
-      }
-    }
-
-    def save(name: String): Unit = {
-      context.save(name)
-    }
-
-    def drawPaper(): Unit = {}
-
-    def drawHeader(x: Int, y: Int): Unit = {
-      context.setFontSize(11)
-      context.text(x, y, "1:" + paper.scale)
-      context.setFontSize(8)
-      context.text(x, y + 6, "www.repocad.com")
-
-    }
-
-    //draw paper header
+  private def transform(v: Vector2D): Vector2D = {
     if (paper.orientation == Portrait) {
-      drawHeader(170, 280)
-    } else drawHeader(260, 195)
-
+      Vector2D(v.x, -v.y) - scaledCenter / paper.scale + Vector2D(105, 148.5)
+    } else {
+      Vector2D(v.x, -v.y) - scaledCenter / paper.scale + Vector2D(148.5, 105)
+    }
   }
+
+}
