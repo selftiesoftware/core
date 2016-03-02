@@ -16,8 +16,7 @@ val project = Project("core", file("."))
       "com.thoughtworks.binding" %%% "dom" % "2.0.1",
       "org.scalatest" % "scalatest_2.11" % "2.2.4" % Test,
       "org.scalamock" %% "scalamock-scalatest-support" % "3.2" % Test
-    ),
-    addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
+    )
   )
   .enablePlugins(ScalaJSPlugin)
   .dependsOn(reposcript)
