@@ -1,20 +1,6 @@
-sudo: false
 language: scala
-scala: 2.11.7
+
 script:
-- sbt ++$TRAVIS_SCALA_VERSION test fullOptJS
-before_deploy:
-- mv target/scala-2.11/web-opt.js web.js
-- rm -rf target
-- rm -rf project
-- zip web.zip -r *
-deploy:
-  skip_cleanup: true
-  provider: releases
-  api_key:
-    secure: TYkH+TVMEjcQQ/8a73l9hqyAWgI0ZLpDyTfwLxvWXp8o1Qd/DfP79RSsyb0frS9a0nADgi5ldQskXtvfSq3e3guhYJDHem2hgwc8BJWQ4SyyikaqxCBRE95B5h/5EJL//KGCksa1M4NLIuSLguthxx8y7r+RJmgw0dJjyfwL86Q=
-  file: web.zip
-  on:
-    tags: true
-    repo: repocad/web
-    all_branches: true
+  # Remove scalajs dependency to allow tests
+  - sed -i 22d build.sbt
+  - sbt test
