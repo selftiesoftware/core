@@ -1,6 +1,6 @@
 package com.repocad.web
 
-import com.repocad.util.Vector2D
+import com.repocad.util.{BoundlessPaper, Vector2D}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
 
@@ -23,6 +23,10 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
     mouseDown = false
   }
 
+  def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
+
+  def windowCenter = Vector2D(canvas.getBoundingClientRect().left, canvas.getBoundingClientRect().top) + canvasCenter
+
   canvas.onmousedown = (e: MouseEvent) => {
     mouseDown = true
     mousePosition = Vector2D(e.clientX, e.clientY)
@@ -42,10 +46,10 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
 
   @JSExport
   def disablePaper(): Unit = {
-//    paper =
+    printer.paper = BoundlessPaper
   }
 
-  def paper = printer.getPaper
+  def paper = printer.paper
 
   @JSExport
   def zoom(wheel: Double, e: MouseEvent): Unit = {
@@ -59,7 +63,7 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
   }
 
   override def zoom(delta: Double, position: Vector2D): Unit = {
-    printer.zoom(delta, position)
+    printer.zoom(delta, position - windowCenter)
     zoomLevel += 1 - delta //update the zoom level
     render()
   }
@@ -73,8 +77,6 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
   }
 
   def toPngUrl: String = {
-    val previousWidth = canvas.width
-    val previousHeight = canvas.height
     val t = printer.transformation
     printer.zoomExtends()
     printer.drawPaper()

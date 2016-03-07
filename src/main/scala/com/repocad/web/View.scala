@@ -10,7 +10,7 @@ import com.repocad.util.{Paper, Vector2D}
 trait View {
 
   /**
-    * A [[Paper]] in an A-format.
+    * A [[com.repocad.util.Paper]] .
     *
     * @return The paper giving the current scale and size of this view.
     */
@@ -19,7 +19,7 @@ trait View {
   /**
     * The renderer of this view.
     */
-  val printer: Printer[_]
+  val printer: Printer[_, _]
 
   /**
     * Renders the given AST.
@@ -36,7 +36,7 @@ trait View {
     * @param ast     The abstract syntax tree to render.
     * @param printer The medium to render the AST on.
     */
-  def render(ast: Expr, printer: Printer[_]): Unit = {
+  def render(ast: Expr, printer: Printer[_, _]): Unit = {
     printer.prepare() //redraw the canvas
     Reposcript.evaluate(ast, printer)
     printer.execute()

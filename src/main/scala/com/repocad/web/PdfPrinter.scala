@@ -1,7 +1,7 @@
 package com.repocad.web
 
 import com.repocad.util.SplineToArc2D.arcToBezier
-import com.repocad.util.{Paper, Portrait, Vector2D}
+import com.repocad.util.{PaperA, Portrait, Vector2D}
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
@@ -9,8 +9,7 @@ import scala.scalajs.js.JSConverters._
 /**
   * A printer that can generate pdf files
   */
-class PdfPrinter(paper: Paper) extends Printer[Any] {
-
+class PdfPrinter(val paper: PaperA) extends Printer[Any, PaperA] {
 
   val context = js.Dynamic.global.jsPDF(paper.orientation.toString)
 
@@ -24,7 +23,6 @@ class PdfPrinter(paper: Paper) extends Printer[Any] {
   if (paper.orientation == Portrait) {
     drawHeader(170, 280)
   } else drawHeader(260, 195)
-
 
   /**
     * create an arc.

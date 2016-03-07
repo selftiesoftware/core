@@ -1,28 +1,26 @@
 package com.repocad.web
 
 import com.repocad.util._
-import org.scalajs.dom.raw.HTMLCanvasElement
+import org.scalajs.dom.raw.{CanvasRenderingContext2D, HTMLCanvasElement}
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
 
 /**
   * A printer that renders to a HTML5 canvas
-  *
-  * @param canvas The HTML canvas element
   */
-class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
-
-  val context: Canvas = canvas.getContext("2d").asInstanceOf[Canvas]
+class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
 
   private var _transformation = TransformationMatrix(1, 0, 0, 1, -80, 90)
-
-  def transformation: TransformationMatrix = _transformation
-
-  private var paper = Paper(0, 0, 0, 0)
   private var boundingBox = BoundingBox.empty
 
-  def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
+  val context = canvas.getContext("2d").asInstanceOf[Canvas]
+  var paper: Paper = Paper(0, 0, 0, 0)
 
-  def windowCenter = Vector2D(canvas.getBoundingClientRect().left, canvas.getBoundingClientRect().top) + canvasCenter
+  def height = canvas.height
+  def width = canvas.width
+
+  def canvasCenter = Vector2D(width / 2, height / 2)
+
+  def transformation: TransformationMatrix = _transformation
 
   // Initialise the transformation
   transform(_.translate(canvasCenter.x, canvasCenter.y))
@@ -34,17 +32,20 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     context.save()
     context.setTransform(1, 0, 0, 1, 0, 0)
     context.fillStyle = "AliceBlue"
-    context.fillRect(0, 0, canvas.width, canvas.height)
+    context.fillRect(0, 0, width, height)
     context.restore()
-
     context.fillStyle = "white"
-    paper = boundingBox.toPaper
 
-    context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
-    context.beginPath()
-    context.strokeStyle = "#AAA"
-    context.strokeRect(paper.minX, -paper.maxY, paper.width, paper.height)
-    context.strokeStyle = "#222"
+    paper match {
+      case a4: PaperA =>
+        val paper = boundingBox.toPaper
+        context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
+        context.beginPath()
+        context.strokeStyle = "#AAA"
+        context.strokeRect(paper.minX, -paper.maxY, paper.width, paper.height)
+        context.strokeStyle = "#222"
+      case _ =>
+    }
     drawScreenText()
     //drawCanvasIcons()
   }
@@ -63,7 +64,9 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
 
   def drawScreenText(): Unit = {
     //annotation
-    val txt: String = "p a p e r : A 4       s c a l e:   1 :  " + paper.scale
+    val txt: String = "p a p e r : A 4       " + {
+      if (paper.isBoundless) " " * 20 else "s c a l e:   1 :  " + paper.scale
+    }
     val versionNumber = Repocad.version.toString.foldLeft("")((string: String, char) => string + char + " ")
     val version: String = "v e r.  " + versionNumber
     screenText(35, 10, 10, txt)
@@ -89,7 +92,6 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
       context.stroke()
       context.lineWidth = 0.2 * paper.scale
       context.closePath()
-
     })
   }
 
@@ -107,8 +109,6 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
       context.lineWidth = 0.2 * paper.scale
     })
   }
-
-  def getPaper = paper
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
     boundingBox = boundingBox.add(x1, y1)
@@ -135,6 +135,11 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
       context.stroke()
       context.closePath()
     })
+  }
+
+  override def prepare(): Unit = {
+    super.prepare()
+    boundingBox = BoundingBox.empty
   }
 
   def screenText(x: Double, y: Double, size: Double, t: Any): Unit = {
@@ -186,7 +191,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     * @param position The center for the zoom-operation
     */
   def zoom(delta: Double, position: Vector2D) {
-    val screenPoint = position - windowCenter + canvasCenter
+    val screenPoint = position + canvasCenter
     val translation = _transformation.inverse.applyToPoint(screenPoint.x, screenPoint.y)
     transform(_.translate(translation.x, translation.y))
     transform(_.scale(delta))

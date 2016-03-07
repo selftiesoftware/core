@@ -1,5 +1,6 @@
 package com.repocad.web
 
+import com.repocad.util.{PaperA, Paper, BoundlessPaper}
 import com.thoughtworks.binding.Binding.BindingInstances
 import org.scalajs.dom.raw.HTMLDivElement
 
@@ -80,7 +81,11 @@ class Repocad(view: View, editor: Editor) {
   def printPdf(name: String): Unit = {
 
     editor.ast.get.right.foreach(ast => {
-      val printer = new PdfPrinter(view.paper)
+      val paper: PaperA = view.paper match {
+        case BoundlessPaper => Paper.empty
+        case a : PaperA => a
+      }
+      val printer = new PdfPrinter(paper)
       view.render(ast, printer)
       printer.save(name)
     })
