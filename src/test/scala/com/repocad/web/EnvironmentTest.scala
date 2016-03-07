@@ -49,10 +49,10 @@ class EnvironmentTest extends ParsingTest {
     testEnvironment("tan(21)", CallExpr("tan", NumberType, Seq(NumberExpr(21))), math.tan(21))
   }
   it should "convert radians to degrees" in {
-    testEnvironment("todegrees(5)", CallExpr("todegrees", NumberType, Seq(NumberExpr(5))), math.toDegrees(5))
+    testEnvironment("degrees(5)", CallExpr("todegrees", NumberType, Seq(NumberExpr(5))), math.toDegrees(5))
   }
   it should "convert degrees to radians" in {
-    testEnvironment("toradians(210)", CallExpr("toradians", NumberType, Seq(NumberExpr(210))), math.toRadians(210))
+    testEnvironment("radians(210)", CallExpr("toradians", NumberType, Seq(NumberExpr(210))), math.toRadians(210))
   }
   it should "take the absolute of a number" in {
     testEnvironment("abs(-210)", CallExpr("abs", NumberType, Seq(NumberExpr(-210))), 210)

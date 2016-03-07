@@ -35,13 +35,13 @@ object Environment {
     // Trigonometry
     "cos" ->(FunctionType("cos", Seq(RefExpr("degrees", NumberType)), NumberType),
       (_: EvaluatorEnv, degrees: Double) => math.cos(degrees)),
+    "degrees" ->(FunctionType("degrees", Seq(RefExpr("degrees", NumberType)), NumberType),
+      (_: EvaluatorEnv, degrees: Double) => math.toDegrees(degrees)),
     "sin" ->(FunctionType("sin", Seq(RefExpr("degrees", NumberType)), NumberType),
       (_: EvaluatorEnv, degrees: Double) => math.sin(degrees)),
     "tan" ->(FunctionType("tan", Seq(RefExpr("degrees", NumberType)), NumberType),
       (_: EvaluatorEnv, degrees: Double) => math.tan(degrees)),
-    "todegrees" ->(FunctionType("degrees", Seq(RefExpr("degrees", NumberType)), NumberType),
-      (_: EvaluatorEnv, degrees: Double) => math.toDegrees(degrees)),
-    "toradians" ->(FunctionType("radians", Seq(RefExpr("degrees", NumberType)), NumberType),
+    "radians" ->(FunctionType("radians", Seq(RefExpr("degrees", NumberType)), NumberType),
       (_: EvaluatorEnv, degrees: Double) => math.toRadians(degrees)),
     // Mathematics
     "abs" ->(FunctionType("sqrt", Seq(RefExpr("x", NumberType)), NumberType),
