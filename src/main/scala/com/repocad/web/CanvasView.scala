@@ -1,5 +1,6 @@
 package com.repocad.web
 
+import com.repocad.reposcript.parsing.Expr
 import com.repocad.util.{BoundlessPaper, Vector2D}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
@@ -10,9 +11,11 @@ import scala.scalajs.js.annotation.JSExport
   * A canvas that can draw a drawing
   */
 @JSExport("CanvasView")
-class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
+class CanvasView(canvas: HTMLCanvasElement) extends View {
 
   val printer = new CanvasPrinter(canvas)
+
+  private var lastAst: Option[Expr] = None
 
   var zoomLevel: Double = 1
 
@@ -44,11 +47,6 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
   canvas.onmouseleave = mouseExit
   canvas.onmouseup = mouseExit
 
-  @JSExport
-  def disablePaper(): Unit = {
-    printer.paper = BoundlessPaper
-  }
-
   def paper = printer.paper
 
   @JSExport
@@ -70,17 +68,23 @@ class CanvasView(canvas: HTMLCanvasElement, editor: Editor) extends View {
 
   override def zoomExtends(): Unit = {
     printer.zoomExtends()
+    render()
   }
 
   private def render(): Unit = {
-    editor.ast.get.right.foreach(render)
+    lastAst.foreach(render)
+  }
+
+  override def render(ast: Expr, printer: Printer[_, _]): Unit = {
+    this.lastAst = Some(ast)
+    super.render(ast, printer)
   }
 
   def toPngUrl: String = {
     val t = printer.transformation
     printer.zoomExtends()
     printer.drawPaper()
-    editor.ast.get.right.foreach(render)
+    render()
     val r = canvas.toDataURL("image/png")
     printer.transform(_ => t)
     render()

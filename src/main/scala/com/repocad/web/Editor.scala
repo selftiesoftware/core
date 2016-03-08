@@ -12,11 +12,6 @@ import com.thoughtworks.binding.Binding.Var
 trait Editor {
 
   /**
-    * The result of a Abstract Syntax Tree (AST) as a [[Binding]], i. e. reactive.
-    */
-  val ast: Var[Either[com.repocad.reposcript.parsing.Error, Expr]]
-
-  /**
     * The [[Drawing]] currently attached to the editor
     */
   val drawing: Var[Drawing]

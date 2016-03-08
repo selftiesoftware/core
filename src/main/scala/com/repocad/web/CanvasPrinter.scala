@@ -9,7 +9,7 @@ import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
   */
 class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
 
-  private var _transformation = TransformationMatrix(1, 0, 0, 1, -80, 90)
+  private var _transformation = TransformationMatrix(1, 0, 0, 1, 0, 0)
   private var boundingBox = BoundingBox.empty
 
   val context = canvas.getContext("2d").asInstanceOf[Canvas]
@@ -19,6 +19,9 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
   def width = canvas.width
 
   def canvasCenter = Vector2D(width / 2, height / 2)
+  def paperCenter: Vector2D = {
+    canvasCenter + boundingBox.toPaper.center
+  }
 
   def transformation: TransformationMatrix = _transformation
 
@@ -44,6 +47,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
         context.strokeStyle = "#AAA"
         context.strokeRect(paper.minX, -paper.maxY, paper.width, paper.height)
         context.strokeStyle = "#222"
+        this.paper = paper
       case _ =>
     }
     drawScreenText()
@@ -64,9 +68,9 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
 
   def drawScreenText(): Unit = {
     //annotation
-    val txt: String = "p a p e r : A 4       " + {
-      if (paper.isBoundless) " " * 20 else "s c a l e:   1 :  " + paper.scale
-    }
+    val txt: String = "p a p e r : A 4       " + (
+      if (!paper.isBoundless) "s c a l e:   1 :  " + paper.scale else ""
+    )
     val versionNumber = Repocad.version.toString.foldLeft("")((string: String, char) => string + char + " ")
     val version: String = "v e r.  " + versionNumber
     screenText(35, 10, 10, txt)
@@ -203,7 +207,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
     */
   def zoomExtends() {
     val t = -_transformation.translation + canvasCenter
-    val pC = paper.center
+    val pC = boundingBox.toPaper.center
     transform(_.scale(1 / _transformation.scale))
     transform(_.translate(t.x, t.y))
     transform(_.scale(1.0 / paper.scale))
