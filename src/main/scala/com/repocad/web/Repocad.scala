@@ -33,7 +33,6 @@ class Repocad(view: View, editor: Editor) {
       case Right(UnitExpr) => //Do nothing
       case Right(expr) =>
         view.render(expr)
-        view.zoomExtends()
         displaySuccess("Success")
 
       case Left(err) => displayError(err.message)
@@ -44,6 +43,7 @@ class Repocad(view: View, editor: Editor) {
   BindingInstances.bind(editor.drawing) { drawing =>
     ast := parse(drawing, useCache = false)
     if (drawing.name != drawingTitle) {
+      ast.get.right.foreach(view.render)
       view.zoomExtends()
     }
     drawingTitle = drawing.name

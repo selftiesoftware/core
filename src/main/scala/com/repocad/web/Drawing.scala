@@ -63,17 +63,17 @@ object Drawing {
   dom.setInterval(() => listener(), 100)
 
   def get(name: String): Either[String, Drawing] = {
-    getDrawingFromResponse(Ajax.getSynchronous("get/" + name))
+    getDrawingFromResponse(name, Ajax.getSynchronous("get/" + name))
   }
 
   def getAsync(name: String, onComplete: Either[String, Drawing] => Unit): Unit = {
     Ajax.get("get/" + name).onComplete({
-      case Success(response) => onComplete(getDrawingFromResponse(response))
+      case Success(response) => onComplete(getDrawingFromResponse(name, response))
       case Failure(error) => onComplete(Left(error.toString))
     })
   }
 
-  def getDrawingFromResponse(response: Response): Either[String, Drawing] = {
+  def getDrawingFromResponse(name: String, response: Response): Either[String, Drawing] = {
     response match {
       case Response(404, _, _) => Right(Drawing(name, ""))
       case Response(status, state, content) => Right(Drawing(name, content))

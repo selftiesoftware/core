@@ -17,7 +17,7 @@ class Omnibox(inputField: HTMLInputElement, editor: CodeEditor, canvas: CanvasVi
   val defaultDrawing = "default"
 
   private val drawing = window.location.hash match {
-    case name: String if name.length > 1 => Drawing.get(name.substring(1))
+    case name: String if name.nonEmpty => Drawing.get(name.substring(1))
     case _ => Drawing.get(defaultDrawing)
   }
 
