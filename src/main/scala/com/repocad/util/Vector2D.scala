@@ -231,6 +231,11 @@ case class Vector2D(x : Double, y : Double) extends Vector {
   def roundTwoDec = Vector2D(scala.math.round(x*100)/100, scala.math.round(y*100)/100)
 
   def unit = if (length <= Double.MinPositiveValue) Vector2D(0, 0) else Vector2D(this.x / this.length, this.y / this.length)
+
+  def transform(t: TransformationMatrix): Vector2D = {
+    t.applyToPoint(x, y)
+  }
+
 }
 
 /**
@@ -269,4 +274,5 @@ object Vector2D {
       scala.math.acos(inner) * 180 / scala.math.Pi
     } else 0.0
   }
+
 }

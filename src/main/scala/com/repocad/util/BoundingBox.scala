@@ -19,7 +19,7 @@ case class BoundingBox(xRange: DynamicRange, yRange: DynamicRange) {
 
   def toPaper: PaperA = Paper(xRange.min, yRange.min, xRange.max, yRange.max)
 
-  override def toString = s"X[${xRange.min}, ${xRange.max}}] Y: [${yRange.min}, ${yRange.max}}]"
+  override def toString = s"X[${xRange.min}, ${xRange.max}] Y: [${yRange.min}, ${yRange.max}]"
 
 }
 
@@ -33,6 +33,8 @@ trait DynamicRange {
   def max: Double
 
   def min: Double
+
+  def range : Double = max - min
 }
 
 case object EmptyRange extends DynamicRange {

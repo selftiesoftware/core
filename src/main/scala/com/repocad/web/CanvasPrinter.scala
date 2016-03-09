@@ -1,7 +1,7 @@
 package com.repocad.web
 
 import com.repocad.util._
-import org.scalajs.dom.raw.{CanvasRenderingContext2D, HTMLCanvasElement}
+import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
 
 /**
@@ -9,16 +9,18 @@ import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
   */
 class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
 
-  private var _transformation = TransformationMatrix(1, 0, 0, 1, 0, 0)
-  private var boundingBox = BoundingBox.empty
+  protected var _transformation = TransformationMatrix(1, 0, 0, 1, 0, 0)
+  protected var boundingBox = BoundingBox.empty
 
   val context = canvas.getContext("2d").asInstanceOf[Canvas]
   var paper: Paper = Paper(0, 0, 0, 0)
 
   def height = canvas.height
+
   def width = canvas.width
 
   def canvasCenter = Vector2D(width / 2, height / 2)
+
   def paperCenter: Vector2D = {
     canvasCenter + boundingBox.toPaper.center
   }

@@ -33,6 +33,7 @@ class Repocad(view: View, editor: Editor) {
       case Right(UnitExpr) => //Do nothing
       case Right(expr) =>
         view.render(expr)
+        view.zoomExtends()
         displaySuccess("Success")
 
       case Left(err) => displayError(err.message)
@@ -100,8 +101,11 @@ class Repocad(view: View, editor: Editor) {
 
   //PNG generator - used to add a thumbnail in the library when the drawing is saved to Github.
   @JSExport
-  def printPng() = {
-    view.toPngUrl
+  def printPng() : String = {
+    view match {
+      case c: CanvasView => c.toPngUrl
+      case e => throw new RuntimeException("Failed to export to png; Not supported in view type " + e)
+    }
   }
 
   @JSExport
@@ -118,7 +122,7 @@ class Repocad(view: View, editor: Editor) {
 
     // Only save thumbnail if drawing compiles
     if (ast.get.isRight) {
-      val pngText = view.toPngUrl
+      val pngText = printPng()
       val futurePng = editor.drawing.get.saveThumbnail(Ajax, pngText)
 
       futurePng.onComplete({

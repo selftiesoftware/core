@@ -43,11 +43,6 @@ trait View {
   }
 
   /**
-    * @return A base64 encoded URL of the current drawing.
-    */
-  def toPngUrl: String
-
-  /**
     * Zooms the view to the given position.
     *
     * @param delta  The delta to zoom. 0 > delta < 1 to zoom out. 1 > delta to zoom in. Cannot be less than zero.
