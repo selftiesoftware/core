@@ -162,26 +162,30 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
   }
 
   override def text(x: Double, y: Double, height: Double, t: Any, font: String): Map[String, Any] = {
-    val myFont: String = height + "px " + font
+    textLines(x, y, height, t.toString.split('\n'), font)
+  }
+
+  private def textLines(x: Double, y: Double, size: Double, lines: Seq[Any], font: String): Map[String, Any] = {
+    val myFont: String = size + "px " + font
     context.font = myFont
-    val width = context.measureText(t.toString).width
+    val dimension = lines.foldLeft(Vector2D(0, 0))((dimension, text) => {
+      val height = dimension.y + size
+      val width = math.max(dimension.x, context.measureText(text.toString).width)
 
-    boundingBox = boundingBox.add(x, y)
-    boundingBox = boundingBox.add(x + width, y + height)
+      boundingBox = boundingBox.add(x, y)
+      boundingBox = boundingBox.add(x + width, y - height)
 
-    addAction(context => {
-      context.save()
-      context.font = myFont
-      context.fillStyle = "black"
-      //context.setTransform(1, 0, 0, 1, 0, 0)
-      //context.font(1)
-      //context.textAlign("left")
-      //context.textBaseline("bottom")
-      context.fillText(t.toString, x, -y)
-      context.restore()
+      addAction(context => {
+        context.save()
+        context.font = myFont
+        context.fillStyle = "black"
+        context.fillText(text.toString, x, -y + dimension.y)
+        context.restore()
+      })
+      Vector2D(width, height)
     })
 
-    Map("x" -> width, "y" -> height)
+    Map("x" -> dimension.x, "y" -> dimension.y)
   }
 
   def translate(x: Double, y: Double): Unit = {
