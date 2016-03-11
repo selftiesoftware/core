@@ -8,6 +8,7 @@ import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
 class CanvasPrinterTest extends FlatSpec with Matchers with MockFactory with BeforeAndAfter {
 
+  val mockedCanvas = mock[HTMLCanvasElement]
   val printer = new CanvasPrinter(mockedCanvas)
 
   before {

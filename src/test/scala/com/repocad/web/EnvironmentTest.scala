@@ -2,7 +2,7 @@ package com.repocad.web
 
 import com.repocad.reposcript.evaluating.Evaluator
 import com.repocad.reposcript.parsing._
-import com.repocad.reposcript.{Renderer, evaluating}
+import com.repocad.reposcript.{Environment, Renderer}
 
 class EnvironmentTest extends ParsingTest {
 

@@ -166,26 +166,26 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
   }
 
   private def textLines(x: Double, y: Double, size: Double, lines: Seq[Any], font: String): Map[String, Any] = {
+    val totalHeight = size * lines.size
     val myFont: String = size + "px " + font
     context.font = myFont
-    val dimension = lines.foldLeft(Vector2D(0, 0))((dimension, text) => {
-      val height = dimension.y + size
-      val width = math.max(dimension.x, context.measureText(text.toString).width)
-
-      boundingBox = boundingBox.add(x, y + size)
-      boundingBox = boundingBox.add(x + width, y + size - height)
+    val dimension = lines.foldRight(Vector2D(0, y + totalHeight - size))((text, dimension) => {
+      val textY = dimension.y - size
+      val textWidth = math.max(dimension.x, context.measureText(text.toString).width)
 
       addAction(context => {
         context.save()
         context.font = myFont
         context.fillStyle = "black"
-        context.fillText(text.toString, x, -y + dimension.y)
+        context.fillText(text.toString, x, -textY - totalHeight)
         context.restore()
       })
-      Vector2D(width, height)
+      Vector2D(textWidth, textY)
     })
 
-    Map("x" -> dimension.x, "y" -> dimension.y)
+    boundingBox = boundingBox.add(x, y)
+    boundingBox = boundingBox.add(x + dimension.x, y + totalHeight)
+    Map("x" -> dimension.x, "y" -> totalHeight)
   }
 
   def translate(x: Double, y: Double): Unit = {
