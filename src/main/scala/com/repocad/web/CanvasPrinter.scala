@@ -172,8 +172,8 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
       val height = dimension.y + size
       val width = math.max(dimension.x, context.measureText(text.toString).width)
 
-      boundingBox = boundingBox.add(x, y)
-      boundingBox = boundingBox.add(x + width, y - height)
+      boundingBox = boundingBox.add(x, y + size)
+      boundingBox = boundingBox.add(x + width, y + size - height)
 
       addAction(context => {
         context.save()
