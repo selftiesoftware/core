@@ -1,5 +1,6 @@
 package com.repocad.web
 
+import com.repocad.printer.Printer
 import com.repocad.util.SplineToArc2D.arcToBezier
 import com.repocad.util.{PaperA, Portrait, Vector2D}
 

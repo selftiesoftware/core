@@ -66,6 +66,15 @@ object Drawing {
     getDrawingFromResponse(name, Ajax.getSynchronous("get/" + name))
   }
 
+  def getAsync(name: String): Future[Drawing] = {
+    Ajax.get("get/" + name).flatMap(response => {
+      getDrawingFromResponse(name, response) match {
+        case Left(error) => Future.failed(new RuntimeException(error))
+        case Right(drawing) => Future.successful(drawing)
+      }
+    })
+  }
+
   def getAsync(name: String, onComplete: Either[String, Drawing] => Unit): Unit = {
     Ajax.get("get/" + name).onComplete({
       case Success(response) => onComplete(getDrawingFromResponse(name, response))

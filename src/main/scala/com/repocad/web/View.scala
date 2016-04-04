@@ -1,11 +1,12 @@
 package com.repocad.web
 
+import com.repocad.printer.Printer
 import com.repocad.reposcript.parsing.Expr
 import com.repocad.util.{Paper, Vector2D}
 
 /**
   * A view that can display an Abstract Syntax Tree (AST) by rendering it on a surface (usually via a
-  * [[com.repocad.web.Printer]]).
+  * [[Printer]]).
   */
 trait View {
 

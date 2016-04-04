@@ -5,6 +5,10 @@ package com.repocad.util
   */
 case class BoundingBox(xRange: DynamicRange, yRange: DynamicRange) {
 
+  def add(box: BoundingBox): BoundingBox = {
+    copy(xRange.add(box.xRange.min).add(box.xRange.max), yRange.add(box.yRange.min).add(box.yRange.max))
+  }
+
   def add(x: Double, y: Double): BoundingBox = {
     copy(xRange.add(x), yRange.add(y))
   }
@@ -18,6 +22,8 @@ case class BoundingBox(xRange: DynamicRange, yRange: DynamicRange) {
   }
 
   def toPaper: PaperA = Paper(xRange.min, yRange.min, xRange.max, yRange.max)
+
+  def toRectangle: Rectangle2D = Rectangle2D(xRange.min, yRange.min, xRange.max, yRange.max)
 
   override def toString = s"X[${xRange.min}, ${xRange.max}] Y: [${yRange.min}, ${yRange.max}]"
 

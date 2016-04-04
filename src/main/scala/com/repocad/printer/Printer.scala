@@ -1,7 +1,9 @@
-package com.repocad.web
+package com.repocad.printer
 
 import com.repocad.reposcript.Renderer
 import com.repocad.util.Paper
+
+import scala.scalajs.js
 
 /**
   * Prints objects on a paper media.

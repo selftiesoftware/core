@@ -1,5 +1,6 @@
 package com.repocad.web
 
+import com.repocad.printer.Printer
 import com.repocad.util._
 import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
@@ -169,7 +170,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
     val totalHeight = size * lines.size
     val myFont: String = size + "px " + font
     context.font = myFont
-    val dimension = lines.foldRight(Vector2D(0, y + totalHeight - size))((text, dimension) => {
+    val dimension = lines.foldRight(Vector2D(0, -y + size))((text, dimension) => {
       val textY = dimension.y - size
       val textWidth = math.max(dimension.x, context.measureText(text.toString).width)
 
@@ -177,7 +178,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
         context.save()
         context.font = myFont
         context.fillStyle = "black"
-        context.fillText(text.toString, x, -textY - totalHeight)
+        context.fillText(text.toString, x, textY)
         context.restore()
       })
       Vector2D(textWidth, textY)

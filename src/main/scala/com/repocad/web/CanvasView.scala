@@ -1,5 +1,6 @@
 package com.repocad.web
 
+import com.repocad.printer.Printer
 import com.repocad.reposcript.parsing.Expr
 import com.repocad.util.{BoundlessPaper, Vector2D}
 import org.scalajs.dom._
