@@ -112,9 +112,9 @@ trait PaperRotation {
 case object Landscape extends PaperRotation {
   override def getHeight(scale: Int): Double = A4Short * scale
 
-  override def getScaleFromHeight(height: Double): Int = math.ceil(height / A4Long).toInt
+  override def getScaleFromHeight(height: Double): Int = math.ceil(height / A4Short).toInt
 
-  override def getScaleFromWidth(width: Double): Int = math.ceil(width / A4Short).toInt
+  override def getScaleFromWidth(width: Double): Int = math.ceil(width / A4Long).toInt
 
   override def getWidth(scale: Int): Double = A4Long * scale.toInt
 
@@ -126,9 +126,9 @@ case object Landscape extends PaperRotation {
 case object Portrait extends PaperRotation {
   override def getHeight(scale: Int): Double = A4Long * scale
 
-  override def getScaleFromHeight(height: Double): Int = math.ceil(height / A4Short).toInt
+  override def getScaleFromHeight(height: Double): Int = math.ceil(height / A4Long).toInt
 
-  override def getScaleFromWidth(width: Double): Int = math.ceil(width / A4Long).toInt
+  override def getScaleFromWidth(width: Double): Int = math.ceil(width / A4Short).toInt
 
   override def getWidth(scale: Int): Double = A4Short * scale
 
