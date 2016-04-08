@@ -40,6 +40,28 @@ case class Paper(center: Vector2D, format: AFormat = A4, orientation: PaperOrien
 
 }
 
+object AFormat {
+
+  def fromRectangle(rectangle2D: Rectangle2D): Option[AFormat] = {
+    val larger = math.max(rectangle2D.width, rectangle2D.height)
+    val smaller = math.min(rectangle2D.width, rectangle2D.height)
+    if (larger <= A4.larger && smaller <= A4.smaller) {
+      Some(A4)
+    } else if (larger <= A3.larger && smaller <= A3.smaller) {
+      Some(A3)
+    } else if (larger <= A2.larger && smaller <= A2.smaller) {
+      Some(A2)
+    } else if (larger <= A1.larger && smaller <= A1.smaller) {
+      Some(A1)
+    } else if (larger <= A0.larger && smaller <= A0.smaller) {
+      Some(A0)
+    } else {
+      None
+    }
+  }
+
+}
+
 /**
   * The paper size in A-format.
   */
