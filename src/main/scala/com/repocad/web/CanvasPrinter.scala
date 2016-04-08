@@ -8,13 +8,14 @@ import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
 /**
   * A printer that renders to a HTML5 canvas
   */
-class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
+class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
 
   protected var _transformation = TransformationMatrix(1, 0, 0, 1, 0, 0)
   protected var boundingBox = BoundingBox.empty
 
+  override def boundary: Rectangle2D = boundingBox.toRectangle
+
   val context = canvas.getContext("2d").asInstanceOf[Canvas]
-  var paper: Paper = Paper(0, 0, 0, 0)
 
   def height = canvas.height
 
@@ -22,8 +23,10 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
 
   def canvasCenter = Vector2D(width / 2, height / 2)
 
+  def paper = Paper(boundingBox.center)
+
   def paperCenter: Vector2D = {
-    canvasCenter + boundingBox.toPaper.center
+    canvasCenter + boundingBox.center
   }
 
   def transformation: TransformationMatrix = _transformation
@@ -42,17 +45,11 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
     context.restore()
     context.fillStyle = "white"
 
-    paper match {
-      case a4: PaperA =>
-        val paper = boundingBox.toPaper
-        context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
-        context.beginPath()
-        context.strokeStyle = "#AAA"
-        context.strokeRect(paper.minX, -paper.maxY, paper.width, paper.height)
-        context.strokeStyle = "#222"
-        this.paper = paper
-      case _ =>
-    }
+    context.fillRect(paper.minX, -paper.maxY, paper.width, paper.height)
+    context.beginPath()
+    context.strokeStyle = "#AAA"
+    context.strokeRect(paper.minX, -paper.maxY, paper.width, paper.height)
+    context.strokeStyle = "#222"
     drawScreenText()
     //drawCanvasIcons()
   }
@@ -71,9 +68,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
 
   def drawScreenText(): Unit = {
     //annotation
-    val txt: String = "p a p e r : A 4       " + (
-      if (!paper.isBoundless) "s c a l e:   1 :  " + paper.scale else ""
-    )
+    val txt: String = "p a p e r : A 4       s c a l e:   1 :  " + scale
     val versionNumber = Repocad.version.toString.foldLeft("")((string: String, char) => string + char + " ")
     val version: String = "v e r.  " + versionNumber
     screenText(35, 10, 10, txt)
@@ -97,7 +92,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
       context.beginPath()
       context.arc(x, -y, r, sAngle, eAngle)
       context.stroke()
-      context.lineWidth = 0.2 * paper.scale
+      context.lineWidth = 0.2 * scale.value
       context.closePath()
     })
   }
@@ -113,7 +108,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
       context.moveTo(x1, -y1)
       context.bezierCurveTo(x2, -y2, x3, -y3, x4, -y4)
       context.stroke()
-      context.lineWidth = 0.2 * paper.scale
+      context.lineWidth = 0.2 * scale.value
     })
   }
 
@@ -126,7 +121,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
       context.moveTo(x1, -y1)
       context.lineTo(x2, -y2)
       context.stroke()
-      context.lineWidth = 0.2 * paper.scale
+      context.lineWidth = 0.2 * scale.value
       context.closePath()
     })
   }
@@ -138,7 +133,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
     addAction(context => {
       context.beginPath()
       context.arc(x, -y, r, 0, 2 * Math.PI)
-      context.lineWidth = 0.2 * paper.scale
+      context.lineWidth = 0.2 * scale.value
       context.stroke()
       context.closePath()
     })
@@ -214,10 +209,10 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
     */
   def zoomExtends() {
     val t = -_transformation.translation + canvasCenter
-    val pC = boundingBox.toPaper.center
+    val pC = boundingBox.center
     transform(_.scale(1 / _transformation.scale))
     transform(_.translate(t.x, t.y))
-    transform(_.scale(1.0 / paper.scale))
+    transform(_.scale(1.0 / scale.value))
     transform(_.translate(-pC.x, pC.y))
   }
 
@@ -226,4 +221,5 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas, Paper] {
     context.setTransform(_transformation.a, _transformation.b, _transformation.c,
       _transformation.d, _transformation.e, _transformation.f)
   }
+
 }

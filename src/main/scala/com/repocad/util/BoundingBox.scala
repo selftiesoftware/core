@@ -21,7 +21,7 @@ case class BoundingBox(xRange: DynamicRange, yRange: DynamicRange) {
     copy(yRange = yRange.add(y))
   }
 
-  def toPaper: PaperA = Paper(xRange.min, yRange.min, xRange.max, yRange.max)
+  def center = Vector2D((xRange.min + xRange.max) / 2, (yRange.min + yRange.max) / 2)
 
   def toRectangle: Rectangle2D = Rectangle2D(xRange.min, yRange.min, xRange.max, yRange.max)
 

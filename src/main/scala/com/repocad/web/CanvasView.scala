@@ -2,7 +2,7 @@ package com.repocad.web
 
 import com.repocad.printer.Printer
 import com.repocad.reposcript.parsing.Expr
-import com.repocad.util.{BoundlessPaper, Vector2D}
+import com.repocad.util.Vector2D
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
 
@@ -76,7 +76,7 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
     lastAst.foreach(render)
   }
 
-  override def render(ast: Expr, printer: Printer[_, _]): Unit = {
+  override def render(ast: Expr, printer: Printer[_]): Unit = {
     this.lastAst = Some(ast)
     super.render(ast, printer)
   }

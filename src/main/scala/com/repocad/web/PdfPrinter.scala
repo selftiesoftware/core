@@ -2,7 +2,7 @@ package com.repocad.web
 
 import com.repocad.printer.Printer
 import com.repocad.util.SplineToArc2D.arcToBezier
-import com.repocad.util.{PaperA, Portrait, Vector2D}
+import com.repocad.util.{Paper, Portrait, Rectangle2D, Vector2D}
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
@@ -10,9 +10,11 @@ import scala.scalajs.js.JSConverters._
 /**
   * A printer that can generate pdf files
   */
-class PdfPrinter(val paper: PaperA) extends Printer[Any, PaperA] {
+class PdfPrinter(val paper: Paper) extends Printer[Any] {
 
   val context = js.Dynamic.global.jsPDF(paper.orientation.toString)
+
+  override def boundary: Rectangle2D = paper.toRectangle
 
   // NOTE: Y is flipped
   val scaledCenter = Vector2D(paper.center.x, -paper.center.y)
@@ -49,10 +51,10 @@ class PdfPrinter(val paper: PaperA) extends Printer[Any, PaperA] {
       val x4 = spline(6)
       val y4 = spline(7)
 
-      val v1 = transform(Vector2D(x1 / paper.scale, y1 / paper.scale))
-      val v2 = transform(Vector2D(x2 / paper.scale, y2 / paper.scale))
-      val v3 = transform(Vector2D(x3 / paper.scale, y3 / paper.scale))
-      val v4 = transform(Vector2D(x4 / paper.scale, y4 / paper.scale)) //endPoint
+      val v1 = transform(Vector2D(x1 / scale.value, y1 / scale.value))
+      val v2 = transform(Vector2D(x2 / scale.value, y2 / scale.value))
+      val v3 = transform(Vector2D(x3 / scale.value, y3 / scale.value))
+      val v4 = transform(Vector2D(x4 / scale.value, y4 / scale.value)) //endPoint
       val xS = v1.x
       val yS = v1.y
 
@@ -74,10 +76,10 @@ class PdfPrinter(val paper: PaperA) extends Printer[Any, PaperA] {
 
   //TODO: unable to get the output format right.. some constellation of Array[Double]'s ??
   def bezierCurve(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double, x4: Double, y4: Double): Unit = {
-    val v1 = transform(Vector2D(x1 / paper.scale, y1 / paper.scale))
-    val v2 = transform(Vector2D(x2 / paper.scale, y2 / paper.scale))
-    val v3 = transform(Vector2D(x3 / paper.scale, y3 / paper.scale))
-    val v4 = transform(Vector2D(x4 / paper.scale, y4 / paper.scale)) //endPoint
+    val v1 = transform(Vector2D(x1 / scale.value, y1 / scale.value))
+    val v2 = transform(Vector2D(x2 / scale.value, y2 / scale.value))
+    val v3 = transform(Vector2D(x3 / scale.value, y3 / scale.value))
+    val v4 = transform(Vector2D(x4 / scale.value, y4 / scale.value)) //endPoint
     val x = v1.x
     val y = v1.y
 
@@ -90,23 +92,23 @@ class PdfPrinter(val paper: PaperA) extends Printer[Any, PaperA] {
   }
 
   def circle(x: Double, y: Double, r: Double): Unit = {
-    val v = transform(Vector2D(x / paper.scale, y / paper.scale))
-    context.circle(v.x, v.y, r / paper.scale)
+    val v = transform(Vector2D(x / scale.value, y / scale.value))
+    context.circle(v.x, v.y, r / scale.value)
   }
 
   def drawPaper(): Unit = {}
 
   def drawHeader(x: Int, y: Int): Unit = {
     context.setFontSize(11)
-    context.text(x, y, "1:" + paper.scale)
+    context.text(x, y, "1:" + scale.value)
     context.setFontSize(8)
     context.text(x, y + 6, "www.repocad.com")
 
   }
 
   def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
-    val v1 = transform(Vector2D(x1 / paper.scale, y1 / paper.scale))
-    val v2 = transform(Vector2D(x2 / paper.scale, y2 / paper.scale))
+    val v1 = transform(Vector2D(x1 / scale.value, y1 / scale.value))
+    val v2 = transform(Vector2D(x2 / scale.value, y2 / scale.value))
     context.setLineWidth(0.1)
     context.line(v1.x, v1.y, v2.x, v2.y)
   }
@@ -120,8 +122,8 @@ class PdfPrinter(val paper: PaperA) extends Printer[Any, PaperA] {
   }
 
   override def text(x: Double, y: Double, h: Double, t: Any, font: String): Map[String, Any] = {
-    val v = transform(Vector2D(x / paper.scale, y / paper.scale))
-    val fontSize = h * 1.8 / paper.scale
+    val v = transform(Vector2D(x / scale.value, y / scale.value))
+    val fontSize = h * 1.8 / scale.value
     context.setFont(font)
     context.setFontSize(fontSize)
     context.text(v.x, v.y, t.toString)
@@ -131,9 +133,9 @@ class PdfPrinter(val paper: PaperA) extends Printer[Any, PaperA] {
 
   private def transform(v: Vector2D): Vector2D = {
     if (paper.orientation == Portrait) {
-      Vector2D(v.x, -v.y) - scaledCenter / paper.scale + Vector2D(105, 148.5)
+      Vector2D(v.x, -v.y) - scaledCenter / scale.value + Vector2D(105, 148.5)
     } else {
-      Vector2D(v.x, -v.y) - scaledCenter / paper.scale + Vector2D(148.5, 105)
+      Vector2D(v.x, -v.y) - scaledCenter / scale.value + Vector2D(148.5, 105)
     }
   }
 

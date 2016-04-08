@@ -1,31 +1,38 @@
 package com.repocad.printer
 
 import com.repocad.reposcript.Renderer
-import com.repocad.util.Paper
-
-import scala.scalajs.js
+import com.repocad.util.{Paper, Rectangle2D}
 
 /**
   * Prints objects on a paper media.
   */
-trait Printer[T, P <: Paper] extends Renderer {
+trait Printer[T] extends Renderer {
 
   val context: T
-  def paper: P
-
-  private var actions: Seq[T => Unit] = Nil
 
   /**
-    * Draws the paper
+    * A [[com.repocad.util.Paper]].
+    *
+    * @return The paper giving the current scale and size of this view.
     */
-  protected def drawPaper(): Unit
+  def paper: Paper
+
+  /**
+    * The ratio between one unit in the drawing and one unit in real life.
+    *
+    * @return An instance of a Scale.
+    */
+  def scale: Scale = Scale(boundary, paper)
+
+  def boundary: Rectangle2D
+
+  private var actions: Seq[T => Unit] = Nil
 
   final protected def addAction(f: T => Unit): Unit = {
     actions :+= f
   }
 
   final def execute(): Unit = {
-    drawPaper()
     actions.foreach(_.apply(context))
   }
 

@@ -2,7 +2,7 @@ package com.repocad.web
 
 import com.repocad.printer.Printer
 import com.repocad.reposcript.parsing.Expr
-import com.repocad.util.{Paper, Vector2D}
+import com.repocad.util.Vector2D
 
 /**
   * A view that can display an Abstract Syntax Tree (AST) by rendering it on a surface (usually via a
@@ -11,16 +11,9 @@ import com.repocad.util.{Paper, Vector2D}
 trait View {
 
   /**
-    * A [[com.repocad.util.Paper]] .
-    *
-    * @return The paper giving the current scale and size of this view.
-    */
-  def paper: Paper
-
-  /**
     * The renderer of this view.
     */
-  val printer: Printer[_, _]
+  val printer: Printer[_]
 
   /**
     * Renders the given AST.
@@ -37,7 +30,7 @@ trait View {
     * @param ast     The abstract syntax tree to render.
     * @param printer The medium to render the AST on.
     */
-  def render(ast: Expr, printer: Printer[_, _]): Unit = {
+  def render(ast: Expr, printer: Printer[_]): Unit = {
     printer.prepare() //redraw the canvas
     Reposcript.evaluate(ast, printer)
     printer.execute()

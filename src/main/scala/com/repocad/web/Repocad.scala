@@ -1,7 +1,6 @@
 package com.repocad.web
 
 import com.repocad.reposcript.parsing.{Error, Expr, UnitExpr}
-import com.repocad.util.{BoundlessPaper, Paper, PaperA}
 import com.thoughtworks.binding.Binding.{BindingInstances, Var}
 import org.scalajs.dom.raw.HTMLDivElement
 
@@ -89,11 +88,7 @@ class Repocad(view: View, editor: Editor) {
   @JSExport
   def printPdf(name: String): Unit = {
     ast.get.right.foreach(ast => {
-      val paper: PaperA = view.paper match {
-        case BoundlessPaper => Paper.empty
-        case a: PaperA => a
-      }
-      val printer = new PdfPrinter(paper)
+      val printer = new PdfPrinter(view.printer.paper)
       view.render(ast, printer)
       printer.save(name)
     })
@@ -101,7 +96,7 @@ class Repocad(view: View, editor: Editor) {
 
   //PNG generator - used to add a thumbnail in the library when the drawing is saved to Github.
   @JSExport
-  def printPng() : String = {
+  def printPng(): String = {
     view match {
       case c: CanvasView => c.toPngUrl
       case e => throw new RuntimeException("Failed to export to png; Not supported in view type " + e)
