@@ -11,14 +11,14 @@ import com.repocad.reposcript.{Renderer, evaluating, parsing}
 object Reposcript {
 
   private val parser = new Parser(Ajax, Environment.parserEnv, code => Lexer.lex(code, toLowerCase = true))
-  private val evaluator = new Evaluator(parser, Environment.evaluatorEnv)
+  private def evaluator(renderer: Renderer) = new Evaluator(parser, Environment.evaluatorEnv.++(renderer.toEvaluatorEnv))
 
   def parse(code: String): parsing.Value[ExprState] = {
     parser.parse(code)
   }
 
   def evaluate(expr: Expr, renderer: Renderer): evaluating.Value = {
-    evaluator.eval(expr, renderer)
+    evaluator(renderer).eval(expr, renderer)
   }
 
   def evaluate(code: String, renderer: Renderer): evaluating.Value = {
@@ -26,6 +26,7 @@ object Reposcript {
   }
 
   def evaluate(parsingOutput: parsing.Value[ExprState], renderer: Renderer): evaluating.Value = {
-    parsingOutput.right.flatMap(t => evaluator.eval(t.expr, renderer)).left.map(_.toString)
+    val evaluatorImpl = evaluator(renderer)
+    parsingOutput.right.flatMap(t => evaluatorImpl.eval(t.expr, renderer)).left.map(_.toString)
   }
 }

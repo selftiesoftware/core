@@ -23,7 +23,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
 
   def canvasCenter = Vector2D(width / 2, height / 2)
 
-  def paper = Paper(boundingBox.center)
+  def paper = Paper(boundingBox.toRectangle)
 
   def paperCenter: Vector2D = {
     canvasCenter + boundingBox.center
@@ -68,7 +68,7 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
 
   def drawScreenText(): Unit = {
     //annotation
-    val txt: String = "p a p e r : A 4       s c a l e:   1 :  " + scale
+    val txt: String = "p a p e r : A 4       s c a l e:   1 :  " + scale.value
     val versionNumber = Repocad.version.toString.foldLeft("")((string: String, char) => string + char + " ")
     val version: String = "v e r.  " + versionNumber
     screenText(35, 10, 10, txt)
@@ -110,6 +110,11 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
       context.stroke()
       context.lineWidth = 0.2 * scale.value
     })
+  }
+
+  override def execute(): Unit = {
+    drawPaper()
+    super.execute()
   }
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {

@@ -32,7 +32,7 @@ trait Printer[T] extends Renderer {
     actions :+= f
   }
 
-  final def execute(): Unit = {
+  def execute(): Unit = {
     actions.foreach(_.apply(context))
   }
 
