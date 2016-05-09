@@ -112,11 +112,6 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     })
   }
 
-  override def execute(): Unit = {
-    drawPaper()
-    super.execute()
-  }
-
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
     boundingBox = boundingBox.add(x1, y1)
     boundingBox = boundingBox.add(x2, y2)
