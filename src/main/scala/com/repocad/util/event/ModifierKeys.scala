@@ -37,5 +37,6 @@ object ModifierKeys {
   def apply(e: ModifierKeyEvent): ModifierKeys =
     new ModifierKeys(e.shiftKey, e.ctrlKey, e.altKey)
 
+  val empty = ModifierKeys(false, false, false)
 
 }
