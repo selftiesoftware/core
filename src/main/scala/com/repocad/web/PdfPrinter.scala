@@ -14,18 +14,24 @@ class PdfPrinter(val paper: Paper) extends Printer[Any] {
 
   val context = js.Dynamic.global.jsPDF(paper.orientation.toString)
 
+  js.Dynamic.global.console.log(context)
+
   override def boundary: Rectangle2D = paper.toRectangle
 
   // NOTE: Y is flipped
   val scaledCenter = Vector2D(paper.center.x, -paper.center.y)
 
-  //set standard line weight
-  context.setLineWidth(0.1)
-
-  //draw paper header
-  if (paper.orientation == Portrait) {
-    drawHeader(170, 280)
-  } else drawHeader(260, 195)
+  try {
+    //set standard line weight
+    context.setLineWidth(0.1)
+    //draw paper header
+    if (paper.orientation == Portrait) {
+      drawHeader(170, 280)
+    } else drawHeader(260, 195)
+  } catch {
+    case e: Exception =>
+      println(e)
+  }
 
   /**
     * create an arc.
@@ -103,32 +109,48 @@ class PdfPrinter(val paper: Paper) extends Printer[Any] {
     context.text(x, y, "1:" + scale.value)
     context.setFontSize(8)
     context.text(x, y + 6, "www.repocad.com")
-
   }
 
   def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
-    val v1 = transform(Vector2D(x1 / scale.value, y1 / scale.value))
-    val v2 = transform(Vector2D(x2 / scale.value, y2 / scale.value))
-    context.setLineWidth(0.1)
-    context.line(v1.x, v1.y, v2.x, v2.y)
+    try {
+      val v1 = transform(Vector2D(x1 / scale.value, y1 / scale.value))
+      val v2 = transform(Vector2D(x2 / scale.value, y2 / scale.value))
+      context.setLineWidth(0.1)
+      context.line(v1.x, v1.y, v2.x, v2.y)
+    } catch {
+      case e: Exception => println(e)
+    }
   }
 
   def save(name: String): Unit = {
-    context.save(name)
+    try {
+      context.save(name)
+    } catch {
+      case e: Exception =>
+        println(e)
+    }
   }
 
   override def text(x: Double, y: Double, h: Double, t: Any): Map[String, Any] = {
-    text(x, y, h, t, "Arial")
+    text(x, y, h, t, "Helvetica")
   }
 
   override def text(x: Double, y: Double, h: Double, t: Any, font: String): Map[String, Any] = {
-    val v = transform(Vector2D(x / scale.value, y / scale.value))
-    val fontSize = h * 1.8 / scale.value
-    context.setFont(font)
-    context.setFontSize(fontSize)
-    context.text(v.x, v.y, t.toString)
-    val dimensions = context.getTextDimensions(t.toString)
-    Map("x" -> dimensions.w.asInstanceOf[Double], "y" -> dimensions.h.asInstanceOf[Double])
+    try {
+      val v = transform(Vector2D(x / scale.value, y / scale.value))
+      val fontSize = h * 1.8 / scale.value
+
+      // Todo: This doesn't work
+      //      context.setFont(font)
+      context.setFontSize(fontSize)
+      context.text(v.x, v.y, t.toString)
+      val dimensions = context.getTextDimensions(t.toString)
+      Map("x" -> dimensions.w.asInstanceOf[Double], "y" -> dimensions.h.asInstanceOf[Double])
+    } catch {
+      case e: Exception =>
+        println(e)
+        Map("x" -> 0, "y" -> 0)
+    }
   }
 
   private def transform(v: Vector2D): Vector2D = {

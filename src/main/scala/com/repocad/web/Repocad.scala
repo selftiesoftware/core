@@ -87,10 +87,14 @@ class Repocad(view: View, editor: Editor) {
 
   @JSExport
   def printPdf(name: String): Unit = {
-    ast.get.right.foreach(ast => {
-      val printer = new PdfPrinter(view.printer.paper)
-      view.render(ast, printer)
-      printer.save(name)
+    ast.get.right.foreach(thisAst => {
+      try {
+        val printer = new PdfPrinter(view.printer.paper)
+        view.render(thisAst, printer)
+        printer.save(name)
+      } catch {
+        case e: Exception => println(e)
+      }
     })
   }
 

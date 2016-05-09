@@ -7,19 +7,19 @@ import org.scalajs.dom.{Event, XMLHttpRequest}
 import scala.concurrent.{Future, Promise}
 
 /**
- * An implementation of a [[HttpClient]].
- */
+  * An implementation of a [[HttpClient]].
+  */
 object Ajax extends HttpClient {
 
   val baseUrl = "http://api.repocad.com/"
 
   private val defaultHeaders = Map("Access-Control-Allow-Origin" -> "*")
 
-  def apply(method : String, url : String, data : String, headers : Map[String, String]) : Future[Response] = {
+  def apply(method: String, url: String, data: String, headers: Map[String, String]): Future[Response] = {
     val xhr = createRequest(method, url, data, headers, sync = true)
     val promise = Promise[Response]()
 
-    xhr.onreadystatechange = (e : Event) => {
+    xhr.onreadystatechange = (e: Event) => {
       if (xhr.readyState == 4) {
         promise.success(Response(xhr.status, xhr.readyState, xhr.responseText))
       }
@@ -30,17 +30,17 @@ object Ajax extends HttpClient {
     promise.future
   }
 
-  def applySynchronous(method : String, url : String, data : String, headers : Map[String, String]) : Response = {
+  def applySynchronous(method: String, url: String, data: String, headers: Map[String, String]): Response = {
     val xhr = createRequest(method, url, data, headers, sync = false)
     try {
       xhr.send(data)
       Response(xhr.status, xhr.readyState, xhr.responseText)
     } catch {
-      case e : Throwable => Response(0, 0, "")
+      case e: Throwable => Response(0, 0, "")
     }
   }
 
-  private def createRequest(method : String, url : String, data : String, headers : Map[String, String], sync : Boolean) : XMLHttpRequest = {
+  private def createRequest(method: String, url: String, data: String, headers: Map[String, String], sync: Boolean): XMLHttpRequest = {
     val xhr = new dom.XMLHttpRequest()
     xhr.open(method, baseUrl + url, async = sync)
     (headers ++ defaultHeaders).foreach(t => xhr.setRequestHeader(t._1, t._2))
