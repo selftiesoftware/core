@@ -55,10 +55,14 @@ case class Rectangle2D(xMin: Double, yMin: Double, xMax: Double, yMax: Double) {
 
   def closestPoint(point: Vector2D) = point
 
-  def contains(point : Vector2D) : Boolean =
-      bottomLeft.x <= point.x && point.x <= topRight.x &&
-        bottomLeft.y <= point.y && point.y <= topRight.y
+  def contains(point: Vector2D): Boolean =
+    bottomLeft.x <= point.x && point.x <= topRight.x &&
+      bottomLeft.y <= point.y && point.y <= topRight.y
 
+  def expand(that: Rectangle2D): Rectangle2D = Rectangle2D(
+    math.min(that.xMin, xMin), math.min(that.yMin, yMin), math.max(that.xMax, xMax), math.max(that.yMax, yMax)
+  )
+  
   /**
     * Returns the height of the rectangle.
     */
@@ -78,7 +82,7 @@ case class Rectangle2D(xMin: Double, yMin: Double, xMax: Double, yMax: Double) {
 
   def width = (xMax - xMin).abs
 
-  def transform(t : TransformationMatrix) = {
+  def transform(t: TransformationMatrix) = {
     val p1 = topLeft.transform(t)
     val p2 = bottomRight.transform(t)
 
