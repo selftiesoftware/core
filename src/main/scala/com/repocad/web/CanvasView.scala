@@ -27,6 +27,7 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
     mouseDown = false
   }
 
+  @JSExport
   def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
 
   def windowCenter = Vector2D(canvas.getBoundingClientRect().left, canvas.getBoundingClientRect().top) + canvasCenter
@@ -61,6 +62,13 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
     zoom(delta, Vector2D(e.clientX, e.clientY))
   }
 
+  @JSExport
+  def zoom(delta: Double): Unit = {
+    printer.zoom(delta, Vector2D(0, 0))
+    zoomLevel += 1 - delta
+    render()
+  }
+
   override def zoom(delta: Double, position: Vector2D): Unit = {
     printer.zoom(delta, position - windowCenter)
     zoomLevel += 1 - delta //update the zoom level
@@ -78,6 +86,7 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
 
   override def render(ast: Expr, printer: Printer[_]): Unit = {
     this.lastAst = Some(ast)
+    printer.asInstanceOf[CanvasPrinter].drawPaper()
     super.render(ast, printer)
   }
 
