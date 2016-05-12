@@ -31,6 +31,7 @@ case class BoundingBox(xRange: DynamicRange, yRange: DynamicRange) {
 
 object BoundingBox {
   val empty = new BoundingBox(EmptyRange, EmptyRange)
+  def apply(x : Double, y: Double): BoundingBox = new BoundingBox(EmptyRange.add(x), EmptyRange.add(y))
 }
 
 trait DynamicRange {
