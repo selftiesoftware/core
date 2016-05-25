@@ -14,8 +14,6 @@ class PdfPrinter(val paper: Paper) extends Printer[Any] {
 
   val context = js.Dynamic.global.jsPDF(paper.orientation.toString)
 
-  js.Dynamic.global.console.log(context)
-
   override def boundary: Rectangle2D = paper.toRectangle
 
   // NOTE: Y is flipped
@@ -124,7 +122,7 @@ class PdfPrinter(val paper: Paper) extends Printer[Any] {
 
   def save(name: String): Unit = {
     try {
-      context.save(name)
+      val x = context.save(name)
     } catch {
       case e: Exception =>
         println(e)

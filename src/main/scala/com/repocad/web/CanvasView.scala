@@ -86,7 +86,6 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
 
   override def render(ast: Expr, printer: Printer[_]): Unit = {
     this.lastAst = Some(ast)
-    printer.asInstanceOf[CanvasPrinter].drawPaper()
     super.render(ast, printer)
   }
 
