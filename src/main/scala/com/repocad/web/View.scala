@@ -31,9 +31,11 @@ trait View {
     * @param printer The medium to render the AST on.
     */
   def render(ast: Expr, printer: Printer[_]): Unit = {
-    printer.prepare() //redraw the canvas
+    printer.prepare()
     Reposcript.evaluate(ast, printer)
+    printer.postEvaluate()
     printer.execute()
+    printer.postExecute()
   }
 
   /**

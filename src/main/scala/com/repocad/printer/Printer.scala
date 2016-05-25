@@ -40,6 +40,10 @@ trait Printer[T] extends Renderer {
     actions.foreach(_.apply(customContext))
   }
 
+  def postEvaluate(): Unit = {}
+
+  def postExecute(): Unit = {}
+
   def prepare(): Unit = {
     actions = Nil
   }

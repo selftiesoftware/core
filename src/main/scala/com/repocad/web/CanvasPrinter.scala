@@ -139,6 +139,11 @@ class CanvasPrinter(canvas: HTMLCanvasElement) extends Printer[Canvas] {
     })
   }
 
+  override def postEvaluate(): Unit = {
+    super.postEvaluate()
+    drawPaper()
+  }
+
   override def prepare(): Unit = {
     super.prepare()
     boundingBox = BoundingBox.empty
