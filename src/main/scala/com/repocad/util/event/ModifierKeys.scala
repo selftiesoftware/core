@@ -2,6 +2,8 @@ package com.repocad.util.event
 
 import org.scalajs.dom.ModifierKeyEvent
 
+import scala.scalajs.js
+
 /**
   * ModifierKeys used to match further information in a given event.
   * Arguments are listed as follows: Shift - Control - Alt
@@ -36,6 +38,14 @@ object ModifierKeys {
     */
   def apply(e: ModifierKeyEvent): ModifierKeys =
     new ModifierKeys(e.shiftKey, e.ctrlKey, e.altKey)
+
+  def apply(e: js.Dynamic): ModifierKeys = {
+    try {
+      new ModifierKeys(e.shiftKey.asInstanceOf[Boolean], e.ctrlKey.asInstanceOf[Boolean], e.altKey.asInstanceOf[Boolean])
+    } catch {
+      case e: Exception => empty
+    }
+  }
 
   val empty = ModifierKeys(false, false, false)
 
