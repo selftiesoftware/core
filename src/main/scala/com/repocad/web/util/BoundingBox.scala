@@ -1,4 +1,6 @@
-package com.repocad.util
+package com.repocad.web.util
+
+import com.repocad.geom.{Rectangle2D, Vector2D}
 
 /**
   * A bounding box that starts in (0, 0) and can expand when coordinates are added.
@@ -31,7 +33,8 @@ case class BoundingBox(xRange: DynamicRange, yRange: DynamicRange) {
 
 object BoundingBox {
   val empty = new BoundingBox(EmptyRange, EmptyRange)
-  def apply(x : Double, y: Double): BoundingBox = new BoundingBox(EmptyRange.add(x), EmptyRange.add(y))
+
+  def apply(x: Double, y: Double): BoundingBox = new BoundingBox(EmptyRange.add(x), EmptyRange.add(y))
 }
 
 trait DynamicRange {
@@ -41,7 +44,7 @@ trait DynamicRange {
 
   def min: Double
 
-  def range : Double = max - min
+  def range: Double = max - min
 }
 
 case object EmptyRange extends DynamicRange {

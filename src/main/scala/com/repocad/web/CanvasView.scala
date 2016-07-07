@@ -1,8 +1,9 @@
 package com.repocad.web
 
-import com.repocad.printer.Printer
-import com.repocad.reposcript.parsing.Expr
-import com.repocad.util.Vector2D
+import com.repocad.geom.{TransformationMatrix, Vector2D}
+import com.repocad.renderer.View
+import com.repocad.reposcript.model.{SeqModel, ShapeModel}
+import com.repocad.web.util.event.{EndlessIterator, Event, MouseDown, MouseMove}
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
 
@@ -11,14 +12,14 @@ import scala.scalajs.js.annotation.JSExport
 /**
   * A canvas that can draw a drawing
   */
-@JSExport("CanvasView")
 class CanvasView(canvas: HTMLCanvasElement) extends View {
 
-  val printer = new CanvasPrinter(canvas)
+  override val renderer = new CanvasRenderer(canvas)
 
-  private var lastAst: Option[Expr] = None
+  override val events: EndlessIterator[Event] = new EndlessIterator[Event]()
 
-  var zoomLevel: Double = 1
+  private var model: ShapeModel = SeqModel(Seq())
+  private var transformation = TransformationMatrix()
 
   var mousePosition = Vector2D(0, 0)
   var mouseDown = false
@@ -26,6 +27,8 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
   val mouseExit = (e: MouseEvent) => {
     mouseDown = false
   }
+
+  protected def enqueue(event: Event): Unit = events.enqueue(event)
 
   @JSExport
   def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
@@ -35,21 +38,20 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
   canvas.onmousedown = (e: MouseEvent) => {
     mouseDown = true
     mousePosition = Vector2D(e.clientX, e.clientY)
-    render()
+    enqueue(MouseDown(Vector2D(e.clientY, e.clientY)))
   }
 
   canvas.onmousemove = (e: MouseEvent) => {
+    val newV = Vector2D(e.clientX, e.clientY)
     if (mouseDown) {
-      val newV = Vector2D(e.clientX, e.clientY)
-      printer.translate((newV - mousePosition).x, (newV - mousePosition).y)
+      transformation = transformation.translate((newV - mousePosition).x, (newV - mousePosition).y)
       mousePosition = newV
-      render()
+    } else {
+      enqueue(MouseMove(newV))
     }
   }
   canvas.onmouseleave = mouseExit
   canvas.onmouseup = mouseExit
-
-  def paper = printer.paper
 
   @JSExport
   def zoom(wheel: Double, e: MouseEvent): Unit = {
@@ -62,42 +64,37 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
     zoom(delta, Vector2D(e.clientX, e.clientY))
   }
 
-  @JSExport
   def zoom(delta: Double): Unit = {
-    printer.zoom(delta, Vector2D(0, 0))
-    zoomLevel += 1 - delta
-    render()
+    transformation = transformation.scale(delta)
+    renderer.render(model, transformation)
   }
 
   override def zoom(delta: Double, position: Vector2D): Unit = {
-    printer.zoom(delta, position - windowCenter)
-    zoomLevel += 1 - delta //update the zoom level
-    render()
+    transformation = transformation.translate(position.x, position.y).scale(delta)
+    renderer.render(model, transformation)
   }
 
-  override def zoomExtends(): Unit = {
-    printer.zoomExtends()
-    render()
+  /**
+    * Sets the pan and zoom level to include the entire paper. Useful when after large import or panned out of view.
+    */
+  override def zoomExtends() {
+    //    val t = -_transformation.translation + canvasCenter
+    //    val pC = model.boundary.center
+    //    transform(_.scale(1 / _transformation.scale))
+    //    transform(_.translate(t.x, t.y))
+    //    transform(_.scale(1.0 / scale.value))
+    //    transform(_.translate(-pC.x, pC.y))
   }
 
-  private def render(): Unit = {
-    lastAst.foreach(render)
-  }
-
-  override def render(ast: Expr, printer: Printer[_]): Unit = {
-    this.lastAst = Some(ast)
-    super.render(ast, printer)
-  }
-
-  def toPngUrl: String = {
-    val t = printer.transformation
-    printer.zoomExtends()
-    printer.drawPaper()
-    render()
-    val r = canvas.toDataURL("image/png")
-    printer.transform(_ => t)
-    render()
-    r
-  }
+  //  def toPngUrl: String = {
+  //    val t = renderer.transformation
+  //    printer.zoomExtends()
+  //    printer.drawPaper()
+  //    render()
+  //    val r = canvas.toDataURL("image/png")
+  //    printer.transform(_ => t)
+  //    render()
+  //    r
+  //  }
 
 }

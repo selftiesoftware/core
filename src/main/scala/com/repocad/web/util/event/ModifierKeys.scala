@@ -1,4 +1,4 @@
-package com.repocad.util.event
+package com.repocad.web.util.event
 
 import org.scalajs.dom.ModifierKeyEvent
 
