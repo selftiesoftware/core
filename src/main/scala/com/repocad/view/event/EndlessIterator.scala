@@ -1,4 +1,4 @@
-package com.repocad.web.util.event
+package com.repocad.view.event
 
 import scala.collection.mutable
 

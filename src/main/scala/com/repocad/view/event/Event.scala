@@ -1,4 +1,4 @@
-package com.repocad.web.util.event
+package com.repocad.view.event
 
 import com.repocad.geom.Vector2D
 
@@ -13,6 +13,7 @@ trait MouseEvent extends Event {
 
 case class MouseDown(point: Vector2D) extends Event
 case class MouseMove(point: Vector2D) extends Event
+case class MouseLeave(point: Vector2D) extends Event
 case class MouseUp(point: Vector2D) extends Event
 
 trait KeyboardEvent extends Event {
@@ -20,5 +21,5 @@ trait KeyboardEvent extends Event {
   def modifierKeys: ModifierKeys
 }
 
-case class KeyDown(key: String, modifierKeys: ModifierKeys)
-case class KeyUp(key: String, modifierKeys: ModifierKeys)
+case class KeyDown(key: String, modifierKeys: ModifierKeys) extends KeyboardEvent
+case class KeyUp(key: String, modifierKeys: ModifierKeys) extends KeyboardEvent

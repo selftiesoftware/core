@@ -1,7 +1,7 @@
 package com.repocad.web
 
 import com.repocad.geom.{Rectangle2D, TransformationMatrix, Vector2D}
-import com.repocad.renderer.ModelRenderer
+import com.repocad.view.ModelRenderer
 import com.repocad.reposcript.model.{ModelRenderer, ShapeModel, TextModel}
 import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}

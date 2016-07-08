@@ -1,4 +1,4 @@
-package com.repocad.renderer
+package com.repocad.view
 
 import com.repocad.geom.TransformationMatrix
 import com.repocad.reposcript.Renderer
