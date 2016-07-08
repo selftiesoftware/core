@@ -16,6 +16,8 @@ val commonSettings = Seq(
   )
 )
 
+val reposcript = RootProject(file("../reposcript"))
+
 lazy val core = project.in(file("."))
   .settings(commonSettings: _*)
   .settings(
@@ -32,4 +34,5 @@ lazy val core = project.in(file("."))
     resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
   )
   .enablePlugins(ScalaJSPlugin)
+  .dependsOn(reposcript)
 
