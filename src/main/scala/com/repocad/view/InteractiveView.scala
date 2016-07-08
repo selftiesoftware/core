@@ -8,20 +8,21 @@ object InteractiveView extends ViewFilter {
   private var mouseDown = false
   private var mousePosition = Vector2D(0, 0)
 
-  override def apply(state: (TransformationMatrix, Option[Event])): (TransformationMatrix, Option[Event]) = {
-    state._2 match {
+  override def apply(transformation: TransformationMatrix,
+                     eventOption: Option[Event]): (TransformationMatrix, Option[Event]) = {
+    eventOption match {
       case Some(MouseDown(point)) =>
         mouseDown = true
         mousePosition = point
-        state
+        (transformation, eventOption)
       case Some(MouseMove(point)) =>
         mousePosition = point
-        (state._1.translate(point.x, point.y), state._2)
+        (transformation.translate(point.x, point.y), eventOption)
       case Some(MouseUp(point)) =>
         mouseDown = false
         mousePosition = point
-        state
-      case None => state
+        (transformation, eventOption)
+      case Some(_) | None => (transformation, eventOption)
     }
   }
 

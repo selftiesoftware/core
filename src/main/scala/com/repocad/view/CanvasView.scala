@@ -14,10 +14,10 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
 
   private val events: EndlessIterator[Event] = new EndlessIterator[Event]()
 
-  canvas.onmousedown = (e: MouseEvent) => enqueueMouseEvent(e, MouseDown))
-  canvas.onmousemove = (e: MouseEvent) => enqueueMouseEvent(e, MouseMove))
+  canvas.onmousedown = (e: MouseEvent) => enqueueMouseEvent(e, MouseDown)
+  canvas.onmousemove = (e: MouseEvent) => enqueueMouseEvent(e, MouseMove)
   canvas.onmouseleave = (e: MouseEvent) => enqueueMouseEvent(e, MouseLeave)
-  canvas.onmouseup = (e: MouseEvent) => enqueueMouseEvent(e, MouseUp))
+  canvas.onmouseup = (e: MouseEvent) => enqueueMouseEvent(e, MouseUp)
 
   canvas.onkeydown = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyboardEvent(e, KeyDown)
   canvas.onkeyup = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyboardEvent(e, KeyUp)
