@@ -1,15 +1,13 @@
-package com.repocad.view
+package com.repocad.web
 
 import com.repocad.geom.{TransformationMatrix, Vector2D}
+import com.repocad.view.View
 import com.repocad.view.event.{Event, _}
 import org.scalajs.dom.MouseEvent
 import org.scalajs.dom.raw.HTMLCanvasElement
 
 import scala.scalajs.js.annotation.JSExport
 
-/**
-  * A canvas that can draw a drawing
-  */
 class CanvasView(canvas: HTMLCanvasElement) extends View {
 
   private val events: EndlessIterator[Event] = new EndlessIterator[Event]()
@@ -35,11 +33,12 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
 
   def windowCenter = Vector2D(canvas.getBoundingClientRect().left, canvas.getBoundingClientRect().top) + canvasCenter
 
-  override protected def getState: (TransformationMatrix, Option[Event]) = {
-    events.hasNext match {
-      case true => (transformation, Some(events.next))
-      case false => (transformation, None)
+  def state: (View, Option[Event]) = {
+    val newEvent = events.hasNext match {
+      case false => None
+      case true => Some(events.next)
     }
+    (this, newEvent)
   }
 
 }
