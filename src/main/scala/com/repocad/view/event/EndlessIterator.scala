@@ -1,6 +1,5 @@
 package com.repocad.view.event
 
-import scala.collection.mutable
 
 /**
   * An endless iterator over elements based on an internal queue. If more elements than the maximum buffer size allows
@@ -12,7 +11,7 @@ import scala.collection.mutable
   */
 class EndlessIterator[T](maxSize: Int = 1000) extends Iterator[T] {
 
-  private val queue = mutable.Queue[T]()
+  private var queue = Seq[T]()
 
   /**
     * Enqueues an element in the iterator.
@@ -21,9 +20,9 @@ class EndlessIterator[T](maxSize: Int = 1000) extends Iterator[T] {
     */
   def enqueue(element: T): Unit = {
     if (queue.size >= 1000) {
-      queue.dequeue()
+//      queue.dequeue()
     }
-    queue.enqueue(element)
+    queue :+= (element)
   }
 
   /**
@@ -38,6 +37,6 @@ class EndlessIterator[T](maxSize: Int = 1000) extends Iterator[T] {
     *
     * @return An element of type [[T]].
     */
-  override def next: T = queue.dequeue()
+  override def next: T = queue.head
 
 }

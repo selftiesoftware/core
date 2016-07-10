@@ -6,7 +6,7 @@ val commonSettings = Seq(
   },
   homepage := Some(url("http://repocad.com/")),
   licenses +=("GPLv3", url("https://opensource.org/licenses/GPL-3.0")),
-  scalaVersion := "2.11.7",
+  scalaVersion := "2.11.8",
   scalacOptions ++= Seq(
     "-Xlint",
     "-deprecation",
@@ -16,7 +16,7 @@ val commonSettings = Seq(
   )
 )
 
-val reposcript = RootProject(file("../reposcript"))
+//val reposcript = RootProject(file("../reposcript"))
 
 lazy val core = project.in(file("."))
   .settings(commonSettings: _*)
@@ -34,5 +34,5 @@ lazy val core = project.in(file("."))
     resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
   )
   .enablePlugins(ScalaJSPlugin)
-  .dependsOn(reposcript)
+//  .dependsOn(reposcript)
 

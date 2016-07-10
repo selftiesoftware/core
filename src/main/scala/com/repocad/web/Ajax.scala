@@ -1,11 +1,16 @@
 package com.repocad.web
 
-import com.repocad.remote.{Post, HttpMethod, HttpClient, Response}
+import java.util.concurrent.TimeUnit
+
+import com.repocad.remote.{HttpClient, HttpMethod, Post, Response}
 import org.scalajs.dom
 import org.scalajs.dom.{Event, XMLHttpRequest}
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{Future, Promise}
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future, Promise}
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import scala.util.Try
+
 
 /**
   * An implementation of a [[HttpClient]].
@@ -16,7 +21,7 @@ object Ajax extends HttpClient {
 
   private val defaultHeaders = Map("Access-Control-Allow-Origin" -> "*")
 
-  def apply[T](url: String, method: HttpMethod, headers: Map[String, String], f: Response => T): Future[T] = {
+  protected def httpCall[T](url: String, method: HttpMethod, headers: Map[String, String], f: Response => T): Future[T] = {
     val xhr = createRequest(url, method, headers, sync = true)
     val promise = Promise[T]()
 
@@ -40,6 +45,19 @@ object Ajax extends HttpClient {
     xhr.open(method.method, baseUrl + url, async = sync)
     (headers ++ defaultHeaders).foreach(t => xhr.setRequestHeader(t._1, t._2))
     xhr
+  }
+
+  /**
+    * Waits for the result of the future.
+    *
+    * @param future The future containing a result at some point in time.
+    * @return The result of the future.
+    */
+  override def result[T](future: Future[T]): Try[T] = {
+    while (future.value.isEmpty) {
+      // Do nothing
+    }
+    future.value.get
   }
 
 }
