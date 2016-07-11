@@ -18,4 +18,6 @@ project/plugins/project/
 .worksheet
 *.py*
 nohup.out
+src/main/scala/com/repocad/geom
+src/main/scala/com/repocad/remote
 src/main/scala/com/repocad/reposcript
