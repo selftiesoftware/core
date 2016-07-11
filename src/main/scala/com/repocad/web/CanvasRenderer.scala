@@ -4,14 +4,14 @@ import com.repocad.geom.{Rectangle2D, TransformationMatrix, Vector2D}
 import com.repocad.view.ModelRenderer
 import com.repocad.reposcript.model.{ModelRenderer, ShapeModel, TextModel}
 import org.scalajs.dom.raw.HTMLCanvasElement
-import org.scalajs.dom.{CanvasRenderingContext2D => Canvas}
+import org.scalajs.dom.{CanvasRenderingContext2D => CanvasContext}
 
 /**
   * A printer that renders to a HTML5 canvas
   */
 class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
 
-  val context = canvas.getContext("2d").asInstanceOf[Canvas]
+  val context = canvas.getContext("2d").asInstanceOf[CanvasContext]
 
   override val defaultFont: String = "Arial"
 
@@ -29,6 +29,22 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     context.setTransform(transformation.a, transformation.b, transformation.c, transformation.d, transformation.e, transformation.f)
     scale = transformation.scale
     ModelRenderer.render(shapeModel, this)
+  }
+
+  //Does not account for centers with negative coords (would cause mirroring)
+  override def renderWithZoomExtends(shapeModel: ShapeModel): TransformationMatrix = {
+    val boundary = shapeModel.boundary
+
+    val translation = canvasCenter - boundary.center
+    val translationMatrix = TransformationMatrix().translate(translation.x, translation.y)
+
+    val x_scale = width/boundary.width
+    val y_scale = height/boundary.height
+    val most_constricting = List(x_scale, y_scale).min
+    val zoomExtendsMatrix = translationMatrix.scale(most_constricting)
+
+    render(shapeModel, zoomExtendsMatrix)
+    zoomExtendsMatrix
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle: Double, eAngle: Double): Unit = {
@@ -76,7 +92,7 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     val totalHeight = size * lines.size
     val myFont: String = size + "px " + font
     context.font = myFont
-    val dimension = lines.foldRight(Vector2D(0, -y + size))((text, dimension) => {
+    val dimension = lines.foldRight (Vector2D(0, -y + size)) ((text, dimension) => {
       val textY = dimension.y - size
       val textWidth = math.max(dimension.x, context.measureText(text.toString).width)
 
