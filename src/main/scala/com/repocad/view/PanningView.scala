@@ -6,6 +6,8 @@ import com.repocad.view.event._
 case class PanningView(private val view: View, private val interactiveState: InteractiveState)
   extends ViewFilter(view) {
 
+  def this(view : View) = this(view, InteractiveState(TransformationMatrix.id, Vector2D(0,0), mouseDown = false))
+
   def state: (ViewFilter, Option[Event]) = {
     val newState = view.state
     newState._2 match {
