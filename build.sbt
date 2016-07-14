@@ -16,11 +16,10 @@ val commonSettings = Seq(
   )
 )
 
-lazy val coreProject = project.in(file("."))
-lazy val reposcript = RootProject(uri("git://github.com/repocad/reposcript"))
-lazy val reposcriptJar = Def.task(Seq(Attributed.blank((packageBin in reposcript in Compile).value)))
 
-lazy val core = coreProject
+lazy val reposcript = RootProject(uri("git://github.com/repocad/reposcript"))
+
+lazy val core = project.in(file("."))
   .settings(commonSettings: _*)
   .settings(
     name := "Repocad core",
@@ -35,7 +34,7 @@ lazy val core = coreProject
       "org.scalacheck" %%% "scalacheck" % "1.13.2" % Test
     ),
     resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
-    unmanagedJars in Compile := reposcriptJar.value
+    unmanagedJars in Compile := (Seq(Attributed.blank((packageBin in reposcript in Compile).value)))
   )
   .enablePlugins(ScalaJSPlugin)
   .dependsOn(reposcript)
