@@ -34,11 +34,7 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
   def windowCenter = Vector2D(canvas.getBoundingClientRect().left, canvas.getBoundingClientRect().top) + canvasCenter
 
   def state: (View, Option[Event]) = {
-    val newEvent = events.hasNext match {
-      case false => None
-      case true => Some(events.next)
-    }
-    (this, newEvent)
+    (this, events.next)
   }
 
 }

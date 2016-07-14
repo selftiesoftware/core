@@ -1,5 +1,7 @@
 package com.repocad.view.event
 
+import scala.collection.mutable
+
 
 /**
   * An endless iterator over elements based on an internal queue. If more elements than the maximum buffer size allows
@@ -9,9 +11,9 @@ package com.repocad.view.event
   * @param maxSize The maximum number of elements stored in the iterator, before old elements are being pushed out.
   * @tparam T The type of elements in the iterator.
   */
-class EndlessIterator[T](maxSize: Int = 1000) extends Iterator[T] {
+class EndlessIterator[T](maxSize: Int = 1000) extends mutable.Traversable[T] {
 
-  private var queue = Seq[T]()
+  private val queue : scala.collection.mutable.Queue[T] = mutable.Queue[T]()
 
   /**
     * Enqueues an element in the iterator.
@@ -19,24 +21,24 @@ class EndlessIterator[T](maxSize: Int = 1000) extends Iterator[T] {
     * @param element The element to enqueue.
     */
   def enqueue(element: T): Unit = {
-    if (queue.size >= 1000) {
-//      queue.dequeue()
+    if (queue.size >= maxSize) {
+      queue.dequeue()
     }
-    queue :+= (element)
+    queue.enqueue(element)
   }
-
-  /**
-    * Examines if an element is queued.
-    *
-    * @return True if an element is enqueued and ready to be dequeued.
-    */
-  override def hasNext: Boolean = queue.nonEmpty
 
   /**
     * Takes the next elements from the iterator.
     *
     * @return An element of type [[T]].
     */
-  override def next: T = queue.head
+  def next: Option[T] = {
+    queue.nonEmpty match {
+      case true => Some(queue.dequeue())
+      case false => None
+    }
+  }
+
+  override def foreach[U](f: (T) => U): Unit = queue.foreach(f)
 
 }
