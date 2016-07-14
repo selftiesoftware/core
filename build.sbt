@@ -19,7 +19,7 @@ val commonSettings = Seq(
 
 lazy val reposcript = RootProject(uri("git://github.com/repocad/reposcript#feature-compile-pipeline"))
 
-lazy val core = project.in(file("."))
+lazy val coreWithoutScalaJS = project.in(file("."))
   .settings(commonSettings: _*)
   .settings(
     name := "Repocad core",
@@ -36,6 +36,8 @@ lazy val core = project.in(file("."))
     resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
     unmanagedJars in Compile := (Seq(Attributed.blank((packageBin in reposcript in Compile).value)))
   )
-  .enablePlugins(ScalaJSPlugin)
   .dependsOn(reposcript)
+
+lazy val core = coreWithoutScalaJS
+  .enablePlugins(ScalaJSPlugin)
 
