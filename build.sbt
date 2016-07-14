@@ -16,11 +16,10 @@ val commonSettings = Seq(
   )
 )
 
-lazy val coreProject = project.in(file("."))
 lazy val reposcript = RootProject(uri("git://github.com/repocad/reposcript#feature-compile-pipeline"))
 lazy val reposcriptJar = Def.task(Seq(Attributed.blank((packageBin in reposcript in Compile).value)))
 
-lazy val core = coreProject
+lazy val core = project.in(file("."))
   .settings(commonSettings: _*)
   .settings(
     name := "Repocad core",
