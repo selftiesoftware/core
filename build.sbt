@@ -37,5 +37,3 @@ lazy val core = project.in(file("."))
     unmanagedJars in Compile := reposcriptJar.value
   )
   .enablePlugins(ScalaJSPlugin)
-  .dependsOn(reposcript)
-
