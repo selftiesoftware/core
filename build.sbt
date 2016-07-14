@@ -34,7 +34,7 @@ lazy val coreWithoutScalaJS = project.in(file("."))
       "org.scalacheck" %%% "scalacheck" % "1.13.2" % Test
     ),
     resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
-    unmanagedJars in Compile := (Seq(Attributed.blank((packageBin in reposcript in Compile).value)))
+    managedClasspath in Compile += (packageBin in reposcript in Compile).value
   )
   .dependsOn(reposcript)
 
