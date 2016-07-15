@@ -16,10 +16,30 @@ val commonSettings = Seq(
   )
 )
 
+def getGitSources(url: String, targetDirectory: String, branch: Option[String] = None): File = {
+  def execute(command: String): Unit = {
+    
+    Process(command).run().exitValue() match {
+      case 0 => // Do nothing
+      case errorCode => throw new RuntimeException("Non-zero exit code on git clone: " + errorCode)
+    }
+  }
+  val targetFile = new File(targetDirectory)
+  if (targetFile.isDirectory) {
+    val gitDir = s"--git-dir $targetDirectory/.git"
+    execute(s"git $gitDir fetch origin")
+    execute(s"git $gitDir checkout ${branch.getOrElse("master")}")
+  } else {
+    val branchName = branch.map(branchName => s"--branch $branchName").getOrElse("")
+    execute(s"git clone $url $branchName $targetDirectory")
+  }
+  targetFile / "src" / "main"
+}
 
-lazy val reposcript = RootProject(uri("git://github.com/repocad/reposcript#feature-compile-pipeline"))
+//lazy val reposcriptSource = TaskKey[File]("Clone and return reposcript source directory")
+lazy val reposcriptSourceDirectory = getGitSources("git@github.com:repocad/reposcript", "/tmp/reposcript", Some("feature-compile-pipeline"))
 
-lazy val coreWithoutScalaJS = project.in(file("."))
+lazy val core = project.in(file("."))
   .settings(commonSettings: _*)
   .settings(
     name := "Repocad core",
@@ -34,10 +54,8 @@ lazy val coreWithoutScalaJS = project.in(file("."))
       "org.scalacheck" %%% "scalacheck" % "1.13.2" % Test
     ),
     resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
-    managedClasspath in Compile += (packageBin in reposcript in Compile).value
+    unmanagedSourceDirectories in Compile += {
+      reposcriptSourceDirectory
+    }
   )
-  .dependsOn(reposcript)
-
-lazy val core = coreWithoutScalaJS
   .enablePlugins(ScalaJSPlugin)
-
