@@ -1,3 +1,5 @@
+import java.io.FileOutputStream
+
 val commonSettings = Seq(
   organization := "com.repocad",
   version := "0.1-SNAPSHOT",
@@ -16,12 +18,20 @@ val commonSettings = Seq(
   )
 )
 
+/**
+  * Pulls a given git project into the target directory and returns the source folder
+  * (assumed to be in base/src/main).
+  *
+  * @param url             The complete url to the project
+  * @param targetDirectory The directory to clone the project into
+  * @param branch          The branch to clone (defaults to "master")
+  * @return The source directory of the project.
+  */
 def getGitSources(url: String, targetDirectory: String, branch: Option[String] = None): File = {
   def execute(command: String): Unit = {
-    
-    Process(command).run().exitValue() match {
+    Process(command).#>(new FileOutputStream("/dev/null")).run().exitValue() match {
       case 0 => // Do nothing
-      case errorCode => throw new RuntimeException("Non-zero exit code on git clone: " + errorCode)
+      case errorCode => throw new RuntimeException(s"Non-zero exit code ($errorCode) when executing '$command'")
     }
   }
   val targetFile = new File(targetDirectory)
@@ -36,7 +46,6 @@ def getGitSources(url: String, targetDirectory: String, branch: Option[String] =
   targetFile / "src" / "main"
 }
 
-//lazy val reposcriptSource = TaskKey[File]("Clone and return reposcript source directory")
 lazy val reposcriptSourceDirectory = getGitSources("git@github.com:repocad/reposcript", "/tmp/reposcript", Some("feature-compile-pipeline"))
 
 lazy val core = project.in(file("."))
