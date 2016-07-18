@@ -46,7 +46,7 @@ def getGitSources(url: String, targetDirectory: String, branch: Option[String] =
   targetFile / "src" / "main"
 }
 
-lazy val reposcriptSourceDirectory = getGitSources("git@github.com:repocad/reposcript", "/tmp/reposcript", Some("feature-compile-pipeline"))
+lazy val reposcriptSourceDirectory = getGitSources("git@github.com:repocad/reposcript", "/tmp/reposcript", Some("test-dep"))
 
 lazy val core = project.in(file("."))
   .settings(commonSettings: _*)
