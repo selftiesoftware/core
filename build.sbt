@@ -16,11 +16,9 @@ val commonSettings = Seq(
   )
 )
 
-lazy val coreProject = project.in(file("."))
-lazy val reposcript = RootProject(uri("git://github.com/repocad/reposcript#feature-compile-pipeline"))
-lazy val reposcriptJar = Def.task(Seq(Attributed.blank((packageBin in reposcript in Compile).value)))
+val reposcript = RootProject(file("../reposcript"))
 
-lazy val core = coreProject
+lazy val core = project.in(file("."))
   .settings(commonSettings: _*)
   .settings(
     name := "Repocad core",
@@ -34,8 +32,7 @@ lazy val core = coreProject
       "org.scalatest" %%% "scalatest" % "3.0.0-M15" % Test,
       "org.scalacheck" %% "scalacheck" % "1.13.2" % Test
     ),
-    resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
-    unmanagedJars in Compile := reposcriptJar.value
+    resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
   )
   .enablePlugins(ScalaJSPlugin)
   .dependsOn(reposcript)
