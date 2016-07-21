@@ -4,6 +4,7 @@ import com.repocad.remote.Response
 
 import scala.concurrent.Future
 import scala.scalajs.js.annotation.JSExport
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 /**
   * A drawing that is automatically synched
