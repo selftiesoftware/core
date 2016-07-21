@@ -25,7 +25,7 @@ lazy val core = project.in(file("."))
   .settings(
     name := "Repocad core",
     libraryDependencies ++= Seq(
-      "org.scala-js" %%% "scalajs-dom" % "0.8.2",
+      "org.scala-js" %%% "scalajs-dom" % "0.9.0",
       "org.scala-lang.modules" %% "scala-async" % "0.9.5",
       "org.scalatest" %%% "scalatest" % "3.0.0-M15" % Test,
       "org.scalacheck" %% "scalacheck" % "1.13.2" % Test
