@@ -60,7 +60,7 @@ lazy val core = project.in(file("."))
       "com.thoughtworks.binding" %%% "dom" % "2.0.1",
       //      "com.repocad" %% "reposcript" % "0.1-SNAPSHOT",
       "org.scalatest" %%% "scalatest" % "3.0.0-M15" % Test,
-      "org.scalacheck" %%% "scalacheck" % "1.13.2" % Test
+      "org.scalacheck" %% "scalacheck" % "1.13.2" % Test
     ),
     resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
     unmanagedSourceDirectories in Compile += {
