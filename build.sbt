@@ -55,10 +55,6 @@ lazy val core = project.in(file("."))
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "0.8.2",
       "org.scala-lang.modules" %% "scala-async" % "0.9.5",
-      //"org.scala-lang.modules" %% "scala-xml" % "1.0.4",
-      //"com.thoughtworks.binding" %% "core" % "2.0.1",
-      "com.thoughtworks.binding" %%% "dom" % "2.0.1",
-      //      "com.repocad" %% "reposcript" % "0.1-SNAPSHOT",
       "org.scalatest" %%% "scalatest" % "3.0.0-M15" % Test,
       "org.scalacheck" %% "scalacheck" % "1.13.2" % Test
     ),
