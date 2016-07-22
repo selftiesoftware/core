@@ -26,7 +26,12 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
   private def enqueueKeyboardEvent(e: org.scalajs.dom.KeyboardEvent, f: (String, ModifierKeys) => Event): Unit =
     f(e.key, ModifierKeys(e))
 
-  private def enqueueMouseEvent(e: MouseEvent, f: Vector2D => Event): Unit = enqueue(f(Vector2D(e.clientX, e.clientY)))
+  private def enqueueMouseEvent(e: MouseEvent, f: Vector2D => Event): Unit = {
+    val clientRec = canvas.getBoundingClientRect
+    val canvasPos = Vector2D(clientRec.left, clientRec.top)
+    val posRelativeToCanvas = Vector2D(e.clientX, e.clientY) - canvasPos
+    enqueue(f(posRelativeToCanvas))
+  }
 
   @JSExport
   def canvasCenter = Vector2D(canvas.width / 2, canvas.height / 2)
