@@ -9,11 +9,11 @@ object Opentype {
     throw new RuntimeException("Opentype is not defined. Has it been imported?")
   }
 
-  def load(url: String): Future[Font] = {
-    val promise: Promise[Font] = Promise()
+  def load(url: String): Future[OpentypeFont] = {
+    val promise: Promise[OpentypeFont] = Promise()
     js.Dynamic.global.opentype.load(url, (err: js.Dynamic, font: js.Dynamic) => {
       if (js.isUndefined(err)) {
-        promise.success(font.asInstanceOf[Font])
+        promise.success(font.asInstanceOf[OpentypeFont])
       } else if (js.isUndefined(font)) {
         promise.failure(new RuntimeException(err.toString))
       } else {
