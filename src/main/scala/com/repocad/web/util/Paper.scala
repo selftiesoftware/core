@@ -1,4 +1,6 @@
-package com.repocad.util
+package com.repocad.web.util
+
+import com.repocad.geom.{Rectangle2D, Vector2D}
 
 object Paper {
 

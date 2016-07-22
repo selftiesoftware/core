@@ -1,6 +1,7 @@
-package com.repocad.printer
+package com.repocad.web
 
-import com.repocad.util.{Paper, Rectangle2D}
+import com.repocad.geom.Rectangle2D
+import com.repocad.web.util.Paper
 
 
 object Scale {
