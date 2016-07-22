@@ -2,7 +2,8 @@ package com.repocad.web.util.opentype
 
 import scala.scalajs.js
 
-trait Glyph {
+@js.native
+trait Glyph extends js.Object {
 
   val advanceWidth: Double
   val xMin: Double
@@ -11,10 +12,5 @@ trait Glyph {
   val yMax: Double
 
   def font: Font
-
-}
-
-@js.native
-trait OpentypeGlyph extends js.Object with Glyph {
 
 }
