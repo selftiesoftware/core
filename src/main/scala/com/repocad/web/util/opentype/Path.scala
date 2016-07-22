@@ -4,7 +4,7 @@ import org.scalajs.dom.raw.CanvasRenderingContext2D
 
 import scala.scalajs.js
 
-trait Path extends js.Object {
+trait Path {
 
   def draw(context: CanvasRenderingContext2D): Unit
 
