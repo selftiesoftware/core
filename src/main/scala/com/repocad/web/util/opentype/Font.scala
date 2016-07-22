@@ -4,7 +4,8 @@ import org.scalajs.dom.raw.CanvasRenderingContext2D
 
 import scala.scalajs.js
 
-trait Font {
+@js.native
+trait Font extends js.Object {
 
   val ascender: Double
 
@@ -16,15 +17,9 @@ trait Font {
 
   def getPath(text: String, x: Double, y: Double, fontSize: Double): Path
 
-  def stringToGlyphs(string: String): Array[Glyph]
+  def stringToGlyphs(string: String): js.Array[Glyph]
 
   def unitsPerEm: Double
 
 }
 
-@js.native
-trait OpentypeFont extends js.Object with Font {
-
-  override def stringToGlyphs(string: String): js.Array[Glyph]
-
-}

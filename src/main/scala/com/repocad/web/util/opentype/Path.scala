@@ -4,17 +4,13 @@ import org.scalajs.dom.raw.CanvasRenderingContext2D
 
 import scala.scalajs.js
 
-trait Path {
+@js.native
+trait Path extends js.Object {
+
+  var fill: String = js.native
 
   def draw(context: CanvasRenderingContext2D): Unit
 
   def toSVG(decimalPlaces: Double): String
-
-}
-
-@js.native
-trait OpentypePath extends js.Object with Path {
-
-  var fill: String = js.native
 
 }
