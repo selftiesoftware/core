@@ -18,8 +18,6 @@ val commonSettings = Seq(
 
 lazy val reposcript = RootProject(uri("git://github.com/repocad/reposcript"))
 
-lazy val reposcript = RootProject(uri("git://github.com/repocad/reposcript#feature-depends-cratecut-view"))
-
 lazy val core = project.in(file("."))
   .settings(commonSettings: _*)
   .settings(
