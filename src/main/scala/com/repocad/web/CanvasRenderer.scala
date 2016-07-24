@@ -24,21 +24,25 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
 
   def canvasCenter = Vector2D(width / 2, height / 2)
 
-  val canvasTransform = TM.id.translate(canvasCenter.x, canvasCenter.y).flipY
+  private val canvasTransform = TM.id.translate(canvasCenter.x, canvasCenter.y).flipY
+
+  private var transform = canvasTransform
+
+  def transformation : TM = transform
 
   override def calculateBoundary(textModel: TextModel): Rectangle2D = Rectangle2D(0, 0, 1, 1)
 
   def render(shapeModel: ShapeModel, _transformation: TM): Unit = {
-    val transformation = canvasTransform.concat(_transformation)
-    context.setTransform(transformation.a,
-                         transformation.b,
-                         transformation.c,
-                         transformation.d,
-                         transformation.e,
-                         transformation.f
+    transform = canvasTransform.concat(_transformation)
+    context.setTransform(transform.a,
+                         transform.b,
+                         transform.c,
+                         transform.d,
+                         transform.e,
+                         transform.f
     )
 
-    scale = transformation.scale
+    scale = transform.scale
     ModelRenderer.render(shapeModel, this)
   }
 
