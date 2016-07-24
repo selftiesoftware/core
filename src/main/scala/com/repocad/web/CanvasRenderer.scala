@@ -24,8 +24,7 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
 
   def canvasCenter = Vector2D(width / 2, height / 2)
 
-  private val canvasTransform = TM.id.translate(canvasCenter.x, canvasCenter.y).flipY
-
+  val canvasTransform = TM.id.translate(canvasCenter.x, canvasCenter.y).flipY
 
   override def calculateBoundary(textModel: TextModel): Rectangle2D = Rectangle2D(0, 0, 1, 1)
 
