@@ -10,9 +10,9 @@ trait Glyph {
   val yMin: Double
   val yMax: Double
 
-  def height = xMax - xMin
+  def height = yMax - yMin
 
-  def width = yMax - yMin
+  def width = xMax - xMin
 
 }
 
