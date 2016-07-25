@@ -2,6 +2,7 @@ package com.repocad.web.util
 
 import org.scalajs.dom.raw.CanvasRenderingContext2D
 
+import scala.language.implicitConversions
 import scala.scalajs.js
 
 /**
