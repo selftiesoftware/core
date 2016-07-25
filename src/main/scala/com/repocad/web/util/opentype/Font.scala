@@ -17,7 +17,7 @@ trait Font {
 
   def getPath(text: String, x: Double, y: Double, fontSize: Double): Path
 
-  def stringToGlyphs(string: String): Array[Glyph]
+  def stringToGlyphs(string: String): Seq[Glyph]
 
   def unitsPerEm: Double
 
