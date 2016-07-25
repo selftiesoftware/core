@@ -33,7 +33,7 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
   override def calculateBoundary(textModel: TextModel): Rectangle2D = Rectangle2D(0, 0, 1, 1)
 
   def render(shapeModel: ShapeModel, _transformation: TM): Unit = {
-    transform = canvasTransform.concat(_transformation)
+    transform = canvasTransform concat _transformation
     context.setTransform(transform.a,
                          transform.b,
                          transform.c,
