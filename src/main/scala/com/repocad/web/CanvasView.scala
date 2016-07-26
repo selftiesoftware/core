@@ -4,7 +4,7 @@ import com.repocad.geom.{TransformationMatrix, Vector2D}
 import com.repocad.view.View
 import com.repocad.view.event.{Event, _}
 import org.scalajs.dom.MouseEvent
-import org.scalajs.dom.raw.HTMLCanvasElement
+import org.scalajs.dom.raw.{WheelEvent, HTMLCanvasElement}
 
 import scala.scalajs.js.annotation.JSExport
 
@@ -16,6 +16,7 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
   canvas.onmousemove = (e: MouseEvent) => enqueueMouseEvent(e, MouseMove)
   canvas.onmouseleave = (e: MouseEvent) => enqueueMouseEvent(e, MouseLeave)
   canvas.onmouseup = (e: MouseEvent) => enqueueMouseEvent(e, MouseUp)
+  canvas.onmousewheel = (e: WheelEvent) => enqueueMouseEvent(e, MouseScroll(_, ScrollDistance(e.deltaMode)))
 
   canvas.onkeydown = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyboardEvent(e, KeyDown)
   canvas.onkeyup = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyboardEvent(e, KeyUp)
