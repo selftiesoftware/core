@@ -26,14 +26,10 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
 
   private val canvasTransform = TM.id.translate(canvasCenter.x, canvasCenter.y).flipY
 
-  private var transform = canvasTransform
-
-  def transformation : TM = transform
-
   override def calculateBoundary(textModel: TextModel): Rectangle2D = Rectangle2D(0, 0, 1, 1)
 
-  def render(shapeModel: ShapeModel, _transformation: TM): Unit = {
-    transform = canvasTransform concat _transformation
+  def render(shapeModel: ShapeModel, _transformation: TM): TM = {
+    val transform = canvasTransform concat _transformation
     context.setTransform(transform.a,
                          transform.b,
                          transform.c,
@@ -44,6 +40,7 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
 
     scale = transform.scale
     ModelRenderer.render(shapeModel, this)
+    transform
   }
 
   //Does not account for centers with negative coords (would cause mirroring)
@@ -60,7 +57,6 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     val zoomExtendsMatrix = scaleMatrix concat translationMatrix
 
     render(shapeModel, zoomExtendsMatrix)
-    zoomExtendsMatrix
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle: Double, eAngle: Double): Unit = {

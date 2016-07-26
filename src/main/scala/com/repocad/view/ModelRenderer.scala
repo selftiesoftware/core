@@ -15,6 +15,6 @@ trait ModelRenderer extends Renderer with FontMetrics {
     * @param shapeModel     The model to render.
     * @param transformation The matrix to apply when rendering.
     */
-  def render(shapeModel: ShapeModel, transformation: TransformationMatrix): Unit
+  def render(shapeModel: ShapeModel, transformation: TransformationMatrix): TransformationMatrix
   def renderWithZoomExtends(shapeModel: ShapeModel): TransformationMatrix
 }
