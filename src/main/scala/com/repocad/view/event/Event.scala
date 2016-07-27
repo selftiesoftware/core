@@ -50,8 +50,23 @@ trait KeyboardEvent extends Event {
 
 }
 
+/**
+  * Triggered when a key is pressed down on a keyboard.
+  * Examples: U, C, W, i, e, n, e, r, ' ', Å, ó, 'Control', 'Shift' etc.
+  *
+  * @param key          The key that was triggered as represented in [[org.scalajs.dom.ext.KeyValue]].
+  * @param modifierKeys The modifier keys active when the key was pressed.
+  * @see [[org.scalajs.dom.ext.KeyValue]]
+  */
 case class KeyDown(key: String, modifierKeys: ModifierKeys) extends KeyboardEvent
 
+/**
+  * Triggered when a key is no longer pressed down on a keyboard.
+  * Examples: U, C, W, i, e, n, e, r, ' ', Å, ó, 'Control', 'Shift' etc.
+  *
+  * @param key          The key that is no longer pressed down.
+  * @param modifierKeys The modifier keys active when the key left the 'pressed' state.
+  */
 case class KeyUp(key: String, modifierKeys: ModifierKeys) extends KeyboardEvent
 
 /**
@@ -59,7 +74,7 @@ case class KeyUp(key: String, modifierKeys: ModifierKeys) extends KeyboardEvent
   *
   * @param value The value the scroll event scrolls.
   */
-sealed case class ScrollDistance(value: Double)
+sealed abstract class ScrollDistance(value: Double)
 
 case object ScrollDistance {
   def apply(value: Double) = if (value >= 0) ScrollUp(value) else ScrollDown(value)

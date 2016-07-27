@@ -1,11 +1,13 @@
 package com.repocad.web
 
-import com.repocad.geom.{TransformationMatrix, Vector2D}
+import com.repocad.geom.Vector2D
 import com.repocad.view.View
-import com.repocad.view.event.{Event, _}
-import org.scalajs.dom.MouseEvent
-import org.scalajs.dom.raw.{WheelEvent, HTMLCanvasElement}
+import com.repocad.view.event._
+import com.repocad.web
+import org.scalajs.dom.raw.{HTMLCanvasElement, WheelEvent}
+import org.scalajs.dom.{KeyboardEvent, MouseEvent}
 
+import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
 
 class CanvasView(canvas: HTMLCanvasElement) extends View {
@@ -18,14 +20,11 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
   canvas.onmouseup = (e: MouseEvent) => enqueueMouseEvent(e, MouseUp)
   canvas.onmousewheel = (e: WheelEvent) => enqueueMouseEvent(e, MouseScroll(_, ScrollDistance(e.deltaMode)))
 
-  canvas.onkeydown = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyboardEvent(e, KeyDown)
-  canvas.onkeyup = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyboardEvent(e, KeyUp)
-  canvas.onkeypress = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyboardEvent(e, KeyDown)
+  canvas.onkeydown = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyDown(e)
+  canvas.onkeyup = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyUp(e)
+  canvas.onkeypress = (e: org.scalajs.dom.KeyboardEvent) => enqueueKeyPress(e)
 
   private def enqueue(event: Event): Unit = events.enqueue(event)
-
-  private def enqueueKeyboardEvent(e: org.scalajs.dom.KeyboardEvent, f: (String, ModifierKeys) => Event): Unit =
-    f(e.key, ModifierKeys(e))
 
   private def enqueueMouseEvent(e: MouseEvent, f: Vector2D => Event): Unit = enqueue(f(Vector2D(e.clientX, e.clientY)))
 
@@ -36,6 +35,54 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
 
   def state: (View, Option[Event]) = {
     (this, events.next)
+  }
+
+  /**
+    * Parses and enqueues key down events.
+    *
+    * @param event The event to react upon.
+    */
+  private def enqueueKeyDown(event: KeyboardEvent): Unit = {
+    if (web.util.isAndroid) {
+      // Android does not support key press events -_-
+      enqueueKeyPress(event)
+    } else {
+      event.preventDefault()
+      enqueue(KeyDown(event.standardKey, ModifierKeys(event)))
+    }
+  }
+
+  /**
+    * Parses and enqueues key up events.
+    *
+    * @param event The event to enqueue as a key up event.
+    */
+  private def enqueueKeyUp(event: KeyboardEvent): Unit = {
+    enqueue(KeyUp(event.standardKey, ModifierKeys(event)))
+  }
+
+  /**
+    * Parses and enqueues key press events.
+    *
+    * @param scalaJsEvent The actual event being processed. This needs to be a native type because JavaScript is a messed up,
+    *                     inconsistent and horrible language.
+    */
+  private def enqueueKeyPress(scalaJsEvent: KeyboardEvent): Unit = {
+    val event = scalaJsEvent.asInstanceOf[js.Dynamic]
+    // Thanks to http://unixpapa.com/js/key.html
+    val string = if (js.isUndefined(event.which)) {
+      js.Dynamic.global.String.fromCharCode(event.keyCode); // old IE
+    } else if (event.which.asInstanceOf[Double] != 0 && event.charCode.asInstanceOf[Int] != 0) {
+      js.Dynamic.global.String.fromCharCode(event.which); // All others
+    } else {
+      // special key -- handled in keydown
+    }
+
+    if (!js.isUndefined(string)) {
+      val modifiers = ModifierKeys(scalaJsEvent)
+      val char = string.asInstanceOf[String]
+      enqueue(KeyDown(char, modifiers))
+    }
   }
 
 }
