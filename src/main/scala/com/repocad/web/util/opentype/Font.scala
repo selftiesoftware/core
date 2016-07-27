@@ -36,7 +36,7 @@ trait OpentypeFont extends js.Object {
 
   def getPath(text: String, x: Double, y: Double, fontSize: Double): OpentypePath
 
-  def stringToGlyphs(string: String): js.Array[Glyph]
+  def stringToGlyphs(string: String): js.Array[OpentypeGlyph]
 
   def unitsPerEm: Double
 

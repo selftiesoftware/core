@@ -23,7 +23,8 @@ package object opentype {
         opentypeFont.draw(context, line, i, yOffset, scale, jsObject)
       }
 
-      override def stringToGlyphs(string: String): Seq[Glyph] = opentypeFont.stringToGlyphs(string).toSeq
+      override def stringToGlyphs(string: String): Seq[Glyph] =
+        opentypeFont.stringToGlyphs(string).map(opentypeGlyph2Glyph).toSeq
 
       override def getKerningValue(first: Glyph, second: Glyph): Double =
         opentypeFont.getKerningValue(first, second)
