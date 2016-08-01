@@ -9,21 +9,27 @@ import org.scalajs.dom.ext.{KeyValue, KeyCode}
   */
 class RichKeyboardEvent(nativeEvent: dom.KeyboardEvent) {
 
-  def standardKey: String = nativeEvent.keyCode match {
-    case KeyCode.Alt => KeyValue.Alt
-    case KeyCode.Backspace => KeyValue.Backspace
-    case KeyCode.Ctrl => KeyValue.Control
-    case KeyCode.Delete => KeyValue.Delete
-    case KeyCode.Down => KeyValue.ArrowDown
-    case KeyCode.End => KeyValue.End
-    case KeyCode.Enter => KeyValue.Enter
-    case KeyCode.Home => KeyValue.Home
-    case KeyCode.Left => KeyValue.ArrowLeft
-    case KeyCode.Right => KeyValue.ArrowRight
-    case KeyCode.Shift => KeyValue.Shift
-    case KeyCode.Space => KeyValue.Spacebar
-    case KeyCode.Up => KeyValue.ArrowUp
-    case _ => KeyValue.Unidentified
+  def standardKey: String = {
+    val key = nativeEvent.keyCode match {
+      case KeyCode.Alt => KeyValue.Alt
+      case KeyCode.Backspace => KeyValue.Backspace
+      case KeyCode.Ctrl => KeyValue.Control
+      case KeyCode.Delete => KeyValue.Delete
+      case KeyCode.Down => KeyValue.ArrowDown
+      case KeyCode.End => KeyValue.End
+      case KeyCode.Enter => KeyValue.Enter
+      case KeyCode.Home => KeyValue.Home
+      case KeyCode.Left => KeyValue.ArrowLeft
+      case KeyCode.Right => KeyValue.ArrowRight
+      case KeyCode.Shift => KeyValue.Shift
+      case KeyCode.Space => KeyValue.Spacebar
+      case KeyCode.Up => KeyValue.ArrowUp
+      case _ => KeyValue.Unidentified
+    }
+    if (key != KeyValue.Unidentified) {
+      nativeEvent.preventDefault()
+    }
+    key
   }
 
 }

@@ -4,6 +4,7 @@ import com.repocad.geom.Vector2D
 import com.repocad.view.View
 import com.repocad.view.event._
 import com.repocad.web
+import org.scalajs.dom.ext.KeyValue
 import org.scalajs.dom.raw.{HTMLCanvasElement, WheelEvent}
 import org.scalajs.dom.{KeyboardEvent, MouseEvent}
 
@@ -42,12 +43,13 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
     *
     * @param event The event to react upon.
     */
-  private def enqueueKeyDown(event: KeyboardEvent): Unit = {
-    if (web.util.isAndroid) {
+  protected def enqueueKeyDown(event: KeyboardEvent): Unit = {
+    val key = event.standardKey
+    if (key == KeyValue.Unidentified && web.util.isAndroid) {
       // Android does not support key press events -_-
+      // ... Which I guess is fine since it's becoming the standard
       enqueueKeyPress(event)
     } else {
-      event.preventDefault()
       enqueue(KeyDown(event.standardKey, ModifierKeys(event)))
     }
   }
@@ -57,7 +59,7 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
     *
     * @param event The event to enqueue as a key up event.
     */
-  private def enqueueKeyUp(event: KeyboardEvent): Unit = {
+  protected def enqueueKeyUp(event: KeyboardEvent): Unit = {
     enqueue(KeyUp(event.standardKey, ModifierKeys(event)))
   }
 
@@ -67,7 +69,7 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
     * @param scalaJsEvent The actual event being processed. This needs to be a native type because JavaScript is a messed up,
     *                     inconsistent and horrible language.
     */
-  private def enqueueKeyPress(scalaJsEvent: KeyboardEvent): Unit = {
+  protected def enqueueKeyPress(scalaJsEvent: KeyboardEvent): Unit = {
     val event = scalaJsEvent.asInstanceOf[js.Dynamic]
     // Thanks to http://unixpapa.com/js/key.html
     val string = if (js.isUndefined(event.which)) {
