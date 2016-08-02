@@ -39,6 +39,7 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     )
 
     scale = transform.scale
+    context.clearRect(0,0,width,height)
     ModelRenderer.render(shapeModel, this)
     transform
   }
