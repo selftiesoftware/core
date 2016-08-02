@@ -11,10 +11,10 @@ trait MouseEvent extends Event {
   def point: Vector2D
 }
 
-case class MouseDown(point: Vector2D) extends Event
-case class MouseMove(point: Vector2D) extends Event
-case class MouseLeave(point: Vector2D) extends Event
-case class MouseUp(point: Vector2D) extends Event
+case class MouseDown(point: Vector2D) extends MouseEvent
+case class MouseMove(point: Vector2D) extends MouseEvent
+case class MouseLeave(point: Vector2D) extends MouseEvent
+case class MouseUp(point: Vector2D) extends MouseEvent
 
 trait KeyboardEvent extends Event {
   def key: String

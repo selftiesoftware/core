@@ -50,8 +50,8 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     val translation = -boundary.center
     val translationMatrix = TM.id.translate(translation.x, translation.y)
 
-    val x_scale = (width - 10) / boundary.width
-    val y_scale = (height - 10) / boundary.height
+    val x_scale = (width - 30) / boundary.width
+    val y_scale = (height - 30) / boundary.height
     val most_constricting = List(x_scale, y_scale).min
     val scaleMatrix = TM.id.scale(most_constricting)
     val zoomExtendsMatrix = scaleMatrix concat translationMatrix
