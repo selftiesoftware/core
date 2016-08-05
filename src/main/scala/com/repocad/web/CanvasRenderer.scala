@@ -26,22 +26,20 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
 
   private val canvasTransform = TM.id.translate(canvasCenter.x, canvasCenter.y).flipY
 
+  var canvasToModelTransform = canvasTransform.inverse : TM
+
   override def calculateBoundary(textModel: TextModel): Rectangle2D = Rectangle2D(0, 0, 1, 1)
 
   def render(shapeModel: ShapeModel, _transformation: TM): TM = {
     val transform = canvasTransform concat _transformation
-    context.setTransform(transform.a,
-                         transform.b,
-                         transform.c,
-                         transform.d,
-                         transform.e,
-                         transform.f
-    )
+    canvasToModelTransform = transform.inverse
 
     scale = transform.scale
+    setContextTM(context)(TM.id)
     context.clearRect(0,0,width,height)
+    setContextTM(context)(transform)
     ModelRenderer.render(shapeModel, this)
-    transform
+    _transformation
   }
 
   //Does not account for centers with negative coords (would cause mirroring)
@@ -106,13 +104,7 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     //while relying on the canvas to render text, rather than doing it ourselves
     val mirrorTranslation = TM.id.translate(0,-y) //first translate to the horizontal axis
     val mirrorTransform = mirrorTranslation.inverse concat TM.id.flipY concat mirrorTranslation
-    context.transform(mirrorTransform.a,
-                      mirrorTransform.b,
-                      mirrorTransform.c,
-                      mirrorTransform.d,
-                      mirrorTransform.e,
-                      mirrorTransform.f
-    )
+    applyContextTM(context)(mirrorTransform)
 
     val totalHeight = size * lines.size
     val myFont: String = size + "px " + font
@@ -131,15 +123,25 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
 
     //Undo the mirroring, so that it will only apply to text
     val invMirrorTransform = mirrorTransform.inverse
-    context.transform(invMirrorTransform.a,
-                      invMirrorTransform.b,
-                      invMirrorTransform.c,
-                      invMirrorTransform.d,
-                      invMirrorTransform.e,
-                      invMirrorTransform.f
-    )
-
+    applyContextTM(context)(invMirrorTransform)
     Map("x" -> dimension.x, "y" -> totalHeight)
   }
 
+  private def setContextTM(ctx: CanvasContext)(tm: TM) = {
+    context.setTransform(tm.a,
+                         tm.b,
+                         tm.c,
+                         tm.d,
+                         tm.e,
+                         tm.f)
+  }
+
+  private def applyContextTM(ctx: CanvasContext)(tm: TM) = {
+    context.transform(tm.a,
+                         tm.b,
+                         tm.c,
+                         tm.d,
+                         tm.e,
+                         tm.f)
+  }
 }

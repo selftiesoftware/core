@@ -8,7 +8,7 @@ import org.scalajs.dom.raw.HTMLCanvasElement
 
 import scala.scalajs.js.annotation.JSExport
 
-class CanvasView(canvas: HTMLCanvasElement) extends View {
+class CanvasView(canvas: HTMLCanvasElement, renderer: CanvasRenderer) extends View {
 
   private val events: EndlessIterator[Event] = new EndlessIterator[Event]()
 
@@ -27,10 +27,13 @@ class CanvasView(canvas: HTMLCanvasElement) extends View {
     f(e.key, ModifierKeys(e))
 
   private def enqueueMouseEvent(e: MouseEvent, f: Vector2D => Event): Unit = {
+    //go from screen coordinates to canvas coordinates
     val clientRec = canvas.getBoundingClientRect
     val canvasPos = Vector2D(clientRec.left, clientRec.top)
     val posRelativeToCanvas = Vector2D(e.clientX, e.clientY) - canvasPos
-    enqueue(f(posRelativeToCanvas))
+
+    val posInModelSpace = renderer.canvasToModelTransform.applyToPoint(posRelativeToCanvas)
+    enqueue(f(posInModelSpace))
   }
 
   @JSExport
