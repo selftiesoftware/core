@@ -7,18 +7,17 @@ import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => CanvasContext}
 
 /**
-  * A printer that renders to a HTML5 canvas
+  * A printer that renders to a HTML5 canvas context.
   */
-class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
+class CanvasRenderer(val canvas: HTMLCanvasElement, val context: CanvasContext) extends ModelRenderer {
 
-  val context = canvas.getContext("2d").asInstanceOf[CanvasContext]
+  def this(canvas: HTMLCanvasElement) = this(canvas, canvas.getContext("2d").asInstanceOf[CanvasContext])
 
   override val defaultFont: String = "Arial"
 
   private var scale: Double = 1
 
   def height = canvas.height
-
   def width = canvas.width
 
   def canvasCenter = Vector2D(width / 2, height / 2)
@@ -62,7 +61,6 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     context.beginPath()
     context.arc(x, y, r, sAngle, eAngle)
     context.stroke()
-    context.lineWidth = 0.2 * scale
     context.closePath()
   }
 
@@ -71,7 +69,6 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     context.moveTo(x1, y1)
     context.bezierCurveTo(x2, y2, x3, y3, x4, y4)
     context.stroke()
-    context.lineWidth = 0.2 * scale
   }
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
@@ -79,14 +76,12 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     context.moveTo(x1, y1)
     context.lineTo(x2, y2)
     context.stroke()
-    context.lineWidth = 0.2 * scale
     context.closePath()
   }
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
     context.beginPath()
     context.arc(x, y, r, 0, 2 * Math.PI)
-    context.lineWidth = 0.2 * scale
     context.stroke()
     context.closePath()
   }
