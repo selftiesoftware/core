@@ -34,7 +34,8 @@ class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
     val transform = canvasTransform concat _transformation
     canvasToModelTransform = transform.inverse
 
-    scale = transform.scale
+    //scale = transform.scale
+    scale = 5
     setContextTM(context)(TM.id)
     context.clearRect(0,0,width,height)
     setContextTM(context)(transform)
