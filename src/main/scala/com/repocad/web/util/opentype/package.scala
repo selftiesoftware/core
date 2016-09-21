@@ -41,10 +41,12 @@ package object opentype {
     new Glyph {
       override val advanceWidth: Double = opentypeGlyph.advanceWidth
 
-      override val yMin: Double = opentypeGlyph.yMin
-      override val xMax: Double = opentypeGlyph.xMax
-      override val xMin: Double = opentypeGlyph.xMin
-      override val yMax: Double = opentypeGlyph.yMax
+      private val glyphMetrics = opentypeGlyph.getMetrics
+
+      override val xMax: Double = glyphMetrics.xMax
+      override val xMin: Double = glyphMetrics.xMin
+      override val yMax: Double = glyphMetrics.yMax
+      override val yMin: Double = glyphMetrics.yMin
     }
   }
 
