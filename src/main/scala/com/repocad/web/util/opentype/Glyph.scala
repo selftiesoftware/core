@@ -23,7 +23,7 @@ trait OpentypeGlyph extends js.Object {
 
   def font: OpentypeFont
 
-  def getMetrics: GlyphMetrics
+  def getMetrics(): GlyphMetrics
 }
 
 @js.native
