@@ -26,8 +26,8 @@ package object opentype {
       override def stringToGlyphs(string: String): Seq[Glyph] =
         opentypeFont.stringToGlyphs(string).map(opentypeGlyph2Glyph).toSeq
 
-      override def getKerningValue(first: Glyph, second: Glyph): Double =
-        opentypeFont.getKerningValue(first, second)
+      override def getKerningValue(first: String, second: String): Double =
+        opentypeFont.getKerningValue(opentypeFont.charToGlyph(first), opentypeFont.charToGlyph(second))
 
       override def getPath(text: String, x: Double, y: Double, fontSize: Double): Path =
         opentypeFont.getPath(text, x, y, fontSize)

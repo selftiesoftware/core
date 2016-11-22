@@ -13,7 +13,8 @@ trait Font {
   def draw(context: CanvasRenderingContext2D, line: String, i: Int, yOffset: Double,
            scale: Double, options: Map[String, String]): Unit
 
-  def getKerningValue(first: Glyph, second: Glyph): Double
+  def getKerningValue(first: String, second: String): Double
+  def getKerningValue(first: Char, second: Char): Double = getKerningValue(first.toString, second.toString)
 
   def getPath(text: String, x: Double, y: Double, fontSize: Double): Path
 
@@ -29,6 +30,8 @@ trait OpentypeFont extends js.Object {
   val ascender: Double
 
   val descender: Double
+
+  def charToGlyph(char: String): OpentypeGlyph
 
   def draw(context: CanvasRenderingContext2D, line: String, i: Int, yOffset: Double, scale: Double, options: js.Dynamic): Unit
 
