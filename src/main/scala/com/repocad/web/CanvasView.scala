@@ -24,7 +24,7 @@ class CanvasView(canvas: HTMLCanvasElement, renderer: CanvasRenderer) extends Vi
   private def enqueue(event: Event): Unit = events.enqueue(event)
 
   private def enqueueKeyboardEvent(e: org.scalajs.dom.KeyboardEvent, f: (String, ModifierKeys) => Event): Unit =
-    f(e.key, ModifierKeys(e))
+    enqueue(f(e.key, ModifierKeys(e)))
 
   private def enqueueMouseEvent(e: MouseEvent, f: Vector2D => Event): Unit = {
     //go from screen coordinates to canvas coordinates
