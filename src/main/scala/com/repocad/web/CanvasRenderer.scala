@@ -7,37 +7,39 @@ import org.scalajs.dom.raw.HTMLCanvasElement
 import org.scalajs.dom.{CanvasRenderingContext2D => CanvasContext}
 
 /**
-  * A printer that renders to a HTML5 canvas context.
+  * A printer that renders to a HTML5 canvas
   */
-class CanvasRenderer(val canvas: HTMLCanvasElement, val context: CanvasContext) extends ModelRenderer {
+class CanvasRenderer(canvas: HTMLCanvasElement) extends ModelRenderer {
 
-  def this(canvas: HTMLCanvasElement) = this(canvas, canvas.getContext("2d").asInstanceOf[CanvasContext])
+  val context = canvas.getContext("2d").asInstanceOf[CanvasContext]
 
   override val defaultFont: String = "Arial"
+
 
   private var scale: Double = 1
 
   def height = canvas.height
+
   def width = canvas.width
 
   def canvasCenter = Vector2D(width / 2, height / 2)
 
   private val canvasTransform = TM.id.translate(canvasCenter.x, canvasCenter.y).flipY
 
+  var canvasToModelTransform = canvasTransform.inverse : TM
+
   override def calculateBoundary(textModel: TextModel): Rectangle2D = Rectangle2D(0, 0, 1, 1)
 
-  def render(shapeModel: ShapeModel, _transformation: TM): Unit = {
-    val transformation = canvasTransform.concat(_transformation)
-    context.setTransform(transformation.a,
-                         transformation.b,
-                         transformation.c,
-                         transformation.d,
-                         transformation.e,
-                         transformation.f
-    )
+  def render(shapeModel: ShapeModel, _transformation: TM): TM = {
+    val transform = canvasTransform concat _transformation
+    canvasToModelTransform = transform.inverse
 
-    scale = transformation.scale
+    scale = transform.scale
+    setContextTM(context)(TM.id)
+    context.clearRect(0,0,width,height)
+    setContextTM(context)(transform)
     ModelRenderer.render(shapeModel, this)
+    _transformation
   }
 
   //Does not account for centers with negative coords (would cause mirroring)
@@ -47,20 +49,20 @@ class CanvasRenderer(val canvas: HTMLCanvasElement, val context: CanvasContext) 
     val translation = -boundary.center
     val translationMatrix = TM.id.translate(translation.x, translation.y)
 
-    val x_scale = (width - 10) / boundary.width
-    val y_scale = (height - 10) / boundary.height
+    val x_scale = (width - 30) / boundary.width
+    val y_scale = (height - 30) / boundary.height
     val most_constricting = List(x_scale, y_scale).min
     val scaleMatrix = TM.id.scale(most_constricting)
     val zoomExtendsMatrix = scaleMatrix concat translationMatrix
 
     render(shapeModel, zoomExtendsMatrix)
-    zoomExtendsMatrix
   }
 
   override def arc(x: Double, y: Double, r: Double, sAngle: Double, eAngle: Double): Unit = {
     context.beginPath()
     context.arc(x, y, r, sAngle, eAngle)
     context.stroke()
+    context.lineWidth = 0.2 * scale
     context.closePath()
   }
 
@@ -69,6 +71,7 @@ class CanvasRenderer(val canvas: HTMLCanvasElement, val context: CanvasContext) 
     context.moveTo(x1, y1)
     context.bezierCurveTo(x2, y2, x3, y3, x4, y4)
     context.stroke()
+    context.lineWidth = 0.2 * scale
   }
 
   override def line(x1: Double, y1: Double, x2: Double, y2: Double): Unit = {
@@ -76,12 +79,14 @@ class CanvasRenderer(val canvas: HTMLCanvasElement, val context: CanvasContext) 
     context.moveTo(x1, y1)
     context.lineTo(x2, y2)
     context.stroke()
+    context.lineWidth = 0.2 * scale
     context.closePath()
   }
 
   override def circle(x: Double, y: Double, r: Double): Unit = {
     context.beginPath()
     context.arc(x, y, r, 0, 2 * Math.PI)
+    context.lineWidth = 0.2 * scale
     context.stroke()
     context.closePath()
   }
@@ -99,13 +104,7 @@ class CanvasRenderer(val canvas: HTMLCanvasElement, val context: CanvasContext) 
     //while relying on the canvas to render text, rather than doing it ourselves
     val mirrorTranslation = TM.id.translate(0,-y) //first translate to the horizontal axis
     val mirrorTransform = mirrorTranslation.inverse concat TM.id.flipY concat mirrorTranslation
-    context.transform(mirrorTransform.a,
-                      mirrorTransform.b,
-                      mirrorTransform.c,
-                      mirrorTransform.d,
-                      mirrorTransform.e,
-                      mirrorTransform.f
-    )
+    applyContextTM(context)(mirrorTransform)
 
     val totalHeight = size * lines.size
     val myFont: String = size + "px " + font
@@ -124,15 +123,25 @@ class CanvasRenderer(val canvas: HTMLCanvasElement, val context: CanvasContext) 
 
     //Undo the mirroring, so that it will only apply to text
     val invMirrorTransform = mirrorTransform.inverse
-    context.transform(invMirrorTransform.a,
-                      invMirrorTransform.b,
-                      invMirrorTransform.c,
-                      invMirrorTransform.d,
-                      invMirrorTransform.e,
-                      invMirrorTransform.f
-    )
-
+    applyContextTM(context)(invMirrorTransform)
     Map("x" -> dimension.x, "y" -> totalHeight)
   }
 
+  private def setContextTM(ctx: CanvasContext)(tm: TM) = {
+    context.setTransform(tm.a,
+                         tm.b,
+                         tm.c,
+                         tm.d,
+                         tm.e,
+                         tm.f)
+  }
+
+  private def applyContextTM(ctx: CanvasContext)(tm: TM) = {
+    context.transform(tm.a,
+                         tm.b,
+                         tm.c,
+                         tm.d,
+                         tm.e,
+                         tm.f)
+  }
 }

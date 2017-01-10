@@ -19,15 +19,13 @@ trait MouseEvent extends Event {
   def point: Vector2D
 }
 
-case class MouseDown(point: Vector2D) extends Event
 
-case class MouseMove(point: Vector2D) extends Event
 
-case class MouseLeave(point: Vector2D) extends Event
-
-case class MouseScroll(point: Vector2D, delta: ScrollDistance) extends Event
-
-case class MouseUp(point: Vector2D) extends Event
+case class MouseDown(point: Vector2D) extends MouseEvent
+case class MouseMove(point: Vector2D) extends MouseEvent
+case class MouseLeave(point: Vector2D) extends MouseEvent
+case class MouseUp(point: Vector2D) extends MouseEvent
+case class MouseScroll(point: Vector2D, delta: ScrollDistance) extends MouseEvent
 
 /**
   * An event arriving from the interaction of a keyboard.
