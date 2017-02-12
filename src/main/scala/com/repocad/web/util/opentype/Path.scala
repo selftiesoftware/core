@@ -6,9 +6,9 @@ import scala.scalajs.js
 
 trait Path {
 
-  var fill: String = ""
-
   def draw(context: CanvasRenderingContext2D): Unit
+
+  def setFill(colour: String): Unit
 
   def toSVG(decimalPlaces: Double): String
 

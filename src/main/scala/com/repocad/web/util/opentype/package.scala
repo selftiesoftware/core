@@ -41,7 +41,7 @@ package object opentype {
     new Glyph {
       override val advanceWidth: Double = opentypeGlyph.advanceWidth
 
-      private val glyphMetrics = opentypeGlyph.getMetrics
+      private val glyphMetrics = opentypeGlyph.getMetrics()
 
       override val xMax: Double = glyphMetrics.xMax
       override val xMin: Double = glyphMetrics.xMin
@@ -62,6 +62,10 @@ package object opentype {
   implicit def opentypePath2Path(opentypePath: OpentypePath): Path = {
     new Path {
       override def draw(context: CanvasRenderingContext2D): Unit = opentypePath.draw(context)
+
+      override def setFill(colour: String): Unit = {
+        opentypePath.fill = colour
+      }
 
       override def toSVG(decimalPlaces: Double): String = opentypePath.toSVG(decimalPlaces)
     }
