@@ -24,8 +24,8 @@ lazy val core = project.in(file("."))
     name := "Repocad core",
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "0.9.0",
-      "org.scala-lang.modules" %% "scala-async" % "0.9.5",
-      "org.scalatest" %%% "scalatest" % "3.0.0-M15" % Test,
+      "org.scala-lang.modules" %% "scala-async" % "0.9.6",
+      "org.scalatest" %%% "scalatest" % "3.0.0" % Test,
       "org.scalacheck" %% "scalacheck" % "1.13.2" % Test
     ),
     resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
